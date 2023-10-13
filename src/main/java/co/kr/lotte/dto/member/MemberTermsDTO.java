@@ -1,4 +1,4 @@
-package co.kr.lotte.dto;
+package co.kr.lotte.dto.member;
 
 import lombok.*;
 
@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberTermsDTO {
+    private int id;
     private String terms;
     private String privacy;
     private String finance;
