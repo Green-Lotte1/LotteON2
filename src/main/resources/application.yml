@@ -22,8 +22,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: a1s2d3F$
-    url: jdbc:mysql://13.209.17.103:3306/Jboard
-    username: jboard
+    url: jdbc:mysql://13.209.17.103:3306/LotteON
+    username: lotte
   devtools:
     livereload:
       enabled: true

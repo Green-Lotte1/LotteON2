@@ -1,7 +1,7 @@
 package co.kr.lotte.controller.user;
 
-import co.kr.lotte.dto.UserDTO;
-import co.kr.lotte.entity.TermsEntity;
+import co.kr.lotte.dto.MemberDTO;
+import co.kr.lotte.entity.MemberTermsEntity;
 import co.kr.lotte.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ public class UserController {
 
     @GetMapping("/user/terms")
     public String terms(Model model){
-        TermsEntity terms  = userService.findByTerms();
+        MemberTermsEntity terms  = userService.findByTerms();
         model.addAttribute(terms);
         return "/user/terms";
     }
@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping("/user/register")
-    public String register(UserDTO dto){
+    public String register(MemberDTO dto){
 
 
         userService.save(dto);

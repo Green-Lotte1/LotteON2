@@ -1,6 +1,6 @@
 package co.kr.lotte.security;
 
-import co.kr.lotte.entity.UserEntity;
+import co.kr.lotte.entity.MemberEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +20,7 @@ import java.util.List;
 public class MyUserDetails implements UserDetails {
 	private static final long serialVersionUID = -5532680704133363159L;
 	
-	private UserEntity user;
+	private MemberEntity user;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

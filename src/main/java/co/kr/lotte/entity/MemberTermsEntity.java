@@ -10,15 +10,11 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name="Terms")
-public class TermsEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int no;
+@Table(name="member_terms")
+public class MemberTermsEntity {
     private String terms;
     private String privacy;
-
-
-
+    private String finance;
+    private String location;
+    private String tax;
 }

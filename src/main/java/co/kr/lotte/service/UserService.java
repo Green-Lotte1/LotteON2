@@ -1,9 +1,9 @@
 package co.kr.lotte.service;
 
 
-import co.kr.lotte.dto.UserDTO;
-import co.kr.lotte.entity.TermsEntity;
-import co.kr.lotte.entity.UserEntity;
+import co.kr.lotte.dto.MemberDTO;
+import co.kr.lotte.entity.MemberTermsEntity;
+import co.kr.lotte.entity.MemberEntity;
 import co.kr.lotte.repository.TermsRepository;
 import co.kr.lotte.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,17 +23,17 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
 
-    public TermsEntity findByTerms(){
+    public MemberTermsEntity findByTerms(){
         return termsRepository.findById(1).get();
     }
 
-    public void save(UserDTO dto){
+    public void save(MemberDTO dto){
         
         // 비밀번호 암호화
         dto.setPass1(passwordEncoder.encode(dto.getPass1()));
 
         // DTO를 Entity로 변환
-        UserEntity entity = dto.toEntity();
+        MemberEntity entity = dto.toEntity();
 
         // DB insert
         userRepository.save(entity);
