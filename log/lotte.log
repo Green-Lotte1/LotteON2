@@ -23205,3 +23205,262 @@ Caused by: java.lang.IllegalArgumentException: Not a managed type: class co.kr.l
 2023-10-13T15:32:43.738+09:00 DEBUG 20440 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /error
 2023-10-13T15:32:43.739+09:00 DEBUG 20440 --- [http-nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
 2023-10-13T15:32:43.740+09:00 DEBUG 20440 --- [http-nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T16:57:20.425+09:00  INFO 7336 --- [restartedMain] co.kr.lotte.LotteApplication             : Starting LotteApplication using Java 17.0.8 with PID 7336 (C:\Users\Java\Desktop\Workspace\LotteON2\LotteON2\build\classes\java\main started by Java in C:\Users\Java\Desktop\Workspace\LotteON2\LotteON2)
+2023-10-13T16:57:20.426+09:00  INFO 7336 --- [restartedMain] co.kr.lotte.LotteApplication             : No active profile set, falling back to 1 default profile: "default"
+2023-10-13T16:57:20.449+09:00  INFO 7336 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-10-13T16:57:20.449+09:00  INFO 7336 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-10-13T16:57:20.786+09:00  INFO 7336 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-13T16:57:20.812+09:00  INFO 7336 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 2 JPA repository interfaces.
+2023-10-13T16:57:20.870+09:00  WARN 7336 --- [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[co.kr.lotte]' package. Please check your configuration.
+2023-10-13T16:57:21.113+09:00  INFO 7336 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-10-13T16:57:21.118+09:00  INFO 7336 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-10-13T16:57:21.118+09:00  INFO 7336 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-10-13T16:57:21.147+09:00  INFO 7336 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-10-13T16:57:21.147+09:00  INFO 7336 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 698 ms
+2023-10-13T16:57:21.229+09:00  INFO 7336 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-13T16:57:21.260+09:00  INFO 7336 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-10-13T16:57:21.265+09:00  INFO 7336 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-10-13T16:57:21.338+09:00  INFO 7336 --- [restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-13T16:57:21.413+09:00  INFO 7336 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-13T16:57:21.422+09:00  INFO 7336 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-10-13T16:57:21.656+09:00  INFO 7336 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6799740
+2023-10-13T16:57:21.658+09:00  INFO 7336 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-10-13T16:57:21.693+09:00  WARN 7336 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL57Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-10-13T16:57:21.792+09:00  INFO 7336 --- [restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-13T16:57:22.167+09:00  INFO 7336 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-13T16:57:22.169+09:00  INFO 7336 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-13T16:57:22.336+09:00  WARN 7336 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-13T16:57:22.472+09:00  INFO 7336 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@64ff39d1, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@467068a1, org.springframework.security.web.context.SecurityContextHolderFilter@398380db, org.springframework.security.web.header.HeaderWriterFilter@399d6704, org.springframework.security.web.authentication.logout.LogoutFilter@13856610, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1e6b8d6e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@506dec2d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@347fcaff, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@14ef67ef, org.springframework.security.web.access.ExceptionTranslationFilter@1285072b, org.springframework.security.web.access.intercept.AuthorizationFilter@4aed081f]
+2023-10-13T16:57:22.610+09:00  INFO 7336 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-10-13T16:57:22.628+09:00  INFO 7336 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-10-13T16:57:22.632+09:00  INFO 7336 --- [restartedMain] co.kr.lotte.LotteApplication             : Started LotteApplication in 2.433 seconds (process running for 2.745)
+2023-10-13T16:57:30.755+09:00  INFO 7336 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-13T16:57:30.757+09:00  INFO 7336 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-10-13T16:57:30.869+09:00  INFO 7336 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-10-13T16:58:21.860+09:00  INFO 15184 --- [restartedMain] co.kr.lotte.LotteApplication             : Starting LotteApplication using Java 17.0.8 with PID 15184 (C:\Users\Java\Desktop\Workspace\LotteON2\LotteON2\build\classes\java\main started by Java in C:\Users\Java\Desktop\Workspace\LotteON2\LotteON2)
+2023-10-13T16:58:21.861+09:00  INFO 15184 --- [restartedMain] co.kr.lotte.LotteApplication             : No active profile set, falling back to 1 default profile: "default"
+2023-10-13T16:58:21.886+09:00  INFO 15184 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-10-13T16:58:21.886+09:00  INFO 15184 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-10-13T16:58:22.223+09:00  INFO 15184 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-13T16:58:22.248+09:00  INFO 15184 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21 ms. Found 2 JPA repository interfaces.
+2023-10-13T16:58:22.306+09:00  WARN 15184 --- [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[co.kr.lotte]' package. Please check your configuration.
+2023-10-13T16:58:22.559+09:00  INFO 15184 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-10-13T16:58:22.564+09:00  INFO 15184 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-10-13T16:58:22.564+09:00  INFO 15184 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-10-13T16:58:22.594+09:00  INFO 15184 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-10-13T16:58:22.595+09:00  INFO 15184 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 708 ms
+2023-10-13T16:58:22.671+09:00  INFO 15184 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-13T16:58:22.694+09:00  INFO 15184 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-10-13T16:58:22.696+09:00  INFO 15184 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-10-13T16:58:22.758+09:00  INFO 15184 --- [restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-13T16:58:22.834+09:00  INFO 15184 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-13T16:58:22.845+09:00  INFO 15184 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-10-13T16:58:23.083+09:00  INFO 15184 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2f3f57ff
+2023-10-13T16:58:23.084+09:00  INFO 15184 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-10-13T16:58:23.121+09:00  WARN 15184 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL57Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-10-13T16:58:23.227+09:00  INFO 15184 --- [restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-13T16:58:23.587+09:00  INFO 15184 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-13T16:58:23.588+09:00  INFO 15184 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-13T16:58:23.755+09:00  WARN 15184 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-13T16:58:23.906+09:00  INFO 15184 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@642aab2c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@38cfd2f4, org.springframework.security.web.context.SecurityContextHolderFilter@52dba732, org.springframework.security.web.header.HeaderWriterFilter@7ecabcc0, org.springframework.security.web.authentication.logout.LogoutFilter@4aed081f, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2e1f9a4a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@8cb5df3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@709b1482, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@56aa05d0, org.springframework.security.web.access.ExceptionTranslationFilter@3d3f4b2b, org.springframework.security.web.access.intercept.AuthorizationFilter@16995401]
+2023-10-13T16:58:24.035+09:00  INFO 15184 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-10-13T16:58:24.051+09:00  INFO 15184 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-10-13T16:58:24.056+09:00  INFO 15184 --- [restartedMain] co.kr.lotte.LotteApplication             : Started LotteApplication in 2.41 seconds (process running for 2.725)
+2023-10-13T16:58:35.670+09:00  INFO 15184 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-13T16:58:35.671+09:00  INFO 15184 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-10-13T16:58:35.672+09:00  INFO 15184 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-10-13T16:58:35.676+09:00 DEBUG 15184 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /
+2023-10-13T16:58:35.684+09:00 DEBUG 15184 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /
+2023-10-13T16:58:35.815+09:00 DEBUG 15184 --- [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T16:58:35.816+09:00 DEBUG 15184 --- [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /static/css/common.css
+2023-10-13T16:58:35.819+09:00 DEBUG 15184 --- [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /static/css/common.css
+2023-10-13T16:58:35.822+09:00 DEBUG 15184 --- [http-nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T16:58:35.824+09:00 DEBUG 15184 --- [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T16:58:35.824+09:00 DEBUG 15184 --- [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T16:58:35.838+09:00 DEBUG 15184 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /images/topBanner1.png
+2023-10-13T16:58:35.838+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /js/index.js
+2023-10-13T16:58:35.838+09:00 DEBUG 15184 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /static/images/header_logo.png
+2023-10-13T16:58:35.838+09:00 DEBUG 15184 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /images/topBanner1.png
+2023-10-13T16:58:35.839+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /js/index.js
+2023-10-13T16:58:35.839+09:00 DEBUG 15184 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /static/images/header_logo.png
+2023-10-13T16:58:35.840+09:00 DEBUG 15184 --- [http-nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T16:58:35.840+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T16:58:35.841+09:00 DEBUG 15184 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T16:58:35.841+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T16:58:35.841+09:00 DEBUG 15184 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T16:58:35.841+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T16:58:35.842+09:00 DEBUG 15184 --- [http-nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T16:58:35.856+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T16:58:35.856+09:00 DEBUG 15184 --- [http-nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T16:58:35.856+09:00 DEBUG 15184 --- [http-nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T16:58:35.926+09:00 DEBUG 15184 --- [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /static/images/footer_logo.png
+2023-10-13T16:58:35.927+09:00 DEBUG 15184 --- [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /static/images/footer_logo.png
+2023-10-13T16:58:35.928+09:00 DEBUG 15184 --- [http-nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T16:58:35.929+09:00 DEBUG 15184 --- [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T16:58:35.929+09:00 DEBUG 15184 --- [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T16:58:35.930+09:00 DEBUG 15184 --- [http-nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T16:58:38.860+09:00 DEBUG 15184 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /
+2023-10-13T16:58:38.861+09:00 DEBUG 15184 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /
+2023-10-13T16:58:38.873+09:00 DEBUG 15184 --- [http-nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T16:58:38.884+09:00 DEBUG 15184 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /static/css/common.css
+2023-10-13T16:58:38.885+09:00 DEBUG 15184 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /static/css/common.css
+2023-10-13T16:58:38.885+09:00 DEBUG 15184 --- [http-nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T16:58:38.886+09:00 DEBUG 15184 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T16:58:38.886+09:00 DEBUG 15184 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T16:58:38.887+09:00 DEBUG 15184 --- [http-nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T16:58:38.909+09:00 DEBUG 15184 --- [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /static/images/header_logo.png
+2023-10-13T16:58:38.909+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /js/index.js
+2023-10-13T16:58:38.909+09:00 DEBUG 15184 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /images/topBanner1.png
+2023-10-13T16:58:38.909+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /js/index.js
+2023-10-13T16:58:38.909+09:00 DEBUG 15184 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /images/topBanner1.png
+2023-10-13T16:58:38.910+09:00 DEBUG 15184 --- [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /static/images/header_logo.png
+2023-10-13T16:58:38.910+09:00 DEBUG 15184 --- [http-nio-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T16:58:38.910+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T16:58:38.911+09:00 DEBUG 15184 --- [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T16:58:38.911+09:00 DEBUG 15184 --- [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T16:58:38.911+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T16:58:38.911+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T16:58:38.911+09:00 DEBUG 15184 --- [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T16:58:38.912+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T16:58:38.912+09:00 DEBUG 15184 --- [http-nio-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T16:58:38.920+09:00 DEBUG 15184 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /static/images/footer_logo.png
+2023-10-13T16:58:38.921+09:00 DEBUG 15184 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /static/images/footer_logo.png
+2023-10-13T16:58:38.922+09:00 DEBUG 15184 --- [http-nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T16:58:38.922+09:00 DEBUG 15184 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T16:58:38.922+09:00 DEBUG 15184 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T16:58:38.923+09:00 DEBUG 15184 --- [http-nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T16:58:38.936+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /images/ico_sprite.png
+2023-10-13T16:58:38.936+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /images/ico_sprite.png
+2023-10-13T16:58:38.938+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:02:17.994+09:00 DEBUG 15184 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /product/card
+2023-10-13T17:02:17.995+09:00 DEBUG 15184 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /product/card
+2023-10-13T17:02:17.998+09:00 DEBUG 15184 --- [http-nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:02:17.998+09:00 DEBUG 15184 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T17:02:17.999+09:00 DEBUG 15184 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T17:02:18.007+09:00 DEBUG 15184 --- [http-nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:02:18.018+09:00 DEBUG 15184 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /favicon.ico
+2023-10-13T17:02:18.018+09:00 DEBUG 15184 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /favicon.ico
+2023-10-13T17:02:18.019+09:00 DEBUG 15184 --- [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:02:18.019+09:00 DEBUG 15184 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T17:02:18.020+09:00 DEBUG 15184 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T17:02:18.021+09:00 DEBUG 15184 --- [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:02:21.374+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /product/cart
+2023-10-13T17:02:21.374+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /product/cart
+2023-10-13T17:02:21.375+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:02:21.376+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T17:02:21.376+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T17:02:21.386+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:03:50.316+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /
+2023-10-13T17:03:50.316+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /
+2023-10-13T17:03:50.326+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:03:50.338+09:00 DEBUG 15184 --- [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /static/css/common.css
+2023-10-13T17:03:50.339+09:00 DEBUG 15184 --- [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /static/css/common.css
+2023-10-13T17:03:50.341+09:00 DEBUG 15184 --- [http-nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:03:50.342+09:00 DEBUG 15184 --- [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T17:03:50.342+09:00 DEBUG 15184 --- [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T17:03:50.343+09:00 DEBUG 15184 --- [http-nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:03:50.363+09:00 DEBUG 15184 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /static/images/header_logo.png
+2023-10-13T17:03:50.363+09:00 DEBUG 15184 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /images/topBanner1.png
+2023-10-13T17:03:50.363+09:00 DEBUG 15184 --- [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /js/index.js
+2023-10-13T17:03:50.364+09:00 DEBUG 15184 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /static/images/header_logo.png
+2023-10-13T17:03:50.364+09:00 DEBUG 15184 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /images/topBanner1.png
+2023-10-13T17:03:50.364+09:00 DEBUG 15184 --- [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /js/index.js
+2023-10-13T17:03:50.365+09:00 DEBUG 15184 --- [http-nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:03:50.365+09:00 DEBUG 15184 --- [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T17:03:50.366+09:00 DEBUG 15184 --- [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T17:03:50.366+09:00 DEBUG 15184 --- [http-nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:03:50.366+09:00 DEBUG 15184 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T17:03:50.366+09:00 DEBUG 15184 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T17:03:50.367+09:00 DEBUG 15184 --- [http-nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:03:50.367+09:00 DEBUG 15184 --- [http-nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:03:50.367+09:00 DEBUG 15184 --- [http-nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:03:50.464+09:00 DEBUG 15184 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /static/images/footer_logo.png
+2023-10-13T17:03:50.466+09:00 DEBUG 15184 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /static/images/footer_logo.png
+2023-10-13T17:03:50.470+09:00 DEBUG 15184 --- [http-nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:03:50.471+09:00 DEBUG 15184 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T17:03:50.471+09:00 DEBUG 15184 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T17:03:50.473+09:00 DEBUG 15184 --- [http-nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:03:50.598+09:00 DEBUG 15184 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /images/ico_sprite.png
+2023-10-13T17:03:50.599+09:00 DEBUG 15184 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /images/ico_sprite.png
+2023-10-13T17:03:50.601+09:00 DEBUG 15184 --- [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:03:56.398+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /product.cart
+2023-10-13T17:03:56.399+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /product.cart
+2023-10-13T17:03:56.401+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:03:56.402+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T17:03:56.402+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T17:03:56.407+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:00.489+09:00 DEBUG 15184 --- [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /product/cart
+2023-10-13T17:04:00.490+09:00 DEBUG 15184 --- [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /product/cart
+2023-10-13T17:04:00.492+09:00 DEBUG 15184 --- [http-nio-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:00.493+09:00 DEBUG 15184 --- [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T17:04:00.493+09:00 DEBUG 15184 --- [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T17:04:00.504+09:00 DEBUG 15184 --- [http-nio-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:05.666+09:00 DEBUG 15184 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /
+2023-10-13T17:04:05.667+09:00 DEBUG 15184 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /
+2023-10-13T17:04:05.678+09:00 DEBUG 15184 --- [http-nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:05.682+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /static/css/common.css
+2023-10-13T17:04:05.683+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /static/css/common.css
+2023-10-13T17:04:05.683+09:00 DEBUG 15184 --- [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /js/index.js
+2023-10-13T17:04:05.684+09:00 DEBUG 15184 --- [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /js/index.js
+2023-10-13T17:04:05.685+09:00 DEBUG 15184 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /images/topBanner1.png
+2023-10-13T17:04:05.685+09:00 DEBUG 15184 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /images/topBanner1.png
+2023-10-13T17:04:05.686+09:00 DEBUG 15184 --- [http-nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:05.686+09:00 DEBUG 15184 --- [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T17:04:05.687+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:05.687+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T17:04:05.687+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T17:04:05.688+09:00 DEBUG 15184 --- [http-nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:05.688+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:05.688+09:00 DEBUG 15184 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /static/images/header_logo.png
+2023-10-13T17:04:05.689+09:00 DEBUG 15184 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /static/images/header_logo.png
+2023-10-13T17:04:05.687+09:00 DEBUG 15184 --- [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T17:04:05.693+09:00 DEBUG 15184 --- [http-nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:05.693+09:00 DEBUG 15184 --- [http-nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:05.693+09:00 DEBUG 15184 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T17:04:05.694+09:00 DEBUG 15184 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T17:04:05.697+09:00 DEBUG 15184 --- [http-nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:05.710+09:00 DEBUG 15184 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /static/images/footer_logo.png
+2023-10-13T17:04:05.711+09:00 DEBUG 15184 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /static/images/footer_logo.png
+2023-10-13T17:04:05.711+09:00 DEBUG 15184 --- [http-nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:05.712+09:00 DEBUG 15184 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T17:04:05.712+09:00 DEBUG 15184 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T17:04:05.713+09:00 DEBUG 15184 --- [http-nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:05.713+09:00 DEBUG 15184 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /images/ico_sprite.png
+2023-10-13T17:04:05.713+09:00 DEBUG 15184 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /images/ico_sprite.png
+2023-10-13T17:04:05.714+09:00 DEBUG 15184 --- [http-nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:09.011+09:00 DEBUG 15184 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /member/login.html
+2023-10-13T17:04:09.012+09:00 DEBUG 15184 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /member/login.html
+2023-10-13T17:04:09.016+09:00 DEBUG 15184 --- [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:09.016+09:00 DEBUG 15184 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T17:04:09.017+09:00 DEBUG 15184 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T17:04:09.027+09:00 DEBUG 15184 --- [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:10.212+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /
+2023-10-13T17:04:10.212+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /
+2023-10-13T17:04:10.226+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:10.228+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /static/css/common.css
+2023-10-13T17:04:10.228+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /static/css/common.css
+2023-10-13T17:04:10.229+09:00 DEBUG 15184 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /js/index.js
+2023-10-13T17:04:10.229+09:00 DEBUG 15184 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /js/index.js
+2023-10-13T17:04:10.230+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /static/images/header_logo.png
+2023-10-13T17:04:10.230+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /static/images/header_logo.png
+2023-10-13T17:04:10.231+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:10.231+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T17:04:10.231+09:00 DEBUG 15184 --- [http-nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:10.231+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T17:04:10.231+09:00 DEBUG 15184 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T17:04:10.232+09:00 DEBUG 15184 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T17:04:10.232+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:10.232+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T17:04:10.232+09:00 DEBUG 15184 --- [http-nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:10.233+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T17:04:10.233+09:00 DEBUG 15184 --- [http-nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:10.234+09:00 DEBUG 15184 --- [http-nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:10.237+09:00 DEBUG 15184 --- [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /static/images/footer_logo.png
+2023-10-13T17:04:10.237+09:00 DEBUG 15184 --- [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /static/images/footer_logo.png
+2023-10-13T17:04:10.238+09:00 DEBUG 15184 --- [http-nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:04:10.238+09:00 DEBUG 15184 --- [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /error
+2023-10-13T17:04:10.238+09:00 DEBUG 15184 --- [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /error
+2023-10-13T17:04:10.239+09:00 DEBUG 15184 --- [http-nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2023-10-13T17:06:59.273+09:00  INFO 15184 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-13T17:06:59.275+09:00  INFO 15184 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-10-13T17:06:59.391+09:00  INFO 15184 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
