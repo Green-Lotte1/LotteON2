@@ -1,32 +1,8 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-  <head>
-    <meta charset="UTF-8" />
-    <title>롯데ON::고객센터</title>
-    <link rel="shortcut icon" type="image/x-icon" href="../../../static/images/favicon.ico" />
-    <link rel="stylesheet" href="../../../static/cs/css/style.css" />
-  </head>
-  <body>
-    <div id="wrapper">
-      <header>
-        <div class="top">
-          <div>
-            <p>
-              <a href="./member/login.html">로그인</a>
-              <a href="#">회원가입</a>
-              <a href="#">마이페이지</a>
-              <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;장바구니</a>
-            </p>
-          </div>
-        </div>
-        <div class="logo">
-          <div>
-            <a href="#"><img src="../../../static/images/header_logo.png" alt="로고" />고객센터</a>
-          </div>
-        </div>
-      </header>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org/"
+      layout:decorate="/cs/layout.html">
 
-      <section id="cs">
+      <section id="cs" layout:fragment = "content">
         <div class="qna">
           <nav>
             <div>
@@ -47,17 +23,17 @@
               </ul>
             </aside>
             <article>
-              <form action="#">
+              <form th:action="@{/cs/qna/write}" method="POST">
                 <table>
                   <tr>
                     <td>문의유형</td>
                     <td>
                       <select name="type">
                         <option value="0">선택</option>
-                        <option>가입</option>
-                        <option>탈퇴</option>
-                        <option>회원정보</option>
-                        <option>로그인</option>
+                        <option value="10">가입</option>
+                        <option value="11">탈퇴</option>
+                        <option value="12">회원정보</option>
+                        <option value="13">로그인</option>
                       </select>
                     </td>
                   </tr>
@@ -75,7 +51,7 @@
                   </tr>
                 </table>
                 <div>
-                  <a href="list.html" class="btnList">취소하기</a>
+                  <a th:href="@{/cs/qna/list}" class="btnList">취소하기</a>
                   <input type="submit" class="btnSubmit" value="등록하기"/>
                 </div>
               </form>
@@ -84,30 +60,4 @@
         </div>
       </section>
 
-      <footer>
-        <ul>
-          <li><a href="#">회사소개</a></li>
-          <li><a href="#">서비스이용약관</a></li>
-          <li><a href="#">개인정보처리방침</a></li>
-          <li><a href="#">전자금융거래약관</a></li>
-        </ul>
-        <div>
-          <p><img src="../../../static/images/footer_logo.png" alt="로고" /></p>
-          <p>
-            <strong>(주)롯데ON</strong><br />
-            서울특별시 송파구 올림픽로 300 롯데월드타워 26층 (역삼동 강남파이낸스센터)<br />
-            대표이사 : 김사무엘상현, 정준호, 강성현<br />
-            사업자등록번호 : 529-85-00774(롯데쇼핑(주) e커머스사업부)<br />
-            통신판매업 신고 : 서울송파 제0158호<br>
-            호스팅 서비스사업자 : 롯데쇼핑(주) e커머스사업부
-          </p>
-          <p>
-            <strong>고객센터</strong><br />
-            Tel : 1899-7000(유료) (평일 09:00~18:00)<br />
-            Fax : 051-123-4567 | E-mail : lotteon@lotte.net<br />
-          </p>
-        </div>
-      </footer>
-    </div>
-  </body>
-</html>
+

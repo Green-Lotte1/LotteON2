@@ -24,7 +24,6 @@ public class BoardDTO {
 
     public BoardEntity toEntity(){
         return BoardEntity.builder()
-                .bno(bno)
                 .uid(uid)
                 .group(group)
                 .cate(cate)
