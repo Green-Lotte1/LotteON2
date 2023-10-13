@@ -42,9 +42,4 @@ public class ProductEntity {
     private String ip;
     private String rdate;
     private String deleteYn;
-    private int etc1;
-    private int etc2;
-    private String etc3;
-    private String etc4;
-    private String etc5;
 }
