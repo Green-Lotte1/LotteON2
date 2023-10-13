@@ -2,8 +2,8 @@ jwt:
   issuer: slothfkdla@gmail.com
   secret: oNlbC1SXEr6jig2XEvlZdhFULBbhukaY
 logging:
-  file:
-    name: log/lotte.log
+  #file:
+    #name: log/lotte.log
   level:
     jdbc:
       connection: info
@@ -44,12 +44,12 @@ spring:
         use_sql_comments: true
   security:
     user:
-      name: user
+      name: users
       password: 1234
   thymeleaf:
     cache: false
     # prefix ??? ??? HTML ?? ? ?????? ???? ????
-    prefix: classpath:/templates
+    prefix: file:src/main/resources/templates/
   servlet:
     multipart:
       location: src/main/resources/static/file/
