@@ -1,9 +1,7 @@
 package co.kr.lotte.entity.cs;
 
 import co.kr.lotte.dto.cs.BoardDTO;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -15,11 +13,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString
 @Table(name = "cs_board")
 public class BoardEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bno;
     private String uid;
+    @Column(name = "\"group\"")
     private String group;
     private String cate;
     private int type;

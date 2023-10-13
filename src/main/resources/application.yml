@@ -48,8 +48,8 @@ spring:
       password: 1234
   thymeleaf:
     cache: false
-    prefix : file:src/main/resources/templates/
-    #prefix: classpath:/templates
+    prefix : file:src/main/resources/templates
+    # prefix: classpath:/templates
 
   servlet:
     multipart:
