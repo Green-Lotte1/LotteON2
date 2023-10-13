@@ -1,6 +1,6 @@
 package co.kr.lotte.controller.user;
 
-import co.kr.lotte.dto.MemberDTO;
+import co.kr.lotte.dto.member.MemberDTO;
 import co.kr.lotte.entity.MemberTermsEntity;
 import co.kr.lotte.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

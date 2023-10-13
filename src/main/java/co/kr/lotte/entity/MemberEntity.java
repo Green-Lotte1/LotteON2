@@ -1,6 +1,6 @@
 package co.kr.lotte.entity;
 
-import co.kr.lotte.dto.MemberDTO;
+import co.kr.lotte.dto.member.MemberDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -22,9 +22,7 @@ public class MemberEntity {
     private String pass;
     private String name;
     private int gender;
-    @Column(name = "hp", unique = true)
     private String hp;
-    @Column(name = "email", unique = true)
     private String email;
     private int type;
     private int point;

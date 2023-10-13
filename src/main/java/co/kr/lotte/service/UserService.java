@@ -1,7 +1,7 @@
 package co.kr.lotte.service;
 
 
-import co.kr.lotte.dto.MemberDTO;
+import co.kr.lotte.dto.member.MemberDTO;
 import co.kr.lotte.entity.MemberTermsEntity;
 import co.kr.lotte.entity.MemberEntity;
 import co.kr.lotte.repository.TermsRepository;

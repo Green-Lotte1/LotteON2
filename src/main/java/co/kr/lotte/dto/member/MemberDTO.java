@@ -1,4 +1,4 @@
-package co.kr.lotte.dto;
+package co.kr.lotte.dto.member;
 
 import co.kr.lotte.entity.MemberEntity;
 import lombok.*;
