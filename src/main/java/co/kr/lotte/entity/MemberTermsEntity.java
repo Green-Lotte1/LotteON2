@@ -12,6 +12,9 @@ import lombok.*;
 @Entity
 @Table(name="member_terms")
 public class MemberTermsEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String terms;
     private String privacy;
     private String finance;
