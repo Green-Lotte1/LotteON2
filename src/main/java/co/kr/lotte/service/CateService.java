@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Log4j2
 @RequiredArgsConstructor
@@ -37,5 +38,13 @@ public class CateService {
             productCate1DTOS.add(productCate1DTO);
         }
         return productCate1DTOS;
+    }
+
+    public String getC1Name(int cate1) {
+        return cate1Repository.findById(cate1).get().getC1Name();
+    }
+
+    public String getC2Name(int cate1, int cate2) {
+        return cate2Repository.findByCate1AndCate2(cate1, cate2).getC2Name();
     }
 }
