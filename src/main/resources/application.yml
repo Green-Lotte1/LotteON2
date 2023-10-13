@@ -49,7 +49,7 @@ spring:
   thymeleaf:
     cache: false
     prefix : file:src/main/resources/templates/
-    # prefix: classpath:/templates
+    #prefix: classpath:/templates
 
   servlet:
     multipart:
