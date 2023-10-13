@@ -18,6 +18,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ModelMapper modelMapper;
 
+    // 상품 목록 조회
     public PageResponseDTO findByCate1AndCate2(PageRequestDTO pageRequestDTO) {
         Page<ProductEntity> result = productRepository.findByProdCate1AndProdCate2(pageRequestDTO.getCate1(), pageRequestDTO.getCate2(), pageRequestDTO.getPageable());
         List<ProductDTO> dtoList = result
@@ -32,5 +33,11 @@ public class ProductService {
                 .dtoList(dtoList)
                 .total(totalElement)
                 .build();
+    }
+
+    // 상품 상세 조회
+    public ProductDTO getProductDTO(int prodNo) {
+        ProductEntity productEntity = productRepository.findById(prodNo).get();
+        return productEntity.toDTO();
     }
 }
