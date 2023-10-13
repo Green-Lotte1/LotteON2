@@ -1,5 +1,6 @@
 package co.kr.lotte.entity.product;
 
+import co.kr.lotte.dto.product.ProductDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -42,9 +43,37 @@ public class ProductEntity {
     private String ip;
     private String rdate;
     private String deleteYn;
-    private int etc1;
-    private int etc2;
-    private String etc3;
-    private String etc4;
-    private String etc5;
+
+    public ProductDTO toDTO() {
+        return ProductDTO.builder()
+                .prodNo(prodNo)
+                .prodCate1(prodCate1)
+                .prodCate2(prodCate2)
+                .prodName(prodName)
+                .descript(descript)
+                .company(company)
+                .seller(seller)
+                .price(price)
+                .discount(discount)
+                .point(point)
+                .stock(stock)
+                .sold(sold)
+                .delivery(delivery)
+                .hit(hit)
+                .score(score)
+                .review(review)
+                .thumb1(thumb1)
+                .thumb2(thumb2)
+                .thumb3(thumb3)
+                .detail(detail)
+                .status(status)
+                .duty(duty)
+                .receipt(receipt)
+                .bizType(bizType)
+                .origin(origin)
+                .ip(ip)
+                .rdate(rdate)
+                .deleteYn(deleteYn)
+                .build();
+    }
 }
