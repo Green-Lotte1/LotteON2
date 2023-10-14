@@ -20,8 +20,10 @@ public class PageRequestDTO {
     private String how = "DESC";
     @Builder.Default
     private String sort = "sold";
-    private int cate1;
-    private int cate2;
+    @Builder.Default
+    private int cate1 = 15; // 카테고리 값이 없으면 오류가 나서 디폴트로 지정
+    @Builder.Default
+    private int cate2 = 10;
 
     public Pageable getPageable() {
         if (how.equals("ASC")) {
