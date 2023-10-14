@@ -1,5 +1,6 @@
 package co.kr.lotte.entity.product;
 
+import co.kr.lotte.dto.product.ProductCartDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -23,4 +24,14 @@ public class ProductCartEntity {
     private int count;
     @CreationTimestamp
     private LocalDateTime rdate;
+
+    public ProductCartDTO toDTO() {
+        return ProductCartDTO.builder()
+                .cartNo(cartNo)
+                .uid(uid)
+                .prodNo(prodNo)
+                .count(count)
+                .rdate(rdate)
+                .build();
+    }
 }

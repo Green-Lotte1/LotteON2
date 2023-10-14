@@ -1,16 +1,16 @@
 package co.kr.lotte.controller.product;
 
 import co.kr.lotte.dto.product.*;
+import co.kr.lotte.entity.product.ProductCartEntity;
 import co.kr.lotte.service.CateService;
 import co.kr.lotte.service.product.ProductService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Log4j2
 @Controller
@@ -61,7 +61,12 @@ public class ProductController {
     }
 
     @GetMapping("/product/cart")
-    public String cart() {
+    public String cart(Model model) {
+        // 사용자 인증이 완료되지 않아 고정값으로 테스트
+        String uid = "lg";
+        List<ProductCartDTO> productCartDTOS = productService.findProductCartByUid(uid);
+        log.info("cart size() : " + productCartDTOS.size());
+        model.addAttribute("carts", productCartDTOS);
         return "/product/cart";
     }
 
@@ -69,6 +74,12 @@ public class ProductController {
     @PostMapping("product/cart")
     public int cart(@RequestBody ProductCartDTO productCartDTO) {
         return productService.insertProductCart(productCartDTO);
+    }
+
+    @PostMapping("/product/cartDelete")
+    public String cart(@RequestParam(name = "chk") int[] chk) {
+        productService.deleteCart(chk);
+        return "redirect:/product/cart";
     }
 
     @GetMapping("/product/complete")

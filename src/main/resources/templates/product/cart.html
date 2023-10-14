@@ -1,15 +1,17 @@
 <html xmlns:th="http://www.thymeleaf.org" layout:decorate="/product/index.html">
+<head>
+  <script th:src="@{../../product/js/cart.js}"></script>
+</head>
     <!-- 장바구니 페이지 시작 -->
     <section class="cart" layout:fragment="content">
       <!-- 제목, 페이지 네비게이션 -->
       <nav>
         <h1>장바구니</h1>
         <p>
-          HOME > <span>패션·의류·뷰티</span> > <strong>장바구니</strong>
+          HOME > <strong>장바구니</strong>
         </p>
       </nav>
-
-      <form action="#">
+      <form id="formCheck" action="/product/order" method="get">
         <!-- 장바구니 목록 -->
         <table>
           <thead>
@@ -25,95 +27,101 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="empty">
+            <tr th:if="${carts.size() eq 0}">
               <td colspan="7">장바구니에 상품이 없습니다.</td>
             </tr>
-            <tr>
-              <td><input type="checkbox" name=""></td>
+            <tr th:each="cart:${carts}" th:class="${cart.cartNo}">
+              <td>
+                <input type="checkbox" name="chk" th:class="${cart.cartNo}" th:value="${cart.cartNo}">
+              </td>
               <td>
                 <article>
-                  <a href="#"><img src="https://via.placeholder.com/80x80" alt=""></a>
-                  <div>
-                    <h2><a href="#">상품명</a></h2>
-                    <p>상품설명</p>
+                  <a th:href="@{/product/view(prodNo=${cart.product.prodNo}, cate1=${cart.product.prodCate1}, cate2=${cart.product.prodCate2})}" class="thumb">
+                    <img th:src="@{/thumb/} + ${cart.product.prodCate1 } + @{/} + ${cart.product.prodCate2 } + @{/} + ${cart.product.thumb1}" alt="">
+                  </a>
+                  <div class="w450">
+                    <h2>
+                      <a th:href="@{/product/view(prodNo=${cart.product.prodNo}, cate1=${cart.product.prodCate1}, cate2=${cart.product.prodCate2})}">
+                        [[${cart.product.prodName}]]
+                      </a>
+                    </h2>
+                    <p class="overHidden">[[${cart.product.descript}]]</p>
                   </div>
                 </article>
               </td>
-              <td>1</td>
-              <td>27,000</td>
-              <td>5%</td>
-              <td>270</td>
-              <td>무료배송</td>
-              <td>27,000</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" name=""></td>
-              <td>
-                <article>
-                  <a href="#"><img src="https://via.placeholder.com/80x80" alt=""></a>
-                  <div>
-                    <h2><a href="#">상품명</a></h2>
-                    <p>상품설명</p>
-                  </div>
-                </article>
+              <td class="count">
+                <input type="hidden" th:name="count + ${cart.cartNo }" th:value="${cart.count }"/>
+                [[${cart.count}]]
               </td>
-              <td>1</td>
-              <td>27,000</td>
-              <td>5%</td>
-              <td>270</td>
-              <td>무료배송</td>
-              <td>27,000</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" name=""></td>
-              <td>
-                <article>
-                  <a href="#"><img src="https://via.placeholder.com/80x80" alt=""></a>
-                  <div>
-                    <h2><a href="#">상품명</a></h2>
-                    <p>상품설명</p>
-                  </div>
-                </article>
+              <td class="price">
+                <input type="hidden" th:name="price + ${cart.cartNo }" th:value="${cart.product.price }"/>
+                [[${cart.product.getPriceWithComma()}]]
               </td>
-              <td>1</td>
-              <td>27,000</td>
-              <td>5%</td>
-              <td>270</td>
-              <td>무료배송</td>
-              <td>27,000</td>
+              <td class="discount">
+                <input type="hidden" th:name="discount + ${cart.cartNo }" th:value="${cart.product.discount }"/>
+                <input type="hidden" th:name="disPrice + ${cart.cartNo }" th:value="${cart.product.getDisPrice() }"/>
+                [[${cart.product.discount}]]%
+              </td>
+              <td class="point">
+                <input type="hidden" th:name="point + ${cart.cartNo }" th:value="${cart.product.point }"/>
+                [[${cart.product.point}]]
+              </td>
+              <td class="delivery">
+                <input type="hidden" th:name="delivery + ${cart.cartNo }" th:value="${cart.product.delivery }"/>
+                <span th:if="${cart.product.delivery eq 0}">
+                  무료배송
+                </span>
+                <span th:if="${cart.product.delivery gt 0}">
+                  [[${cart.product.getDeliveryWithComma()}]]원
+                </span>
+              </td>
+              <td class="total">
+                <input type="hidden" th:name="total + ${cart.cartNo }" th:value="${cart.getTotal() }"/>
+                [[${cart.getTotalWithComma()}]]
+              </td>
             </tr>
-
           </tbody>
         </table>
-        <input type="button" name="del" value="선택삭제">
-
+        <input class="cartDelete" type="button" name="del" value="선택삭제">
         <!-- 장바구니 전체합계 -->
         <div class="total">
           <h2>전체합계</h2>
-          <table border="0">
+          <table>
             <tr>
               <td>상품수</td>
-              <td>1</td>
+              <td>
+                <span id="count" class="totalForm">0</span>
+              </td>
             </tr>
             <tr>
               <td>상품금액</td>
-              <td>27,000</td>
+              <td>
+                <span id="price" class="totalForm">0</span>
+              </td>
             </tr>
             <tr>
               <td>할인금액</td>
-              <td>-1,000</td>
+              <td>
+                -<span id="disPrice" class="totalForm">0</span>
+              </td>
             </tr>
             <tr>
               <td>배송비</td>
-              <td>0</td>
+              <td>
+                <span id="delivery" class="totalForm">0</span>
+              </td>
             </tr>
             <tr>
               <td>포인트</td>
-              <td>260</td>
+              <td>
+                <span id="point" class="totalForm">0</span>
+              </td>
             </tr>
             <tr>
               <td>전체주문금액</td>
-              <td>26,000</td>
+              <td>
+                <span id="total" class="totalForm">0</span>
+              </td>
             </tr>
           </table>
           <input type="submit" name="" value="주문하기">

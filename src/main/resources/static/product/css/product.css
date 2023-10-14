@@ -1418,3 +1418,9 @@
   color: #fe434c;
   font-weight: bold;
 }
+.w450 {
+  width:450px;
+}
+.overHidden {
+    overflow: hidden;
+}

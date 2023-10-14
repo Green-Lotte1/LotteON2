@@ -9,12 +9,16 @@ import co.kr.lotte.entity.product.ProductEntity;
 import co.kr.lotte.repository.product.ProductCartRepository;
 import co.kr.lotte.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+@Log4j2
 @RequiredArgsConstructor
 @Service
 public class ProductService {
@@ -57,5 +61,24 @@ public class ProductService {
             saved = productCartRepository.save(productCartDTO.toEntity());
         }
         return saved.getCartNo();
+    }
+
+    public List<ProductCartDTO> findProductCartByUid(String uid) {
+        List<ProductCartEntity> productCartEntities = productCartRepository.findByUid(uid);
+        List<ProductCartDTO> productCartDTOS = new ArrayList<>();
+        for (ProductCartEntity productCart : productCartEntities) {
+            ProductCartDTO productCartDTO = productCart.toDTO();
+            Optional<ProductEntity> productEntity = productRepository.findById(productCartDTO.getProdNo());
+            productCartDTO.setProduct(productEntity.get().toDTO());
+            productCartDTOS.add(productCartDTO);
+        }
+        return productCartDTOS;
+    }
+
+    public void deleteCart(int[] chks) {
+        for(int chk : chks) {
+            log.info("chk : " + chk);
+            productCartRepository.deleteById(chk);
+        }
     }
 }
