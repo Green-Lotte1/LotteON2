@@ -46,10 +46,17 @@ public class ProductController {
 
     @GetMapping("/product/view")
     public String view(Model model, SearchDTO searchDTO) {
+        // 상품 상세 조회
         ProductDTO productDTO = productService.getProductDTO(searchDTO.getProdNo());
+
+        // 카테고리 조회
+        String c1Name = cateService.getC1Name(searchDTO.getCate1());
+        String c2Name = cateService.getC2Name(searchDTO.getCate1(), searchDTO.getCate2());
         model.addAttribute("product", productDTO);
         model.addAttribute("cate1", searchDTO.getCate1());
         model.addAttribute("cate2", searchDTO.getCate2());
+        model.addAttribute("c1Name", c1Name);
+        model.addAttribute("c2Name", c2Name);
         return "/product/view";
     }
 
