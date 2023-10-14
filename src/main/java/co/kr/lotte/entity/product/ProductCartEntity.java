@@ -2,6 +2,9 @@ package co.kr.lotte.entity.product;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -18,5 +21,6 @@ public class ProductCartEntity {
     private String uid;
     private int prodNo;
     private int count;
-    private String rdate;
+    @CreationTimestamp
+    private LocalDateTime rdate;
 }

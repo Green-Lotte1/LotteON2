@@ -4,15 +4,14 @@ import co.kr.lotte.dto.product.ProductCate1DTO;
 import co.kr.lotte.dto.product.ProductCate2DTO;
 import co.kr.lotte.entity.product.ProductCate1Entity;
 import co.kr.lotte.entity.product.ProductCate2Entity;
-import co.kr.lotte.repository.Cate1Repository;
-import co.kr.lotte.repository.Cate2Repository;
+import co.kr.lotte.repository.product.Cate1Repository;
+import co.kr.lotte.repository.product.Cate2Repository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Log4j2
 @RequiredArgsConstructor
