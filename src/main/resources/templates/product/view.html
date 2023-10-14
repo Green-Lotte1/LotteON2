@@ -28,6 +28,37 @@
                 num.val(cnt);
                 total.text((price * cnt + delivery).toLocaleString());
             });
+
+            // 장바구니 등록
+            $('.cart').click(function(e) {
+                e.preventDefault();
+                const prodNo = [[${product.prodNo}]];
+                const uid = "lg";
+                if (uid == "") {
+                    alert('로그인 후 사용가능한 기능입니다.');
+                    return false;
+                }
+                const count = $('input[name=num]').val();
+                const jsonData = {
+                        prodNo : prodNo,
+                        uid : uid,
+                        count : count
+                }
+                $.ajax({
+                    url: '/product/cart',
+                    type: 'POST',
+                    data: JSON.stringify(jsonData),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function(data) {
+                        if (data > 0) {
+                            alert('장바구니에 상품이 등록되었습니다.');
+                        } else {
+                            alert('오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+                        }
+                    }
+                });
+            });
+            // 장바구니 끝
         });
     </script>
 </head>

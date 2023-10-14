@@ -1,4 +1,4 @@
-package co.kr.lotte.repository;
+package co.kr.lotte.repository.product;
 
 import co.kr.lotte.entity.product.ProductCate1Entity;
 import org.springframework.data.jpa.repository.JpaRepository;
