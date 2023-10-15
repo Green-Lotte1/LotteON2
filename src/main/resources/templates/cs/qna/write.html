@@ -2,6 +2,64 @@
       xmlns:layout="http://www.thymeleaf.org/"
       layout:decorate="/cs/layout.html">
 
+<head>
+<script>
+  $(function(){
+    const url = '/cs/cate';
+    const jsonData = {};
+
+    $.ajax({
+      url: url,
+      type: 'GET',
+      data: jsonData,
+      success: function(data) {
+
+        console.log(data);
+
+        $("#cate").change(function(){
+          let optionValue = $(this).val();
+          let selectType = $("#type");
+
+          const jsonData = {
+            "optionValue" : optionValue
+          };
+          console.log(jsonData);
+
+          // cate가 바뀔 때 마다 type을 빈값으로 초기화 해주고
+          // 그 뒤 append를 통해서 option을 추가해줌
+          selectType.empty();
+          selectType.append(
+                  $('<option>',{
+                    value: '',
+                    text: '2차 분류 선택',
+                    disabled: 'disabled',
+                    selected: 'selected'
+                  })
+          );
+
+          if(optionValue !== '0'){
+            $.getJSON(url, jsonData, function(data){
+              console.log("cate가 0이 아닐 때 type option 추가");
+              console.log(data);
+
+              $.each(data, function (index, type) {
+                selectType.append(
+                        $('<option>',{
+                          value: type.type,
+                          text: type.typeName,
+                        })
+                ); // appnd end
+              }); // each end
+            }); // ajax end
+          } // if end
+        }); // cate change end
+      }
+    });
+  });
+
+</script>
+  </head>
+
       <section id="cs" layout:fragment = "content">
         <div class="qna">
           <nav>
@@ -28,25 +86,29 @@
                   <tr>
                     <td>문의유형</td>
                     <td>
-                      <select name="type">
-                        <option value="0">선택</option>
-                        <option value="10">가입</option>
-                        <option value="11">탈퇴</option>
-                        <option value="12">회원정보</option>
-                        <option value="13">로그인</option>
+                      <select name="cate" id="cate" required>
+                        <option selected disabled th:value="0">1차 분류 선택</option>
+                        <th:block th:each="cateOption : ${cates}">
+                          <option th:value="${cateOption.cate}" th:text="${cateOption.cateName}"></option>
+                        </th:block>
+                      </select>
+
+                      <!-- cateName에 따라서 선택지가 달라짐 -->
+                      <select name="type" id="type" required>
+                        <option selected disabled th:value="0">2차 분류 선택</option>
                       </select>
                     </td>
                   </tr>
                   <tr>
                     <td>문의제목</td>                  
                     <td>
-                      <input type="text" name="title" placeholder="제목을 입력하세요."/>
+                      <input type="text" name="title" required placeholder="제목을 입력하세요."/>
                     </td>
                   </tr>                
                   <tr>
                     <td>문의내용</td>                  
                     <td>
-                      <textarea name="content" placeholder="내용을 입력하세요."></textarea>
+                      <textarea name="content" required placeholder="내용을 입력하세요."></textarea>
                     </td>
                   </tr>
                 </table>

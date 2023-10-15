@@ -1,7 +1,9 @@
 package co.kr.lotte.controller.cs;
 
 import co.kr.lotte.dto.cs.BoardDTO;
+import co.kr.lotte.entity.cs.BoardCateEntity;
 import co.kr.lotte.entity.cs.BoardTypeEntity;
+import co.kr.lotte.service.CsCateService;
 import co.kr.lotte.service.CsService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -19,6 +23,9 @@ public class CsController {
 
     @Autowired
     private CsService csService;
+
+    @Autowired
+    private CsCateService csCateService;
 
     @GetMapping("/cs/index")
     public String index() {
@@ -55,10 +62,10 @@ public class CsController {
     }
 
     @GetMapping("/cs/qna/write")
-    public String qnaWrite(Model model, String cate) {
-        cate="member";
-        List<BoardTypeEntity> boardTypeEntities = csService.findByCate(cate);
-        model.addAttribute(boardTypeEntities);
+    public String qnaWrite(Model model,String cate) {
+
+        List<BoardCateEntity> cates = csCateService.getCate();
+        model.addAttribute("cates", cates);
 
         return "/cs/qna/write";
     }
@@ -68,6 +75,17 @@ public class CsController {
         log.info(dto.toString());
         csService.save(dto);
         return "redirect:/cs/qna/list";
+    }
+
+    // cate
+    @GetMapping("/cs/cate")
+    @ResponseBody
+    public List<BoardTypeEntity> csCate(String optionValue){
+
+        log.info(optionValue);
+
+        return csCateService.findByCate(optionValue);
+
     }
 
 
