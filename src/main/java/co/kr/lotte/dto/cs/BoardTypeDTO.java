@@ -10,6 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardTypeDTO {
+
     private int no;
     private String cate;
     private int type;

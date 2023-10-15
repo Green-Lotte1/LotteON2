@@ -1,4 +1,4 @@
-package co.kr.lotte.repository;
+package co.kr.lotte.repository.cs;
 
 import co.kr.lotte.dto.cs.BoardDTO;
 import co.kr.lotte.entity.cs.BoardEntity;
