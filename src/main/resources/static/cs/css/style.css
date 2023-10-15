@@ -515,11 +515,11 @@ footer p > strong {
   font-size: 16px;
 }
 
-#cs > .notice > .list > article > .page {
+#cs > .notice > .list > article > .page > span{
   text-align: center;
   margin-top: 26px;
 }
-#cs > .notice > .list > article > .page > a {
+#cs > .notice > .list > article > .page > span > a {
   display: inline-block;
   width: 34px;
   height: 34px;        
@@ -540,8 +540,8 @@ footer p > strong {
   background-image: url('../images/cs_sprites.png');
   background-position: -628px -652px;
 }
-#cs > .notice > .list > article > .page > .num {}
-#cs > .notice > .list > article > .page > .on {
+#cs > .notice > .list > article > .page > span > .num {}
+#cs > .notice > .list > article > .page > span > .on {
   background: #006cff;
   border-radius: 17px;
   color: #fff;
@@ -864,11 +864,11 @@ footer p > strong {
   font-size: 16px;
 }
 
-#cs > .qna > .list > article > .page {
+#cs > .qna > .list > article > .page > span {
   text-align: center;
   margin-top: 26px;
 }
-#cs > .qna > .list > article > .page > a {
+#cs > .qna > .list > article > .page > span > a {
   display: inline-block;
   width: 34px;
   height: 34px;        
@@ -879,18 +879,18 @@ footer p > strong {
   font-weight: bold;        
   vertical-align: bottom;
 }
-#cs > .qna > .list > article > .page > .prev {
+#cs > .qna > .list > article > .page  > span > .prev {
   font-size: 0;
   background-image: url('../images/cs_sprites.png');
   background-position: -706px -652px;
 }
-#cs > .qna > .list > article > .page > .next {
+#cs > .qna > .list > article > .page > span > .next {
   font-size: 0;
   background-image: url('../images/cs_sprites.png');
   background-position: -628px -652px;
 }
-#cs > .qna > .list > article > .page > .num {}
-#cs > .qna > .list > article > .page > .on {
+#cs > .qna > .list > article > .page > span > .num {}
+#cs > .qna > .list > article > .page > span > .on {
   background: #006cff;
   border-radius: 17px;
   color: #fff;
