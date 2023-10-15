@@ -1,6 +1,8 @@
 package co.kr.lotte.controller.cs;
 
 import co.kr.lotte.dto.cs.BoardDTO;
+import co.kr.lotte.dto.cs.CsPageRequestDTO;
+import co.kr.lotte.dto.cs.CsPageResponseDTO;
 import co.kr.lotte.entity.cs.BoardCateEntity;
 import co.kr.lotte.entity.cs.BoardTypeEntity;
 import co.kr.lotte.service.CsCateService;
@@ -52,8 +54,19 @@ public class CsController {
     }
 
     @GetMapping("/cs/qna/list")
-    public String qnaList() {
-        return "/cs/qna/list";
+    public String qnaList(Model model, CsPageRequestDTO csPageRequestDTO) {
+        CsPageResponseDTO csPageResponseDTO = csService.findByCate(csPageRequestDTO);
+
+        log.info("csPageResponseDTO pg : "+ csPageResponseDTO.getPg());
+        log.info("csPageResponseDTO size : "+ csPageResponseDTO.getSize());
+        log.info("csPageResponseDTO total : "+ csPageResponseDTO.getTotal());
+        log.info("csPageResponseDTO start : "+ csPageResponseDTO.getStart());
+        log.info("csPageResponseDTO end : "+ csPageResponseDTO.getEnd());
+        log.info("csPageResponseDTO prev : "+ csPageResponseDTO.isPrev());
+        log.info("csPageResponseDTO next : "+ csPageResponseDTO.isNext());
+
+        model.addAttribute(csPageResponseDTO);
+        return "cs/qna/list";
     }
 
     @GetMapping("/cs/qna/view")
@@ -67,14 +80,14 @@ public class CsController {
         List<BoardCateEntity> cates = csCateService.getCate();
         model.addAttribute("cates", cates);
 
-        return "/cs/qna/write";
+        return "cs/qna/write";
     }
 
     @PostMapping("cs/qna/write")
     public String qnaWrite(HttpServletRequest request, BoardDTO dto)  {
         log.info(dto.toString());
         csService.save(dto);
-        return "redirect:/cs/qna/list";
+        return "redirect:cs/qna/list";
     }
 
     // cate

@@ -1,4 +1,6 @@
-<html xmlns:th="http://www.thymeleaf.org"  xmlns:layout="http://www.thymeleaf.org/" layout:decorate="/cs/layout.html">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org/"
+      layout:decorate="/cs/layout.html">
 
       <section id="cs" layout:fragment = "content">
         <div class="qna">
@@ -26,67 +28,32 @@
                 <h2>회원관련 문의 내용입니다.</h2>
               </nav>
               <table>
-                <tr>
-                  <td><a href="view.html">[가입] 가입 문의내용</a></td>
-                  <td>chh**</td>
-                  <td>2022.11.21</td>
-                </tr>
-                <tr>
-                  <td><a href="view.html">[탈퇴] 탈퇴 문의내용</a></td>
-                  <td>chh**</td>
-                  <td>2022.11.21</td>
-                </tr>
-                <tr>
-                  <td><a href="#">[회원정보] 회원정보 문의내용</a></td>
-                  <td>chh**</td>
-                  <td>2022.11.21</td>
-                </tr>
-                <tr>
-                  <td><a href="#">[로그인] 회원정보 문의내용</a></td>
-                  <td>chh**</td>
-                  <td>2022.11.21</td>
-                </tr>
-                <tr>
-                  <td><a href="#">[로그인] 회원정보 문의내용</a></td>
-                  <td>chh**</td>
-                  <td>2022.11.21</td>
-                </tr>
-                <tr>
-                  <td><a href="#">[로그인] 회원정보 문의내용</a></td>
-                  <td>chh**</td>
-                  <td>2022.11.21</td>
-                </tr>
-                <tr>
-                  <td><a href="#">[회원정보] 회원정보 문의내용</a></td>
-                  <td>chh**</td>
-                  <td>2022.11.21</td>
-                </tr>
-                <tr>
-                  <td><a href="#">[회원정보] 회원정보 문의내용</a></td>
-                  <td>chh**</td>
-                  <td>2022.11.21</td>
-                </tr>
-                <tr>
-                  <td><a href="#">[탈퇴] 회원정보 문의내용</a></td>
-                  <td>chh**</td>
-                  <td>2022.11.21</td>
-                </tr>
-                <tr>
-                  <td><a href="#">[탈퇴] 회원정보 문의내용</a></td>
-                  <td>chh**</td>
-                  <td>2022.11.21</td>
+                <tr th:each="article:${csPageResponseDTO.dtoList}">
+                  <td>
+                    <a th:href="@{/cs/qna/view}">[[${article.cate}]] [[${article.title}]]</a>
+                  </td>
+                  <td>[[${article.uid}]]</td>
+                  <td>[[${article.rdate}]]</td>
                 </tr>
               </table>
-
+              <!-- paging-->
               <div class="page">
-                <a href="#" class="prev">이전</a>
-                <a href="#" class="num on">1</a>
-                <a href="#" class="num">2</a>
-                <a href="#" class="num">3</a>
-                <a href="#" class="next">다음</a>
+                  <span th:if="${csPageResponseDTO.prev}" class="prev">
+                    <a th:href="@{/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.start - 1})}">이전</a>
+                  </span>
+
+                  <span th:each="num: ${#numbers.sequence(csPageResponseDTO.start, csPageResponseDTO.end)}" class="num">
+                    <a th:href="@{/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${num})}" th:class="${csPageResponseDTO.pg eq num ? 'on' : 'off'}">[[${num}]]</a>
+                  </span>
+
+                  <span th:if="${csPageResponseDTO.next}" class="next">
+                    <a th:href="@{/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.end + 1})}">다음</a>
+                  </span>
               </div>
 
-              <a href="write.html" class="btnWrite">문의하기</a>
+
+
+              <a th:href="@{/cs/qna/write}" class="btnWrite">문의하기</a>
 
             </article>
           </section>
