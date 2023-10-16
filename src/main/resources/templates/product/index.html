@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script th:src="@{/js/index.js}"></script>
+    <script th:src="@{/js/zipcode.js}"></script>
     <link rel="stylesheet" th:href="@{/css/common.css}"/>
     <link rel="stylesheet" th:href="@{/product/css/product.css}"/>
     <script>
@@ -39,7 +41,10 @@
                     <a href="#">로그인</a>
                     <a href="#">회원가입</a>
                     <a href="#">마이페이지</a>
-                    <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;장바구니</a>
+                    <a th:href="@{/product/cart}">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;
+                        장바구니
+                    </a>
                 </div>
             </div>
             <div class="logo">

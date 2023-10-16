@@ -92,11 +92,4 @@ $(function() {
         $('#formCheck').attr("method", "post");
         $('#formCheck').submit();
     });
-
-    $('#formCheck').submit(function() {
-        if ($('#total').text() == 0) {
-            alert('주문하실 상품을 선택해주세요.');
-            return false;
-        }
-    });
 });

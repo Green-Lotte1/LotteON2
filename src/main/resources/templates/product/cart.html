@@ -1,6 +1,36 @@
 <html xmlns:th="http://www.thymeleaf.org" layout:decorate="/product/index.html">
 <head>
   <script th:src="@{/product/js/cart.js}"></script>
+  <script>
+    $(function() {
+      $('#formCheck').submit(function(e) {
+        if ($('#total').text() == 0) {
+            alert('주문하실 상품을 선택해주세요.');
+            return false;
+        }
+        const chk = $('input[name=chk]');
+        let arr = [];
+        for (let i = 0; i < chk.length; i++) {
+            if (chk[i].checked) {
+                const cartNo = $('input[name=chk]')[i].classList[0] * 1;
+                let count = $('input[name=count' + cartNo + ']').val() * 1;
+                let prodNo = $('input[name=prodNo' + cartNo + ']').val() * 1;
+                const data = {
+                    "prodNo" : prodNo,
+                    "cartNo" : cartNo,
+                    "count" : count
+                }
+                arr.push(data);
+            }
+        }
+        const jsonData = JSON.stringify(arr);
+        const contextPath = '[[${@environment.getProperty('server.servlet.context-path')}]]';
+        // 데이터를 URL 매개변수로 추가하여 페이지 이동
+        window.location.href = contextPath + '/product/order?jsonData=' + encodeURIComponent(jsonData);
+        return false;
+      });
+    })
+  </script>
 </head>
     <!-- 장바구니 페이지 시작 -->
     <section class="cart" layout:fragment="content">
@@ -11,7 +41,7 @@
           HOME > <strong>장바구니</strong>
         </p>
       </nav>
-      <form id="formCheck" action="/product/order" method="get">
+      <form id="formCheck" th:action="@{/product/order}" method="get">
         <!-- 장바구니 목록 -->
         <table>
           <thead>
@@ -31,6 +61,7 @@
               <td colspan="7">장바구니에 상품이 없습니다.</td>
             </tr>
             <tr th:each="cart:${carts}" th:class="${cart.cartNo}">
+              <input type="hidden" th:name="prodNo + ${cart.cartNo }" th:value="${cart.product.prodNo }"/>
               <td>
                 <input type="checkbox" name="chk" th:class="${cart.cartNo}" th:value="${cart.cartNo}">
               </td>
@@ -124,7 +155,7 @@
               </td>
             </tr>
           </table>
-          <input type="submit" name="" value="주문하기">
+          <input type="submit" name="order" value="주문하기">
         </div>
       </form>
     </section>

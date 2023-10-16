@@ -61,6 +61,25 @@
                 });
             });
             // 장바구니 끝
+            $('.order').click(function(e) {
+                e.preventDefault();
+                const prodNo = [[${product.prodNo }]];
+                const uid = "lg";
+                if (uid == "") {
+                    alert('로그인 후 사용가능한 기능입니다.');
+                    return false;
+                }
+                const count = $('input[name=num]').val() * 1;
+                const contextPath = '[[${@environment.getProperty('server.servlet.context-path')}]]';
+                const arr = []
+                const data = {
+                    "prodNo" : prodNo,
+                    "count" : count
+                }
+                arr.push(data);
+                const jsonData = JSON.stringify(arr);
+                window.location.href = contextPath + '/product/order?jsonData=' + encodeURIComponent(jsonData);
+            });
         });
     </script>
 </head>
