@@ -1,12 +1,15 @@
 package co.kr.lotte.controller.member;
 
+import co.kr.lotte.dto.member.MemberDTO;
 import co.kr.lotte.entity.member.MemberTermsEntity;
 import co.kr.lotte.service.member.MemberService;
 import groovy.util.logging.Log4j2;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Log4j2
@@ -43,6 +46,13 @@ public class MemberController {
         else if (type.equals("seller"))
             return "redirect:/member/registerSeller";
         return "/member/register";
+    }
+    @PostMapping("/member/register")
+    public String register(MemberDTO dto, HttpServletRequest request) {
+
+        dto.setRegip(request.getRemoteAddr());
+        memberService.save(dto);
+        return "redirect:/member/login";
     }
 
     @GetMapping("member/registerSeller")
