@@ -1,12 +1,13 @@
 package co.kr.lotte.service.product;
 
-import co.kr.lotte.dto.product.PageRequestDTO;
-import co.kr.lotte.dto.product.PageResponseDTO;
-import co.kr.lotte.dto.product.ProductCartDTO;
-import co.kr.lotte.dto.product.ProductDTO;
+import co.kr.lotte.dto.product.*;
 import co.kr.lotte.entity.product.ProductCartEntity;
 import co.kr.lotte.entity.product.ProductEntity;
+import co.kr.lotte.entity.product.ProductOrderEntity;
+import co.kr.lotte.entity.product.ProductOrderItemEntity;
 import co.kr.lotte.repository.product.ProductCartRepository;
+import co.kr.lotte.repository.product.ProductOrderItemRepository;
+import co.kr.lotte.repository.product.ProductOrderRepository;
 import co.kr.lotte.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -24,6 +25,8 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
     private final ProductCartRepository productCartRepository;
+    private final ProductOrderRepository productOrderRepository;
+    private final ProductOrderItemRepository productOrderItemRepository;
     private final ModelMapper modelMapper;
 
     // 상품 목록 조회
@@ -119,5 +122,23 @@ public class ProductService {
                                 .stream()
                                 .map(entity -> modelMapper.map(entity, ProductDTO.class))
                                 .toList();
+    }
+
+    public int saveOrder(ProductOrderDTO productOrderDTO) {
+        ProductOrderEntity productOrderEntity = productOrderRepository.save(productOrderDTO.toEntity());
+        return productOrderEntity.getOrdNo();
+    }
+
+    public void saveOrderItem(List<SearchDTO> searchDTOS, int ordNo) {
+        for (SearchDTO searchDTO : searchDTOS) {
+            productOrderItemRepository.save(ProductOrderItemEntity.builder()
+                            .ordNo(ordNo)
+                            .prodNo(searchDTO.getProdNo())
+                            .count(searchDTO.getCount())
+                            .build());
+            if (searchDTO.getCartNo() != 0) {
+                productCartRepository.deleteById(searchDTO.getCartNo());
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 package co.kr.lotte.dto.product;
 
+import co.kr.lotte.entity.product.ProductOrderEntity;
 import lombok.*;
 
 @Getter
@@ -27,4 +28,25 @@ public class ProductOrderDTO {
     private int ordComplete;
     private String ordDate;
     private String ordUser;
+
+    public ProductOrderEntity toEntity() {
+        return ProductOrderEntity.builder()
+                .ordUid(ordUid)
+                .ordCount(ordCount)
+                .ordPrice(ordPrice)
+                .ordDiscount(ordDiscount)
+                .ordDelivery(ordDelivery)
+                .savePoint(savePoint)
+                .usedPoint(usedPoint)
+                .ordTotPrice(ordTotPrice)
+                .recipName(recipName)
+                .recipHp(recipHp)
+                .recipZip(recipZip)
+                .recipAddr1(recipAddr1)
+                .recipAddr2(recipAddr2)
+                .ordPayment(ordPayment)
+                .ordComplete(ordComplete)
+                .ordDate(ordDate)
+                .build();
+    }
 }
