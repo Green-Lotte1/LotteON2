@@ -17,7 +17,7 @@ logging:
     root: info
 server:
   servlet:
-    context-path: /
+    context-path: /LotteON
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -48,8 +48,10 @@ spring:
       password: 1234
   thymeleaf:
     cache: false
+    # 개발
     prefix : file:src/main/resources/templates/
-    # prefix: classpath:/templates
+    # 배포
+    #prefix: classpath:/templates
 
   servlet:
     multipart:
