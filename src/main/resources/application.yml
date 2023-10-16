@@ -49,9 +49,9 @@ spring:
   thymeleaf:
     cache: false
     # 개발
-    prefix : file:src/main/resources/templates/
+    #prefix : file:src/main/resources/templates/
     # 배포
-    #prefix: classpath:/templates
+    prefix: classpath:/templates
 
   servlet:
     multipart:

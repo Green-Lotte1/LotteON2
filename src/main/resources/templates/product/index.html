@@ -17,8 +17,10 @@
     <link rel="stylesheet" th:href="@{/product/css/product.css}"/>
     <script>
         $(function() {
+            var contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
+            console.log(contextPath);
             $.ajax({
-                url: '/cate',
+                url: contextPath + '/cate',
                 type: 'GET',
                 data: '',
                 success: function(data) {
