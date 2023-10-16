@@ -4,6 +4,7 @@ import co.kr.lotte.dto.product.ProductCate1DTO;
 import co.kr.lotte.dto.product.ProductCate2DTO;
 import co.kr.lotte.service.CateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,6 +14,8 @@ import java.util.List;
 public class CateController {
     @Autowired
     private CateService cateService;
+    @Value("${server.servlet.context-path}")
+    private String contextPath;
 
     @GetMapping("/cate")
     public String cate() {
@@ -25,7 +28,7 @@ public class CateController {
             cate.append("<ol>");
             for (ProductCate2DTO cate2 : cate1.getCate2s()) {
                 if (cate2.getCate1() == cate1.getCate1()) {
-                    cate.append("<li><a href=\"/product/list?pg=1&cate1="+cate1.getCate1()+"&cate2=" + cate2.getCate2() + "\">" + cate2.getC2Name() + "</a></li>");
+                    cate.append("<li><a href=\"" + contextPath + "/product/list?pg=1&cate1="+cate1.getCate1()+"&cate2=" + cate2.getCate2() + "\">" + cate2.getC2Name() + "</a></li>");
                 }
             }
             cate.append("</ol>");
