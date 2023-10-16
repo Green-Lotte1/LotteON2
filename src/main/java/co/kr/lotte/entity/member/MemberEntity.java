@@ -1,4 +1,4 @@
-package co.kr.lotte.entity;
+package co.kr.lotte.entity.member;
 
 import co.kr.lotte.dto.member.MemberDTO;
 import jakarta.persistence.Column;

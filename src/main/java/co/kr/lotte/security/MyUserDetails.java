@@ -1,6 +1,6 @@
 package co.kr.lotte.security;
 
-import co.kr.lotte.entity.MemberEntity;
+import co.kr.lotte.entity.member.MemberEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

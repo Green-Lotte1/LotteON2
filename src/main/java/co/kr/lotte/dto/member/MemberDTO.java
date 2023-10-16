@@ -1,6 +1,6 @@
 package co.kr.lotte.dto.member;
 
-import co.kr.lotte.entity.MemberEntity;
+import co.kr.lotte.entity.member.MemberEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;
