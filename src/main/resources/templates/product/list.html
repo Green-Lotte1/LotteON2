@@ -52,7 +52,7 @@
         <tr th:each="product:${pageResponseDTO.dtoList}">
           <td>
             <a th:href="@{/product/view(prodNo=${product.prodNo}, cate1=${product.prodCate1}, cate2=${product.prodCate2})}" class="thumb">
-              <img th:src="@{/thumb/} + ${product.prodCate1 } + @{/} + ${product.prodCate2 } + @{/} + ${product.thumb1}" alt="상품이미지"/>
+              <img th:src="@{'/thumb/' + ${product.prodCate1} + '/' + ${product.prodCate2} + '/' + ${product.thumb1}}" alt="상품이미지"/>
             </a>
           </td>
           <td>
