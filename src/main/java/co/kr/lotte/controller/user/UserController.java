@@ -1,8 +1,8 @@
 package co.kr.lotte.controller.user;
 
 import co.kr.lotte.dto.member.MemberDTO;
-import co.kr.lotte.entity.MemberTermsEntity;
-import co.kr.lotte.service.UserService;
+import co.kr.lotte.entity.member.MemberTermsEntity;
+import co.kr.lotte.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private MemberService memberService;
 
     @GetMapping("/user/login")
     public String login(){
@@ -22,7 +22,7 @@ public class UserController {
 
     @GetMapping("/user/terms")
     public String terms(Model model){
-        MemberTermsEntity terms  = userService.findByTerms();
+        MemberTermsEntity terms  = memberService.findByTerms();
         model.addAttribute(terms);
         return "/user/terms";
     }
@@ -36,7 +36,7 @@ public class UserController {
     public String register(MemberDTO dto){
 
 
-        userService.save(dto);
+        memberService.save(dto);
         return "redirect:/user/login";
     }
 

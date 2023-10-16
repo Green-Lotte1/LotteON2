@@ -1,7 +1,7 @@
 package co.kr.lotte.security;
 
-import co.kr.lotte.entity.MemberEntity;
-import co.kr.lotte.repository.UserRepository;
+import co.kr.lotte.entity.member.MemberEntity;
+import co.kr.lotte.repository.member.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class SecurityUserService implements UserDetailsService {
 	
 	@Autowired
-	private UserRepository repo;
+	private MemberRepository repo;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

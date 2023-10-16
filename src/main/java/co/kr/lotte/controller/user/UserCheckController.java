@@ -1,7 +1,7 @@
 package co.kr.lotte.controller.user;
 
 
-import co.kr.lotte.service.UserService;
+import co.kr.lotte.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,20 +13,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserCheckController {
 
     @Autowired
-    private UserService userService;
+    private MemberService memberService;
 
     @GetMapping("/uid/{uid}")
     public int checkUid(@PathVariable("uid") String uid){
-        return userService.countUid(uid);
+        return memberService.countUid(uid);
     }
 
     @GetMapping("/nick/{nick}")
     public int checkNick(@PathVariable("nick") String nick){
-        return userService.countUid(nick);
+        return memberService.countUid(nick);
     }
 
     @GetMapping("/hp/{hp}")
     public int checkHp(@PathVariable("hp") String hp){
-        return userService.countUid(hp);
+        return memberService.countUid(hp);
     }
 }

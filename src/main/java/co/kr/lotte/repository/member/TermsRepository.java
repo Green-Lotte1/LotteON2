@@ -1,6 +1,6 @@
-package co.kr.lotte.repository;
+package co.kr.lotte.repository.member;
 
-import co.kr.lotte.entity.MemberTermsEntity;
+import co.kr.lotte.entity.member.MemberTermsEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
