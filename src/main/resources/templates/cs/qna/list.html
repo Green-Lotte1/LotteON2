@@ -22,19 +22,27 @@
                 <li><a th:href="@{/cs/qna/list(cate=safe)}">안전거래</a></li>
               </ul>-->
               <ul>
-                <li th:class="${cate == 'member'} ? 'on' : ''"><a th:href="@{/cs/qna/list(cate=member)}">회원</a></li>
-                <li th:class="${cate == 'coupon'} ? 'on' : ''"><a th:href="@{/cs/qna/list(cate=coupon)}">쿠폰/이벤트</a></li>
-                <li th:class="${cate == 'order'} ? 'on' : ''"><a th:href="@{/cs/qna/list(cate=order)}">주문/결제</a></li>
-                <li th:class="${cate == 'delivery'} ? 'on' : ''"><a th:href="@{/cs/qna/list(cate=delivery)}">배송</a></li>
-                <li th:class="${cate == 'cancel'} ? 'on' : ''"><a th:href="@{/cs/qna/list(cate=cancel)}">취소/반품/교환</a></li>
-                <li th:class="${cate == 'travel'} ? 'on' : ''"><a th:href="@{/cs/qna/list(cate=travel)}">여행/숙박/항공</a></li>
-                <li th:class="${cate == 'safe'} ? 'on' : ''"><a th:href="@{/cs/qna/list(cate=safe)}">안전거래</a></li>
+                <li th:class="${(cate eq 'member') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=member)}">회원</a></li>
+                <li th:class="${(cate=='coupon') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=coupon)}">쿠폰/이벤트</a></li>
+                <li th:class="${(cate=='order') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=order)}">주문/결제</a></li>
+                <li th:class="${(cate=='delivery') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=delivery)}">배송</a></li>
+                <li th:class="${(cate=='cancel') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=cancel)}">취소/반품/교환</a></li>
+                <li th:class="${(cate=='travel') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=travel)}">여행/숙박/항공</a></li>
+                <li th:class="${(cate=='safe') ?'on' : ''}"><a th:href="@{/cs/qna/list(cate=safe)}">안전거래</a></li>
               </ul>
             </aside>
             <article>
-              <nav>
-                <h1>회원</h1>
-                <h2>회원관련 문의 내용입니다.</h2>
+              <nav >
+               <span th:switch="${cate}">
+                    <span th:case="member">회원</span>
+                    <span th:case="coupon">쿠폰/이벤트</span>
+                    <span th:case="order">주문/결제</span>
+                    <span th:case="delivery">배송</span>
+                    <span th:case="cancel">취소/반품/교환</span>
+                    <span th:case="travel">여행/숙박/항공</span>
+                    <span th:case="safe">안전거래</span>
+                </span>
+                <h2>관련 문의 입니다.</h2>
               </nav>
               <table>
                 <tr th:each="article:${csPageResponseDTO.dtoList}">

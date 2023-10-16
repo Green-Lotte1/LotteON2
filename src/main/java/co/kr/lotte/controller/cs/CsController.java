@@ -76,13 +76,17 @@ public class CsController {
         log.info("csPageResponseDTO end : "+ csPageResponseDTO.getEnd());
         log.info("csPageResponseDTO prev : "+ csPageResponseDTO.isPrev());
         log.info("csPageResponseDTO next : "+ csPageResponseDTO.isNext());
-
         model.addAttribute(csPageResponseDTO);
+        model.addAttribute("cate", csPageRequestDTO.getCate());
         return "cs/qna/list";
     }
 
     @GetMapping("/cs/qna/view")
-    public String qnaView() {
+    public String qnaView(Model model, int bno) {
+
+        BoardDTO boardDTO = csService.findByBno(bno);
+        model.addAttribute("boardDTO", boardDTO);
+
         return "cs/qna/view";
     }
 
