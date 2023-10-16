@@ -44,8 +44,10 @@
                         uid : uid,
                         count : count
                 }
+                var contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
+                console.log(contextPath);
                 $.ajax({
-                    url: '/product/cart',
+                    url: contextPath + '/product/cart',
                     type: 'POST',
                     data: JSON.stringify(jsonData),
                     contentType: 'application/json; charset=utf-8',
