@@ -2,16 +2,16 @@ package co.kr.lotte.service;
 
 
 import co.kr.lotte.dto.member.MemberDTO;
-import co.kr.lotte.entity.MemberTermsEntity;
-import co.kr.lotte.entity.MemberEntity;
-import co.kr.lotte.repository.TermsRepository;
-import co.kr.lotte.repository.UserRepository;
+import co.kr.lotte.entity.member.MemberTermsEntity;
+import co.kr.lotte.entity.member.MemberEntity;
+import co.kr.lotte.repository.member.TermsRepository;
+import co.kr.lotte.repository.member.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class MemberService {
 
     @Autowired
     private TermsRepository termsRepository;
@@ -28,15 +28,9 @@ public class UserService {
     }
 
     public void save(MemberDTO dto){
-        
-        // 비밀번호 암호화
-        dto.setPass(passwordEncoder.encode(dto.getPass()));
-
-        // DTO를 Entity로 변환
-        MemberEntity entity = dto.toEntity();
-
-        // DB insert
-        userRepository.save(entity);
+        dto.setPass(passwordEncoder.encode(dto.getPass())); // 비밀번호 암호화
+        MemberEntity entity = dto.toEntity(); // DTO를 Entity로 변환
+        userRepository.save(entity); // DB insert
     }
 
     public int countUid(String uid){
