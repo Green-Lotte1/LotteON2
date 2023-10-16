@@ -4,6 +4,9 @@ import co.kr.lotte.dto.product.*;
 import co.kr.lotte.entity.product.ProductCartEntity;
 import co.kr.lotte.service.CateService;
 import co.kr.lotte.service.product.ProductService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -71,7 +74,7 @@ public class ProductController {
     }
 
     @ResponseBody
-    @PostMapping("product/cart")
+    @PostMapping("/product/cart")
     public int cart(@RequestBody ProductCartDTO productCartDTO) {
         return productService.insertProductCart(productCartDTO);
     }
@@ -88,8 +91,26 @@ public class ProductController {
     }
 
     @GetMapping("/product/order")
-    public String order() {
+    public String order(Model model, @RequestParam("jsonData") String jsonData) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<SearchDTO> searchDTOS = objectMapper.readValue(jsonData, new TypeReference<List<SearchDTO>>() {});
+        for (SearchDTO searchDTO : searchDTOS) {
+            log.info("prodNo : " + searchDTO.getProdNo());
+            log.info("count : " + searchDTO.getCount());
+            log.info("cartNo : " + searchDTO.getCartNo());
+            if (searchDTO.getProdNo() != 0) {
+                searchDTO.setProduct(productService.findProductById(searchDTO.getProdNo()));
+            }
+        }
+        model.addAttribute("products", searchDTOS);
         return "/product/order";
+    }
+
+    @ResponseBody
+    @PostMapping("/product/order")
+    public int order(ProductOrderDTO productOrderDTO, List<SearchDTO> searchDTOList) {
+
+        return 1;
     }
 
     @GetMapping("/product/search")

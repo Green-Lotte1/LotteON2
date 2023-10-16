@@ -82,6 +82,10 @@ public class ProductService {
         }
     }
 
+    public ProductDTO findProductById(int prodNo) {
+        return productRepository.findById(prodNo).get().toDTO();
+    }
+
     public List<ProductDTO> findTop5ByOrderByScoreDesc() {
         return productRepository.findTop5ByOrderByScoreDesc()
                                 .stream()
