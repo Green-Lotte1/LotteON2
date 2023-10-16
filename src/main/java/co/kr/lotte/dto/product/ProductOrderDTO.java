@@ -28,6 +28,28 @@ public class ProductOrderDTO {
     private int ordComplete;
     private String ordDate;
     private String ordUser;
+    private String ordPaymentName;
+
+    public void setOrdPaymentName () {
+        if (ordPayment == 1) {
+            this.ordPaymentName = "신용카드";
+        }
+        else if (ordPayment == 2) {
+            this.ordPaymentName = "체크카드";
+        }
+        else if (ordPayment == 3) {
+            this.ordPaymentName = "계좌이체";
+        }
+         else if (ordPayment == 4) {
+            this.ordPaymentName = "무통장 입금";
+        }
+         else if (ordPayment == 5) {
+            this.ordPaymentName = "휴대폰결제";
+        }
+         else if (ordPayment == 6) {
+            this.ordPaymentName = "카카오페이";
+        }
+    }
 
     public ProductOrderEntity toEntity() {
         return ProductOrderEntity.builder()
@@ -47,6 +69,7 @@ public class ProductOrderDTO {
                 .ordPayment(ordPayment)
                 .ordComplete(ordComplete)
                 .ordDate(ordDate)
+                .ordUser(ordUser)
                 .build();
     }
 }

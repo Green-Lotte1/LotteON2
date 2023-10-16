@@ -1,5 +1,6 @@
 package co.kr.lotte.entity.product;
 
+import co.kr.lotte.dto.product.ProductOrderDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,4 +33,27 @@ public class ProductOrderEntity {
     private int ordComplete;
     private String ordDate;
     private String ordUser;
+
+    public ProductOrderDTO toDTO() {
+        return ProductOrderDTO.builder()
+                .ordNo(ordNo)
+                .ordUid(ordUid)
+                .ordCount(ordCount)
+                .ordPrice(ordPrice)
+                .ordDiscount(ordDiscount)
+                .ordDelivery(ordDelivery)
+                .savePoint(savePoint)
+                .usedPoint(usedPoint)
+                .ordTotPrice(ordTotPrice)
+                .recipName(recipName)
+                .recipHp(recipHp)
+                .recipZip(recipZip)
+                .recipAddr1(recipAddr1)
+                .recipAddr2(recipAddr2)
+                .ordPayment(ordPayment)
+                .ordComplete(ordComplete)
+                .ordDate(ordDate)
+                .ordUser(ordUser)
+                .build();
+    }
 }

@@ -141,4 +141,15 @@ public class ProductService {
             }
         }
     }
+
+    public ProductOrderDTO findProductOrderById(int ordNo) {
+        return productOrderRepository.findById(ordNo).get().toDTO();
+    }
+
+    public List<ProductOrderItemDTO> findProductOrderItemsByOrdNo(int ordNo) {
+        return productOrderItemRepository.findByOrdNo(ordNo)
+                                            .stream()
+                                            .map(entity -> modelMapper.map(entity, ProductOrderItemDTO.class))
+                                            .toList();
+    }
 }

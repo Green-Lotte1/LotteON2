@@ -86,7 +86,15 @@ public class ProductController {
     }
 
     @GetMapping("/product/complete")
-    public String complete() {
+    public String complete(Model model, int ordNo) {
+        ProductOrderDTO productOrderDTO = productService.findProductOrderById(ordNo);
+        productOrderDTO.setOrdPaymentName();
+        List<ProductOrderItemDTO> productOrderItemDTOS = productService.findProductOrderItemsByOrdNo(ordNo);
+        for (ProductOrderItemDTO productOrderItemDTO : productOrderItemDTOS) {
+            productOrderItemDTO.setProduct(productService.findProductById(productOrderItemDTO.getProdNo()));
+        }
+        model.addAttribute("order", productOrderDTO);
+        model.addAttribute("orderItems", productOrderItemDTOS);
         return "/product/complete";
     }
 
