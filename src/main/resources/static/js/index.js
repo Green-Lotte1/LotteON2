@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    $('#top').click(function() {
+		window.scrollTo({top:0, behavior: "smooth"});
+	});
     $(".slider > ul").bxSlider({
       easing: "linear",
     });
