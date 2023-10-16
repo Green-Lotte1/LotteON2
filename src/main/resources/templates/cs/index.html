@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>롯데ON::고객센터</title>
     <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico" />
-    <link rel="stylesheet" th:href="@{../../cs/css/style.css}">
+    <link rel="stylesheet" th:href="@{../cs/css/style.css}">
   </head>
   <body>
     <div id="wrapper">
@@ -24,7 +24,7 @@
         </div>
         <div class="logo">
           <div>
-            <a href="#"><img th:src="@{../../images/header_logo.png}" alt="로고" />고객센터</a>
+            <a th:href="@{/cs/index}"><img th:src="@{../images/header_logo.png}" alt="로고" />고객센터</a>
           </div>
         </div>
       </header>
@@ -33,11 +33,11 @@
         <div class="main">
           <h1 class="title"><strong>롯데ON</strong>이 도와드릴게요!</h1>              
           <section class="notice">
-            <h1>공지사항<a href="notice/list.html">전체보기</a></h1>
+            <h1>공지사항<a th:href="@{/cs/notice/list(group='notice', cate='null')}">전체보기</a></h1>
             <ul>
               <li>
                 <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
-                <span class="date">22.10.31</span>
+                <span class="date">22.10.31</span>s
               </li>
               <li>
                 <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
@@ -59,7 +59,7 @@
           </section>
         
           <section class="faq">
-            <h1>자주 묻는 질문<a href="faq/list.html">전체보기</a>
+            <h1>자주 묻는 질문<a th:href="@{/cs/faq/list(group=faq)}">전체보기</a>
             </h1>
             <ol>
               <li>
@@ -89,7 +89,7 @@
           <section class="qna">
             <h1>
               문의하기
-              <a href="#">전체보기</a>
+              <a th:href="@{/cs/qna/list(group=qna)}">전체보기</a>
             </h1>
             <ul>
               <li>
@@ -128,7 +128,7 @@
                 </p>
               </li>
             </ul>
-            <a href="#" class="ask">문의글 작성 ></a>
+            <a th:href="@{/cs/qna/write(group=qna)}" class="ask">문의글 작성 ></a>
           </section>
 
           <section class="tel">
@@ -174,7 +174,7 @@
           <li><a href="#">전자금융거래약관</a></li>
         </ul>
         <div>
-          <p><img th:src="@{../../images/footer_logo.png}" alt="로고" /></p>
+          <p><img th:src="@{../images/footer_logo.png}" alt="로고" /></p>
           <p>
             <strong>(주)롯데ON</strong><br />
             서울특별시 송파구 올림픽로 300 롯데월드타워 26층 (역삼동 강남파이낸스센터)<br />

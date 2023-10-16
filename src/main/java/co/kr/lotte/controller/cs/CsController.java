@@ -31,16 +31,16 @@ public class CsController {
 
     @GetMapping("/cs/index")
     public String index() {
-        return "cs/index";
+        return "/cs/index";
     }
     @GetMapping("/cs/faq/list")
     public String faqList() {
-        return "cs/faq/list";
+        return "/cs/faq/list";
     }
 
     @GetMapping("/cs/faq/view")
     public String faqView() {
-        return "cs/faq/view";
+        return "/cs/faq/view";
     }
 
     @GetMapping("/cs/notice/list")
@@ -56,12 +56,15 @@ public class CsController {
         log.info("csPageResponseDTO next : "+ csPageResponseDTO.isNext());
 
         model.addAttribute(csPageResponseDTO);
-        return "cs/notice/list";
+        model.addAttribute("cate", csPageRequestDTO.getCate());
+        return "/cs/notice/list";
     }
 
     @GetMapping("/cs/notice/view")
-    public String noticeView() {
-        return "cs/notice/view";
+    public String noticeView(Model model ,int bno) {
+        BoardDTO boardDTO = csService.findByBno(bno);
+        model.addAttribute("boardDTO", boardDTO);
+        return "/cs/notice/view";
     }
 
     @GetMapping("/cs/qna/list")
@@ -78,7 +81,7 @@ public class CsController {
         log.info("csPageResponseDTO next : "+ csPageResponseDTO.isNext());
         model.addAttribute(csPageResponseDTO);
         model.addAttribute("cate", csPageRequestDTO.getCate());
-        return "cs/qna/list";
+        return "/cs/qna/list";
     }
 
     @GetMapping("/cs/qna/view")
@@ -87,16 +90,16 @@ public class CsController {
         BoardDTO boardDTO = csService.findByBno(bno);
         model.addAttribute("boardDTO", boardDTO);
 
-        return "cs/qna/view";
+        return "/cs/qna/view";
     }
 
     @GetMapping("/cs/qna/write")
-    public String qnaWrite(Model model,String cate) {
+    public String qnaWrite(HttpServletRequest request, Model model, String cate) {
 
         List<BoardCateEntity> cates = csCateService.getCate();
         model.addAttribute("cates", cates);
 
-        return "cs/qna/write";
+        return "/cs/qna/write";
     }
 
     @PostMapping("cs/qna/write")
