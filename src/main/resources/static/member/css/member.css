@@ -232,14 +232,34 @@ header {
   box-sizing: border-box;
 }
 
-#member > .signup > nav {
+#member > .signup nav {
   border-bottom: 2px solid #ef2a23;
 }
 
-#member > .signup > nav > h1 {
+#member > .signup nav > h1 {
   font-size: 24px;
   margin-bottom: 6px;
 }
+
+/* 약관동의 전체선택 */
+#member > .signup h3 > span:first-child {
+  color: #ef3f43;
+  font-weight: bold;
+  font-size: 14px;
+}
+#member > .signup .normal {
+  font-weight: bold;
+  margin-left: 190px;
+}
+#member > .signup .seller {
+  font-weight: bold;
+  margin-left: 355px;
+}
+#member > .signup label:nth-child(2) {
+  margin-top: -24px;
+  font-weight: bold;
+}
+/**/
 
 #member > .signup h3 {
   font-size: 14px;

@@ -14,6 +14,49 @@
     <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 </head>
+<script>
+    $(function(){
+        $('.agree').click(function(e){
+
+            const chk1 = $('input:checkbox[name="agree1"]');
+            const chk2 = $('input:checkbox[name="agree2"]');
+            const chk3 = $('input:checkbox[name="agree3"]');
+
+            if (chk1.is(':checked') == false)
+            {
+                e.preventDefault();
+                alert('사이트 이용약관에 동의를 하셔야 회원가입하실 수 있습니다.');
+            }
+            else if (chk2.is(':checked') == false)
+            {
+                e.preventDefault();
+                alert('전자금융거래 이용약관에 동의를 하셔야 회원가입하실 수 있습니다.');
+            }
+            else if (chk3.is(':checked') == false)
+            {
+                e.preventDefault();
+                alert('개인정보 수집동의에 동의를 하셔야 회원가입하실 수 있습니다.');
+            }
+        });
+
+        // 체크박스 전체 선택
+        $('input[name=agreeAll]').click(function(e){
+            $(this).parents(".checkbox_group").find('input').prop("checked", $(this).is(":checked"));
+        });
+
+        // 체크박스 개별 선택
+        $(".checkbox_group").on("click", ".checkAgree", function() {
+
+            var is_checked = true;
+
+            $(".checkbox_group .checkAgree").each(function(){
+                is_checked = is_checked && $(this).is(":checked");
+            });
+
+            $("input[name=agreeAll]").prop("checked", is_checked);
+        });
+    });
+</script>
 <body>
     <div id="wrapper">
         <header>
@@ -33,34 +76,46 @@
         </header>
         <main id="member">
             <div class="signup">
-				<nav>
-					<h1>약관동의</h1>
-				</nav>
-				<section>
-					<h3><span class="essential">(필수)</span>케이마켓 이용약관</h3>
-					<textarea class="terms" readonly></textarea>
-					<label><input type="checkbox" name="agree1" />동의합니다.</label>
+                <form th:action="@{/member/register}" method="get">
+                    <input type="hidden" th:name="type" th:value="${type}"/>
+                    <nav>
+                        <h1>약관동의</h1>
+                    </nav>
+                    <section class="checkbox_group">
+                        <h3 th:if="${type == 'normal'}" class="normal">
+                            이용약관, 개인정보 수집, 전자금융거래 이용약관, 위치정보 이용약관(선택)에 <span>모두 동의</span>합니다.
+                        </h3>
+                        <h3 th:if="${type == 'seller'}" class="seller">
+                            이용약관, 개인정보 수집, 전자금융거래 이용약관에 <span>모두 동의</span>합니다.
+                        </h3>
+                        <label><input type="checkbox" name="agreeAll"/>동의합니다.</label>
 
-					<h3><span class="essential">(필수)</span>전자금융거래 이용약관</h3>
-					<textarea class="financial" readonly></textarea>
-					<label><input type="checkbox" name="agree2" />동의합니다.</label>
+                        <h3><span class="essential">(필수)</span>롯데온 이용약관</h3>
+                        <textarea th:if="${type == 'normal'}" class="terms" readonly>[[${terms.terms}]]</textarea>
+                        <textarea th:if="${type == 'seller'}" class="terms" readonly>[[${terms.tax}]]</textarea>
+                        <label><input type="checkbox" name="agree1" class="checkAgree"/>동의합니다.</label>
 
-					<h3><span class="essential">(필수)</span>개인정보 수집동의</h3>
-					<textarea class="privacy" readonly></textarea>
-					<label><input type="checkbox" name="agree3" />동의합니다.</label>
-				</section>
+                        <h3><span class="essential">(필수)</span>전자금융거래 이용약관</h3>
+                        <textarea class="financial" readonly>[[${terms.finance}]]</textarea>
+                        <label><input type="checkbox" name="agree2" class="checkAgree"/>동의합니다.</label>
 
-				<section>
-					<h3><span class="optional">(선택)</span>위치정보 이용약관</h3>
-					<textarea class="location" readonly></textarea>
-					<label><input type="checkbox" name="agree4" />동의합니다.</label>
-				</section>
+                        <h3><span class="essential">(필수)</span>개인정보 수집동의</h3>
+                        <textarea class="privacy" readonly>[[${terms.privacy}]]</textarea>
+                        <label><input type="checkbox" name="agree3" class="checkAgree"/>동의합니다.</label>
+                    </section>
 
-				<div>
-					<input type="button" class="agree" value="동의하기" />
-				</div>
+                    <section th:if="${type == 'normal'}">
+                        <h3><span class="optional">(선택)</span>위치정보 이용약관</h3>
+                        <textarea class="location" readonly>[[${terms.location}]]</textarea>
+                        <label><input type="checkbox" name="agree4" class="checkAgree"/>동의합니다.</label>
+                    </section>
+
+                    <div>
+                        <input type="submit" class="agree" value="동의하기" />
+                    </div>
+                </form>
             </div>
-        </main>        
+        </main>
         <footer>
             <ul>
               <li><a href="#">회사소개</a></li>
