@@ -12,15 +12,6 @@
           <section class="list">
             <aside>
               <h2>문의하기</h2>
-              <!--<ul>
-                <li class="on"><a th:href="@{/cs/qna/list(cate=member)}">회원</a></li>
-                <li><a th:href="@{/cs/qna/list(cate=coupon)}">쿠폰/이벤트</a></li>
-                <li><a th:href="@{/cs/qna/list(cate=order)}">주문/결제</a></li>
-                <li><a th:href="@{/cs/qna/list(cate=delivery)}">배송</a></li>
-                <li><a th:href="@{/cs/qna/list(cate=cancel)}">취소/반품/교환</a></li>
-                <li><a th:href="@{/cs/qna/list(cate=travel)}">여행/숙박/항공</a></li>
-                <li><a th:href="@{/cs/qna/list(cate=safe)}">안전거래</a></li>
-              </ul>-->
               <ul>
                 <li th:class="${(cate eq 'member') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=member)}">회원</a></li>
                 <li th:class="${(cate=='coupon') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=coupon)}">쿠폰/이벤트</a></li>
@@ -44,15 +35,15 @@
                 </span>
                 <h2>관련 문의 입니다.</h2>
               </nav>
-              <table>
-                <tr th:each="article:${csPageResponseDTO.dtoList}">
-                  <td>
-                    <a th:href="@{/cs/qna/view(bno=${article.bno})}">[<span th:text="${article.typeName}"></span>] [[${article.title}]]</a>
-                  </td>
-                  <td>[[${article.uid}]]</td>
-                  <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
-                </tr>
-              </table>
+                <table>
+                    <tr th:each="article : ${csPageResponseDTO.dtoList}">
+                        <td>
+                            <a th:href="@{/cs/qna/view(bno=${article.bno})}">[<span th:text="${article.typeName}"></span>] [[${article.title}]]</a>
+                        </td>
+                        <td th:text="${#strings.substring(article.uid, 0, 3) + '***'}"></td>
+                        <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
+                    </tr>
+                </table>
               <!-- paging-->
               <div class="page">
                   <span th:if="${csPageResponseDTO.prev}" class="prev">
@@ -70,7 +61,7 @@
 
 
 
-              <a th:href="@{/cs/qna/write}" class="btnWrite">문의하기</a>
+              <a th:href="@{/cs/qna/write(group=qna)}" class="btnWrite">문의하기</a>
 
             </article>
           </section>

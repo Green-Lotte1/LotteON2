@@ -34,40 +34,40 @@ public class CsService {
     public CsPageResponseDTO findByCate(CsPageRequestDTO csPageRequestDTO){
 
         Pageable pageable = csPageRequestDTO.getPageable("bno");
+        List<BoardCateEntity> boardCateEntitieList =  boardCateRepository.findAll();
+        List<BoardTypeEntity> boardTypeEntitieList = typeRepository.findAll();
+        Map<String, Map<Integer, String>> cateMap = new HashMap<>();
+        for (BoardCateEntity boardCateEntity : boardCateEntitieList) {
+            Map<Integer, String > typeMap = new HashMap<>();
+            for (BoardTypeEntity boardEntity : boardTypeEntitieList) {
+                if (boardEntity.getCate().equals(boardCateEntity.getCate())) {
+                    typeMap.put(boardEntity.getType(), boardEntity.getTypeName());
+                }
+            }
+            cateMap.put(boardCateEntity.getCate(), typeMap);
+        }
+
         Page<BoardEntity> result = csRepository.findByCate(csPageRequestDTO.getCate(), pageable);
 
         List<BoardDTO> dtoList = result.getContent()
-                                        .stream()
-                                        .map(entity -> modelMapper.map(entity, BoardDTO.class ))
-                                        .toList();
-        List<BoardTypeEntity> boardTypeEntities = typeRepository.findByCate(csPageRequestDTO.getCate());
-        List<BoardCateEntity> boardCateEntities = boardCateRepository.findByCate(csPageRequestDTO.getCate());
+                .stream()
+                .map(entity -> modelMapper.map(entity, BoardDTO.class ))
+                .toList();
 
-        Map<Integer, String > typeMap = new HashMap<>();
-        for (BoardTypeEntity boardEntity : boardTypeEntities) {
-            typeMap.put(boardEntity.getType(), boardEntity.getTypeName());
-        }
         for (BoardDTO boardDTO : dtoList) {
-            boardDTO.setTypeName(typeMap.get(boardDTO.getType()));
-            log.info("typeName : " + boardDTO.getTypeName());
-        }
-        Map<String, String > cateMap = new HashMap<>();
-        for (BoardCateEntity boardCateEntity : boardCateEntities) {
-            cateMap.put(boardCateEntity.getCate(), boardCateEntity.getCateName());
-        }
-        for (BoardDTO boardDTO : dtoList) {
-            boardDTO.setCateName(cateMap.get(boardDTO.getCate()));
-            log.info("setCateName : " + boardDTO.getCateName());
+            boardDTO.setTypeName(
+                    cateMap.get(boardDTO.getCate()).get(boardDTO.getType())
+            );
         }
 
 
         int totalElement = (int) result.getTotalElements();
 
         return CsPageResponseDTO.builder()
-                                .csPageRequestDTO(csPageRequestDTO)
-                                .dtoList(dtoList)
-                                .total(totalElement)
-                                .build();
+                .csPageRequestDTO(csPageRequestDTO)
+                .dtoList(dtoList)
+                .total(totalElement)
+                .build();
 
     }
 

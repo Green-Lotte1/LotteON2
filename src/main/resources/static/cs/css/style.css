@@ -859,7 +859,7 @@ footer p > strong {
 /* html 에서 span 추가 -> 추가 css  */
 #cs > div > section > article > table > tbody > tr > td> a > span {
   text-align: center;
-  font-size: 14px;
+  font-size: 16px;
 }
 #cs > .qna > .list > article > table td:last-child {
   text-align: center;
