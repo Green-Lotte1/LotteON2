@@ -21,6 +21,9 @@ public class BoardDTO {
     private String content;
     private LocalDateTime rdate;
 
+    private String typeName;
+    private String cateName;
+
 
     public BoardEntity toEntity(){
         return BoardEntity.builder()
