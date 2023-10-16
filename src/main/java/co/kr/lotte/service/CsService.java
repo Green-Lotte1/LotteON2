@@ -4,8 +4,10 @@ import co.kr.lotte.dto.cs.BoardDTO;
 import co.kr.lotte.dto.cs.BoardTypeDTO;
 import co.kr.lotte.dto.cs.CsPageRequestDTO;
 import co.kr.lotte.dto.cs.CsPageResponseDTO;
+import co.kr.lotte.entity.cs.BoardCateEntity;
 import co.kr.lotte.entity.cs.BoardEntity;
 import co.kr.lotte.entity.cs.BoardTypeEntity;
+import co.kr.lotte.repository.cs.BoardCateRepository;
 import co.kr.lotte.repository.cs.BoardTypeRepository;
 import co.kr.lotte.repository.cs.CsRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +27,9 @@ import java.util.Map;
 public class CsService {
 
     private final CsRepository csRepository;
-    private final ModelMapper modelMapper;
     private final BoardTypeRepository typeRepository;
-
+    private final BoardCateRepository boardCateRepository;
+    private final ModelMapper modelMapper;
 
     public CsPageResponseDTO findByCate(CsPageRequestDTO csPageRequestDTO){
 
@@ -39,6 +41,8 @@ public class CsService {
                                         .map(entity -> modelMapper.map(entity, BoardDTO.class ))
                                         .toList();
         List<BoardTypeEntity> boardTypeEntities = typeRepository.findByCate(csPageRequestDTO.getCate());
+        List<BoardCateEntity> boardCateEntities = boardCateRepository.findByCate(csPageRequestDTO.getCate());
+
         Map<Integer, String > typeMap = new HashMap<>();
         for (BoardTypeEntity boardEntity : boardTypeEntities) {
             typeMap.put(boardEntity.getType(), boardEntity.getTypeName());
@@ -47,6 +51,15 @@ public class CsService {
             boardDTO.setTypeName(typeMap.get(boardDTO.getType()));
             log.info("typeName : " + boardDTO.getTypeName());
         }
+        Map<String, String > cateMap = new HashMap<>();
+        for (BoardCateEntity boardCateEntity : boardCateEntities) {
+            cateMap.put(boardCateEntity.getCate(), boardCateEntity.getCateName());
+        }
+        for (BoardDTO boardDTO : dtoList) {
+            boardDTO.setCateName(cateMap.get(boardDTO.getCate()));
+            log.info("setCateName : " + boardDTO.getCateName());
+        }
+
 
         int totalElement = (int) result.getTotalElements();
 
@@ -63,4 +76,24 @@ public class CsService {
         log.info(entity);
         csRepository.save(entity);
     }
+
+    public BoardDTO findByBno(int bno){
+        BoardEntity boardEntity = csRepository.findById(bno).orElseThrow(() -> new RuntimeException());
+        BoardDTO dto = boardEntity.toDTO();
+
+        List<BoardTypeEntity> boardTypeEntities = typeRepository.findByCate(dto.getCate());
+        log.info("getCate : "+ dto.getCate());
+        log.info("getType : "+ dto.getType());
+
+        Map<Integer, String > typeMap = new HashMap<>();
+        for (BoardTypeEntity boardTypeEntity : boardTypeEntities) {
+            typeMap.put(boardTypeEntity.getType(), boardTypeEntity.getTypeName());
+        }
+        dto.setTypeName(typeMap.get(dto.getType()));
+        log.info("getTypeName : "+ dto.getTypeName());
+
+        return dto;
+
+    }
+
 }
