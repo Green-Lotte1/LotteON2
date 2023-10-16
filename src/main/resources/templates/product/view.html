@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org" layout:decorate="/product/index.html">
 <head>
-    <script th:src="@{../../product/js/view.js}"></script>
+    <script th:src="@{/product/js/view.js}"></script>
     <script>
         $(function() {
             const price = [[${product.getDisPrice()}]];
@@ -82,7 +82,7 @@
         <!-- 상품 전체 정보 내용 -->
         <article class="info">
             <div class="image">
-                <img th:src="@{/thumb/} + ${product.prodCate1 } + @{/} + ${product.prodCate2 } + @{/} + ${product.thumb2}" alt="상품이미지"/>
+                <img th:src="@{'/thumb/' + ${product.prodCate1} + '/' + ${product.prodCate2} + '/' + ${product.thumb2}}" alt="상품이미지"/>
             </div>
             <div class="summary">
                 <nav>
@@ -115,7 +115,7 @@
                 <nav>
                     <span class="origin">원산지-상세설명 참조</span>
                 </nav>
-                <img th:src="@{../../images/vip_plcc_banner.png}" alt="100원만 결제해도 1만원 적립!" class="banner" />
+                <img th:src="@{/images/vip_plcc_banner.png}" alt="100원만 결제해도 1만원 적립!" class="banner" />
 
                 <div class="count">
                     <button class="decrease">-</button>
@@ -141,7 +141,7 @@
                 <h1>상품정보</h1>
             </nav>
             <!-- 상품상세페이지 이미지 -->
-            <img th:src="@{/thumb/} + ${product.prodCate1 } + @{/} + ${product.prodCate2 } + @{/} + ${product.thumb3}" alt="상세페이지1">
+            <img th:src="@{'/thumb/' + ${product.prodCate1} + '/' + ${product.prodCate2} + '/' + ${product.thumb3}}" alt="상품이미지"/>
         </article>
 
         <!-- 상품 정보 제공 고시 내용 -->
