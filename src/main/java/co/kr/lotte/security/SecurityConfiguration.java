@@ -24,18 +24,18 @@ public class SecurityConfiguration implements WebMvcConfigurer {
 			// 사이트 위변조 방지 비활성
 			.csrf(CsrfConfigurer::disable) // 메서드 참조 연산자로 람다식을 간결하게 표현
 			// 폼 로그인 설정
-			.formLogin(config -> config.loginPage("/")
+			.formLogin(config -> config.loginPage("/member/login")
 									   .defaultSuccessUrl("/")
-									   .failureUrl("/user/login?success=100")
+									   .failureUrl("/member/login?success=100")
 									   .usernameParameter("uid")
 									   .passwordParameter("pass"))
 				
 			// 로그아웃 설정
 			.logout(config -> config
-					.logoutUrl("/user/logout")
+					.logoutUrl("/member/logout")
 					.invalidateHttpSession(true)
 					.clearAuthentication(true)
-					.logoutSuccessUrl("/user/login?success=200"))
+					.logoutSuccessUrl("/index?success=200"))
 
 			// 인가 권한 설정
 			.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
