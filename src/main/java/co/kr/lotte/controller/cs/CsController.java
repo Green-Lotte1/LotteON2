@@ -33,13 +33,27 @@ public class CsController {
     public String index() {
         return "/cs/index";
     }
+
     @GetMapping("/cs/faq/list")
-    public String faqList() {
+    public String faqList(Model model, CsPageRequestDTO csPageRequestDTO) {
+        CsPageResponseDTO csPageResponseDTO = csService.findByCate(csPageRequestDTO);
+
+        log.info("csPageResponseDTO pg : "+ csPageResponseDTO.getPg());
+        log.info("csPageResponseDTO size : "+ csPageResponseDTO.getSize());
+        log.info("csPageResponseDTO total : "+ csPageResponseDTO.getTotal());
+        log.info("csPageResponseDTO start : "+ csPageResponseDTO.getStart());
+        log.info("csPageResponseDTO end : "+ csPageResponseDTO.getEnd());
+        log.info("csPageResponseDTO prev : "+ csPageResponseDTO.isPrev());
+        log.info("csPageResponseDTO next : "+ csPageResponseDTO.isNext());
+        model.addAttribute(csPageResponseDTO);
+        model.addAttribute("cate", csPageRequestDTO.getCate());
         return "/cs/faq/list";
     }
 
     @GetMapping("/cs/faq/view")
-    public String faqView() {
+    public String faqView(Model model ,int bno) {
+        BoardDTO boardDTO = csService.findByBno(bno);
+        model.addAttribute("boardDTO", boardDTO);
         return "/cs/faq/view";
     }
 

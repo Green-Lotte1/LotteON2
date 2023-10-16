@@ -23,7 +23,7 @@
               <nav>
                 <h2 class="title">[<span th:text="${boardDTO.typeName}"></span>] [[${boardDTO.title}]]</h2>
                 <p>
-                  <span>[[${boardDTO.uid}]]</span>
+                  <span th:text="${#strings.substring(boardDTO.uid, 0, 3) + '***'}"></span>
                   <span th:text="${#temporals.format(boardDTO.rdate, 'yy-MM-dd')}"></span>
                 </p>
               </nav>
