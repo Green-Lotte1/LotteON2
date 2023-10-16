@@ -1,6 +1,7 @@
 package co.kr.lotte.entity.cs;
 
 import co.kr.lotte.dto.cs.BoardDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

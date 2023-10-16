@@ -1,6 +1,7 @@
 package co.kr.lotte.service;
 
 import co.kr.lotte.dto.cs.BoardDTO;
+import co.kr.lotte.dto.cs.BoardTypeDTO;
 import co.kr.lotte.dto.cs.CsPageRequestDTO;
 import co.kr.lotte.dto.cs.CsPageResponseDTO;
 import co.kr.lotte.entity.cs.BoardEntity;
@@ -14,7 +15,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Log4j2
 @Service
@@ -23,6 +26,7 @@ public class CsService {
 
     private final CsRepository csRepository;
     private final ModelMapper modelMapper;
+    private final BoardTypeRepository typeRepository;
 
 
     public CsPageResponseDTO findByCate(CsPageRequestDTO csPageRequestDTO){
@@ -34,6 +38,15 @@ public class CsService {
                                         .stream()
                                         .map(entity -> modelMapper.map(entity, BoardDTO.class ))
                                         .toList();
+        List<BoardTypeEntity> boardTypeEntities = typeRepository.findByCate(csPageRequestDTO.getCate());
+        Map<Integer, String > typeMap = new HashMap<>();
+        for (BoardTypeEntity boardEntity : boardTypeEntities) {
+            typeMap.put(boardEntity.getType(), boardEntity.getTypeName());
+        }
+        for (BoardDTO boardDTO : dtoList) {
+            boardDTO.setTypeName(typeMap.get(boardDTO.getType()));
+            log.info("typeName : " + boardDTO.getTypeName());
+        }
 
         int totalElement = (int) result.getTotalElements();
 

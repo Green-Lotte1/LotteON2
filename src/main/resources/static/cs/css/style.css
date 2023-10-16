@@ -515,7 +515,7 @@ footer p > strong {
   font-size: 16px;
 }
 
-#cs > .notice > .list > article > .page > span{
+#cs > .notice > .list > article > .page {
   text-align: center;
   margin-top: 26px;
 }
@@ -530,12 +530,12 @@ footer p > strong {
   font-weight: bold;        
   vertical-align: bottom;
 }
-#cs > .notice > .list > article > .page > .prev {
+#cs > .notice > .list > article > .page > span >.prev {
   font-size: 0;
   background-image: url('../images/cs_sprites.png');
   background-position: -706px -652px;
 }
-#cs > .notice > .list > article > .page > .next {
+#cs > .notice > .list > article > .page > span > .next {
   font-size: 0;
   background-image: url('../images/cs_sprites.png');
   background-position: -628px -652px;
@@ -856,6 +856,11 @@ footer p > strong {
   padding: 16px;
   border-bottom: 1px solid #ccc;
 }
+/* html 에서 span 추가 -> 추가 css  */
+#cs > div > section > article > table > tbody > tr > td> a > span {
+  text-align: center;
+  font-size: 14px;
+}
 #cs > .qna > .list > article > table td:last-child {
   text-align: center;
   font-size: 14px;
@@ -864,7 +869,7 @@ footer p > strong {
   font-size: 16px;
 }
 
-#cs > .qna > .list > article > .page > span {
+#cs > .qna > .list > article > .page {
   text-align: center;
   margin-top: 26px;
 }

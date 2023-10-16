@@ -31,32 +31,44 @@ public class CsController {
 
     @GetMapping("/cs/index")
     public String index() {
-        return "/cs/index";
+        return "cs/index";
     }
     @GetMapping("/cs/faq/list")
     public String faqList() {
-        return "/cs/faq/list";
+        return "cs/faq/list";
     }
 
     @GetMapping("/cs/faq/view")
     public String faqView() {
-        return "/cs/faq/view";
+        return "cs/faq/view";
     }
 
     @GetMapping("/cs/notice/list")
-    public String noticeList() {
-        return "/cs/notice/list";
+    public String noticeList(Model model, CsPageRequestDTO csPageRequestDTO) {
+        CsPageResponseDTO csPageResponseDTO = csService.findByCate(csPageRequestDTO);
+
+        log.info("csPageResponseDTO pg : "+ csPageResponseDTO.getPg());
+        log.info("csPageResponseDTO size : "+ csPageResponseDTO.getSize());
+        log.info("csPageResponseDTO total : "+ csPageResponseDTO.getTotal());
+        log.info("csPageResponseDTO start : "+ csPageResponseDTO.getStart());
+        log.info("csPageResponseDTO end : "+ csPageResponseDTO.getEnd());
+        log.info("csPageResponseDTO prev : "+ csPageResponseDTO.isPrev());
+        log.info("csPageResponseDTO next : "+ csPageResponseDTO.isNext());
+
+        model.addAttribute(csPageResponseDTO);
+        return "cs/notice/list";
     }
 
     @GetMapping("/cs/notice/view")
     public String noticeView() {
-        return "/cs/notice/view";
+        return "cs/notice/view";
     }
 
     @GetMapping("/cs/qna/list")
     public String qnaList(Model model, CsPageRequestDTO csPageRequestDTO) {
         CsPageResponseDTO csPageResponseDTO = csService.findByCate(csPageRequestDTO);
 
+        log.info("csPageResponseDTO cate : "+ csPageRequestDTO.getCate());
         log.info("csPageResponseDTO pg : "+ csPageResponseDTO.getPg());
         log.info("csPageResponseDTO size : "+ csPageResponseDTO.getSize());
         log.info("csPageResponseDTO total : "+ csPageResponseDTO.getTotal());
@@ -71,7 +83,7 @@ public class CsController {
 
     @GetMapping("/cs/qna/view")
     public String qnaView() {
-        return "/cs/qna/view";
+        return "cs/qna/view";
     }
 
     @GetMapping("/cs/qna/write")
@@ -87,7 +99,7 @@ public class CsController {
     public String qnaWrite(HttpServletRequest request, BoardDTO dto)  {
         log.info(dto.toString());
         csService.save(dto);
-        return "redirect:cs/qna/list";
+        return "redirect:/cs/qna/list";
     }
 
     // cate
