@@ -9,6 +9,20 @@
     <nav>
         <h1>주문결제</h1>
         <p>
+            HOME > 장바구니 > <strong>주문결제</strong>
+            <script th:inline="javascript">
+
+                let articleArray = new Array();
+                let article = new Object();
+
+                /*[# th:each="item : ${products}"]*/
+                article.prodNo =  /*[[${item.prodNo}]]*/;
+                article.cartNo =  /*[[${item.cartNo}]]*/;
+                article.count =  /*[[${item.count}]]*/;
+                articleArray.push(article);
+                /*[/]*/
+
+            </script>
             <script>
                 $(function() {
                     // 초기 최종결제 정보
@@ -51,7 +65,7 @@
                         const recipZip = $('input[name=recipZip]').val();
                         const recipAddr1 = $('input[name=recipAddr1]').val();
                         const recipAddr2 = $('input[name=recipAddr2]').val();
-                        const ordPayment = $('input[name=ordPayment]').val();
+                        const ordPayment = $('input[name=ordPayment]:checked').val();
                         const jsonData = {
                             "ordUid" : ordUid,
                             "ordCount" : ordCount,
@@ -67,7 +81,6 @@
                             "recipAddr2" : recipAddr2,
                             "ordPayment" : ordPayment
                         }
-                        debugger;
                         var contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
                         console.log(contextPath);
                         $.ajax({
@@ -75,16 +88,24 @@
                             type: 'POST',
                             data: jsonData,
                             success: function(data) {
-                            debugger;
+                                debugger;
                                 console.log(data);
+                                $.ajax({
+                                    url: contextPath + '/product/orderItem',
+                                    type: 'POST',
+                                    data: {jsonData : JSON.stringify(articleArray), ordNo : data},
+                                    success: function(data2) {
+                                        debugger;
+                                        console.log(data2);
+                                        window.location.href = contextPath + '/product/complete?ordNo=' + data;
+                                    }
+                                });
                             }
                         });
                         return false;
-                        // $('#ordForm').submit();
                     });
                 });
             </script>
-            HOME > 장바구니 > <strong>주문결제</strong>
         </p>
       </nav>
       <form id="ordForm" th:action="@{/product/order}" method="post">

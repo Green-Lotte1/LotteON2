@@ -108,8 +108,21 @@ public class ProductController {
 
     @ResponseBody
     @PostMapping("/product/order")
-    public int order(ProductOrderDTO productOrderDTO, List<SearchDTO> searchDTOList) {
+    public int order(ProductOrderDTO productOrderDTO) {
+        return productService.saveOrder(productOrderDTO);
+    }
 
+    @ResponseBody
+    @PostMapping("/product/orderItem")
+    public int orderItem(@RequestParam("jsonData") String jsonData, @RequestParam("ordNo") int ordNo) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<SearchDTO> searchDTOS = objectMapper.readValue(jsonData, new TypeReference<List<SearchDTO>>() {});
+        for (SearchDTO searchDTO : searchDTOS) {
+            log.info("prodNo : " + searchDTO.getProdNo());
+            log.info("count : " + searchDTO.getCount());
+            log.info("cartNo : " + searchDTO.getCartNo());
+        }
+        productService.saveOrderItem(searchDTOS, ordNo);
         return 1;
     }
 
