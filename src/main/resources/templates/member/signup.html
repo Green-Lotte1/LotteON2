@@ -102,12 +102,12 @@
                         <h3><span class="essential">(필수)</span>개인정보 수집동의</h3>
                         <textarea class="privacy" readonly>[[${terms.privacy}]]</textarea>
                         <label><input type="checkbox" name="agree3" class="checkAgree"/>동의합니다.</label>
-                    </section>
 
-                    <section th:if="${type == 'normal'}">
-                        <h3><span class="optional">(선택)</span>위치정보 이용약관</h3>
-                        <textarea class="location" readonly>[[${terms.location}]]</textarea>
-                        <label><input type="checkbox" name="agree4" class="checkAgree"/>동의합니다.</label>
+                        <section th:if="${type == 'normal'}">
+                            <h3><span class="optional">(선택)</span>위치정보 이용약관</h3>
+                            <textarea class="location" readonly>[[${terms.location}]]</textarea>
+                            <label><input type="checkbox" name="agree4" class="checkAgree"/>동의합니다.</label>
+                        </section>
                     </section>
 
                     <div>

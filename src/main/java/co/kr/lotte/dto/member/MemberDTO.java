@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class MemberDTO {
     private String uid;
-    private String pass;
+    private String pass1;
     private String name;
     private int gender;
     private String hp;
@@ -38,6 +38,29 @@ public class MemberDTO {
 
     public MemberEntity toEntity(){
         return MemberEntity.builder()
+                .uid(uid)
+                .pass(pass1)
+                .name(name)
+                .gender(gender)
+                .hp(hp)
+                .email(email)
+                .type(type==0?1:type)
+                .point(point)
+                .level(level==0?1:level)
+                .zip(zip)
+                .addr1(addr1)
+                .addr2(addr2)
+                .company(company)
+                .ceo(ceo)
+                .bizRegNum(bizRegNum)
+                .comRegNum(comRegNum)
+                .tel(tel)
+                .manager(manager)
+                .managerHp(managerHp)
+                .fax(fax)
+                .regip(regip)
+                .wdate(wdate)
+                .rdate(rdate)
                 .build();
     }
 }

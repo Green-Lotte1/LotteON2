@@ -27,7 +27,7 @@ public class MemberService {
     }
 
     public void save(MemberDTO dto){
-        dto.setPass(passwordEncoder.encode(dto.getPass())); // 비밀번호 암호화
+        dto.setPass1(passwordEncoder.encode(dto.getPass1())); // 비밀번호 암호화
         MemberEntity entity = dto.toEntity(); // DTO를 Entity로 변환
         memberRepository.save(entity); // DB insert
     }
@@ -35,6 +35,4 @@ public class MemberService {
     public int countUid(String uid){
         return memberRepository.countByUid(uid);
     }
-
-
 }

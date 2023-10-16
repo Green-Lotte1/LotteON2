@@ -20,7 +20,7 @@ import java.util.List;
 public class MyUserDetails implements UserDetails {
 	private static final long serialVersionUID = -5532680704133363159L;
 	
-	private MemberEntity user;
+	private MemberEntity member;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -29,20 +29,20 @@ public class MyUserDetails implements UserDetails {
 
 		// 반드시 접두어로 ROLE_ 입력해야 됨 그래야 hasRole(), hasAnyRole() 메서드가 처리됨
 		// 만약 ROLE_ 접두어를 안쓰면 hasAuthority(), hasAnyAuthority() 메서드로 해야됨
-		authorities.add(new SimpleGrantedAuthority("ROLE_"+user.getLevel()));
+		authorities.add(new SimpleGrantedAuthority("ROLE_"+member.getLevel()));
 		return authorities;
 	}
 
 	@Override
 	public String getPassword() {
 		// 계정이 갖는 비밀번호
-		return user.getPass();
+		return member.getPass();
 	}
 
 	@Override
 	public String getUsername() {
 		// 계정이 갖는 아이디
-		return user.getUid();
+		return member.getUid();
 	}
 
 	@Override

@@ -1,11 +1,12 @@
 package co.kr.lotte.entity.member;
 
 import co.kr.lotte.dto.member.MemberDTO;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -24,8 +25,10 @@ public class MemberEntity {
     private int gender;
     private String hp;
     private String email;
+    @ColumnDefault("1")
     private int type;
     private int point;
+    @ColumnDefault("1")
     private int level;
     private String zip;
     private String addr1;
@@ -40,10 +43,34 @@ public class MemberEntity {
     private String fax;
     private String regip;
     private LocalDateTime wdate;
+    @CreationTimestamp
     private LocalDateTime rdate;
 
     public MemberDTO toDTO(){
         return MemberDTO.builder()
+                .uid(uid)
+                .pass1(pass)
+                .name(name)
+                .gender(gender)
+                .hp(hp)
+                .email(email)
+                .type(type)
+                .point(point)
+                .level(level)
+                .zip(zip)
+                .addr1(addr1)
+                .addr2(addr2)
+                .company(company)
+                .ceo(ceo)
+                .bizRegNum(bizRegNum)
+                .comRegNum(comRegNum)
+                .tel(tel)
+                .manager(manager)
+                .managerHp(managerHp)
+                .fax(fax)
+                .regip(regip)
+                .wdate(wdate)
+                .rdate(rdate)
                 .build();
     }
 }
