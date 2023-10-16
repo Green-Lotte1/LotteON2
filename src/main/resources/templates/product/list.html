@@ -65,8 +65,8 @@
             <ul>
               <li><ins class="dis-price">[[${product.getDisPriceWithComma() }]]</ins></li>
               <li th:if="${product.discount  gt 0}">
-                <del class="org-price">30,000</del>
-                <span class="discount">10%</span>
+                <del class="org-price">[[${product.getPriceWithComma()}]]</del>
+                <span class="discount">[[${product.discount}]]%</span>
               </li>
               <li>
                 <span th:if="${product.delivery gt 0}">배송비 [[${product.getDeliveryWithComma()}]]</span>

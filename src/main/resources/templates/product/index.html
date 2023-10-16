@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script th:src="@{/js/index.js}"></script>
     <link rel="stylesheet" th:href="@{/css/common.css}"/>
     <link rel="stylesheet" th:href="@{/product/css/product.css}"/>
     <script>
@@ -41,7 +42,7 @@
             </div>
             <div class="logo">
                 <div>
-                  <a href="#"><img th:src="@{/images/header_logo.png}" alt="로고" /></a>
+                  <a th:href="@{/}"><img th:src="@{/images/header_logo.png}" alt="로고" /></a>
                     <form action="#">
                         <input type="text" name="search"/>
                         <button><i class="fa fa-search"></i></button>

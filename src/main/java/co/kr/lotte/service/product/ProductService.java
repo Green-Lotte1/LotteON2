@@ -81,4 +81,39 @@ public class ProductService {
             productCartRepository.deleteById(chk);
         }
     }
+
+    public List<ProductDTO> findTop5ByOrderByScoreDesc() {
+        return productRepository.findTop5ByOrderByScoreDesc()
+                                .stream()
+                                .map(entity -> modelMapper.map(entity, ProductDTO.class))
+                                .toList();
+    }
+
+    public List<ProductDTO> findTop8ByOrderByScoreDesc() {
+        return productRepository.findTop8ByOrderByScoreDesc()
+                                .stream()
+                                .map(entity -> modelMapper.map(entity, ProductDTO.class))
+                                .toList();
+    }
+
+    public List<ProductDTO> findTop8ByOrderByHitDesc() {
+        return productRepository.findTop8ByOrderByHitDesc()
+                                .stream()
+                                .map(entity -> modelMapper.map(entity, ProductDTO.class))
+                                .toList();
+    }
+
+    public List<ProductDTO> findTop8ByOrderByRdateDesc() {
+        return productRepository.findTop8ByOrderByRdateDesc()
+                                .stream()
+                                .map(entity -> modelMapper.map(entity, ProductDTO.class))
+                                .toList();
+    }
+
+    public List<ProductDTO> findTop8ByOrderByDiscountDesc() {
+        return productRepository.findTop8ByOrderByDiscountDesc()
+                                .stream()
+                                .map(entity -> modelMapper.map(entity, ProductDTO.class))
+                                .toList();
+    }
 }
