@@ -3,6 +3,8 @@ package co.kr.lotte.dto.cs;
 import co.kr.lotte.entity.cs.BoardTypeEntity;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -15,6 +17,7 @@ public class BoardTypeDTO {
     private String cate;
     private int type;
     private String typeName;
+    private List<BoardDTO> boards;
 
     public BoardTypeEntity toEntity(){
         return BoardTypeEntity.builder()

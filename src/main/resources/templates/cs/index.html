@@ -35,53 +35,42 @@
           <section class="notice">
             <h1>공지사항<a th:href="@{/cs/notice/list(group='notice', cate='null')}">전체보기</a></h1>
             <ul>
-              <li>
-                <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
-                <span class="date">22.10.31</span>s
-              </li>
-              <li>
-                <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
-                <span class="date">22.10.31</span>
-              </li>
-              <li>
-                <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
-                <span class="date">22.10.31</span>
-              </li>
-              <li>
-                <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
-                <span class="date">22.10.31</span>
-              </li>
-              <li>
-                <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
-                <span class="date">22.10.31</span>
-              </li>
+              <th:block th:each="notice : ${noticeBoard}">
+                <li>
+                  <a th:href="@{/cs/qna/view(group='qna',bno=${notice.bno})}" class="title">[<span th:text="${notice.type}"></span>][[${notice.title}]]</a>
+                  <p>
+                    <span class="uid" th:text="${#strings.substring(notice.uid, 0, 3) + '***'}"></span>
+                    <span class="date" th:text="${#temporals.format(notice.rdate, 'yy-MM-dd')}"></span>
+                  </p>
+                </li>
+              </th:block>
             </ul>
           </section>
         
           <section class="faq">
-            <h1>자주 묻는 질문<a th:href="@{/cs/faq/list(group=faq)}">전체보기</a>
+            <h1>자주 묻는 질문<a th:href="@{/cs/faq/list(group='faq', cate='member')}">전체보기</a>
             </h1>
             <ol>
               <li>
-                <a href="#"><span>회원</span></a>
+                <a th:href="@{/cs/faq/list(group='faq', cate='member')}"><span>회원</span></a>
               </li>
               <li>
-                <a href="#"><span>쿠폰/이벤트</span></a>
+                <a th:href="@{/cs/faq/list(group='faq', cate='coupon')}"><span>쿠폰/이벤트</span></a>
               </li>
               <li>
-                <a href="#"><span>주문/결제</span></a>
+                <a th:href="@{/cs/faq/list(group='faq', cate='order')}"><span>주문/결제</span></a>
               </li>
               <li>
-                <a href="#"><span>배송</span></a>
+                <a th:href="@{/cs/faq/list(group='faq', cate='delivery')}"><span>배송</span></a>
               </li>
               <li>
-                <a href="#"><span>취소/반품/교환</span></a>
+                <a th:href="@{/cs/faq/list(group='faq', cate='cancel')}"><span>취소/반품/교환</span></a>
               </li>
               <li>
-                <a href="#"><span>여행/숙박/항공</span></a>
+                <a th:href="@{/cs/faq/list(group='faq', cate='travel')}"><span>여행/숙박/항공</span></a>
               </li>
               <li>
-                <a href="#"><span>안전거래</span></a>
+                <a th:href="@{/cs/faq/list(group='faq', cate='safe')}"><span>안전거래</span></a>
               </li>
             </ol>
           </section>
@@ -92,41 +81,16 @@
               <a th:href="@{/cs/qna/list(group=qna)}">전체보기</a>
             </h1>
             <ul>
-              <li>
-                <a href="qna/list.html" class="title">[회원] 개인회원과 법인회원에 차이가 있나요?</a>
-                <p>
-                  <span class="uid">chh**</span>
-                  <span class="date">22.10.31</span>
-                </p>
-              </li>
-              <li>
-                <a href="#" class="title">[쿠폰/이벤트] 스마일포인트는 어디에 사용하나요?</a>
-                <p>
-                  <span class="uid">chh**</span>
-                  <span class="date">22.10.31</span>
-                </p>
-              </li>
-              <li>
-                <a href="#" class="title">[주문/결제] 신용카드 결제 중 오류가 난 경우 어떻게 하나요?</a>
-                <p>
-                  <span class="uid">chh**</span>
-                  <span class="date">22.10.31</span>
-                </p>
-              </li>
-              <li>
-                <a href="#" class="title">[배송] 주문한 상품은 언제 배송되나요?</a>
-                <p>
-                  <span class="uid">chh**</span>
-                  <span class="date">22.10.31</span>
-                </p>
-              </li>
-              <li>
-                <a href="#" class="title">[취소/반품/교환] 주문을 취소하고 싶어요.</a>
-                <p>
-                  <span class="uid">chh**</span>
-                  <span class="date">22.10.31</span>
-                </p>
-              </li>
+              <th:block th:each="qna : ${qnaBoard}">
+                <li>
+                  <a th:href="@{/cs/qna/view(group='qna',bno=${qna.bno})}" class="title">[<span th:text="${qna.type}"></span>][[${qna.title}]]</a>
+                  <p>
+                    <span class="uid" th:text="${#strings.substring(qna.uid, 0, 3) + '***'}"></span>
+                    <span class="date" th:text="${#temporals.format(qna.rdate, 'yy-MM-dd')}"></span>
+                  </p>
+                </li>
+              </th:block>
+
             </ul>
             <a th:href="@{/cs/qna/write(group=qna)}" class="ask">문의글 작성 ></a>
           </section>
@@ -157,7 +121,7 @@
                   <strong>1566-5700</strong><span>(평일 09:00 ~ 18:00)</span>
                 </p>
                 <p>
-                  <a href="#">판매자 가입 및 서류 접수 안내 〉</a>
+                  <a th:href="@{/member/registerSeller}">판매자 가입 및 서류 접수 안내 〉</a>
                 </p>                
               </div>
             </article>

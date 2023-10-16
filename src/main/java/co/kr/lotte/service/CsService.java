@@ -1,7 +1,6 @@
 package co.kr.lotte.service;
 
 import co.kr.lotte.dto.cs.BoardDTO;
-import co.kr.lotte.dto.cs.BoardTypeDTO;
 import co.kr.lotte.dto.cs.CsPageRequestDTO;
 import co.kr.lotte.dto.cs.CsPageResponseDTO;
 import co.kr.lotte.entity.cs.BoardCateEntity;
@@ -14,9 +13,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,8 +36,10 @@ public class CsService {
     public CsPageResponseDTO findByCate(CsPageRequestDTO csPageRequestDTO){
 
         Pageable pageable = csPageRequestDTO.getPageable("bno");
+
         List<BoardCateEntity> boardCateEntitieList =  boardCateRepository.findAll();
         List<BoardTypeEntity> boardTypeEntitieList = typeRepository.findAll();
+
         Map<String, Map<Integer, String>> cateMap = new HashMap<>();
         for (BoardCateEntity boardCateEntity : boardCateEntitieList) {
             Map<Integer, String > typeMap = new HashMap<>();
@@ -94,6 +98,34 @@ public class CsService {
 
         return dto;
 
+    }
+
+    public List<BoardDTO> findByCateForFaq(String cate) {
+        List<BoardDTO> dtoList = new ArrayList<>();
+        List<BoardTypeEntity> boardTypeEntities = typeRepository.findByCate(cate);
+        for(BoardTypeEntity boardTypeEntity : boardTypeEntities){
+            List<BoardEntity> boardEntities = csRepository.findTop10ByType(boardTypeEntity.getType());
+            List<BoardDTO> boardDTOS = boardEntities
+                                        .stream()
+                                        .map(entity -> modelMapper.map(entity, BoardDTO.class ))
+                                        .toList();
+            for(BoardDTO boardDTO : boardDTOS){
+                dtoList.add(boardDTO);
+            }
+        }
+
+        return dtoList;
+    }
+
+    public List<BoardEntity> getNoticeBoard(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("rdate").descending().and(Sort.by("bno").descending()));
+        return csRepository.findByGroupAndTypeGreaterThanOrderByRdateDescBnoDesc("notice", 20, pageable);
+    }
+
+
+    public List<BoardEntity> getQnaBoard(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("rdate").descending().and(Sort.by("bno").descending()));
+        return csRepository.findByGroupAndTypeLessThanOrderByRdateDescBnoDesc("qna", 20, pageable);
     }
 
 }
