@@ -20,7 +20,8 @@ public class MemberController {
     private MemberService memberService;
 
     @GetMapping("/member/login")
-    public String login() {
+    public String login(String success, Model model) {
+        model.addAttribute("success", success);
         return "/member/login";
     }
 
