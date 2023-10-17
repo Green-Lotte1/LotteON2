@@ -149,7 +149,7 @@ public class CsController {
     public String qnaWrite(HttpServletRequest request, BoardDTO dto)  {
         log.info(dto.toString());
         csService.save(dto);
-        return "redirect:/cs/qna/list";
+        return "redirect:/cs/qna/list?success=200";
     }
 
     // cate

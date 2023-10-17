@@ -19,8 +19,10 @@ public class BoardDTO {
     private int type;
     private String title;
     private String content;
+    private String status;
+    private String reply;
     private LocalDateTime rdate;
-
+    // 추가필드
     private String typeName;
     private String cateName;
     private int index;
@@ -35,6 +37,8 @@ public class BoardDTO {
                 .type(type)
                 .title(title)
                 .content(content)
+                .status(status)
+                .reply(reply)
                 .rdate(rdate)
                 .build();
     }
