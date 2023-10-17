@@ -3,8 +3,8 @@ package co.kr.lotte.controller.member;
 import co.kr.lotte.dto.member.MemberDTO;
 import co.kr.lotte.entity.member.MemberTermsEntity;
 import co.kr.lotte.service.member.MemberService;
-import groovy.util.logging.Log4j2;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +33,7 @@ public class MemberController {
     @GetMapping("/member/signup")
     public String signup(@RequestParam String type, Model model) {
 
+        log.info("signup---type : " + type);
         model.addAttribute("type", type);
         MemberTermsEntity terms = memberService.findByTerms();
         model.addAttribute("terms", terms);
@@ -40,7 +41,7 @@ public class MemberController {
     }
 
     @GetMapping("/member/register")
-    public String register(String type) {
+    public String register(String type, Model model) {
 
         if (type.equals("normal"))
             return "/member/register";
@@ -53,11 +54,12 @@ public class MemberController {
 
         dto.setRegip(request.getRemoteAddr());
         memberService.save(dto);
-        return "redirect:/member/login";
+        return "redirect:/member/login?success=200";
     }
 
     @GetMapping("member/registerSeller")
     public String registerSeller() {
+
         return "/member/registerSeller";
     }
 }

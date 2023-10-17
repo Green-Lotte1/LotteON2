@@ -17,6 +17,17 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script th:src="@{/member/js/zipcode.js}"></script>
     <script th:src="@{/member/js/signup.js}"></script>
+    <script>
+        $(function() {
+            const success = [[${success}]];
+            if (success == 100) {
+                alert("일치하는 회원이 존재하지 않습니다.");
+            }
+            else if (success == 200) {
+                alert("회원가입이 완료되었습니다.");
+            }
+        });
+    </script>
 </head>
 <body>
 <div id="wrapper">
