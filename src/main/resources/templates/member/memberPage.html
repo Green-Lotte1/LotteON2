@@ -18,9 +18,11 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script th:src="@{/member/js/zipcode.js}"></script>
     <script th:src="@{/member/js/signup.js}"></script>
+    <script th:src="@{/member/js/validation.js}"></script>
+    <script th:src="@{/member/js/checkMember.js}"></script>
     <script>
         $(function() {
-            const success = [[${success}]];
+            const success = '[[${success}]]';
             if (success == 100) {
                 alert("일치하는 회원이 존재하지 않습니다.");
             }
@@ -35,7 +37,7 @@
     <header>
         <div class="top">
             <div>
-                <th:block sec:authrize="isAnonymous()">
+                <th:block sec:authorize="isAnonymous()">
                     <a th:href="@{/member/login}">로그인</a>
                     <a th:href="@{/member/join}">회원가입</a>
                 </th:block>

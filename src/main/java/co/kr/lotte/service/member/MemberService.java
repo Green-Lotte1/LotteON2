@@ -35,4 +35,25 @@ public class MemberService {
     public int countUid(String uid){
         return memberRepository.countByUid(uid);
     }
+    public int countEmail(String email) {
+        return memberRepository.countByEmail(email);
+    }
+    public int countHp(String hp) {
+        return memberRepository.countByHp(hp);
+    }
+    public int countCompany(String company) {
+        return memberRepository.countByCompany(company);
+    }
+    public int countBizRegNum(String bizRegNum) {
+        return memberRepository.countByBizRegNum(bizRegNum);
+    }
+    public int countComRegNum(String comRegNum) {
+        return memberRepository.countByComRegNum(comRegNum);
+    }
+    public int countTel(String tel) {
+        return memberRepository.countTel(tel);
+    }
+    public int countFax(String fax) {
+        return memberRepository.countByFax(fax);
+    }
 }
