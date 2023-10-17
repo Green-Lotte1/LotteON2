@@ -11,4 +11,5 @@ public interface BoardTypeRepository extends JpaRepository<BoardTypeEntity, Inte
 
     public List<BoardTypeEntity> findByCate(String cate);
 
+    public List<BoardTypeEntity> findByType(int type);
 }

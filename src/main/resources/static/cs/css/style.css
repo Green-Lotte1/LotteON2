@@ -105,6 +105,10 @@ header > .logo a {
   font-size: 56px;
   color: #ef2a23;
 }
+#wrapper > header > div.top > div > p > a:nth-child(1) {
+  color: #ef2a23;
+  font-weight: bolder;
+}
 
 #cs > .main > section {
   width: 1200px;
@@ -147,6 +151,9 @@ header > .logo a {
   margin-top: 12px;
 }
 #cs > .main > section > ul .title {
+  font-size: 18px;
+}
+#cs > div > section.notice > ul > li > a > span {
   font-size: 18px;
 }
 
@@ -240,6 +247,9 @@ header > .logo a {
   margin-left: 10px;
   margin-top: 10px;
   color: #0078ff;
+}
+#cs > div > section.qna > ul > li > a > span {
+  font-size: 18px;
 }
 
 #cs > .main > .tel {
@@ -356,12 +366,25 @@ footer p > strong {
   color: #fff;
   box-sizing: border-box;
 }
+.btnCancel {
+  display: inline-block;
+  width: 200px;
+  height: 60px;
+  margin: 40px auto 0;
+  border: 1px solid #ccc;
+  border-radius: 34px;
+  font-size: 16px;
+  color: #000;
+  line-height: 58px;
+  text-align: center;
+  box-sizing: border-box;
+}
 
 .btnList {
   display: inline-block;
   width: 200px;
   height: 60px;
-  margin: 40px auto 0;
+  margin: 40px 400px;
   border: 1px solid #ccc;
   border-radius: 34px;
   font-size: 16px;
@@ -993,4 +1016,7 @@ footer p > strong {
   font-size: 16px;
   padding: 10px;
   box-sizing: border-box;
+}
+#cs > div > section > article > form > div {
+  margin-left: 300px;
 }
