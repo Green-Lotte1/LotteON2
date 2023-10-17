@@ -15,7 +15,9 @@ public class MainController {
         private ProductService productService;
 
         @GetMapping(value = {"/", "/index"})
-        public String index(Model model) {
+        public String index(Model model, String success) {
+                model.addAttribute("success", success);
+
                 // 베스트 상품
                 List<ProductDTO> score5List = productService.findTop5ByOrderByScoreDesc();
                 // 히트 상품
