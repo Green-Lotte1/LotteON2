@@ -1,83 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
-<head>
-    <meta charset="UTF-8">    
-    <title>롯데ON::롯데 온라인 쇼핑몰</title>
-    <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.ico}" />
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-    <link rel="stylesheet" th:href="@{/css/common.css}"/>
-    <link rel="stylesheet" th:href="@{/member/css/member.css}"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-</head>
-<body>
-    <div id="wrapper">
-        <header>
-            <div class="top">
-                <div>
-                    <a th:href="@{/member/login}">로그인</a>
-                    <a th:href="@{/member/join}">회원가입</a>
-                    <a href="#">마이페이지</a>
-                    <a th:href="@{/product/cart}"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;장바구니</a>
-                </div>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org"
+      layout:decorate="/member/memberPage.html">
+<div class="join" layout:fragment="content">
+    <h1 class="welcome"><strong>롯데ON</strong>에 오신것을 환영합니다.</h1>
+    <div class="type">
+        <div class="normal">
+            <img th:src="@{/member/images/member_join_tit_normal.gif}" alt="구매회원 가입">
+            <div class="txt">
+                <img th:src="@{/member/images/member_join_txt_normal.gif}" alt="개인 구매회원">
+                <a th:href="@{/member/signup?type=normal}"><img th:src="@{/member/images/member_join_btn1.gif}" alt="회원가입"></a>
             </div>
-            <div class="logo">
-                <div>
-                    <a th:href="@{/}"><img th:src="@{/images/header_logo.png}" alt="로고"/></a>
-                </div>
+        </div>
+        <div class="seller">
+            <img th:src="@{/member/images/member_join_tit_seller.gif}" alt="판매회원 가입">
+            <div class="txt">
+                <img th:src="@{/member/images/member_join_txt_seller.gif}" alt="개인 구매회원">
+                <a th:href="@{/member/signup?type=seller}"><img th:src="@{/member/images/member_join_btn2.gif}" alt="회원가입"></a>
             </div>
-        </header>
-        <main id="member">
-            <div class="join">
-                <h1 class="welcome"><strong>롯데ON</strong>에 오신것을 환영합니다.</h1>
-                <div class="type">
-                    <div class="normal">
-                        <img th:src="@{/member/images/member_join_tit_normal.gif}" alt="구매회원 가입">
-                        <div class="txt">
-                            <img th:src="@{/member/images/member_join_txt_normal.gif}" alt="개인 구매회원">
-                            <a th:href="@{/member/signup?type=normal}"><img th:src="@{/member/images/member_join_btn1.gif}" alt="회원가입"></a>
-                        </div>
-                    </div>
-                    <div class="seller">
-                        <img th:src="@{/member/images/member_join_tit_seller.gif}" alt="판매회원 가입">
-                        <div class="txt">
-                            <img th:src="@{/member/images/member_join_txt_seller.gif}" alt="개인 구매회원">
-                            <a th:href="@{/member/signup?type=seller}"><img th:src="@{/member/images/member_join_btn2.gif}" alt="회원가입"></a>
-                        </div>
-                    </div>
-                </div>
-                <img th:src="@{/member/images/member_join_banner1.jpg}" class="banner" alt="신규회원을 위한 기분 좋은 혜택">
-                <img th:src="@{/member/images/member_join_banner2.jpg}" class="banner" alt="사업자회원을 위한 기분 좋은 혜택">
-            </div>
-        </main>        
-        <footer>
-            <ul>
-              <li><a href="#">회사소개</a></li>
-              <li><a href="#">서비스이용약관</a></li>
-              <li><a href="#">개인정보처리방침</a></li>
-              <li><a href="#">전자금융거래약관</a></li>
-            </ul>
-            <div>
-              <p><img th:src="@{/images/footer_logo.png}" alt="로고" /></p>
-              <p>
-                <strong>(주)롯데ON</strong><br />
-                서울특별시 송파구 올림픽로 300 롯데월드타워 26층 (역삼동 강남파이낸스센터)<br />
-                대표이사 : 김사무엘상현, 정준호, 강성현<br />
-                사업자등록번호 : 529-85-00774(롯데쇼핑(주) e커머스사업부)<br />
-                통신판매업 신고 : 서울송파 제0158호<br>
-                호스팅 서비스사업자 : 롯데쇼핑(주) e커머스사업부
-              </p>
-              <p>
-                <strong>고객센터</strong><br />
-                Tel : 1899-7000(유료) (평일 09:00~18:00)<br />
-                Fax : 051-123-4567 | E-mail : lotteon@lotte.net<br />
-              </p>
-            </div>
-          </footer>
-    </div>    
-</body>
+        </div>
+    </div>
+    <img th:src="@{/member/images/member_join_banner1.jpg}" class="banner" alt="신규회원을 위한 기분 좋은 혜택">
+    <img th:src="@{/member/images/member_join_banner2.jpg}" class="banner" alt="사업자회원을 위한 기분 좋은 혜택">
+</div>
 </html>

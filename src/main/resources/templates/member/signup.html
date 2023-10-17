@@ -1,145 +1,45 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
-<head>
-    <meta charset="UTF-8">    
-    <title>롯데ON::롯데 온라인 쇼핑몰</title>
-    <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.ico}" />
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-    <link rel="stylesheet" th:href="@{/css/common.css}"/>
-    <link rel="stylesheet" th:href="@{/member/css/member.css}"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-</head>
-<script>
-    $(function(){
-        $('.agree').click(function(e){
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org"
+      layout:decorate="/member/memberPage.html">
+<div class="signup" layout:fragment="content">
+    <form th:action="@{/member/register}" method="get">
+        <input type="hidden" th:name="type" th:value="${type}"/>
+        <nav>
+            <h1>약관동의</h1>
+        </nav>
+        <section class="checkbox_group">
+            <h3 th:if="${type == 'normal'}" class="normal">
+                이용약관, 개인정보 수집, 전자금융거래 이용약관, 위치정보 이용약관(선택)에 <span>모두 동의</span>합니다.
+            </h3>
+            <h3 th:if="${type == 'seller'}" class="seller">
+                이용약관, 개인정보 수집, 전자금융거래 이용약관에 <span>모두 동의</span>합니다.
+            </h3>
+            <label><input type="checkbox" name="agreeAll"/>동의합니다.</label>
 
-            const chk1 = $('input:checkbox[name="agree1"]');
-            const chk2 = $('input:checkbox[name="agree2"]');
-            const chk3 = $('input:checkbox[name="agree3"]');
+            <h3><span class="essential">(필수)</span>롯데온 이용약관</h3>
+            <textarea th:if="${type == 'normal'}" class="terms" readonly>[[${terms.terms}]]</textarea>
+            <textarea th:if="${type == 'seller'}" class="terms" readonly>[[${terms.tax}]]</textarea>
+            <label><input type="checkbox" name="agree1" class="checkAgree"/>동의합니다.</label>
 
-            if (chk1.is(':checked') == false)
-            {
-                e.preventDefault();
-                alert('사이트 이용약관에 동의를 하셔야 회원가입하실 수 있습니다.');
-            }
-            else if (chk2.is(':checked') == false)
-            {
-                e.preventDefault();
-                alert('전자금융거래 이용약관에 동의를 하셔야 회원가입하실 수 있습니다.');
-            }
-            else if (chk3.is(':checked') == false)
-            {
-                e.preventDefault();
-                alert('개인정보 수집동의에 동의를 하셔야 회원가입하실 수 있습니다.');
-            }
-        });
+            <h3><span class="essential">(필수)</span>전자금융거래 이용약관</h3>
+            <textarea class="financial" readonly>[[${terms.finance}]]</textarea>
+            <label><input type="checkbox" name="agree2" class="checkAgree"/>동의합니다.</label>
 
-        // 체크박스 전체 선택
-        $('input[name=agreeAll]').click(function(e){
-            $(this).parents(".checkbox_group").find('input').prop("checked", $(this).is(":checked"));
-        });
+            <h3><span class="essential">(필수)</span>개인정보 수집동의</h3>
+            <textarea class="privacy" readonly>[[${terms.privacy}]]</textarea>
+            <label><input type="checkbox" name="agree3" class="checkAgree"/>동의합니다.</label>
 
-        // 체크박스 개별 선택
-        $(".checkbox_group").on("click", ".checkAgree", function() {
+            <section th:if="${type == 'normal'}">
+                <h3><span class="optional">(선택)</span>위치정보 이용약관</h3>
+                <textarea class="location" readonly>[[${terms.location}]]</textarea>
+                <label><input type="checkbox" name="agree4" class="checkAgree"/>동의합니다.</label>
+            </section>
+        </section>
 
-            var is_checked = true;
-
-            $(".checkbox_group .checkAgree").each(function(){
-                is_checked = is_checked && $(this).is(":checked");
-            });
-
-            $("input[name=agreeAll]").prop("checked", is_checked);
-        });
-    });
-</script>
-<body>
-    <div id="wrapper">
-        <header>
-            <div class="top">
-                <div>
-                    <a th:href="@{/member/login}">로그인</a>
-                    <a th:href="@{/member/join}">회원가입</a>
-                    <a href="#">마이페이지</a>
-                    <a th:href="@{/product/cart}"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;장바구니</a>
-                </div>
-            </div>
-            <div class="logo">
-                <div>
-                    <a th:href="@{/}"><img th:src="@{/images/header_logo.png}" alt="로고"/></a>
-                </div>
-            </div>
-        </header>
-        <main id="member">
-            <div class="signup">
-                <form th:action="@{/member/register}" method="get">
-                    <input type="hidden" th:name="type" th:value="${type}"/>
-                    <nav>
-                        <h1>약관동의</h1>
-                    </nav>
-                    <section class="checkbox_group">
-                        <h3 th:if="${type == 'normal'}" class="normal">
-                            이용약관, 개인정보 수집, 전자금융거래 이용약관, 위치정보 이용약관(선택)에 <span>모두 동의</span>합니다.
-                        </h3>
-                        <h3 th:if="${type == 'seller'}" class="seller">
-                            이용약관, 개인정보 수집, 전자금융거래 이용약관에 <span>모두 동의</span>합니다.
-                        </h3>
-                        <label><input type="checkbox" name="agreeAll"/>동의합니다.</label>
-
-                        <h3><span class="essential">(필수)</span>롯데온 이용약관</h3>
-                        <textarea th:if="${type == 'normal'}" class="terms" readonly>[[${terms.terms}]]</textarea>
-                        <textarea th:if="${type == 'seller'}" class="terms" readonly>[[${terms.tax}]]</textarea>
-                        <label><input type="checkbox" name="agree1" class="checkAgree"/>동의합니다.</label>
-
-                        <h3><span class="essential">(필수)</span>전자금융거래 이용약관</h3>
-                        <textarea class="financial" readonly>[[${terms.finance}]]</textarea>
-                        <label><input type="checkbox" name="agree2" class="checkAgree"/>동의합니다.</label>
-
-                        <h3><span class="essential">(필수)</span>개인정보 수집동의</h3>
-                        <textarea class="privacy" readonly>[[${terms.privacy}]]</textarea>
-                        <label><input type="checkbox" name="agree3" class="checkAgree"/>동의합니다.</label>
-
-                        <section th:if="${type == 'normal'}">
-                            <h3><span class="optional">(선택)</span>위치정보 이용약관</h3>
-                            <textarea class="location" readonly>[[${terms.location}]]</textarea>
-                            <label><input type="checkbox" name="agree4" class="checkAgree"/>동의합니다.</label>
-                        </section>
-                    </section>
-
-                    <div>
-                        <input type="submit" class="agree" value="동의하기" />
-                    </div>
-                </form>
-            </div>
-        </main>
-        <footer>
-            <ul>
-              <li><a href="#">회사소개</a></li>
-              <li><a href="#">서비스이용약관</a></li>
-              <li><a href="#">개인정보처리방침</a></li>
-              <li><a href="#">전자금융거래약관</a></li>
-            </ul>
-            <div>
-              <p><img th:src="@{/images/footer_logo.png}" alt="로고" /></p>
-              <p>
-                <strong>(주)롯데ON</strong><br />
-                서울특별시 송파구 올림픽로 300 롯데월드타워 26층 (역삼동 강남파이낸스센터)<br />
-                대표이사 : 김사무엘상현, 정준호, 강성현<br />
-                사업자등록번호 : 529-85-00774(롯데쇼핑(주) e커머스사업부)<br />
-                통신판매업 신고 : 서울송파 제0158호<br>
-                호스팅 서비스사업자 : 롯데쇼핑(주) e커머스사업부
-              </p>
-              <p>
-                <strong>고객센터</strong><br />
-                Tel : 1899-7000(유료) (평일 09:00~18:00)<br />
-                Fax : 051-123-4567 | E-mail : lotteon@lotte.net<br />
-              </p>
-            </div>
-          </footer>
-    </div>    
-</body>
+        <div>
+            <input type="submit" class="agree" value="동의하기" />
+        </div>
+    </form>
+</div>
 </html>
