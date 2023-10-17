@@ -1,5 +1,44 @@
 <html xmlns:th="http://www.thymeleaf.org"  xmlns:layout="http://www.thymeleaf.org/" layout:decorate="/cs/layout.html">
-      <section id="cs" layout:fragment = "content">
+
+<head>
+<script>
+    $(function(){
+    /*let moreview = $("div > ul > li:nth-child(n+4)");*/
+
+    $(".moreAteg").click(function(e){
+    e.preventDefault();
+    console.log("more click");
+
+    // this.classList : 배열 형태의 class 속성을 가짐
+    // => 배열이니깐 index 1번이 ${type.type}이 됨
+    let type = this.classList[1];
+
+    //jQuery 써야되니깐 .을 붙인 뒤 type을 통해 해당 타입의 클래스를 만들어줌
+    $("."+type).show();
+    $(this).hide();
+
+    // .lessAteg 이면서 .type을 보여줌
+    // -> 간단히 보기가 보이게 됨
+    $(".lessAteg."+type).show();
+    });
+
+    $(".lessAteg").click(function(e){
+    e.preventDefault();
+    console.log("less click");
+    let type = this.classList[1];
+
+    $("."+type).hide();
+    $(this).hide();
+    $(".moreAteg."+type).show();
+    });
+
+    })
+
+</script>
+</head>
+
+
+<section id="cs" layout:fragment = "content">
         <div class="faq">
           <nav>
             <div>
@@ -33,16 +72,26 @@
                 <h2>가장 자주 묻는 질문입니다.</h2>
               </nav>
 
-              <div>
-                <tr th:each="article : ${csPageResponseDTO.dtoList}">
-                <h3>[[${article.typeName}]]</h3>
-                <ul>
-                  <li><a th:href="@{/cs/faq/view(bno=${article.bno})}"><span>Q.</span>[[${article.title}]]</a></li>
-                  <li class="more"><a href="#">더보기</a></li>
-                </ul>
-                </tr>
-              </div>
+                <div>
+                    <th:block th:each="type : ${types}"><br>
+                        <h3>[[${type.typeName}]]</h3>
+                        <ul>
+                            <th:block th:each="dto : ${type.boards}" th:if="${dto.type == type.type}">
+                                <li th:class="${dto.index ge 3
+					                        	&& dto.index le 9 ? dto.type : '' }">
+                                    <a th:href="@{/cs/faq/view(bno=${dto.bno})}">
+                                        <span>Q.</span>[[${dto.title}]]
+                                    </a>
+                                </li>
+                            </th:block>
+                            <li class="more">
+                                <a th:class="moreAteg + ' ' + ${type.type}" href="#">더보기</a>
+                                <a th:class="lessAteg + ' ' + ${type.type}" style="display: none" href="#">간단히보기</a>
+                            </li>
+                        </ul>
+                    </th:block>
 
+                </div>
 
             </article>
           </section>

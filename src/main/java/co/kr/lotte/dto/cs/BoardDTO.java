@@ -23,6 +23,8 @@ public class BoardDTO {
 
     private String typeName;
     private String cateName;
+    private int index;
+
 
 
     public BoardEntity toEntity(){
