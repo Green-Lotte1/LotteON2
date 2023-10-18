@@ -391,6 +391,18 @@ header {
   margin-right: 5px;
 }
 
+/* 아이디 중복확인 버튼 */
+#member > .register #btnCheckUid {
+  background: #ef3f43;
+  color: #fff;
+  font-size: 12px;
+  padding: 5px 7px;
+  border: 0;
+  outline: 0;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
 /* 우편번호 버튼 */
 #member > .register .btnZip {
   background: #ef3f43;
@@ -490,14 +502,27 @@ header {
 #member > .registerSeller table .addr input {
   margin-top: 6px;
 }
+/* 회사주소란 필수(*) 넣음으로써 주석처리
 #member > .registerSeller table .addr th {
   padding-left: 30px;
-}
+}*/
 
 #member > .registerSeller table .essential {
   color: #ef3f43;
   vertical-align: middle;
   margin-right: 5px;
+}
+
+/* 아이디 중복확인 버튼 */
+#member > .registerSeller #btnCheckUid {
+  background: #ef3f43;
+  color: #fff;
+  font-size: 12px;
+  padding: 5px 7px;
+  border: 0;
+  outline: 0;
+  border-radius: 2px;
+  cursor: pointer;
 }
 
 /* 우편번호 버튼 */

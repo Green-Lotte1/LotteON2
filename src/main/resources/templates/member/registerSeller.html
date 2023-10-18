@@ -6,7 +6,7 @@
 	<nav>
 		<h1>판매자 회원가입</h1>
 	</nav>
-	<form th:action="@{/member/registerSeller}" method="POST">
+	<form id="formSeller" th:action="@{/member/registerSeller}" method="POST">
 		<section>
 			<table>
 				<caption>필수 정보입력</caption>
@@ -15,21 +15,21 @@
 					<td>
 						<input type="text" name="uid" placeholder="아이디를 입력" required />
 						<button type="button" id="btnCheckUid">중복확인</button>
-						<span class="msgId">&nbsp;&nbsp;영문, 숫자로 4~12자까지 설정해 주세요.</span>
+						<span class="msgId">영문, 숫자로 4~12자까지 설정해 주세요.</span>
 					</td>
 				</tr>
 				<tr>
 					<th><span class="essential">*</span>비밀번호</th>
 					<td>
 						<input type="password" name="pass1" placeholder="비밀번호를 입력" required />
-						<span class="msgPass1">&nbsp;&nbsp;영문, 숫자, 특수문자를 조합하여 8~12자까지 설정해 주세요.</span>
+						<span class="msgPass1">영문, 숫자, 특수문자를 조합하여 8~12자까지 설정해 주세요.</span>
 					</td>
 				</tr>
 				<tr>
 					<th><span class="essential">*</span>비밀번호확인</th>
 					<td>
 						<input type="password" name="pass2" placeholder="비밀번호를 확인" required />
-						<span class="msgPass2">&nbsp;&nbsp;비밀번호재입력</span>
+						<span class="msgPass2">비밀번호재입력</span>
 					</td>
 				</tr>
 			</table>
@@ -42,7 +42,7 @@
 					<th><span class="essential">*</span>회사명</th>
 					<td>
 						<input type="text" name="company" placeholder="회사명 입력" required />
-						<span class="msgCompany">&nbsp;&nbsp;(주)포함 입력, 예) (주)롯데온</span>
+						<span class="msgCompany">(주)포함 공백없이 입력, 예) (주)롯데온</span>
 					</td>
 				</tr>
 				<tr>
@@ -55,45 +55,50 @@
 					<th><span class="essential">*</span>사업자등록번호</th>
 					<td>
 						<input type="text" name="bizRegNum" placeholder="사업자등록번호 입력" required />
-						<span class="msgBizRegNum">&nbsp;&nbsp;- 표시 포함 12자리 입력, 예) 123-45-67890</span>
+						<span class="resultBizRegNum"></span>
+						<span class="msgBizRegNum">&nbsp;- 표시 포함 12자리 입력, 예) 123-45-67890</span>
 					</td>
 				</tr>
 				<tr>
 					<th><span class="essential">*</span>통신판매업신고 번호</th>
 					<td>
 						<input type="text" name="comRegNum" placeholder="통신판매업신고 입력" required />
-						<span class="msgComRegNum">&nbsp;&nbsp;- 표시 포함, 예) 강남-12345, 제 1-01-23-4567호, 2017-경기성남-0011</span>
+						<span class="resultComRegNum"></span>
+						<span class="msgComRegNum">&nbsp;- 표시 포함, 예) 2017-경기성남-0011</span>
 					</td>
 				</tr>
 				<tr>
 					<th><span class="essential">*</span>전화번호</th>
 					<td>
 						<input type="text" name="tel" placeholder="전화번호 입력" required />
-						<span class="msgTel">&nbsp;&nbsp;- 표시 포함, 지역번호 포함, 예) 02-234-1234</span>
+						<span class="resultTel"></span>
+						<span class="msgTel">&nbsp;- 표시 포함, 지역번호 포함, 예) 02-234-1234</span>
 					</td>
 				</tr>
 				<tr>
 					<th><span class="essential">*</span>팩스번호</th>
 					<td>
 						<input type="text" name="fax" placeholder="팩스번호 입력" required />
-						<span class="msgFax">&nbsp;&nbsp;- 표시 포함, 지역번호 포함, 예) 02-234-1234</span>
+						<span class="resultFax"></span>
+						<span class="msgFax">&nbsp;- 표시 포함, 지역번호 포함, 예) 02-234-1234</span>
 					</td>
 				</tr>
 				<tr>
 					<th><span class="essential">*</span>EMAIL</th>
 					<td>
 						<input type="email" name="email" placeholder="이메일 입력" required />
+						<span class="resultEmail"></span>
 					</td>
 				</tr>
 				<tr class="addr">
-					<th>회사주소</th>
+					<th><span class="essential">*</span>회사주소</th>
 					<td>
 						<div>
-							<input type="text" name="zip" id="zip" placeholder="우편번호 찾기 클릭" readonly />
+							<input type="text" name="zip" id="zip" placeholder="우편번호 찾기 클릭" onmousedown="return false;" required/>
 							<button type="button" class="btnZip" onclick="zipcode()">우편번호 찾기</button>
 						</div>
 						<div>
-							<input type="text" name="addr1" id="addr1" size="50" placeholder="주소를 검색하세요." readonly />
+							<input type="text" name="addr1" id="addr1" size="50" placeholder="주소를 검색하세요." readonly/>
 						</div>
 						<div>
 							<input type="text" name="addr2" id="addr2" size="50" placeholder="상세주소를 입력하세요." />
@@ -115,7 +120,7 @@
 					<th><span class="essential">*</span>휴대폰</th>
 					<td>
 						<input type="text" name="managerHp" maxlength="13" placeholder="휴대폰번호 입력" required />
-						<span class="msgHp">&nbsp;&nbsp;- 포함 13자리를 입력하세요.</span>
+						<span class="msgHp">&nbsp;- 포함 13자리를 입력하세요.</span>
 					</td>
 				</tr>
 			</table>
