@@ -4,12 +4,36 @@
   <head>
     <meta charset="UTF-8" />
     <title>롯데ON::고객센터</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico" />
     <link rel="stylesheet" th:href="@{../cs/css/style.css}">
+    <script th:inline="javascript">
+      var uid = '';
+      var level = '';
+      /*[# th:if="${#authorization.expression('isAuthenticated()')}"]*/
+     uid = [[${#authentication.principal.member.uid}]];
+     level = '[[${#authentication.principal.member.level}]]';
+
+      /*[/]*/
+    </script>
     <script>
 
-      function showAlert() {
-        alert("해당 글 작성자만 접근 가능합니다.");
+      function showAlert(id){
+        const flag = '[[${#authentication.principal}]]'
+        if(flag == 'anonymousUser'){
+          alert("해당 글 작성자만 접근 가능합니다.");
+          return false;
+        }
+        console.log(id);
+        console.log(uid);
+        console.log(level);
+        if(level != '99' && level != '5' && uid != id){
+          alert("해당 글 작성자만 접근 가능합니다.");
+          return false;
+        }
+        return true;
+
       }
 
     </script>
@@ -85,30 +109,23 @@
               </li>
             </ol>
           </section>
-        
+
           <section class="qna">
             <h1>
               문의하기
               <a th:href="@{/cs/qna/list(group=qna)}">전체보기</a>
             </h1>
             <ul>
-              <th:block sec:authorize="hasRole('ADMIN') or hasRole('USER')">
-                <div>
-                  <th:block th:each="qna : ${qnaBoard}">
-                    <li>
-                      <a th:if="${#authentication.principal.member.uid == qna.uid}" th:href="@{/cs/qna/view(group='qna',bno=${qna.bno})}" class="title">
-                        [<span th:text="${qna.typeName}"></span>] [[${qna.title}]]
-                      </a>
-                      <a th:unless="${#authentication.principal.member.uid == qna.uid}" href="#" onclick="showAlert(); return false;" class="title">
-                        [<span th:text="${qna.typeName}"></span>] [[${qna.title}]]
-                      </a>
-                      <p>
-                        <span class="uid" th:text="${#strings.substring(qna.uid, 0, 3) + '***'}"></span>
-                        <span class="date" th:text="${#temporals.format(qna.rdate, 'yy-MM-dd')}"></span>
-                      </p>
-                    </li>
-                  </th:block>
-                </div>
+              <th:block th:each="qna : ${qnaBoard}">
+                <li>
+                  <a th:href="@{/cs/qna/view(group='qna',bno=${qna.bno})}" th:onclick="return showAlert([[${qna.uid}]]);" class="title">
+                    [<span th:text="${qna.typeName}"></span>] [[${qna.title}]]
+                  </a>
+                  <p>
+                    <span class="uid" th:text="${#strings.substring(qna.uid, 0, 3) + '***'}"></span>
+                    <span class="date" th:text="${#temporals.format(qna.rdate, 'yy-MM-dd')}"></span>
+                  </p>
+                </li>
               </th:block>
             </ul>
             <a th:href="@{/cs/qna/write(group=qna)}" class="ask">문의글 작성 ></a>

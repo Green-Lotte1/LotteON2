@@ -2,6 +2,15 @@
       xmlns:layout="http://www.thymeleaf.org/"
       layout:decorate="/cs/layout.html">
 <head>
+<script th:inline="javascript">
+    var uid = '';
+    var level = '';
+    /*[# th:if="${#authorization.expression('isAuthenticated()')}"]*/
+    uid = [[${#authentication.principal.member.uid}]];
+    level = '[[${#authentication.principal.member.level}]]';
+
+    /*[/]*/
+</script>
 <script>
     const success = new URL(location.href).searchParams.get('success');
 
@@ -13,6 +22,23 @@
 
     function showAlert() {
         alert("해당 글 작성자만 접근 가능합니다.");
+    }
+
+    function showAlert(id){
+        const flag = '[[${#authentication.principal}]]'
+        if(flag == 'anonymousUser'){
+            alert("해당 글 작성자만 접근 가능합니다.");
+            return false;
+        }
+        console.log(id);
+        console.log(uid);
+        console.log(level);
+        if(level != '99' && level != '5' && uid != id){
+            alert("해당 글 작성자만 접근 가능합니다.");
+            return false;
+        }
+        return true;
+
     }
 
 </script>
@@ -53,7 +79,7 @@
                 <table>
                     <tr th:each="article : ${csPageResponseDTO.dtoList}">
                         <td>
-                            <a th:href="@{/cs/qna/view(bno=${article.bno})}">[<span th:text="${article.typeName}"></span>] [[${article.title}]]</a>
+                            <a th:href="@{/cs/qna/view(bno=${article.bno})}" th:onclick="return showAlert([[${article.uid}]]);">[<span th:text="${article.typeName}"></span>] [[${article.title}]]</a>
                         </td>
                         <th:block th:with="statusColor=${article.status eq '답변완료' ? 'blue' : 'grey'}">
                             <td th:class="${statusColor} +' reply' +' pending'"

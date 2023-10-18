@@ -36,7 +36,7 @@ public class CsController {
     private CsCateService csCateService;
 
 
-    @GetMapping("/cs/index")
+    @GetMapping(value = {"/cs/index", "/cs/"})
     public String index(@RequestParam(name = "page", defaultValue = "0") int page,
                         @RequestParam(name = "size", defaultValue = "5") int size,
                         Model model) {
