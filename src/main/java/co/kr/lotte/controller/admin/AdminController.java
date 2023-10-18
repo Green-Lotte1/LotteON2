@@ -3,18 +3,21 @@ package co.kr.lotte.controller.admin;
 import co.kr.lotte.dto.product.PageRequestDTO;
 import co.kr.lotte.dto.product.PageResponseDTO;
 
-import co.kr.lotte.entity.product.ProductEntity;
+import co.kr.lotte.entity.product.ProductCate1Entity;
+import co.kr.lotte.entity.product.ProductCate2Entity;
 import co.kr.lotte.repository.product.ProductRepository;
 import co.kr.lotte.service.CateService;
 import co.kr.lotte.service.product.ProductService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Log4j2
 @Controller
@@ -46,10 +49,27 @@ public class AdminController {
         model.addAttribute("c2Name", c2Name);
         return "/admin/product/list";
     }
+
     @GetMapping("/admin/product/register")
-    public String pro_register() {
+    public String pro_register(HttpServletRequest request, Model model) {
+
+        List<ProductCate1Entity> cates1 = productService.getCate1();
+        model.addAttribute("cates1",cates1);
+        log.info("cates1 : "+ cates1);
+
         return ("/admin/product/register");
     }
+
+    @GetMapping("/admin/product/registerCate2")
+    @ResponseBody
+    public List<ProductCate2Entity> pro_register2(int cate1){
+
+        log.info("optionValue : " + cate1);
+        List<ProductCate2Entity> productCate2Entities = productService.findByCate2(cate1);
+        log.info("size : " + productCate2Entities.size());
+        return productCate2Entities;
+    }
+
 
 
     // admin-cs-notice

@@ -38,7 +38,8 @@
 
             <tr th:each="product:${pageResponseDTO.dtoList}">
                 <td><input type="checkbox" name="상품코드"/></td>
-                <td><img th:src="@{/admin/images/sample_thumb}" class="thumb"></td>
+                <td><img th:src="@{'/thumb/' + ${product.prodCate1} + '/' + ${product.prodCate2} + '/' + ${product.thumb1}}" alt="상품이미지"
+                         width="100" height="100"/></td>
                 <td>[[${product.prodNo}]]</td>
                 <td>[[${product.prodName}]]</td>
                 <td>[[${product.price}]]</td>

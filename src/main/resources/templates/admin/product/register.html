@@ -1,62 +1,41 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html"
+<html xmlns:th="http://www.w3.org/1999/html"
       xmlns:layout="http://www.w3.org/1999/xhtml"
       layout:decorate="/admin/adminlayout.html">
 <head>
     <script>
-        $(function(){
-          const url = '/admin/register';
-          const jsonData = {};
+        $(function () {
+		// 카테고리 분류 AJAX로 불러오기
+		$('#category1').on('change', function(){
 
-          $.ajax({
-            url: url,
-            type: 'GET',
-            data: jsonData,
-            success: function(data) {
+			const cate1 = this.value;
+			console.log(cate1);
 
-              console.log(data);
+			$('#category2').children('option:not(:first)').remove();
 
-              $("#cate").change(function(){
-                let optionValue = $(this).val();
-                let selectType = $("#type");
+			const jsonData = {
+				"cate1": cate1
+			};
+			console.log(jsonData);
+                var contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
+			$.ajax({
+				url: contextPath + "/admin/product/registerCate2",
+				type: 'get',
+				data: jsonData,
+				dataType: 'json',
+				success: function(data){
 
-                const jsonData = {
-                  "optionValue" : optionValue
-                };
-                console.log(jsonData);
+					let cate2List = data;
 
-                // cate가 바뀔 때 마다 type을 빈값으로 초기화 해주고
-                // 그 뒤 append를 통해서 option을 추가해줌
-                selectType.empty();
-                selectType.append(
-                        $('<option>',{
-                          value: '',
-                          text: '2차 분류 선택',
-                          disabled: 'disabled',
-                          selected: 'selected'
-                        })
-                );
-
-                if(optionValue !== '0'){
-                  $.getJSON(url, jsonData, function(data){
-                    console.log("cate가 0이 아닐 때 type option 추가");
-                    console.log(data);
-
-                    $.each(data, function (index, type) {
-                      selectType.append(
-                              $('<option>',{
-                                value: type.cate2,
-                                text: type,c2Name
-                              })
-                      ); // appnd end
-                    }); // each end
-                  }); // ajax end
-                } // if end
-              }); // cate change end
-            }
-          });
-        });
-
+					for (var i=0 ; i<cate2List.length ; i++)
+						$("#category2").append("<option id='cate2Value' value="+cate2List[i].cate2+">"+cate2List[i].c2Name+"</option>");
+				},
+				error: function(){
+					alert("error");
+				}
+			});
+		});
+});
     </script>
 </head>
 <section id="admin-product-register" layout:fragment="content">
@@ -68,7 +47,7 @@
     </nav>
     <!-- 상품등록 컨텐츠 시작 -->
     <article>
-        <form action="/products/register" method="post"> <!-- 수정: 폼의 action 및 method 추가 -->
+        <form th:action="@{/admin/products/register}" method="post"> <!-- 수정: 폼의 action 및 method 추가 -->
 
             <!-- 상품분류 -->
             <section>
@@ -80,19 +59,18 @@
                     <tr>
                         <td>1차 분류</td>
                         <td>
-                            <select name="category1">
-                                <option value="cate0">1차 분류 선택</option>
-                                <option value="cate11">패션·의류·뷰티</option>
-                                <option value="cate12">가전·디지털</option>
-                                <option value="cate13">식품·생필품</option>
-                                <option value="cate14">홈·문구·취미</option>
+                            <select name="category1" id="category1">
+                                <option th:value="cate0">1차 분류 선택</option>
+                                <th:block th:each="catelist : ${cates1}">
+                                    <option th:value="${catelist.cate1}" th:text="${catelist.c1Name}"></option>
+                                </th:block>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td>2차 분류</td>
                         <td>
-                            <select name="category2">
+                            <select name="category2" id="category2">
                                 <option value="cate0">2차 분류 선택</option>
                             </select>
                         </td>
