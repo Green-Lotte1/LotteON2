@@ -51,7 +51,7 @@ public class MemberService {
         return memberRepository.countByComRegNum(comRegNum);
     }
     public int countTel(String tel) {
-        return memberRepository.countTel(tel);
+        return memberRepository.countByTel(tel);
     }
     public int countFax(String fax) {
         return memberRepository.countByFax(fax);
