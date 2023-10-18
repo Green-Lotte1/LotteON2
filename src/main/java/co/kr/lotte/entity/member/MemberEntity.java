@@ -25,7 +25,6 @@ public class MemberEntity {
     private int gender;
     private String hp;
     private String email;
-    @ColumnDefault("1")
     private int point;
     @ColumnDefault("1")
     private int level;
