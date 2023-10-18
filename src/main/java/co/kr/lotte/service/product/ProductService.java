@@ -1,14 +1,8 @@
 package co.kr.lotte.service.product;
 
 import co.kr.lotte.dto.product.*;
-import co.kr.lotte.entity.product.ProductCartEntity;
-import co.kr.lotte.entity.product.ProductEntity;
-import co.kr.lotte.entity.product.ProductOrderEntity;
-import co.kr.lotte.entity.product.ProductOrderItemEntity;
-import co.kr.lotte.repository.product.ProductCartRepository;
-import co.kr.lotte.repository.product.ProductOrderItemRepository;
-import co.kr.lotte.repository.product.ProductOrderRepository;
-import co.kr.lotte.repository.product.ProductRepository;
+import co.kr.lotte.entity.product.*;
+import co.kr.lotte.repository.product.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -28,6 +22,18 @@ public class ProductService {
     private final ProductOrderRepository productOrderRepository;
     private final ProductOrderItemRepository productOrderItemRepository;
     private final ModelMapper modelMapper;
+    private final Cate1Repository cate1Repository;
+    private final Cate2Repository cate2Repository;
+
+    // 상품 등록 - 카테고리 값 조회
+    public List<ProductCate1Entity> getCate1() {
+        List<ProductCate1Entity> productCate1Entities = cate1Repository.findAll();
+        return productCate1Entities;
+    }
+
+    public List<ProductCate2Entity> findByCate2(int cate2){
+        return cate2Repository.findByCate2(cate2);
+    }
 
     // 상품 목록 조회
     public PageResponseDTO findByCate1AndCate2(PageRequestDTO pageRequestDTO) {
