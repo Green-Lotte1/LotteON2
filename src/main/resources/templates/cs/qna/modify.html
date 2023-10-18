@@ -1,0 +1,52 @@
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:layout="http://www.thymeleaf.org/" layout:decorate="/cs/layout.html">
+      <section id="cs" layout:fragment = "content">
+        <div class="qna">
+          <nav>
+            <div>
+              <p>홈<span>></span>문의하기</p>
+            </div>
+          </nav>
+          <section class="modify">
+            <aside>
+              <h2>문의하기</h2>
+              <ul>
+                <li th:class="${(cate eq 'member') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=member)}">회원</a></li>
+                <li th:class="${(cate=='coupon') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=coupon)}">쿠폰/이벤트</a></li>
+                <li th:class="${(cate=='order') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=order)}">주문/결제</a></li>
+                <li th:class="${(cate=='delivery') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=delivery)}">배송</a></li>
+                <li th:class="${(cate=='cancel') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=cancel)}">취소/반품/교환</a></li>
+                <li th:class="${(cate=='travel') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=travel)}">여행/숙박/항공</a></li>
+                <li th:class="${(cate=='safe') ?'on' : ''}"><a th:href="@{/cs/qna/list(cate=safe)}">안전거래</a></li>
+              </ul>
+            </aside>
+            <article>
+              <form th:action="@{/cs/qna/modify(bno=${boardDTO.bno})}" method="POST">
+                <nav>
+                  <h2 class="title">[<span th:text="${boardDTO.typeName}"></span>] [[${boardDTO.title}]]</h2>
+                  <p>
+                    <span th:text="${#strings.substring(boardDTO.uid, 0, 3) + '***'}"></span>
+                    <span th:text="${#temporals.format(boardDTO.rdate, 'yy-MM-dd')}"></span>
+                  </p>
+                </nav>
+                <div class="content">
+                  <textarea>[[${boardDTO.content}]]</textarea>
+                  <br><br>
+                  <p>
+                    ※ 피싱 관련 피해신고<br /><br />
+                    ▶ 경찰청 사이버수사국 (국번없이)182 :
+                    http://cyberbureau.police.go.kr<br />
+                    ▶ KISA 인터넷침해대응센터 (국번없이)118 :
+                    http://www.krcert.or.kr<br />
+                    감사합니다.<br />
+                  </p>
+                </div>
+                <div>
+                  <input type="submit" class="btnModiDone">
+                  <a th:href="@{/cs/qna/view(bno=${boardDTO.bno})}" class="btnCancel">취소하기</a>
+                </div>
+              </form>
+            </article>
+          </section>
+        </div>
+      </section>
+

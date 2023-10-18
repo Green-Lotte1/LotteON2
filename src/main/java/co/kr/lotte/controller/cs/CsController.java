@@ -164,6 +164,23 @@ public class CsController {
 
     }
 
+    @GetMapping("/cs/qna/modify")
+    public String qnaModify(Model model, int bno) {
+
+        BoardDTO boardDTO = csService.findByBno(bno);
+        model.addAttribute("boardDTO", boardDTO);
+
+        return "/cs/qna/modify";
+    }
+
+
+    @PostMapping("/cs/qna/modify")
+    public String qnaModify(HttpServletRequest request, int bno, BoardDTO dto)  {
+        csService.updateContent(bno,dto.getContent());
+        return "redirect:/cs/qna/list?success=300";
+    }
+
+
 
 
 

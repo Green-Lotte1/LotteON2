@@ -13,16 +13,19 @@
 </script>
 <script>
     const success = new URL(location.href).searchParams.get('success');
-
+    var contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
     if(success == 102){
         alert('글 작성에 실패하셨습니다. 다시 시도하십시오');
     }else if(success == 200){
         alert('성공적으로 글이 등록 되었습니다.');
+    }else if(success == 300){
+        alert('글이 수정되었습니다.');
     }
 
     // 문의하기 접근 시
     function showAlertLogin() {
         alert('로그인이 필요한 기능입니다.');
+        window.location.href = contextPath +'/member/login';
     }
 
     // 사용자 인가 설정

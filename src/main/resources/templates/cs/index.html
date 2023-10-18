@@ -18,7 +18,7 @@
       /*[/]*/
     </script>
     <script>
-
+      var contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
       function showAlert(id){
         const flag = '[[${#authentication.principal}]]'
         if(flag == 'anonymousUser'){
@@ -37,6 +37,7 @@
       }
       function showAlertLogin() {
         alert('로그인이 필요한 기능입니다.');
+        window.location.href = contextPath +'/member/login';
       }
 
     </script>
@@ -76,7 +77,7 @@
             <ul>
               <th:block th:each="notice : ${noticeBoard}">
                 <li>
-                  <a th:href="@{/cs/qna/view(group='qna',bno=${notice.bno})}" class="title">[<span th:text="${notice.typeName}"></span>] [[${notice.title}]]</a>
+                  <a th:href="@{/cs/notice/view(group='notice',bno=${notice.bno})}" class="title">[<span th:text="${notice.typeName}"></span>] [[${notice.title}]]</a>
                   <p>
                     <span class="date" th:text="${#temporals.format(notice.rdate, 'yy-MM-dd')}"></span>
                   </p>
