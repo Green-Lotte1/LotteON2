@@ -20,10 +20,12 @@
         alert('성공적으로 글이 등록 되었습니다.');
     }
 
-    function showAlert() {
-        alert("해당 글 작성자만 접근 가능합니다.");
+    // 문의하기 접근 시
+    function showAlertLogin() {
+        alert('로그인이 필요한 기능입니다.');
     }
 
+    // 사용자 인가 설정
     function showAlert(id){
         const flag = '[[${#authentication.principal}]]'
         if(flag == 'anonymousUser'){
@@ -104,11 +106,13 @@
                     <a th:href="@{/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.end + 1})}">다음</a>
                   </span>
               </div>
-
-
-
-              <a th:href="@{/cs/qna/write(group=qna)}" class="btnWrite">문의하기</a>
-
+                <a th:href="@{/cs/qna/write(group=qna)}"
+                   th:if="${#authorization.expression('isAuthenticated()')}"
+                   class="btnWrite">문의하기</a>
+                <a th:href="@{/cs/qna/write(group=qna)}"
+                   th:unless="${#authorization.expression('isAuthenticated()')}"
+                   onclick="showAlertLogin(); return false;"
+                   class="btnWrite">문의하기</a>
             </article>
           </section>
         </div>

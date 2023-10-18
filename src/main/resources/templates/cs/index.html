@@ -35,6 +35,9 @@
         return true;
 
       }
+      function showAlertLogin() {
+        alert('로그인이 필요한 기능입니다.');
+      }
 
     </script>
   </head>
@@ -128,7 +131,13 @@
                 </li>
               </th:block>
             </ul>
-            <a th:href="@{/cs/qna/write(group=qna)}" class="ask">문의글 작성 ></a>
+            <a th:href="@{/cs/qna/write(group=qna)}"
+               th:if="${#authorization.expression('isAuthenticated()')}"
+               class="ask">문의글 작성 ></a>
+            <a th:href="@{/cs/qna/write(group=qna)}"
+               th:unless="${#authorization.expression('isAuthenticated()')}"
+               onclick="showAlertLogin(); return false;"
+               class="ask">문의글 작성 ></a>
           </section>
 
           <section class="tel">
