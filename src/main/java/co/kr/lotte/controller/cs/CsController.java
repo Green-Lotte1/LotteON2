@@ -148,6 +148,7 @@ public class CsController {
     @PostMapping("cs/qna/write")
     public String qnaWrite(HttpServletRequest request, BoardDTO dto)  {
         log.info(dto.toString());
+        dto.setStatus("검토중");
         csService.save(dto);
         return "redirect:/cs/qna/list?success=200";
     }
