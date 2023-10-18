@@ -57,3 +57,5 @@ spring:
     multipart:
       location: src/main/resources/static/file/
       max-file-size: 10MB
+app:
+  version: 0.0.5-SNAPSHOT
