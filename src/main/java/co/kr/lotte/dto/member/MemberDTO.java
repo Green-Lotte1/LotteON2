@@ -18,7 +18,6 @@ public class MemberDTO {
     private int gender;
     private String hp;
     private String email;
-    private int type;
     private int point;
     private int level;
     private String zip;
@@ -44,7 +43,6 @@ public class MemberDTO {
                 .gender(gender)
                 .hp(hp)
                 .email(email)
-                .type(type==0?1:type)
                 .point(point)
                 .level(level==0?1:level)
                 .zip(zip)
