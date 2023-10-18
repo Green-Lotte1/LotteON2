@@ -40,7 +40,19 @@
                   http://www.krcert.or.kr<br />
                   감사합니다.<br />
                 </p>
+
               </div>
+              <section class="commentList">
+                <article class="comment">
+                  <div th:if="${boardDTO.reply != null}">
+                    <h4>👉[답변] <span th:text="${boardDTO.title}"></span></h4>
+                    <textarea class="content" name="content" th:text="${boardDTO.reply}" readonly></textarea>
+                  </div>
+                  <div th:unless="${boardDTO.reply != null}">
+                    <p class="empty">등록된 댓글이 없습니다.</p>
+                  </div>
+                </article>
+              </section>
               <a th:href="@{/cs/qna/list(cate=member)}" class="btnList">목록보기</a>
             </article>
           </section>

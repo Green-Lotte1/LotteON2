@@ -40,9 +40,8 @@
             <ul>
               <th:block th:each="notice : ${noticeBoard}">
                 <li>
-                  <a th:href="@{/cs/qna/view(group='qna',bno=${notice.bno})}" class="title">[<span th:text="${notice.type}"></span>][[${notice.title}]]</a>
+                  <a th:href="@{/cs/qna/view(group='qna',bno=${notice.bno})}" class="title">[<span th:text="${notice.typeName}"></span>] [[${notice.title}]]</a>
                   <p>
-                    <span class="uid" th:text="${#strings.substring(notice.uid, 0, 3) + '***'}"></span>
                     <span class="date" th:text="${#temporals.format(notice.rdate, 'yy-MM-dd')}"></span>
                   </p>
                 </li>
@@ -86,7 +85,7 @@
             <ul>
               <th:block th:each="qna : ${qnaBoard}">
                 <li>
-                  <a th:href="@{/cs/qna/view(group='qna',bno=${qna.bno})}" class="title">[<span th:text="${qna.type}"></span>][[${qna.title}]]</a>
+                  <a th:href="@{/cs/qna/view(group='qna',bno=${qna.bno})}" class="title">[<span th:text="${qna.typeName}"></span>] [[${qna.title}]]</a>
                   <p>
                     <span class="uid" th:text="${#strings.substring(qna.uid, 0, 3) + '***'}"></span>
                     <span class="date" th:text="${#temporals.format(qna.rdate, 'yy-MM-dd')}"></span>

@@ -117,15 +117,76 @@ public class CsService {
         return dtoList;
     }
 
-    public List<BoardEntity> getNoticeBoard(int page, int size) {
+/*    public List<BoardEntity> getNoticeBoard(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("rdate").descending().and(Sort.by("bno").descending()));
         return csRepository.findByGroupAndTypeGreaterThanOrderByRdateDescBnoDesc("notice", 20, pageable);
+    }*/
+
+    public List<BoardDTO> getNoticeBoard(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("rdate").descending().and(Sort.by("bno").descending()));
+        List<BoardEntity> boardEntityPage = csRepository.findByGroupAndTypeGreaterThanOrderByRdateDescBnoDesc("notice", 20, pageable);
+        List<BoardDTO> dtoList = boardEntityPage
+                                .stream()
+                                .map(entity -> modelMapper.map(entity, BoardDTO.class ))
+                                .toList();
+
+
+        List<BoardCateEntity> boardCateEntitieList =  boardCateRepository.findAll();
+        List<BoardTypeEntity> boardTypeEntitieList = typeRepository.findAll();
+
+        Map<String, Map<Integer, String>> cateMap = new HashMap<>();
+        for (BoardCateEntity boardCateEntity : boardCateEntitieList) {
+            Map<Integer, String > typeMap = new HashMap<>();
+            for (BoardTypeEntity boardEntity : boardTypeEntitieList) {
+                if (boardEntity.getCate().equals(boardCateEntity.getCate())) {
+                    typeMap.put(boardEntity.getType(), boardEntity.getTypeName());
+                }
+            }
+            cateMap.put(boardCateEntity.getCate(), typeMap);
+        }
+
+        for (BoardDTO boardDTO : dtoList) {
+            boardDTO.setTypeName(
+                    cateMap.get(boardDTO.getCate()).get(boardDTO.getType())
+            );
+        }
+        return dtoList;
+
+
     }
 
 
-    public List<BoardEntity> getQnaBoard(int page, int size) {
+    public List<BoardDTO> getQnaBoard(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("rdate").descending().and(Sort.by("bno").descending()));
-        return csRepository.findByGroupAndTypeLessThanOrderByRdateDescBnoDesc("qna", 20, pageable);
+
+        List<BoardEntity> boardEntityPage = csRepository.findByGroupAndTypeLessThanOrderByRdateDescBnoDesc("qna", 20, pageable);
+        List<BoardDTO> dtoList = boardEntityPage
+                .stream()
+                .map(entity -> modelMapper.map(entity, BoardDTO.class ))
+                .toList();
+
+
+        List<BoardCateEntity> boardCateEntitieList =  boardCateRepository.findAll();
+        List<BoardTypeEntity> boardTypeEntitieList = typeRepository.findAll();
+
+        Map<String, Map<Integer, String>> cateMap = new HashMap<>();
+        for (BoardCateEntity boardCateEntity : boardCateEntitieList) {
+            Map<Integer, String > typeMap = new HashMap<>();
+            for (BoardTypeEntity boardEntity : boardTypeEntitieList) {
+                if (boardEntity.getCate().equals(boardCateEntity.getCate())) {
+                    typeMap.put(boardEntity.getType(), boardEntity.getTypeName());
+                }
+            }
+            cateMap.put(boardCateEntity.getCate(), typeMap);
+        }
+
+        for (BoardDTO boardDTO : dtoList) {
+            boardDTO.setTypeName(
+                    cateMap.get(boardDTO.getCate()).get(boardDTO.getType())
+            );
+        }
+        return dtoList;
+
     }
 
 }

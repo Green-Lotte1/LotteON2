@@ -27,7 +27,8 @@ public class BoardEntity {
     private int type;
     private String title;
     private String content;
-
+    private String status;
+    private String reply;
     @CreationTimestamp
     private LocalDateTime rdate;
 
@@ -41,6 +42,8 @@ public class BoardEntity {
                 .type(type)
                 .title(title)
                 .content(content)
+                .status(status)
+                .reply(reply)
                 .rdate(rdate)
                 .build();
     }

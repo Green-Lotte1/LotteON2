@@ -41,11 +41,11 @@ public class CsController {
                         @RequestParam(name = "size", defaultValue = "5") int size,
                         Model model) {
 
-        List<BoardEntity> noticeBoard = csService.getNoticeBoard(page, size);
+        List<BoardDTO> noticeBoard = csService.getNoticeBoard(page, size);
         log.info("noticeBoard :" + noticeBoard );
 
-        List<BoardEntity> qnaBoard = csService.getQnaBoard(page, size);
-        log.info("noticeBoard :" + qnaBoard );
+        List<BoardDTO> qnaBoard = csService.getQnaBoard(page, size);
+        log.info("qnaBoard :" + qnaBoard );
 
 
         model.addAttribute("noticeBoard", noticeBoard);
@@ -149,7 +149,7 @@ public class CsController {
     public String qnaWrite(HttpServletRequest request, BoardDTO dto)  {
         log.info(dto.toString());
         csService.save(dto);
-        return "redirect:/cs/qna/list";
+        return "redirect:/cs/qna/list?success=200";
     }
 
     // cate
