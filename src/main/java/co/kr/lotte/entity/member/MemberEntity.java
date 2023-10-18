@@ -26,7 +26,6 @@ public class MemberEntity {
     private String hp;
     private String email;
     @ColumnDefault("1")
-    private int type;
     private int point;
     @ColumnDefault("1")
     private int level;
@@ -54,7 +53,6 @@ public class MemberEntity {
                 .gender(gender)
                 .hp(hp)
                 .email(email)
-                .type(type)
                 .point(point)
                 .level(level)
                 .zip(zip)

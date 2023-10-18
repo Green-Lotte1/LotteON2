@@ -65,6 +65,8 @@ public class MemberController {
     public String registerSeller(MemberDTO dto, HttpServletRequest request) {
 
         dto.setRegip(request.getRemoteAddr());
+        dto.setLevel(5); // 판매자이므로
+        dto.setName(dto.getCompany()); // 사용자 이름은 회사명으로
         memberService.save(dto);
         return "redirect:/member/login?success=200";
     }

@@ -47,18 +47,15 @@ $(function(){
         } // btnCheckUid.onclick end
     }
 
-    // 이메일 입력데이터
-    $('input[name=email]').focusout = function(){
+    // 휴대폰번호 입력데이터
+    $('input[name=email]').focusout(function(){
 
-        const resultEmail   = document.getElementsByClassName('resultEmail')[0];
+        const email  = $(this).val();
 
-        // 입력 데이터 가져오기
-        const email = this.value;
-
-        if (!email.match(reEmail))
+        // 휴대폰번호 입력값 검사
+        if(!email.match(reEmail))
         {
-            resultEmail.innerText = '유효한 이메일이 아닙니다.';
-            resultEmail.style.color = 'red';
+            $('.resultEmail').css('color', 'red').text('유효한 이메일이 아닙니다.');
             isEmailOk = false;
             return;
         }
@@ -71,19 +68,17 @@ $(function(){
                 console.log('이메일 체크=====data : ' + data);
                 if (data > 0)
                 {
-                    resultEmail.innerText = '이미 사용중인 이메일 입니다.';
-                    resultEmail.style.color = 'red';
+                    $('.resultEmail').css('color', 'red').text('이미 사용중인 이메일입니다.');
                     isEmailOk = false;
                 }
                 else
                 {
-                    resultEmail.innerText = '사용 가능한 이메일 입니다.';
-                    resultEmail.style.color = 'green';
+                    $('.resultEmail').css('color', 'green').text('사용 가능한 이메일입니다.');
                     isEmailOk = true;
                 }
             }
         });
-    }
+    });
 
     // 휴대폰번호 입력데이터
     $('input[name=hp]').focusout(function(){
@@ -159,7 +154,7 @@ $(function(){
         // 사업자등록번호 입력값 검사
         if(!bizRegNum.match(reBizRegNum))
         {
-            $('.msgBizRegNum').css('color', 'red').text('유효한 사업자등록번호가 아닙니다.');
+            $('.resultBizRegNum').css('color', 'red').text('유효한 사업자등록번호가 아닙니다.');
             isBizRegNumOk = false;
             return;
         }
@@ -172,12 +167,12 @@ $(function(){
                 console.log('사업자등록번호 체크=====data : ' + data);
                 if (data > 0)
                 {
-                    $('.msgBizRegNum').css('color', 'red').text('이미 존재하는 사업자등록번호입니다.');
+                    $('.resultBizRegNum').css('color', 'red').text('이미 존재하는 사업자등록번호입니다.');
                     isBizRegNumOk = false;
                 }
                 else
                 {
-                    $('.msgBizRegNum').css('color', 'green').text('해당 사업자등록번호로 가입 가능합니다.');
+                    $('.resultBizRegNum').css('color', 'green').text('해당 사업자등록번호로 가입 가능합니다.');
                     isBizRegNumOk = true;
                 }
             }
@@ -192,7 +187,7 @@ $(function(){
         // 통신판매신고번호 입력값 검사
         if(!comRegNum.match(reComRegNum))
         {
-            $('.msgComRegNum').css('color', 'red').text('유효한 통신판매신고번호가 아닙니다.');
+            $('.resultComRegNum').css('color', 'red').text('유효한 통신판매신고번호가 아닙니다.');
             isComRegNumOk = false;
             return;
         }
@@ -205,12 +200,12 @@ $(function(){
                 console.log('통신판매신고번호 체크=====data : ' + data);
                 if (data > 0)
                 {
-                    $('.msgComRegNum').css('color', 'red').text('이미 존재하는 통신판매신고번호입니다.');
+                    $('.resultComRegNum').css('color', 'red').text('이미 존재하는 통신판매신고번호입니다.');
                     isComRegNumOk = false;
                 }
                 else
                 {
-                    $('.msgComRegNum').css('color', 'green').text('해당 통신판매신고번호로 가입 가능합니다.');
+                    $('.resultComRegNum').css('color', 'green').text('해당 통신판매신고번호로 가입 가능합니다.');
                     isComRegNumOk = true;
                 }
             }
@@ -225,7 +220,7 @@ $(function(){
         // 회사 전화번호 입력값 검사
         if(!tel.match(reTel))
         {
-            $('.msgTel').css('color', 'red').text('유효한 전화번호 양식이 아닙니다.');
+            $('.resultTel').css('color', 'red').text('유효한 전화번호 양식이 아닙니다.');
             isTelOk = false;
             return;
         }
@@ -238,12 +233,12 @@ $(function(){
                 console.log('회사전화번호 체크=====data : ' + data);
                 if (data > 0)
                 {
-                    $('.msgTel').css('color', 'red').text('이미 존재하는 전화번호입니다.');
+                    $('.resultTel').css('color', 'red').text('이미 존재하는 전화번호입니다.');
                     isTelOk = false;
                 }
                 else
                 {
-                    $('.msgTel').css('color', 'green').text('해당 전화번호로 가입 가능합니다.');
+                    $('.resultTel').css('color', 'green').text('해당 전화번호로 가입 가능합니다.');
                     isTelOk = true;
                 }
             }
@@ -258,7 +253,7 @@ $(function(){
         // 팩스번호 입력값 검사
         if(!fax.match(reFax))
         {
-            $('.msgFax').css('color', 'red').text('유효한 팩스번호 양식이 아닙니다.');
+            $('.resultFax').css('color', 'red').text('유효한 팩스번호 양식이 아닙니다.');
             isFaxOk = false;
             return;
         }
@@ -271,12 +266,12 @@ $(function(){
                 console.log('팩스번호 체크=====data : ' + data);
                 if (data > 0)
                 {
-                    $('.msgFax').css('color', 'red').text('이미 존재하는 팩스번호입니다.');
+                    $('.resultFax').css('color', 'red').text('이미 존재하는 팩스번호입니다.');
                     isFaxOk = false;
                 }
                 else
                 {
-                    $('.msgFax').css('color', 'green').text('해당 팩스번호로 가입 가능합니다.');
+                    $('.resultFax').css('color', 'green').text('해당 팩스번호로 가입 가능합니다.');
                     isFaxOk = true;
                 }
             }

@@ -41,17 +41,17 @@ public class MemberCheckController {
         return result;
     }
     @GetMapping("/comRegNum/{comRegNum}")
-    public int checkComRegNum(String comRegNum) {
+    public int checkComRegNum(@PathVariable("comRegNum") String comRegNum) {
         int result = memberService.countComRegNum(comRegNum);
         return result;
     }
     @GetMapping("/tel/{tel}")
-    public int checkTel(String tel) {
+    public int checkTel(@PathVariable("tel") String tel) {
         int result = memberService.countTel(tel);
         return result;
     }
     @GetMapping("/fax/{fax}")
-    public int checkFax(String fax) {
+    public int checkFax(@PathVariable("fax")String fax) {
         int result = memberService.countFax(fax);
         return result;
     }
