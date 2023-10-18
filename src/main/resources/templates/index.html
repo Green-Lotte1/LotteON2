@@ -100,12 +100,13 @@
               <a th:href="@{/member/join}">회원가입</a>
             </th:block>
             <th:block sec:authorize="isAuthenticated()">
+              <span>[[${#authentication.principal.member.name}]]님</span>
               <a th:href="@{/member/logout}">로그아웃</a>
               <a th:href="@{#}">마이페이지</a>
               <a th:href="@{/product/cart}"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;장바구니</a>
             </th:block>
             <th:block sec:authorize="hasAnyRole('5','99')">
-              <a th:href="@{/admin/product/register}">관리자</a>
+              <a th:href="@{/admin/index}">관리자</a>
             </th:block>
           </div>
         </div>

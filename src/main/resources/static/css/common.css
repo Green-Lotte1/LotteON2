@@ -45,6 +45,13 @@ header > .top > div {
   text-align: right;
 }
 
+/* 사용자 이름 출력 부분 */
+header > .top > div > span {
+  font-weight: bold;
+  margin-right: 5px;
+  color: darkslategray;
+}
+
 header > .top > div > a {
   display: inline-block;
   height: 100%;
