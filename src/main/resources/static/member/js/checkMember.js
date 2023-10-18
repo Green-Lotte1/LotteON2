@@ -48,7 +48,7 @@ $(function(){
     }
 
     // 이메일 입력데이터
-    document.getElementsByName('email')[0].onfocusout = function(){
+    $('input[name=email]').focusout = function(){
 
         const resultEmail   = document.getElementsByClassName('resultEmail')[0];
 

@@ -104,6 +104,9 @@
               <a th:href="@{#}">마이페이지</a>
               <a th:href="@{/product/cart}"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;장바구니</a>
             </th:block>
+            <th:block sec:authorize="hasAnyRole('5','99')">
+              <a th:href="@{/admin/product/register}">관리자</a>
+            </th:block>
           </div>
         </div>
         <div class="logo">
