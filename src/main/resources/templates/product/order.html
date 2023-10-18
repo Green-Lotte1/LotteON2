@@ -51,7 +51,7 @@
                     $('#total').text(ordTotPrice.toLocaleString());
 
                     $('input[name=ordSubmit]').click(function() {
-                        const ordUid = 'lg';
+                        const ordUid = '[[${#authentication.principal.member.uid}]]';
                         const ordCount = $('input[name=ordCount]').val() * 1;
                         const ordPrice = $('input[name=ordPrice]').val() * 1;
                         const ordDiscount = $('input[name=ordDiscount]').val() * 1;

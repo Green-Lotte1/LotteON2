@@ -33,7 +33,7 @@
             $('.cart').click(function(e) {
                 e.preventDefault();
                 const prodNo = [[${product.prodNo}]];
-                const uid = "lg";
+                const uid = "[[${#authentication.principal.member.uid}]]";
                 if (uid == "") {
                     alert('로그인 후 사용가능한 기능입니다.');
                     return false;
@@ -64,7 +64,7 @@
             $('.order').click(function(e) {
                 e.preventDefault();
                 const prodNo = [[${product.prodNo }]];
-                const uid = "lg";
+                const uid = "[[${#authentication.principal.member.uid}]]";
                 if (uid == "") {
                     alert('로그인 후 사용가능한 기능입니다.');
                     return false;

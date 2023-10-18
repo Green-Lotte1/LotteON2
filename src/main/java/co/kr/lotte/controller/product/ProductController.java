@@ -1,7 +1,8 @@
 package co.kr.lotte.controller.product;
 
 import co.kr.lotte.dto.product.*;
-import co.kr.lotte.entity.product.ProductCartEntity;
+import co.kr.lotte.entity.member.MemberEntity;
+import co.kr.lotte.security.MyUserDetails;
 import co.kr.lotte.service.CateService;
 import co.kr.lotte.service.product.ProductService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -9,6 +10,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -64,9 +66,10 @@ public class ProductController {
     }
 
     @GetMapping("/product/cart")
-    public String cart(Model model) {
+    public String cart(Model model, @AuthenticationPrincipal Object principal) {
+        MemberEntity memberEntity = ((MyUserDetails) principal).getMember();
         // 사용자 인증이 완료되지 않아 고정값으로 테스트
-        String uid = "lg";
+        String uid = memberEntity.getUid();
         List<ProductCartDTO> productCartDTOS = productService.findProductCartByUid(uid);
         log.info("cart size() : " + productCartDTOS.size());
         model.addAttribute("carts", productCartDTOS);
