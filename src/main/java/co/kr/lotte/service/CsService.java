@@ -9,6 +9,8 @@ import co.kr.lotte.entity.cs.BoardTypeEntity;
 import co.kr.lotte.repository.cs.BoardCateRepository;
 import co.kr.lotte.repository.cs.BoardTypeRepository;
 import co.kr.lotte.repository.cs.CsRepository;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -18,10 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Log4j2
 @Service
@@ -32,6 +31,7 @@ public class CsService {
     private final BoardTypeRepository typeRepository;
     private final BoardCateRepository boardCateRepository;
     private final ModelMapper modelMapper;
+
 
     public CsPageResponseDTO findByCate(CsPageRequestDTO csPageRequestDTO){
 
@@ -61,6 +61,7 @@ public class CsService {
         for (BoardDTO boardDTO : dtoList) {
             boardDTO.setTypeName(
                     cateMap.get(boardDTO.getCate()).get(boardDTO.getType())
+
             );
         }
 
@@ -74,12 +75,21 @@ public class CsService {
                 .build();
 
     }
-
+    // 글등록
     public void save (BoardDTO dto){
         BoardEntity entity = dto.toEntity();
         log.info(entity);
         csRepository.save(entity);
     }
+
+    // 글수정
+    @Transactional
+    public BoardEntity updateContent(int bno, String content) {
+        BoardEntity boardEntities = csRepository.findById(bno).get();
+        boardEntities.setContent(content);
+        return boardEntities;
+    }
+
 
     public BoardDTO findByBno(int bno){
         BoardEntity boardEntity = csRepository.findById(bno).orElseThrow(() -> new RuntimeException());

@@ -417,9 +417,26 @@ footer p > strong {
   text-align: center;
   box-sizing: border-box;
 }
+.btnWriteCancel {
+  display: inline-block;
+  width: 200px;
+  height: 60px;
+  margin: 40px auto 0;
+  border: 1px solid #ccc;
+  border-radius: 34px;
+  font-size: 16px;
+  color: #000;
+  line-height: 58px;
+  text-align: center;
+  box-sizing: border-box;
+}
 .btnSubmit:hover {
   background-color: #0954f6;
 }
+.btnWriteCancel:hover {
+  background-color: #e4e4e4;
+}
+
 
 
 /* 고객센터 sub 공통 */
@@ -974,6 +991,160 @@ footer p > strong {
   font-size: 16px;
   line-height: 32px;
 }
+/* QnA view */
+#cs > div > section > article > div:nth-child(4) {
+  position: relative;
+
+}
+#cs > div > section > article > div:nth-child(4) > .btnQnAList{
+  float: right;
+  display: block;
+  margin-top: 40px;
+  margin-bottom: 30px;
+  width: 120px;
+  height: 60px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  border-radius: 0;
+  color: #000;
+  line-height: 55px;
+  text-align: center;
+  box-sizing: border-box;
+}
+#cs > div > section > article > div:nth-child(4) > .btnModify{
+  float: right;
+  display: block;
+  margin-top: 40px;
+  margin-right: 5px;
+  width: 120px;
+  height: 60px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  border-radius: 0;
+  color: #000;
+  line-height: 55px;
+  text-align: center;
+  box-sizing: border-box;
+}
+/* QnA modify */
+#cs > .qna > .modify {}
+#cs > .qna > .modify > article {}
+#cs > .qna > .modify > article > form > nav {
+  width: 100%;
+  height: auto;
+  padding: 26px;
+  border-top: 2px solid #111;
+  border-bottom: 1px solid #e9e9e9;
+  box-sizing: border-box;
+}
+#cs > div > section > article >form >  nav > span > span {
+  margin-bottom: 6px;
+  font-size: 32px;
+  font-weight: bold;
+}
+#cs > .qna > .modify > article >form >  nav > .title {
+  margin-bottom: 6px;
+  font-size: 32px;
+  font-weight: bold;
+}
+#cs > div > section > article >form >  nav > h2 > span {
+  margin-bottom: 6px;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+#cs > .qna > .modify > article >form >  nav > .date {
+  font-size: 14px;
+  color: #777;
+}
+
+#cs > .qna > .modify > article > form .content {
+  width: 100%;
+  height: 100%;
+  border-bottom: 3px solid #e9e9e9;
+  padding: 26px;
+  box-sizing: border-box;
+}
+
+#cs > .qna > .modify > article > form > .content * {
+  font-size: 16px;
+  line-height: 32px;
+}
+#cs > div > section > article > form > div.content > textarea {
+  width: 100%;
+  height: 360px;
+  resize: none;
+  font-size: 16px;
+  padding: 10px;
+  box-sizing: border-box;
+  outline: none;
+  border: 2px solid #e4e4e4;
+}
+#cs > div > section > article >form >  div.content > textarea:hover {
+  width: 100%;
+  height: 360px;
+  resize: none;
+  font-size: 16px;
+  padding: 10px;
+  box-sizing: border-box;
+  outline: none;
+  border: 2px solid #ef2a23;
+}
+#cs > div > section > article > form > div:nth-child(3) {
+  position: relative;
+}
+
+#cs > div > section > article >form >  div:nth-child(3) > .btnCancel{
+  float: right;
+  display: block;
+  margin-top: 40px;
+  margin-bottom: 30px;
+  margin-right: 5px;
+  width: 120px;
+  height: 60px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  border-radius: 0;
+  color: #000;
+  line-height: 55px;
+  text-align: center;
+  box-sizing: border-box;
+}
+#cs > div > section > article > form > div:nth-child(3) > .btnModiDone{
+  float: right;
+  display: block;
+  margin-top: 40px;
+  margin-right: 5px;
+  width: 120px;
+  height: 60px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  border-radius: 0;
+  color: #000;
+  line-height: 55px;
+  text-align: center;
+  box-sizing: border-box;
+}
+.btnQnAList:hover {
+  font-weight: bolder;
+  background-color: #f7f7f7;
+}
+.btnCancel:hover {
+  font-weight: bolder;
+  background-color: #f7f7f7;
+}
+
+.btnModify:hover {
+  font-weight: bolder;
+  background-color: #f7f7f7;
+}
+.btnModiDone:hover {
+  font-weight: bolder;
+  background-color: #f7f7f7;
+}
+
+
+
 #cs > div > section > article > section > article > div > h4 {
   font-size: 16px;
   font-weight: bold;
@@ -1064,6 +1235,8 @@ footer p > strong {
   padding: 10px;
   box-sizing: border-box;
 }
-#cs > div > section > article > form > div {
-  margin-left: 300px;
+/*추가*/
+/*버튼 위치*/
+#cs > .write div > section > article > form > div {
+  margin-left: 500px;
 }

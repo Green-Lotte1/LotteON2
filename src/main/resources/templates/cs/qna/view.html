@@ -53,7 +53,10 @@
                   </div>
                 </article>
               </section>
-              <a th:href="@{/cs/qna/list(cate=member)}" class="btnList">목록보기</a>
+              <div>
+                <a th:href="@{/cs/qna/list(cate=member)}" class="btnQnAList">목록보기</a>
+                <a th:href="@{/cs/qna/modify(bno=${boardDTO.bno})}" class="btnModify">수정하기</a>
+              </div>
             </article>
           </section>
         </div>
