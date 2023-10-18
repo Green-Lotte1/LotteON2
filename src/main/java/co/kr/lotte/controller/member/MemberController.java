@@ -57,9 +57,15 @@ public class MemberController {
         return "redirect:/member/login?success=200";
     }
 
-    @GetMapping("member/registerSeller")
+    @GetMapping("/member/registerSeller")
     public String registerSeller() {
-
         return "/member/registerSeller";
+    }
+    @PostMapping("/member/registerSeller")
+    public String registerSeller(MemberDTO dto, HttpServletRequest request) {
+
+        dto.setRegip(request.getRemoteAddr());
+        memberService.save(dto);
+        return "redirect:/member/login?success=200";
     }
 }
