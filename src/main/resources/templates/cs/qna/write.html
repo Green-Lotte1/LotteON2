@@ -114,6 +114,12 @@
                       <textarea name="content" required placeholder="내용을 입력하세요."></textarea>
                     </td>
                   </tr>
+                  <tr>
+                  <td class="form-group">
+                    <label>파일첨부</label>
+                    <td> <input type="file" name="fname"></td>
+                  </td>
+                  </tr>
                 </table>
                 <div>
                   <a th:href="@{/cs/qna/list(group=qna)}" class="btnWriteCancel">취소하기</a>
