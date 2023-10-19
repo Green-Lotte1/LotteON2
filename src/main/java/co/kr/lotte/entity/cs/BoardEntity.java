@@ -29,6 +29,7 @@ public class BoardEntity {
     private int type;
     private String title;
     private String content;
+    @Builder.Default
     private Integer file = -1;
     private String status;
     private String reply;
