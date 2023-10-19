@@ -22,3 +22,4 @@
 
 0.0.6-SNAPSHOT
  - member 자동로그인 구현 완료
+ - product 장바구니 선택삭제 기능구현
