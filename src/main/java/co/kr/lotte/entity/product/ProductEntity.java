@@ -3,6 +3,7 @@ package co.kr.lotte.entity.product;
 import co.kr.lotte.dto.product.ProductDTO;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Getter
 @Setter
@@ -41,6 +42,7 @@ public class ProductEntity {
     private String bizType;
     private String origin;
     private String ip;
+    @CreationTimestamp
     private String rdate;
     private String deleteYn;
 

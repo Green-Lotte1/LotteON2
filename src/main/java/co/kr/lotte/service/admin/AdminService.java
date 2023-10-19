@@ -15,6 +15,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,11 +38,8 @@ public class AdminService {
     private final ModelMapper modelMapper;
 
     public PageResponseDTO findByDeleteYn(PageRequestDTO pageRequestDTO){
-
         Pageable pageable = pageRequestDTO.getPageable("prodNo");
-
         Page<ProductEntity> result = productRepository.findByDeleteYn("N", pageable);
-
         List<ProductEntity> dtoList = result.getContent()
                 .stream()
                 .map(dto -> modelMapper.map(dto, ProductEntity.class))
@@ -65,60 +66,34 @@ public class AdminService {
     }
 
     public void save(ProductDTO dto) {
-        // 랜덤한 파일 이름 생성
-        String randomFilename1 = generateRandomFilename(dto.getThumb1());
-        String randomFilename2 = generateRandomFilename(dto.getThumb2());
-        String randomFilename3 = generateRandomFilename(dto.getThumb3());
-        String randomDetailFilename = generateRandomFilename(dto.getDetail());
-
+        // 파일 저장 경로
+        String uploadPath = "src/main/resources/static/thumb/"+dto.getProdCate1()+"/"+dto.getProdCate2()+"/";
+        //파일 업로드
+        dto.setThumb1(fileSave(dto.getPro_thumb1(),uploadPath));
+        dto.setThumb2(fileSave(dto.getPro_thumb2(),uploadPath));
+        dto.setThumb3(fileSave(dto.getPro_thumb3(),uploadPath));
+        dto.setDetail(fileSave(dto.getPro_detail(),uploadPath));
 
         ProductEntity entity = dto.toEntity();
-
-        // ProductDTO에 랜덤한 파일 이름 설정
-        entity.setThumb1(randomFilename1);
-        entity.setThumb2(randomFilename2);
-        entity.setThumb3(randomFilename3);
-        entity.setDetail(randomDetailFilename);
-
-        // 나머지 저장 로직
+        //파일 세이브
         ProductEntity productEntity = productRepository.save(entity);
 
-        // 파일을 경로에 저장
-        String uploadPath = "src/main/resources/static/thumb/"+dto.getProdCate1()+"/"+dto.getProdCate2()+"/";
-        saveFile(uploadPath, dto.getThumb1(), randomFilename1);
-        saveFile(uploadPath, dto.getThumb2(), randomFilename2);
-        saveFile(uploadPath, dto.getThumb3(), randomFilename3);
-        saveFile(uploadPath, dto.getDetail(), randomDetailFilename);
     }
+    public String fileSave(MultipartFile mf,String filePath){
+        String sName = "";
+        if(!mf.isEmpty()){
+            String path = new File(filePath).getAbsolutePath();
 
-    // 파일을 실제 경로에 저장하는 메소드
-    private void saveFile(String uploadPath, String fileData, String fileName) {
-        File uploadDir = new File(uploadPath);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdirs();
+            String oName = mf.getOriginalFilename();
+            String ext = oName.substring(oName.lastIndexOf("."));
+            sName = UUID.randomUUID().toString()+ext;
+
+            try {
+                mf.transferTo(new File(path, sName));
+            } catch (IOException e) {
+                log.error(e.getMessage());
+            }
         }
-
-        try {
-            byte[] bytes = fileData.getBytes();
-            Path path = Paths.get(uploadPath + fileName);
-            Files.write(path, bytes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // UUID를 사용하여 랜덤한 파일 이름을 생성하고 원래 파일의 확장자를 유지
-    private String generateRandomFilename(String originalFilename) {
-        String fileExtension = "";
-        int lastDotIndex = originalFilename.lastIndexOf(".");
-
-        if (lastDotIndex >= 0) {
-            fileExtension = originalFilename.substring(lastDotIndex);
-        }
-
-        UUID uuid = UUID.randomUUID();
-        String randomFilename = uuid.toString() + fileExtension;
-
-        return randomFilename;
+        return sName;
     }
 }

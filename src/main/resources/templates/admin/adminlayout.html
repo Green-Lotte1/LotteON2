@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script>
+    <script th:src="@{/admin/js/gnb.js}"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" th:href="@{/admin/css/admin.css}">
@@ -37,48 +38,48 @@
             <li>
                 <a href="#"><i class="fa fa-cogs" aria-hidden="true"></i>환경설정</a>
                 <ol>
-                    <li><a th:href="@{admin/config/info}">기본환경정보</a></li>
-                    <li><a th:href="@{admin/config/banner}">배너관리</a></li>
+                    <li><a th:href="@{/admin/config/info}">기본환경정보</a></li>
+                    <li><a th:href="@{/admin/config/banner}">배너관리</a></li>
                 </ol>
             </li>
             <li>
                 <a href="#"><i class="fas fa-store" aria-hidden="true"></i>상점관리</a>
                 <ol>
-                    <li><a  th:href="@{admin/index}">판매자현황</a></li>
-                    <li><a  th:href="@{admin/product/list}">재고관리</a></li>
+                    <li><a  th:href="@{/admin/index}">판매자현황</a></li>
+                    <li><a  th:href="@{/admin/product/list}">재고관리</a></li>
                 </ol>
             </li>
             <li>
                 <a href="#"><i class="fa fa-users" aria-hidden="true"></i>회원관리</a>
                 <ol>
-                    <li><a th:href="@{admin/index}">회원현황</a></li>
-                    <li><a th:href="@{admin/index}">포인트관리</a></li>
-                    <li><a th:href="@{admin/index}">비회원관리</a></li>
-                    <li><a th:href="@{admin/index}">접속자집계</a></li>
+                    <li><a th:href="@{/admin/index}">회원현황</a></li>
+                    <li><a th:href="@{/admin/index}">포인트관리</a></li>
+                    <li><a th:href="@{/admin/index}">비회원관리</a></li>
+                    <li><a th:href="@{/admin/index}">접속자집계</a></li>
                 </ol>
             </li>
             <li>
                 <a href="#"><i class="fas fa-box-open" aria-hidden="true"></i>상품관리</a>
                 <ol>
-                    <li><a th:href="@{admin/product/list}">상품현황</a></li>
-                    <li><a th:href="@{admin/product/register}">상품등록</a></li>
-                    <li><a th:href="@{admin/product/list}">재고관리</a></li>
+                    <li><a th:href="@{/admin/product/list}">상품현황</a></li>
+                    <li><a th:href="@{/admin/product/register}">상품등록</a></li>
+                    <li><a th:href="@{/admin/product/list}">재고관리</a></li>
                 </ol>
             </li>
             <li>
                 <a href="#"><i class="fa fa-credit-card" aria-hidden="true"></i>주문관리</a>
                 <ol>
-                    <li><a th:href="@{admin/index}">주문현황</a></li>
-                    <li><a th:href="@{admin/index}">매출현황</a></li>
-                    <li><a th:href="@{admin/index}">결제관리</a></li>
-                    <li><a th:href="@{admin/index}">배송관리</a></li>
+                    <li><a th:href="@{/admin/index}">주문현황</a></li>
+                    <li><a th:href="@{/admin/index}">매출현황</a></li>
+                    <li><a th:href="@{/admin/index}">결제관리</a></li>
+                    <li><a th:href="@{/admin/index}">배송관리</a></li>
                 </ol>
             </li>
             <li>
                 <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>게시판관리</a>
                 <ol>
-                    <li><a th:href="@{admin/index}">게시판현황</a></li>
-                    <li><a th:href="@{admin/index}">고객문의</a></li>
+                    <li><a th:href="@{/admin/index}">게시판현황</a></li>
+                    <li><a th:href="@{/cs/index}">고객문의</a></li>
                 </ol>
             </li>
         </ul>
