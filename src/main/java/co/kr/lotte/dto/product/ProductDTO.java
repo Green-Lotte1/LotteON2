@@ -3,6 +3,7 @@ package co.kr.lotte.dto.product;
 import co.kr.lotte.entity.product.ProductEntity;
 import jakarta.persistence.Table;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.text.DecimalFormat;
 
@@ -41,6 +42,10 @@ public class ProductDTO {
     private String ip;
     private String rdate;
     private String deleteYn;
+    private MultipartFile pro_thumb1;
+    private MultipartFile pro_thumb2;
+    private MultipartFile pro_thumb3;
+    private MultipartFile pro_detail;
 
     public int getDisPrice() {
         return (int) Math.floor(((double) price / 1000) * (100 - discount)) * 10;
@@ -98,6 +103,10 @@ public class ProductDTO {
                 .ip(ip)
                 .rdate(rdate)
                 .deleteYn(deleteYn)
+                .thumb1(thumb1)
+                .thumb2(thumb2)
+                .thumb3(thumb3)
+                .detail(detail)
                 .build();
     }
 }

@@ -63,7 +63,7 @@
     </nav>
     <!-- 상품등록 컨텐츠 시작 -->
     <article>
-        <form th:action="@{/admin/product/register}" method="post"> <!-- 수정: 폼의 action 및 method 추가 -->
+        <form th:action="@{/admin/product/register}" method="post" enctype="multipart/form-data"> <!-- 수정: 폼의 action 및 method 추가 -->
 
             <!-- 상품분류 -->
             <section>
@@ -150,20 +150,20 @@
                         <td>상품 썸네일</td>
                         <td>
                             <span>크기 190 x 190, 상품 목록에 출력될 이미지 입니다.</span>
-                            <input type="file" name="thumb1"/> <!-- 수정: name 속성 변경 -->
+                            <input type="file" name="pro_thumb1"/> <!-- 수정: name 속성 변경 -->
 
                             <span>크기 230 x 230, 상품 메인에 출력될 이미지 입니다.</span>
-                            <input type="file" name="thumb2"/> <!-- 수정: name 속성 변경 -->
+                            <input type="file" name="pro_thumb2"/> <!-- 수정: name 속성 변경 -->
 
                             <span>크기 456 x 456, 상품 상세에 출력될 이미지 입니다.</span>
-                            <input type="file" name="thumb3"/> <!-- 수정: name 속성 변경 -->
+                            <input type="file" name="pro_thumb3"/> <!-- 수정: name 속성 변경 -->
                         </td>
                     </tr>
                     <tr>
                         <td>상세 상품정보</td>
                         <td>
                             <span>크기 가로 940px 높이 제약없음, 크기 최대 1MB, 상세페이지 상품정보에 출력될 이미지 입니다.</span>
-                            <input type="file" name="detail"/> <!-- 수정: name 속성 변경 -->
+                            <input type="file" name="pro_detail"/> <!-- 수정: name 속성 변경 -->
                         </td>
                     </tr>
                 </table>
