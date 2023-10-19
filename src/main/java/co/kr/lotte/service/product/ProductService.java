@@ -51,6 +51,23 @@ public class ProductService {
                 .total(totalElement)
                 .build();
     }
+    // 상품 전체 조회
+    public PageResponseDTO findByAll(PageRequestDTO pageRequestDTO) {
+        Page<ProductEntity> result = productRepository.findAll(pageRequestDTO.getPageable());
+
+        List<ProductDTO> dtoList = result.getContent()
+                .stream()
+                .map(entity -> modelMapper.map(entity, ProductDTO.class))
+                .toList();
+
+        int totalElement = (int) result.getTotalElements();
+
+        return PageResponseDTO.builder()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(dtoList)
+                .total(totalElement)
+                .build();
+    }
 
     // 상품 상세 조회
     public ProductDTO getProductDTO(int prodNo) {

@@ -41,19 +41,16 @@ public class AdminController {
     // admin-product
     @GetMapping("/admin/product/list")
     public String list(Model model, PageRequestDTO pageRequestDTO) {
-        // 상품 목록 조회
-        PageResponseDTO pageResponseDTO = productService.findByCate1AndCate2(pageRequestDTO);
+        // 서비스를 사용하여 전체 제품 데이터를 검색
+        PageResponseDTO pageResponseDTO = productService.findByAll(pageRequestDTO);
 
-        // 카테고리 조회
-        String c1Name = cateService.getC1Name(pageRequestDTO.getCate1());
-        String c2Name = cateService.getC2Name(pageRequestDTO.getCate1(), pageRequestDTO.getCate2());
-        log.info("c1Name : " + c1Name);
-        log.info("c2Name : " + c2Name);
-        model.addAttribute(pageResponseDTO);
-        model.addAttribute("c1Name", c1Name);
-        model.addAttribute("c2Name", c2Name);
+        // 모델에 데이터 추가
+        model.addAttribute("pageResponseDTO", pageResponseDTO);
+
+        // Thymeleaf 템플릿의 이름 반환
         return "/admin/product/list";
     }
+
 
     @GetMapping("/admin/product/register")
     public String pro_register(HttpServletRequest request, Model model) {
