@@ -1,26 +1,41 @@
 package co.kr.lotte.service;
 
 import co.kr.lotte.dto.cs.BoardDTO;
+import co.kr.lotte.dto.cs.BoardFileDTO;
 import co.kr.lotte.dto.cs.CsPageRequestDTO;
 import co.kr.lotte.dto.cs.CsPageResponseDTO;
 import co.kr.lotte.entity.cs.BoardCateEntity;
 import co.kr.lotte.entity.cs.BoardEntity;
+import co.kr.lotte.entity.cs.BoardFileEntity;
 import co.kr.lotte.entity.cs.BoardTypeEntity;
 import co.kr.lotte.repository.cs.BoardCateRepository;
+import co.kr.lotte.repository.cs.BoardFileRepository;
 import co.kr.lotte.repository.cs.BoardTypeRepository;
 import co.kr.lotte.repository.cs.CsRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
-
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 @Log4j2
@@ -32,6 +47,12 @@ public class CsService {
     private final BoardTypeRepository typeRepository;
     private final BoardCateRepository boardCateRepository;
     private final ModelMapper modelMapper;
+    private final BoardFileRepository fileRepository;
+    @Value("${server.servlet.context-path}")
+    private String contextPath;
+    private final ResourceLoader resourceLoader;
+
+
 
 
     public CsPageResponseDTO findByCate(CsPageRequestDTO csPageRequestDTO){
@@ -76,11 +97,83 @@ public class CsService {
                 .build();
 
     }
-    // 글등록
+    // 글등록 및 파일등록
     public void save (BoardDTO dto){
-        BoardEntity entity = dto.toEntity();
-        log.info(entity);
-        csRepository.save(entity);
+        BoardEntity savedEntity = csRepository.save(dto.toEntity());
+        log.info(savedEntity);
+
+        BoardFileDTO fileDTO = fileUpload(dto);
+
+        if(fileDTO!= null) {
+            fileDTO.setBno(savedEntity.getBno());
+            fileRepository.save(fileDTO.toEntity());
+            savedEntity.setFile(1);
+            csRepository.save(savedEntity);
+            log.info("fileEntity...1");
+
+        }
+
+
+    }
+    // 파일 등록
+    @Value("src/main/resources/static/thumb/cs/qna/")
+    private String filePath;
+
+    public BoardFileDTO fileUpload(BoardDTO dto){
+        MultipartFile mf = dto.getFname();
+
+        if(!mf.isEmpty()) {
+            String path = new File(filePath).getAbsolutePath();
+
+            String oName = mf.getOriginalFilename();
+            String ext = oName.substring(oName.lastIndexOf("."));
+            String sName = UUID.randomUUID().toString() + ext;
+
+            try{
+                mf.transferTo(new File(path, sName));
+            }catch (IOException e){
+                log.error(e.getMessage());
+            }
+
+            return BoardFileDTO.builder().ofile(oName).sfile(sName).build();
+        }
+
+        return null;
+    }
+
+
+    public String getAbsoluteFilePath(String filename) {
+        try {
+            Resource resource = resourceLoader.getResource("classpath:static/thumb/cs/qna/" + "8c303751-4f64-4d77-ab80-575158f4b294.png");
+            return resource.getFile().getAbsolutePath();
+        } catch (Exception e) {
+            // 예외 처리
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    // 파일 다운로드
+    public ResponseEntity<Resource> fileDownload() throws IOException{
+        //String absoluteFilePath = "C:\\Users\\Java\\Desktop\\Workspace\\LotteON2\\build\\resources\\main\\static\\thumb\\cs\\qna\\"+"8c303751-4f64-4d77-ab80-575158f4b294.png";
+
+        Path filePath = Paths.get(getAbsoluteFilePath(""));
+
+            if (Files.exists(filePath)) {
+            InputStreamResource resource = new InputStreamResource(new FileInputStream(filePath.toString()));
+            String fileName = filePath.getFileName().toString();
+            log.info("Success download input excel file : " + filePath);
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .cacheControl(CacheControl.noCache())
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName)
+                    .body(resource);
+            } else {
+                // 파일이 존재하지 않는 경우에 대한 예외 처리
+                log.error("File not found: " + filePath);
+                return ResponseEntity.notFound().build();
+            }
     }
 
     // 글수정
@@ -106,7 +199,16 @@ public class CsService {
 
     public BoardDTO findByBno(int bno){
         BoardEntity boardEntity = csRepository.findById(bno).orElseThrow(() -> new RuntimeException());
+        List<BoardFileEntity> boardFileEntities = fileRepository.findByBno(bno);
+
+        List<BoardFileDTO> boardFileDTOS = boardFileEntities
+                .stream()
+                .map(entity -> modelMapper.map(entity, BoardFileDTO.class ))
+                .toList();
+
+
         BoardDTO dto = boardEntity.toDTO();
+        dto.setFileDTOList(boardFileDTOS);
 
         List<BoardTypeEntity> boardTypeEntities = typeRepository.findByCate(dto.getCate());
         log.info("getCate : "+ dto.getCate());

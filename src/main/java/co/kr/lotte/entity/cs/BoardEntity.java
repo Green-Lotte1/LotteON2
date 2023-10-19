@@ -29,6 +29,7 @@ public class BoardEntity {
     private int type;
     private String title;
     private String content;
+    private Integer file = -1;
     private String status;
     private String reply;
     @CreationTimestamp
@@ -37,13 +38,13 @@ public class BoardEntity {
 
     public BoardDTO toDTO(){
         return BoardDTO.builder()
-                .bno(bno)
                 .uid(uid)
                 .group(group)
                 .cate(cate)
                 .type(type)
                 .title(title)
                 .content(content)
+                .file(file)
                 .status(status)
                 .reply(reply)
                 .rdate(rdate)

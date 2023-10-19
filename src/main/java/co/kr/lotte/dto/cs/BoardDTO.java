@@ -2,8 +2,10 @@ package co.kr.lotte.dto.cs;
 
 import co.kr.lotte.entity.cs.BoardEntity;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,13 +21,18 @@ public class BoardDTO {
     private int type;
     private String title;
     private String content;
+    private int file;
     private String status;
     private String reply;
     private LocalDateTime rdate;
     // 추가필드
+    private MultipartFile fname;
     private String typeName;
     private String cateName;
     private int index;
+
+    private List<BoardFileDTO> fileDTOList;
+
 
 
 
@@ -37,6 +44,7 @@ public class BoardDTO {
                 .type(type)
                 .title(title)
                 .content(content)
+                .file(file)
                 .status(status)
                 .reply(reply)
                 .rdate(rdate)

@@ -82,7 +82,7 @@
               </ul>
             </aside>
             <article>
-              <form th:action="@{/cs/qna/write}" method="POST">
+              <form th:action="@{/cs/qna/write}" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="group" value="qna" />
                 <input type="hidden" name="uid" th:value="${#authentication.principal.member.uid}" />
                 <table>
