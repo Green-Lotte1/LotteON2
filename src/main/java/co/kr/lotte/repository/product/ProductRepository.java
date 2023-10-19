@@ -17,4 +17,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
     public List<ProductEntity> findTop8ByOrderByHitDesc();
     public List<ProductEntity> findTop8ByOrderByRdateDesc();
     public List<ProductEntity> findTop8ByOrderByDiscountDesc();
+
+    public Page<ProductEntity> findByDeleteYn(String deleteYn, Pageable pageable);
 }

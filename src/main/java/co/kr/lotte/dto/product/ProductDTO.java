@@ -1,5 +1,6 @@
 package co.kr.lotte.dto.product;
 
+import co.kr.lotte.entity.product.ProductEntity;
 import jakarta.persistence.Table;
 import lombok.*;
 
@@ -69,5 +70,34 @@ public class ProductDTO {
     public String getDeliveryWithComma() {
         DecimalFormat df = new DecimalFormat("###,###");
         return df.format(delivery);
+    }
+
+    public ProductEntity toEntity() {
+        return ProductEntity.builder()
+                .prodNo(prodNo)
+                .prodCate1(prodCate1)
+                .prodCate2(prodCate2)
+                .prodName(prodName)
+                .descript(descript)
+                .seller(seller)
+                .company(company)
+                .price(price)
+                .discount(discount)
+                .point(point)
+                .stock(stock)
+                .sold(sold)
+                .delivery(delivery)
+                .hit(hit)
+                .score(score)
+                .review(review)
+                .status(status)
+                .duty(duty)
+                .receipt(receipt)
+                .bizType(bizType)
+                .origin(origin)
+                .ip(ip)
+                .rdate(rdate)
+                .deleteYn(deleteYn)
+                .build();
     }
 }

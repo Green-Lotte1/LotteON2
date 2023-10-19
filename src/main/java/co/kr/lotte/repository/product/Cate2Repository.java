@@ -11,4 +11,5 @@ public interface Cate2Repository extends JpaRepository<ProductCate2Entity, Integ
     public ProductCate2Entity findByCate1AndCate2(int cate1, int cate2);
 
     public List<ProductCate2Entity> findByCate2(int cate2);
+    
 }
