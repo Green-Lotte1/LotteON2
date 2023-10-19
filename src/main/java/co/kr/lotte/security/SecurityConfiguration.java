@@ -1,6 +1,7 @@
 package co.kr.lotte.security;
 
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +16,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Log4j2
 @Configuration
 public class SecurityConfiguration implements WebMvcConfigurer {
+
+	@Autowired
+	private SecurityUserService securityUserService;
 	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -28,6 +32,13 @@ public class SecurityConfiguration implements WebMvcConfigurer {
 										.failureUrl("/member/login?success=100")
 										.usernameParameter("uid")
 										.passwordParameter("pass"))
+
+			// 자동로그인 설정
+			.rememberMe(config -> config.userDetailsService(securityUserService)
+					.rememberMeParameter("rememberMe")
+					.key("uniqueAndSecret")
+					.tokenValiditySeconds(86400)) // 자동 로그인 유효 기간 (초))
+
 				
 			// 로그아웃 설정
 			.logout(config -> config
