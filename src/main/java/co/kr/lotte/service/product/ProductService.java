@@ -31,8 +31,8 @@ public class ProductService {
         return productCate1Entities;
     }
 
-    public List<ProductCate2Entity> findByCate2(int cate2){
-        return cate2Repository.findByCate2(cate2);
+    public List<ProductCate2Entity> findByCate1(int cate2){
+        return cate2Repository.findByCate1(cate2);
     }
 
     // 상품 목록 조회

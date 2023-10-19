@@ -35,6 +35,22 @@
 				}
 			});
 		});
+   // 폼이 제출될 때 1차 및 2차 분류를 숫자로 변환하여 추가
+    $('form').submit(function () {
+        const category1 = parseInt($('#category1').val()); // 1차 분류를 숫자로 변환
+        const category2 = parseInt($('#category2').val()); // 2차 분류를 숫자로 변환
+
+        // 변환한 값을 숨겨진 필드로 추가
+        $('<input />').attr('type', 'hidden')
+            .attr('name', 'prodCate1')
+            .attr('value', category1)
+            .appendTo('form');
+
+        $('<input />').attr('type', 'hidden')
+            .attr('name', 'prodCate2')
+            .attr('value', category2)
+            .appendTo('form');
+    });
 });
     </script>
 </head>

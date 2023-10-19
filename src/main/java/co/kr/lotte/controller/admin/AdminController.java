@@ -7,12 +7,15 @@ import co.kr.lotte.dto.product.ProductDTO;
 import co.kr.lotte.entity.product.ProductCate1Entity;
 import co.kr.lotte.entity.product.ProductCate2Entity;
 import co.kr.lotte.repository.product.ProductRepository;
+import co.kr.lotte.security.MyUserDetails;
 import co.kr.lotte.service.CateService;
 import co.kr.lotte.service.admin.AdminService;
 import co.kr.lotte.service.product.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -63,9 +66,18 @@ public class AdminController {
     }
 
     @PostMapping("/admin/product/register")
-    public String pro_register3(HttpServletRequest request, ProductDTO dto){
+    public String pro_register3(HttpServletRequest request, ProductDTO dto) {
         dto.setIp(request.getRemoteAddr());
-        log.info("dto :"+dto);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.getPrincipal() instanceof MyUserDetails) {
+            MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
+            String sellerId = userDetails.getMember().getName(); // 현재 로그인한 사용자의 판매자 ID
+            dto.setSeller(sellerId); // ProductDTO에 판매자 ID 설정
+        }
+
+        log.info("dto: " + dto);
         adminService.save(dto);
         return "redirect:/admin/product/list";
     }
@@ -75,12 +87,10 @@ public class AdminController {
     public List<ProductCate2Entity> pro_register2(int cate1){
 
         log.info("optionValue : " + cate1);
-        List<ProductCate2Entity> productCate2Entities = productService.findByCate2(cate1);
+        List<ProductCate2Entity> productCate2Entities = productService.findByCate1(cate1);
         log.info("size : " + productCate2Entities.size());
         return productCate2Entities;
     }
-
-
 
     // admin-cs-notice
     @GetMapping("admin/cs/notice/list")
