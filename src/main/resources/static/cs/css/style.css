@@ -1254,6 +1254,13 @@ footer p > strong {
   padding: 10px;
   box-sizing: border-box;
 }
+#write > article > form > table > tbody > tr:nth-child(4) > td.form-group > label {
+  padding: 16px;
+  font-size: 16px;
+}
+#write > article > form > table > tbody > tr:nth-child(4) > td:nth-child(2) > input[type=file]{
+  margin-top: 10px;
+}
 /*추가*/
 /*버튼 위치*/
 #write > article > form > div {
