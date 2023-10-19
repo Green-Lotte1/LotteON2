@@ -1,4 +1,34 @@
 <html xmlns:th="http://www.thymeleaf.org"  xmlns:layout="http://www.thymeleaf.org/" layout:decorate="/cs/layout.html">
+<head>
+  <script type="text/javascript">
+
+    $("#downloadBtn").click(function(){
+
+      location.href = "http://localhost:3000/fileDownload?filename=" + "abc.txt";
+
+      /*
+      아래 코드는 success는 나오지만, 다운로드는 실행되지 않을 것이다.
+      즉, 아래와 같이 다운로드 하면 안된다.
+
+      $.ajax({
+          url:"http://localhost:3000/fileDownload",
+          type:"get",
+          data:{ filename:"abc.txt" },
+          success:function(){
+              alert('success');
+          },
+          error:function(){
+              alert('error');
+          }
+      });
+      */
+    });
+
+  </script>
+
+</head>
+
+
       <section id="cs" layout:fragment = "content">
         <div class="qna">
           <nav>
@@ -25,6 +55,9 @@
                 <p>
                   <span th:text="${#strings.substring(boardDTO.uid, 0, 3) + '***'}"></span>
                   <span th:text="${#temporals.format(boardDTO.rdate, 'yy-MM-dd')}"></span>
+                  <th:block th:each="file : ${boardDTO.fileDTOList}">
+                    <a th:href="@{/cs/qna/fileDownload(fno=${file.fno})}">다운로드  [[${file.ofile}]]</a>
+                  </th:block>
                 </p>
               </nav>
 
