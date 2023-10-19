@@ -5,12 +5,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Builder
+@DynamicUpdate
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

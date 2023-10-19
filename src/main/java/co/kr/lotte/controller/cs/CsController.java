@@ -17,10 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -175,9 +172,20 @@ public class CsController {
 
 
     @PostMapping("/cs/qna/modify")
-    public String qnaModify(HttpServletRequest request, int bno, BoardDTO dto)  {
-        csService.updateContent(bno,dto.getContent());
+    public String qnaModify(HttpServletRequest request, @RequestParam int bno, BoardDTO dto){
+        log.info(dto.toString());
+        csService.update(bno, dto);
         return "redirect:/cs/qna/list?success=300";
+
+
+    }
+
+    @GetMapping("/cs/qna/delete")
+    public String qnaDelete(HttpServletRequest request, @RequestParam int bno, BoardDTO dto){
+        log.info(dto.toString());
+        csService.delete(bno, dto);
+        return "redirect:/cs/qna/list?success=301";
+
     }
 
 

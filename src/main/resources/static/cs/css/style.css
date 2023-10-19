@@ -997,7 +997,7 @@ footer p > strong {
 
 }
 #cs > div > section > article > div:nth-child(4) > .btnQnAList{
-  float: right;
+  float: left;
   display: block;
   margin-top: 40px;
   margin-bottom: 30px;
@@ -1026,6 +1026,30 @@ footer p > strong {
   text-align: center;
   box-sizing: border-box;
 }
+#cs > div > section > article > div:nth-child(4) > .btnDelete{
+  float: right;
+  display: block;
+  margin-top: 40px;
+  margin-bottom: 30px;
+  width: 120px;
+  height: 60px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  border-radius: 0;
+  color: #000;
+  line-height: 55px;
+  text-align: center;
+  box-sizing: border-box;
+}
+.btnModify:hover {
+  font-weight: bolder;
+  background-color: #f7f7f7;
+}
+.btnDelete:hover {
+  font-weight: bolder;
+  background-color: #f7f7f7;
+}
+
 /* QnA modify */
 #cs > .qna > .modify {}
 #cs > .qna > .modify > article {}
@@ -1133,11 +1157,6 @@ footer p > strong {
   font-weight: bolder;
   background-color: #f7f7f7;
 }
-
-.btnModify:hover {
-  font-weight: bolder;
-  background-color: #f7f7f7;
-}
 .btnModiDone:hover {
   font-weight: bolder;
   background-color: #f7f7f7;
@@ -1237,6 +1256,7 @@ footer p > strong {
 }
 /*추가*/
 /*버튼 위치*/
-#cs > .write div > section > article > form > div {
+#write > article > form > div {
   margin-left: 500px;
 }
+

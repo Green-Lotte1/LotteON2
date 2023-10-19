@@ -68,7 +68,7 @@
               <p>홈<span>></span>문의하기</p>
             </div>
           </nav>
-          <section class="write">
+          <section class="write" id="write">
             <aside>
               <h2>문의하기</h2>
               <ul>
@@ -84,6 +84,7 @@
             <article>
               <form th:action="@{/cs/qna/write}" method="POST">
                 <input type="hidden" name="group" value="qna" />
+                <input type="hidden" name="uid" th:value="${#authentication.principal.member.uid}" />
                 <table>
                   <tr>
                     <td>문의유형</td>

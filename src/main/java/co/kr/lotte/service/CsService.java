@@ -10,7 +10,6 @@ import co.kr.lotte.repository.cs.BoardCateRepository;
 import co.kr.lotte.repository.cs.BoardTypeRepository;
 import co.kr.lotte.repository.cs.CsRepository;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -19,6 +18,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.util.*;
 
@@ -84,10 +85,22 @@ public class CsService {
 
     // 글수정
     @Transactional
-    public BoardEntity updateContent(int bno, String content) {
-        BoardEntity boardEntities = csRepository.findById(bno).get();
-        boardEntities.setContent(content);
-        return boardEntities;
+    public void update(int bno, BoardDTO dto) {
+        BoardEntity entity = dto.toEntity();
+        entity = csRepository.findById(bno).orElseThrow(() -> new IllegalArgumentException("Board number not found"));
+        log.info(entity);
+        entity.setContent(dto.getContent());
+        csRepository.save(entity);
+
+    }
+
+    // 글삭제
+    public void delete(int bno, BoardDTO dto) {
+        BoardEntity entity = dto.toEntity();
+        entity = csRepository.findById(bno).orElseThrow(() -> new IllegalArgumentException("Board number not found"));
+        log.info(entity);
+        csRepository.delete(entity);
+
     }
 
 
