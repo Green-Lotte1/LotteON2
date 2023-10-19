@@ -3,19 +3,19 @@ package co.kr.lotte.controller.admin;
 import co.kr.lotte.dto.product.PageRequestDTO;
 import co.kr.lotte.dto.product.PageResponseDTO;
 
+import co.kr.lotte.dto.product.ProductDTO;
 import co.kr.lotte.entity.product.ProductCate1Entity;
 import co.kr.lotte.entity.product.ProductCate2Entity;
 import co.kr.lotte.repository.product.ProductRepository;
 import co.kr.lotte.service.CateService;
+import co.kr.lotte.service.admin.AdminService;
 import co.kr.lotte.service.product.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,6 +28,8 @@ public class AdminController {
     private ProductService productService;
     @Autowired
     private CateService cateService;
+    @Autowired
+    private AdminService adminService;
 
     @GetMapping("/admin/index")
     public String index() {
@@ -58,6 +60,14 @@ public class AdminController {
         log.info("cates1 : "+ cates1);
 
         return ("/admin/product/register");
+    }
+
+    @PostMapping("/admin/product/register")
+    public String pro_register3(HttpServletRequest request, ProductDTO dto){
+        dto.setIp(request.getRemoteAddr());
+        log.info("dto :"+dto);
+        adminService.save(dto);
+        return "redirect:/admin/product/list";
     }
 
     @GetMapping("/admin/product/registerCate2")

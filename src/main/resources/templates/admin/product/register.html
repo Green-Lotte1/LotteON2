@@ -47,7 +47,7 @@
     </nav>
     <!-- 상품등록 컨텐츠 시작 -->
     <article>
-        <form th:action="@{/admin/products/register}" method="post"> <!-- 수정: 폼의 action 및 method 추가 -->
+        <form th:action="@{/admin/product/register}" method="post"> <!-- 수정: 폼의 action 및 method 추가 -->
 
             <!-- 상품분류 -->
             <section>
@@ -87,7 +87,7 @@
                 <table>
                     <tr>
                         <td>상품명</td>
-                        <td><input type="text" name="productName"/></td> <!-- 수정: name 속성 변경 -->
+                        <td><input type="text" name="prodName"/></td> <!-- 수정: name 속성 변경 -->
                     </tr>
                     <tr>
                         <td>기본설명</td>
