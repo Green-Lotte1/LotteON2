@@ -22,14 +22,14 @@
             <article>
               <form th:action="@{/cs/qna/modify(bno=${boardDTO.bno})}" method="POST">
                 <nav>
-                  <h2 class="title">[<span th:text="${boardDTO.typeName}"></span>] [[${boardDTO.title}]]</h2>
+                  <h2 class="title" name="title">[<span th:text="${boardDTO.typeName}"></span>] [[${boardDTO.title}]]</h2>
                   <p>
                     <span th:text="${#strings.substring(boardDTO.uid, 0, 3) + '***'}"></span>
                     <span th:text="${#temporals.format(boardDTO.rdate, 'yy-MM-dd')}"></span>
                   </p>
                 </nav>
                 <div class="content">
-                  <textarea>[[${boardDTO.content}]]</textarea>
+                  <textarea  name="content">[[${boardDTO.content}]]</textarea>
                   <br><br>
                   <p>
                     ※ 피싱 관련 피해신고<br /><br />
@@ -41,7 +41,7 @@
                   </p>
                 </div>
                 <div>
-                  <input type="submit" class="btnModiDone">
+                  <input type="submit" class="btnModiDone" value="수정완료">
                   <a th:href="@{/cs/qna/view(bno=${boardDTO.bno})}" class="btnCancel">취소하기</a>
                 </div>
               </form>

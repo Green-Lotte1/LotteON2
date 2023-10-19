@@ -12,6 +12,8 @@
     /*[/]*/
 </script>
 <script>
+
+    // Success code alert
     const success = new URL(location.href).searchParams.get('success');
     var contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
     if(success == 102){
@@ -20,7 +22,12 @@
         alert('성공적으로 글이 등록 되었습니다.');
     }else if(success == 300){
         alert('글이 수정되었습니다.');
+    }else if(success == 301){
+        alert('성공적으로 글이 삭제되었습니다.');
     }
+
+
+
 
     // 문의하기 접근 시
     function showAlertLogin() {
