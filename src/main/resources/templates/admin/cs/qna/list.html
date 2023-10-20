@@ -3,60 +3,38 @@
       xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
       layout:decorate="/admin/adminlayout.html">
 <script>
-    $(function(){
-      var contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
-      const url = '/cs/cate';
-      const jsonData = {};
+    $(function () {
+    // 카테고리 분류 AJAX로 불러오기
+    $('#cate').on('change', function(){
 
-      $.ajax({
-        url: contextPath + url,
-        type: 'GET',
-        data: jsonData,
-        success: function(data) {
+        const cates = this.value;
+        console.log(cates);
 
-          console.log(data);
+        $('#type').children('option:not(:first)').remove();
 
-          $("#cate").change(function(){
-            let optionValue = $(this).val();
-            let selectType = $("#type");
+        const jsonData = {
+            "cates": cates
+        };
+        console.log(jsonData);
+            var contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
+        $.ajax({
+            url: contextPath + "/admin/cs/qna/cate",
+            type: 'get',
+            data: jsonData,
+            dataType: 'json',
+            success: function(data){
 
-            const jsonData = {
-              "optionValue" : optionValue
-            };
-            console.log(jsonData);
+                let cate2List = data;
 
-            // cate가 바뀔 때 마다 type을 빈값으로 초기화 해주고
-            // 그 뒤 append를 통해서 option을 추가해줌
-            selectType.empty();
-            selectType.append(
-                    $('<option>',{
-                      value: '',
-                      text: '2차 분류 선택',
-                      disabled: 'disabled',
-                      selected: 'selected'
-                    })
-            );
-
-            if(optionValue !== '0'){
-              $.getJSON(contextPath+ url, jsonData, function(data){
-                console.log("cate가 0이 아닐 때 type option 추가");
-                console.log(data);
-
-                $.each(data, function (index, type) {
-                  selectType.append(
-                          $('<option>',{
-                            value: type.type,
-                            text: type.typeName,
-                          })
-                  ); // appnd end
-                }); // each end
-              }); // ajax end
-            } // if end
-          }); // cate change end
-        }
-      });
+                for (var i=0 ; i<cate2List.length ; i++)
+                    $("#type").append("<option id='cate2Value' value="+cate2List[i].cate2+">"+cate2List[i].c2Name+"</option>");
+            },
+            error: function(){
+                alert("error");
+            }
+        });
     });
-
+});
 </script>
 <section id="admin-cs-notice-list" layout:fragment="content">
     <nav>
