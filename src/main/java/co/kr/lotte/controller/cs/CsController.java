@@ -6,6 +6,7 @@ import co.kr.lotte.dto.cs.CsPageRequestDTO;
 import co.kr.lotte.dto.cs.CsPageResponseDTO;
 import co.kr.lotte.entity.cs.BoardCateEntity;
 import co.kr.lotte.entity.cs.BoardEntity;
+import co.kr.lotte.entity.cs.BoardFileEntity;
 import co.kr.lotte.entity.cs.BoardTypeEntity;
 import co.kr.lotte.service.CsCateService;
 import co.kr.lotte.service.CsService;
@@ -138,9 +139,9 @@ public class CsController {
     @GetMapping("/cs/qna/fileDownload")
     public ResponseEntity<Resource> fileDownloadApi(int fno) throws IOException {
         log.info("fno : " + fno);
-        String sfile = csService.getSfileByFno(fno);
+        BoardFileEntity sfile = csService.getSfileByFno(fno);
         if (sfile != null) {
-            return csService.fileDownload(sfile);
+            return csService.fileDownload(sfile.getSfile(),sfile.getOfile());
         } else {
             return ResponseEntity.notFound().build();
         }
