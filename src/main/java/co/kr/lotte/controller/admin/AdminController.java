@@ -1,14 +1,19 @@
 package co.kr.lotte.controller.admin;
 
+import co.kr.lotte.dto.cs.CsPageRequestDTO;
+import co.kr.lotte.dto.cs.CsPageResponseDTO;
 import co.kr.lotte.dto.product.PageRequestDTO;
 import co.kr.lotte.dto.product.PageResponseDTO;
 
 import co.kr.lotte.dto.product.ProductDTO;
+import co.kr.lotte.entity.cs.BoardCateEntity;
 import co.kr.lotte.entity.product.ProductCate1Entity;
 import co.kr.lotte.entity.product.ProductCate2Entity;
 import co.kr.lotte.repository.product.ProductRepository;
 import co.kr.lotte.security.MyUserDetails;
 import co.kr.lotte.service.CateService;
+import co.kr.lotte.service.CsCateService;
+import co.kr.lotte.service.CsService;
 import co.kr.lotte.service.admin.AdminService;
 import co.kr.lotte.service.product.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,28 +38,29 @@ public class AdminController {
     private CateService cateService;
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private CsCateService csCateService;
+    @Autowired
+    private CsService csService;
+    @Autowired
+    private CsPageRequestDTO csPageRequestDTO;
 
     @GetMapping("/admin/index")
     public String index() {
         return ("/admin/index");
     }
+
     // admin-product
     @GetMapping("/admin/product/list")
     public String list(Model model, PageRequestDTO pageRequestDTO) {
-        // 서비스를 사용하여 전체 제품 데이터를 검색
         PageResponseDTO pageResponseDTO = productService.findByAll(pageRequestDTO);
-
-        // 모델에 데이터 추가
         model.addAttribute("pageResponseDTO", pageResponseDTO);
 
-        // Thymeleaf 템플릿의 이름 반환
         return "/admin/product/list";
     }
 
-
     @GetMapping("/admin/product/register")
     public String pro_register(HttpServletRequest request, Model model) {
-
         List<ProductCate1Entity> cates1 = productService.getCate1();
         model.addAttribute("cates1",cates1);
         log.info("cates1 : "+ cates1);
@@ -83,7 +89,7 @@ public class AdminController {
     @ResponseBody
     public List<ProductCate2Entity> pro_register2(int cate1){
 
-        log.info("optionValue : " + cate1);
+        log.info("cate1 : " + cate1);
         List<ProductCate2Entity> productCate2Entities = productService.findByCate1(cate1);
         log.info("size : " + productCate2Entities.size());
         return productCate2Entities;
@@ -127,7 +133,25 @@ public class AdminController {
 
     // admin-cs-qna
     @GetMapping("admin/cs/qna/list")
-    public String cs_qna_list(){
+    public String cs_qna_list(HttpServletRequest request, Model model, String cate, CsPageRequestDTO csPageRequestDTO){
+        // Cate값
+        List<BoardCateEntity> cates = csCateService.getCate();
+        model.addAttribute("cates", cates);
+        log.info("cates : "+cates);
+
+        // QNA-List
+        CsPageResponseDTO csPageResponseDTO = csService.findByCate(csPageRequestDTO);
+        log.info("csPageResponseDTO cate : "+ csPageRequestDTO.getCate());
+        log.info("csPageResponseDTO pg : "+ csPageResponseDTO.getPg());
+        log.info("csPageResponseDTO size : "+ csPageResponseDTO.getSize());
+        log.info("csPageResponseDTO total : "+ csPageResponseDTO.getTotal());
+        log.info("csPageResponseDTO start : "+ csPageResponseDTO.getStart());
+        log.info("csPageResponseDTO end : "+ csPageResponseDTO.getEnd());
+        log.info("csPageResponseDTO prev : "+ csPageResponseDTO.isPrev());
+        log.info("csPageResponseDTO next : "+ csPageResponseDTO.isNext());
+        model.addAttribute(csPageResponseDTO);
+        model.addAttribute("cate", csPageRequestDTO.getCate());
+
         return ("/admin/cs/qna/list");
     }
     @GetMapping("admin/cs/qna/reply")
@@ -140,3 +164,11 @@ public class AdminController {
     }
 
 }
+
+//    @GetMapping("/admin/product/list")
+//    public String list(Model model, PageRequestDTO pageRequestDTO) {
+//        PageResponseDTO pageResponseDTO = productService.findByAll(pageRequestDTO);
+//        model.addAttribute("pageResponseDTO", pageResponseDTO);
+//
+//        return "/admin/product/list";
+//    }
