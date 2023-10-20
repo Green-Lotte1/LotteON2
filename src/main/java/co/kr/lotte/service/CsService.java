@@ -141,10 +141,15 @@ public class CsService {
         return null;
     }
 
+    public String getSfileByFno(int fno){
+        return fileRepository.findSfileByFno(fno).getSfile();
+    }
 
-    public String getAbsoluteFilePath(String filename) {
+    // 파일 절대경로
+    public String getAbsoluteFilePath(String sfile){
+
         try {
-            Resource resource = resourceLoader.getResource("classpath:static/thumb/cs/qna/" + "8c303751-4f64-4d77-ab80-575158f4b294.png");
+            Resource resource = resourceLoader.getResource("classpath:static/thumb/cs/qna/" + sfile);
             return resource.getFile().getAbsolutePath();
         } catch (Exception e) {
             // 예외 처리
@@ -155,14 +160,15 @@ public class CsService {
 
 
     // 파일 다운로드
-    public ResponseEntity<Resource> fileDownload() throws IOException{
+    public ResponseEntity<Resource> fileDownload(String file) throws IOException{
         //String absoluteFilePath = "C:\\Users\\Java\\Desktop\\Workspace\\LotteON2\\build\\resources\\main\\static\\thumb\\cs\\qna\\"+"8c303751-4f64-4d77-ab80-575158f4b294.png";
 
-        Path filePath = Paths.get(getAbsoluteFilePath(""));
+
+        Path filePath = Paths.get(getAbsoluteFilePath(file));
 
             if (Files.exists(filePath)) {
             InputStreamResource resource = new InputStreamResource(new FileInputStream(filePath.toString()));
-            String fileName = filePath.getFileName().toString();
+            String fileName =  filePath.getFileName().toString();
             log.info("Success download input excel file : " + filePath);
             return ResponseEntity.ok()
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
@@ -188,16 +194,15 @@ public class CsService {
     }
 
     // 글삭제
-    public void delete(int bno, BoardDTO dto) {
-        BoardEntity entity = dto.toEntity();
-        entity = csRepository.findById(bno).orElseThrow(() -> new IllegalArgumentException("Board number not found"));
+    public void delete(int bno) {
+        BoardEntity entity = csRepository.findById(bno).orElseThrow(() -> new IllegalArgumentException("Board number not found"));
         log.info(entity);
         csRepository.delete(entity);
 
     }
 
 
-    public BoardDTO findByBno(int bno){
+    public BoardDTO findByBnoForBoard(int bno){
         BoardEntity boardEntity = csRepository.findById(bno).orElseThrow(() -> new RuntimeException());
         List<BoardFileEntity> boardFileEntities = fileRepository.findByBno(bno);
 

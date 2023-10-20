@@ -1049,6 +1049,22 @@ footer p > strong {
   font-weight: bolder;
   background-color: #f7f7f7;
 }
+#thumb {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-top: 5px;
+  border: 1px solid #e4e4e4;
+}
+#cs > div > section > article > nav > div >{
+  text-align: center;
+}
+#cs > div > section > article > nav > div > a{
+  font-size: 12px;
+  font-weight: bold;
+  color: blue;
+
+}
 
 /* QnA modify */
 #cs > .qna > .modify {}

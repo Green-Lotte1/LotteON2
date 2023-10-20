@@ -81,7 +81,7 @@ public class CsController {
 
     @GetMapping("/cs/faq/view")
     public String faqView(Model model ,int bno) {
-        BoardDTO boardDTO = csService.findByBno(bno);
+        BoardDTO boardDTO = csService.findByBnoForBoard(bno);
         model.addAttribute("boardDTO", boardDTO);
         return "/cs/faq/view";
     }
@@ -105,7 +105,7 @@ public class CsController {
 
     @GetMapping("/cs/notice/view")
     public String noticeView(Model model ,int bno) {
-        BoardDTO boardDTO = csService.findByBno(bno);
+        BoardDTO boardDTO = csService.findByBnoForBoard(bno);
         model.addAttribute("boardDTO", boardDTO);
         return "/cs/notice/view";
     }
@@ -130,14 +130,20 @@ public class CsController {
     @GetMapping("/cs/qna/view")
     public String qnaView(Model model, int bno) {
 
-        BoardDTO boardDTO = csService.findByBno(bno);
+        BoardDTO boardDTO = csService.findByBnoForBoard(bno);
         model.addAttribute("boardDTO", boardDTO);
-
+        log.info("boardDTO : " + boardDTO);
         return "/cs/qna/view";
     }
     @GetMapping("/cs/qna/fileDownload")
     public ResponseEntity<Resource> fileDownloadApi(int fno) throws IOException {
-        return csService.fileDownload();
+        log.info("fno : " + fno);
+        String sfile = csService.getSfileByFno(fno);
+        if (sfile != null) {
+            return csService.fileDownload(sfile);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/cs/qna/write")
@@ -171,7 +177,7 @@ public class CsController {
     @GetMapping("/cs/qna/modify")
     public String qnaModify(Model model, int bno) {
 
-        BoardDTO boardDTO = csService.findByBno(bno);
+        BoardDTO boardDTO = csService.findByBnoForBoard(bno);
         model.addAttribute("boardDTO", boardDTO);
 
         return "/cs/qna/modify";
@@ -188,9 +194,9 @@ public class CsController {
     }
 
     @GetMapping("/cs/qna/delete")
-    public String qnaDelete(HttpServletRequest request, @RequestParam int bno, BoardDTO dto){
-        log.info(dto.toString());
-        csService.delete(bno, dto);
+    public String qnaDelete(@RequestParam int bno){
+        log.info("Delete QnA bno : "+bno);
+        csService.delete(bno);
         return "redirect:/cs/qna/list?success=301";
 
     }
