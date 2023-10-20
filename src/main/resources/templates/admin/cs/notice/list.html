@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html"
-      xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
       layout:decorate="/admin/adminlayout.html">
 
 <section id="admin-cs-notice-list" layout:fragment="content">
@@ -12,12 +12,11 @@
     </nav>
     <section>
         <div>
-            <select name="cate2">
-                <option>유형선택</option>
-                <option value="cs">고객서비스</option>
-                <option value="safety">안전거래</option>
-                <option value="danger">위해상품</option>
-                <option value="everesult">이벤트당첨</option>
+            <select name="cate" id="cate" required>
+                <option selected disabled th:value="0">1차 선택</option>
+                <th:block th:each="cateOption : ${cates}">
+                    <option th:value="${cateOption.cate}" th:text="${cateOption.cateName}"></option>
+                </th:block>
             </select>
         </div>
         <table>
@@ -31,16 +30,17 @@
                 <th>날짜</th>
                 <th>관리</th>
             </tr>
-            <tr th:each="list:${lists}">
-                <td class="chk"><input type="checkbox"></td>
-                <td class="no" th:text="${list.no}"></td>
-                <td class="type" th:text="${list.detail}"></td>
-                <td class="title" th:text="${list.title}"></td>
-                <td class="hit" th:text="${list.hit}"></td>
-                <td class="rdate" th:text="${list.rdate}"></td>
+            <tr th:each="cs:${csPageResponseDTO.dtoList}">
+                <td><input type="checkbox" name="all"/></td>
+                <td>[[${cs.bno}]]</td>
+                <td>[[${cs.cate}]]</td>
+                <td>[[${cs.type}]]</td>
+                <td>[[${cs.title}]]</td>
+                <td th:text="${#strings.substring(cs.uid, 0, 3) + '***'}"></td>
+                <td th:text="${#temporals.format(cs.rdate, 'yy-MM-dd')}"></td>
+                <td>[[${cs.status}]]</td>
                 <td>
                     <a href="#">[삭제]</a>
-                    <a href="#">[수정]</a>
                 </td>
             </tr>
             </tbody>

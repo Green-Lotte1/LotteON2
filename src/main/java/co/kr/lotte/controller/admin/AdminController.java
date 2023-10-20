@@ -7,6 +7,7 @@ import co.kr.lotte.dto.product.PageResponseDTO;
 
 import co.kr.lotte.dto.product.ProductDTO;
 import co.kr.lotte.entity.cs.BoardCateEntity;
+import co.kr.lotte.entity.cs.BoardTypeEntity;
 import co.kr.lotte.entity.product.ProductCate1Entity;
 import co.kr.lotte.entity.product.ProductCate2Entity;
 import co.kr.lotte.repository.product.ProductRepository;
@@ -97,7 +98,10 @@ public class AdminController {
 
     // admin-cs-notice
     @GetMapping("admin/cs/notice/list")
-    public String cs_no_list() {
+    public String cs_no_list(HttpServletRequest request, Model model, String cate) {
+        List<BoardCateEntity> cates = csCateService.getCate();
+        model.addAttribute("cates", cates);
+        log.info("cates : "+cates);
         return ("/admin/cs/notice/list");
     }
     @GetMapping("admin/cs/notice/view")
@@ -154,6 +158,16 @@ public class AdminController {
 
         return ("/admin/cs/qna/list");
     }
+    @GetMapping("/admin/cs/qna/cate")
+    @ResponseBody
+    public List<BoardTypeEntity> csCate(String optionValue){
+
+        log.info(optionValue);
+
+        return csCateService.findByCate(optionValue);
+
+    }
+
     @GetMapping("admin/cs/qna/reply")
     public String cs_qna_reply(){
         return ("/admin/cs/qna/reply");
