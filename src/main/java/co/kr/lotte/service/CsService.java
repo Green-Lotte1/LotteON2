@@ -141,8 +141,9 @@ public class CsService {
         return null;
     }
 
-    public String getSfileByFno(int fno){
-        return fileRepository.findSfileByFno(fno).getSfile();
+    public BoardFileEntity getSfileByFno(int fno){
+        BoardFileEntity sfileByFno = fileRepository.findSfileByFno(fno);
+        return sfileByFno;
     }
 
     // 파일 절대경로
@@ -160,11 +161,11 @@ public class CsService {
 
 
     // 파일 다운로드
-    public ResponseEntity<Resource> fileDownload(String file) throws IOException{
+    public ResponseEntity<Resource> fileDownload(String sfileName,String ofileName) throws IOException{
         //String absoluteFilePath = "C:\\Users\\Java\\Desktop\\Workspace\\LotteON2\\build\\resources\\main\\static\\thumb\\cs\\qna\\"+"8c303751-4f64-4d77-ab80-575158f4b294.png";
 
 
-        Path filePath = Paths.get(getAbsoluteFilePath(file));
+        Path filePath = Paths.get(getAbsoluteFilePath(sfileName));
 
             if (Files.exists(filePath)) {
             InputStreamResource resource = new InputStreamResource(new FileInputStream(filePath.toString()));
@@ -173,7 +174,7 @@ public class CsService {
             return ResponseEntity.ok()
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .cacheControl(CacheControl.noCache())
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + ofileName)
                     .body(resource);
             } else {
                 // 파일이 존재하지 않는 경우에 대한 예외 처리
