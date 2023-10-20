@@ -7,11 +7,13 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Component;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Component
 public class CsPageRequestDTO {
 
     @Builder.Default

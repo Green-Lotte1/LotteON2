@@ -1,8 +1,37 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html"
+<html xmlns:th="http://www.w3.org/1999/html"
       xmlns:layout="http://www.w3.org/1999/xhtml"
       layout:decorate="/admin/adminlayout.html">
 
+<script>
+    $(function() {
+        // 전체 체크박스
+        $('input[name=all]').change(function(){
+            const isChecked = $(this).is(':checked');
+            if (isChecked) {
+                $('input[name=chk]').prop('checked', true);
+            } else {
+                $('input[name=chk]').prop('checked', false);
+            }
+        });
+
+        $('input[name=chk]').change(function() {
+            const chk = $('input[name=chk]');
+            let cnt = 0;
+            for (let i = 0; i < chk.length; i++) {
+                if (chk[i].checked) {
+                    cnt++;
+                }
+            }
+            if (!$(this).is(':checked')) {
+                $('input[name=all]').prop('checked', false);
+            } else if (cnt == chk.length) {
+                $('input[name=all]').prop('checked', true);
+            }
+        });
+    });
+
+</script>
 <section id="admin-product-list" layout:fragment="content">
     <nav>
         <h3>상품목록</h3>
@@ -13,6 +42,7 @@
     <!-- 상품목록 컨텐츠 시작 -->
     <section>
         <div>
+            <form th:action="@{/admin/product/list}" method="get">
             <select name="search">
                 <option value="search1">상품명</option>
                 <option value="search1">상품코드</option>
@@ -22,8 +52,9 @@
             <input type="text" name="search">
         </div>
         <table>
+            <form id="formCheck" th:action="@{/admin/product/delete}" method="get">
             <tr>
-                <th><input type="checkbox" name="all"/></th>
+                <th><input type="checkbox" name="all" id="selectAll"/></th>
                 <th>이미지</th>
                 <th>상품코드</th>
                 <th>상품명</th>
@@ -37,7 +68,7 @@
             </tr>
 
             <tr th:each="product:${pageResponseDTO.dtoList}">
-                <td><input type="checkbox" name="상품코드"/></td>
+                <td><input type="checkbox" name ="chk" th:value="${product.prodNo}"></td>
                 <td><img th:src="@{'/thumb/' + ${product.prodCate1} + '/' + ${product.prodCate2} + '/' + ${product.thumb1}}" alt="상품이미지"
                          width="100" height="100"/></td>
                 <td>[[${product.prodNo}]]</td>
@@ -53,7 +84,7 @@
                     <a href="#">[수정]</a>
                 </td>
             </tr>
-
+            </form>
         </table>
 
 
@@ -62,15 +93,15 @@
 
         <!-- 상품목록 페이지번호 -->
         <div class="paging">
-                        <span class="prev" th:if="${pageResponseDTO.prev}">
-                          <a th:href="@{/admin/product/list(pg=${pageResponseDTO.start - 1})}"><&nbsp;이전</a>
-                        </span>
+            <span class="prev" th:if="${pageResponseDTO.prev}">
+                <a th:href="@{/admin/product/list(pg=${pageResponseDTO.start - 1})}"><&nbsp;이전</a>
+            </span>
             <span th:each="num : ${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}" class="num">
-                          <a th:href="@{/admin/product/list(pg=${num})}" th:class="${pageResponseDTO.pg eq num ? 'on' : 'off'}">[[${num}]]</a>
-                        </span>
+                <a th:href="@{/admin/product/list(pg=${num})}" th:class="${pageResponseDTO.pg eq num ? 'on' : 'off'}">[[${num}]]</a>
+            </span>
             <span class="next" th:if="${pageResponseDTO.next}">
-                          <a th:href="@{/admin/product/list(pg=${pageResponseDTO.start - 1})}">다음&nbsp;></a>
-                        </span>
+                <a th:href="@{/admin/product/list(pg=${pageResponseDTO.start - 1})}">다음&nbsp;></a>
+            </span>
         </div>
     </section>
 
@@ -84,7 +115,4 @@
 
     <!-- 상품목록 컨텐츠 끝 -->
 </section>
-</main>
-</div>
-</body>
 </html>

@@ -1,10 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/html"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="/admin/adminlayout.html">
 
-</body>
+<section id="admin-cs-notice-list" layout:fragment="content">
+    <nav>
+        <h3>공지사항 목록</h3>
+        <p>
+            HOME &gt; 고객센터 &gt; <strong>공지사항</strong>
+        </p>
+    </nav>
+    <section>
+        <div>
+            <select name="cate2">
+                <option>유형선택</option>
+                <option value="cs">고객서비스</option>
+                <option value="safety">안전거래</option>
+                <option value="danger">위해상품</option>
+                <option value="everesult">이벤트당첨</option>
+            </select>
+        </div>
+        <table>
+            <tbody>
+            <tr>
+                <th><input type="checkbox" name="all"></th>
+                <th>번호</th>
+                <th>유형</th>
+                <th>제목</th>
+                <th>조회</th>
+                <th>날짜</th>
+                <th>관리</th>
+            </tr>
+            <tr th:each="list:${lists}">
+                <td class="chk"><input type="checkbox"></td>
+                <td class="no" th:text="${list.no}"></td>
+                <td class="type" th:text="${list.detail}"></td>
+                <td class="title" th:text="${list.title}"></td>
+                <td class="hit" th:text="${list.hit}"></td>
+                <td class="rdate" th:text="${list.rdate}"></td>
+                <td>
+                    <a href="#">[삭제]</a>
+                    <a href="#">[수정]</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a href="#" class="btnDelete">선택삭제</a>
+        <a href="#" class="btnWrite">작성하기</a>
+        <div class="paging">
+                    <span class="prev">
+                        <a href="#">&lt;&nbsp;이전</a>
+                    </span>
+            <span class="num">
+                        <a href="#" class="on">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">6</a>
+                        <a href="#">7</a>
+                    </span>
+            <span class="next">
+                        <a href="#">다음&nbsp;&gt;</a>
+                    </span>
+        </div>
+    </section> <!--table end-->
+</section><!--admin-product-list end-->
 </html>
