@@ -39,6 +39,7 @@ public class BoardEntity {
 
     public BoardDTO toDTO(){
         return BoardDTO.builder()
+                .bno(bno)
                 .uid(uid)
                 .group(group)
                 .cate(cate)
