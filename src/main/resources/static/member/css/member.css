@@ -123,7 +123,7 @@ header {
   padding: 0 13px;
   border: 0;
   font-size: 12px;  
-  color: #0075d4;
+  color: #ef2a23;
   border: 1px solid #e3e3e3;
   border-radius: 4px;
   box-shadow: inset 0 0 10px #eee;
@@ -134,9 +134,12 @@ header {
   float: left;
   width: 97px;
   height: 71px;
-  background-image: url("../images/member_btn_login.gif");
-  font-size: 0;
+  background-color: #ef2a23;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 18px;
   border: none;
+  cursor: pointer;
 }
 #member > .login > form > span {
   clear: left;
@@ -403,10 +406,32 @@ header {
   cursor: pointer;
 }
 
-/* 우편번호 버튼 */
-#member > .register .btnZip {
+/* 이메일 인증번호 버튼 */
+#member > .register #btnEmailCode {
   background: #ef3f43;
   color: #fff;
+  font-size: 12px;
+  padding: 5px 7px;
+  border: 0;
+  outline: 0;
+  border-radius: 2px;
+  cursor: pointer;
+}
+#member > .register #btnEmailAuth {
+  background: #e7e5e5;
+  color: #222;
+  font-size: 12px;
+  padding: 5px 7px;
+  border: 0;
+  outline: 0;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* 우편번호 버튼 */
+#member > .register .btnZip {
+  background: #e7e5e5;
+  color: #222;
   font-size: 12px;
   padding: 5px 7px;
   border: 0;
@@ -525,10 +550,32 @@ header {
   cursor: pointer;
 }
 
-/* 우편번호 버튼 */
-#member > .registerSeller .btnZip {
+/* 이메일 인증번호 버튼 */
+#member > .registerSeller #btnEmailCode {
   background: #ef3f43;
   color: #fff;
+  font-size: 12px;
+  padding: 5px 7px;
+  border: 0;
+  outline: 0;
+  border-radius: 2px;
+  cursor: pointer;
+}
+#member > .registerSeller #btnEmailAuth {
+  background: #e7e5e5;
+  color: #222;
+  font-size: 12px;
+  padding: 5px 7px;
+  border: 0;
+  outline: 0;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* 우편번호 버튼 */
+#member > .registerSeller .btnZip {
+  background: #e7e5e5;
+  color: #222;
   font-size: 12px;
   padding: 5px 7px;
   border: 0;
@@ -550,161 +597,142 @@ header {
   cursor: pointer;
 }
 
-/* member > .findId */
-#member > .findId {
+/* 아이디&비밀번호 찾기 */
+#member > .find {
   width: 900px;
-  height: auto;
   margin: 0 auto;
-}
-#member > .findId > img[alt="banner"] {
-  display: block;
-  margin: 36px auto;
-}
-
-#member > .findId > nav {
-  border-bottom: 2px solid #ef2a23;
-}
-
-#member > .findId > nav > h1 {
-  font-size: 24px;
-  margin-bottom: 6px;
-}
-
-#member > .findId > form {
-  position: relative;
-  width: 100%;
-  height: 300px;
-  margin-top: 10px;
-  border-bottom: 1px solid #b3b3b3;
-  padding-top: 60px;
-  padding-left: 10px;
   box-sizing: border-box;
 }
-
-#member > .findId > form > div {
-  float: left;
-  margin: 0 10px;
+#member > .find > nav {
+  border-bottom: 2px solid #ef2a23;
 }
-
-#member > .findId > form > input[type="submit"] {
-  float: left;
-  width: 97px;
-  height: 71px;
-  background-image: url("../images/member_btn_login.gif");
-  font-size: 0;
-  border: none;
+#member > .find > nav > h1 {
+  font-size: 24px;
+  margin-bottom: 9px;
 }
-#member > .findId > form > span {
-  clear: left;
-  display: block;
-  margin-top: 116px;
-  margin-left: 140px;
-}
-#member > .findId > form > span a {
-  display: inline-block;
-  height: 13px;
-  margin: 0;
-  padding: 0 15px;
-  color: #676767;
-  border-right: 1px solid #999;
-  font-weight: bold;
-}
-#member > .findId > form > span a:last-child {
-  border: 0;
-}
-
-#member > .findId > form > .banner {
-  position: absolute;
-  right: 0;
-  top: 16px;
-}
-
-#member > .findId > form > div {
+#member > .find table {
   position: relative;
-}
-#member > .findId > form .label {
-  display: block;
-  margin-bottom: 6px;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
-#member > .findId > form .label > input {
+#member > .find table th {
   width: 200px;
+  padding: 20px 20px;
+  vertical-align: top;
+  background: #f4f6f9;
+  font-weight: 500;
+  text-align: right;
+  line-height: 1.4;
+  border-bottom: 1px solid #dfe5ed;
+  word-break: break-word;
+  font-size: 14px;
+}
+#member > .find table td {
+  position: relative;
+  vertical-align: middle;
+  padding: 10px 20px;
+  text-align: left;
+  line-height: 1.4;
+  border-bottom: 1px solid #dfe5ed;
+  word-break: break-word;
+  font-size: 14px;
+  font-weight: 500;
+}
+#member > .find table input {
+  padding: 0 8px;
   height: 31px;
-  padding: 0 13px;
-  border: 0;
+  font-size: 14px;
+  border: 1px solid #dfe5ed;
+  vertical-align: middle;
+}
+#member > .find #btnEmailCode {
+  background: #ef3f43;
+  color: #fff;
   font-size: 12px;
-  font-weight: bold;
-  color: #0075d4;
-  border: 1px solid #e3e3e3;
-  border-radius: 4px;
-  box-shadow: inset 0 0 10px #eee;
+  padding: 5px 7px;
+  border: 0;
+  outline: 0;
+  border-radius: 2px;
+  cursor: pointer;
+}
+#member > .find #btnEmailAuth {
+  background: #e7e5e5;
+  color: #222;
+  font-size: 12px;
+  padding: 5px 7px;
+  border: 0;
+  outline: 0;
+  border-radius: 2px;
+  cursor: pointer;
+}
+#member > .find p {
+  margin-top: 10px;
 }
 
-#member > .findId > form .auto {
-  position: absolute;
-  left: 64px;
-  bottom: -20px;
-  color: #676767;
-  font-weight: bold;
-  margin-right: 2px;
+#member > .find .btnArea{
+  margin-top: 45px;
+  padding-left: 326px;
 }
-
-#member > .findId > form .auto > input[type="checkbox"] {
-  margin-right: 4px;
-}
-
-#member > .findId > form label > span {
+#member > .find .btnArea > .btnAreaCancel{
+  float: left;
+  margin-right: 10px;
+  position: relative;
   display: inline-block;
-  width: 60px;
+  background: #e7e5e5;
+  color: #222;
+  font-size: 18px;
+  box-sizing: border-box;
+  padding: 10px 60px;
+  border-radius: 2px;
+  cursor: pointer;
+  text-align: center;
+}
+#member > .find .btnArea > .btnAreaNext {
+  float: left;
+  position: relative;
+  display: block;
+  background: #ef3f43;
+  color: #fff;
+  font-size: 18px;
+  padding: 10px 60px;
+  border: 0;
+  outline: 0;
+  border-radius: 2px;
+  cursor: pointer;
 }
 
-/* member > .passConfirm */
-#member > .passConfirm {                        
+/* 아이디&비밀번호 결과 화면 */
+#member > .find .btnResultArea{
+  margin-top: 45px;
+  padding-left: 265px;
 }
-
-#member > .passConfirm table {
-    width: 500px;
-    margin: 0 auto;
-    text-align: center;
-    border-collapse: collapse;
+#member > .find .btnResultArea > .btnAreaCancel{
+  float: left;
+  margin-right: 10px;
+  position: relative;
+  display: inline-block;
+  background: #e7e5e5;
+  color: #222;
+  font-size: 18px;
+  box-sizing: border-box;
+  padding: 15px 50px;
+  border-radius: 2px;
+  cursor: pointer;
+  text-align: center;
 }
-
-#member > .passConfirm table tr > td {
-    border: 1px solid #e4e4e4;
-}
-
-#member > .passConfirm table tr > td > h1 {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 20px 0;
-}
-#member > .passConfirm table tr > td > h3 {
-    font-size: 18px;
-    margin: 30px 0;
-}
-#member > .passConfirm table tr > td > input {
-    display: block;
-    width: 300px;            
-    margin: 0 auto;
-    margin-bottom: 6px;
-    font-size: 16px;
-    box-sizing: border-box;
-    
-}
-#member > .passConfirm table tr > td > input[name=pass] {
-    padding: 10px;
-    border: 1px solid #d9d9d9;
-    box-sizing: border-box;
-}
-#member > .passConfirm table tr > td > input[type=submit] {
-    padding: 10px;
-    margin-bottom: 40px;
-    background-color: #067dfd;            
-    color: #fff;            
-    border: none;
-    box-sizing: border-box;
-}
-
-#member > .passConfirm table tr > td > input[type=submit]:hover {
-    background-color: #036dde;
+#member > .find .btnResultArea > .btnAreaNext {
+  float: left;
+  position: relative;
+  display: block;
+  background: #ef3f43;
+  color: #fff;
+  font-size: 18px;
+  padding: 15px 50px;
+  border: 0;
+  outline: 0;
+  border-radius: 2px;
+  cursor: pointer;
 }
