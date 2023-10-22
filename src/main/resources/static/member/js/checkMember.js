@@ -47,19 +47,21 @@ $(function(){
         } // btnCheckUid.onclick end
     }
 
-    // 휴대폰번호 입력데이터
+    // 이메일 입력데이터
     $('input[name=email]').focusout(function(){
 
         const email  = $(this).val();
 
-        // 휴대폰번호 입력값 검사
+        // 이메일 입력값 검사
         if(!email.match(reEmail))
         {
             $('.resultEmail').css('color', 'red').text('유효한 이메일이 아닙니다.');
             isEmailOk = false;
+            $('.resultEmailForId').css('color', 'red').text('유효한 이메일이 아닙니다.');
+            $('.resultEmailForPass').css('color', 'red').text('유효한 이메일이 아닙니다.');
             return;
         }
-
+/*
         $.ajax({
             url: '/LotteON/member/check/email/'+email,
             type: 'GET',
@@ -77,7 +79,7 @@ $(function(){
                     isEmailOk = true;
                 }
             }
-        });
+        });*/
     });
 
     // 휴대폰번호 입력데이터

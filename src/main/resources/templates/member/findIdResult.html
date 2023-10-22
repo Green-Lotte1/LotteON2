@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.thymeleaf.org"
+       layout:decorate="/member/memberPage.html">
+<div class="find findId" layout:fragment="content">
+    <nav>
+        <h1>아이디 찾기</h1>
+    </nav>
+    <form id="formFindId" th:action="@{/member/findIdResult}" method="POST">
+        <input type="hidden" name="type" value="FIND_ID"/>
+        <table>
+            <tr>
+                <th>이름</th>
+                <td>[[${dto.name}]]</td>
+            </tr>
+            <tr>
+                <th>아이디</th>
+                <td>[[${dto.uid}]]</td>
+            </tr>
+            <tr>
+                <th>이메일</th>
+                <td>[[${dto.email}]]</td>
+            </tr>
+            <tr>
+                <th>가입일</th>
+                <td>[[${dto.rdate}]]</td>
+            </tr>
+        </table>
+        <p>
+            고객님의 정보와 일치하는 아이디입니다.
+        </p>
+        <div class="btnResultArea">
+            <a th:href="@{/member/login}" class="btnAreaCancel">로그인하기</a>
+            <a th:href="@{/member/findPass}" class="btnAreaNext">비밀번호 찾기</a>
+        </div>
+    </form>
+</div>
+</html>

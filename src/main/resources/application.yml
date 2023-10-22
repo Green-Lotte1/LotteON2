@@ -3,7 +3,7 @@ jwt:
   secret: oNlbC1SXEr6jig2XEvlZdhFULBbhukaY
 logging:
   #file:
-    #name: log/lotte.log
+  #name: log/lotte.log
   level:
     jdbc:
       connection: info
@@ -52,10 +52,21 @@ spring:
     prefix : file:src/main/resources/templates
     # 배포
     #prefix: classpath:/templates
+  mail:
+    host: smtp.gmail.com
+    port: 465
+    username: 'oooq3o@gmail.com'
+    password: 'nogwfaudlkjxyheh'
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+      mail.smtp.ssl.trust: smtp.gmail.com
+      mail.smtp.starttls.enable: true
 
   servlet:
     multipart:
       location: src/main/resources/static/file/
       max-file-size: 10MB
+
 app:
   version: 0.0.7-SNAPSHOT

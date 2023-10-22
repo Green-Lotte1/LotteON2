@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.thymeleaf.org"
+       layout:decorate="/member/memberPage.html">
+<div class="find findId" layout:fragment="content">
+    <script>
+        $(function(){
+            $('.btnPassChange').click(function(e){
+                e.preventDefault();
+
+                if (isPassOk)
+                    $('#formFindPassChange').submit();
+                else
+                    alert('변경 비밀번호가 유효하지 않거나 일치하지 않습니다.');
+            });
+        });
+    </script>
+    <nav>
+        <h1>비밀번호 변경</h1>
+    </nav>
+    <form id="formFindPassChange" th:action="@{/member/findPassChangeDo}" method="POST">
+        <input type="hidden" name="uid" th:value="${dto.uid}"/>
+        <table>
+            <tr>
+                <th>아이디</th>
+                <td>[[${dto.uid}]]</td>
+            </tr>
+            <tr>
+                <th>새 비밀번호</th>
+                <td>
+                    <input type="password" name="pass1" placeholder="새 비밀번호 입력"/>
+                    <span class="msgPass1">영문, 숫자, 특수문자를 조합하여 8~12자까지 설정해 주세요.</span>
+                </td>
+            </tr>
+            <tr>
+                <th>새 비밀번호 확인</th>
+                <td>
+                    <input type="password" name="pass2" placeholder="새 비밀번호 입력 확인"/>
+                    <span class="msgPass2">비밀번호 재입력</span>
+                </td>
+            </tr>
+        </table>
+        <p>
+            비밀번호를 변경해 주세요.<br>
+            영문, 숫자, 특수문자를 사용하여 8자 이상 입력해 주세요.
+        </p>
+        <div class="btnResultArea">
+            <a th:href="@{/member/login}" class="btnAreaCancel">취소</a>
+            <a th:href="@{#}" class="btnAreaNext" id="btnPassChange">완료</a>
+        </div>
+    </form>
+</div>
+</html>

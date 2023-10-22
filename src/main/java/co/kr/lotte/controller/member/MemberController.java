@@ -20,7 +20,7 @@ public class MemberController {
     private MemberService memberService;
 
     @GetMapping("/member/login")
-    public String login(String success, Model model) {
+    public String login(Model model, String success) {
         model.addAttribute("success", success);
         return "/member/login";
     }
@@ -31,9 +31,9 @@ public class MemberController {
     }
 
     @GetMapping("/member/signup")
-    public String signup(@RequestParam String type, Model model) {
-
+    public String signup(Model model, @RequestParam String type) {
         log.info("signup---type : " + type);
+
         model.addAttribute("type", type);
         MemberTermsEntity terms = memberService.findByTerms();
         model.addAttribute("terms", terms);
@@ -41,24 +41,27 @@ public class MemberController {
     }
 
     @GetMapping("/member/register")
-    public String register(String type, Model model) {
-
-        if (type.equals("normal"))
-            return "/member/register";
-        else if (type.equals("seller"))
+    public String register(Model model, String type) {
+        log.info("일반회원가입 type체크 : "+type);
+        
+        model.addAttribute("type", type);
+        if (type.equals("seller"))
             return "redirect:/member/registerSeller";
         return "/member/register";
     }
     @PostMapping("/member/register")
     public String register(MemberDTO dto, HttpServletRequest request) {
-
+        
         dto.setRegip(request.getRemoteAddr());
         memberService.save(dto);
         return "redirect:/member/login?success=200";
     }
 
     @GetMapping("/member/registerSeller")
-    public String registerSeller() {
+    public String registerSeller(Model model, String type) {
+        log.info("판매자회원가입 type체크 : "+type);
+
+        model.addAttribute("type", type);
         return "/member/registerSeller";
     }
     @PostMapping("/member/registerSeller")
@@ -69,5 +72,42 @@ public class MemberController {
         dto.setName(dto.getCompany()); // 사용자 이름은 회사명으로
         memberService.save(dto);
         return "redirect:/member/login?success=200";
+    }
+
+    @GetMapping("/member/findId")
+    public String findId() {
+        return "/member/findId";
+    }
+    @GetMapping("/member/findIdResult")
+    public String findIdResult() {
+        return "/member/findIdResult";
+    }
+    @PostMapping("/member/findIdResult")
+    public String findIdResult(Model model, String email) {
+
+        MemberDTO dto = memberService.findAllByEmail(email);
+        model.addAttribute("dto", dto);
+        return "/member/findIdResult";
+    }
+
+    @GetMapping("/member/findPass")
+    public String findPass() {
+        return "/member/findPass";
+    }
+    @GetMapping("/member/findPassChange")
+    public String findPassChange() {
+        return "/member/findPassChange";
+    }
+    @PostMapping("/member/findPassChange")
+    public String findPassChange(Model model, String email) {
+
+        MemberDTO dto = memberService.findAllByEmail(email);
+        model.addAttribute("dto", dto);
+        return "/member/findPassChange";
+    }
+    @PostMapping("/member/findPassChangeDo")
+    public String findPassChangeDo(MemberDTO dto) {
+        memberService.updatePass(dto.getUid(), dto.getPass1());
+        return "redirect:/member/login?success=201";
     }
 }

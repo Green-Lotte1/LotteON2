@@ -20,15 +20,16 @@
     <script th:src="@{/member/js/signup.js}"></script>
     <script th:src="@{/member/js/validation.js}"></script>
     <script th:src="@{/member/js/checkMember.js}"></script>
+    <script th:src="@{/member/js/authEmail.js}"></script>
     <script>
         $(function() {
             const success = '[[${success}]]';
-            if (success == 100) {
+            if (success == 100)
                 alert("일치하는 회원이 존재하지 않습니다.");
-            }
-            else if (success == 200) {
+            else if (success == 200)
                 alert("회원가입이 완료되었습니다.");
-            }
+            else if (success == 201)
+                alert("비밀번호가 변경되었습니다.");
         });
     </script>
 </head>
