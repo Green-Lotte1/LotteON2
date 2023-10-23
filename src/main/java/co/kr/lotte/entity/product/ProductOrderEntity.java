@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @ToString
@@ -33,7 +35,7 @@ public class ProductOrderEntity {
     private int ordPayment;
     private int ordComplete;
     @CreationTimestamp
-    private String ordDate;
+    private LocalDateTime ordDate;
     private String ordUser;
 
     public ProductOrderDTO toDTO() {
@@ -54,7 +56,7 @@ public class ProductOrderEntity {
                 .recipAddr2(recipAddr2)
                 .ordPayment(ordPayment)
                 .ordComplete(ordComplete)
-                .ordDate(ordDate)
+                .ordDate(ordDate.toString())
                 .ordUser(ordUser)
                 .build();
     }
