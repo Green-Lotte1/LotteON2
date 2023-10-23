@@ -222,29 +222,29 @@
           <table>
             <tr>
                 <td><span class="essential">*</span>수령인</td>
-                <td><input type="text" name="recipName" value=""/></td>
+                <td><input type="text" name="recipName" th:value="${#authentication.principal.member.name}"/></td>
             </tr>
             <tr>
                 <td><span class="essential">*</span>휴대폰</td>
                 <td>
-                    <input type="text" name="recipHp" />
+                    <input type="text" name="recipHp" th:value="${#authentication.principal.member.hp}"/>
                     <span>- 포함 입력</span><span class="msgHp"></span>
                 </td>
             </tr>
             <tr>
               <td>우편번호</td>
               <td>
-                  <input type="text" name="recipZip" />
+                  <input type="text" name="recipZip" th:value="${#authentication.principal.member.zip}"/>
                   <input type="button" value="검색" onclick="zipcode()"/>
               </td>
             </tr>
             <tr>
                 <td><span class="essential">*</span>기본주소</td>
-                <td><input type="text" name="recipAddr1" /></td>
+                <td><input type="text" name="recipAddr1" th:value="${#authentication.principal.member.addr1}"/></td>
             </tr>
             <tr>
                 <td><span class="essential">*</span>상세주소</td>
-                <td><input type="text" name="recipAddr2" /></td>
+                <td><input type="text" name="recipAddr2" th:value="${#authentication.principal.member.addr2}"/></td>
             </tr>
           </table>
         </article>
@@ -253,7 +253,8 @@
           <h1>할인정보</h1>
           <div>
             <p>
-                현재 포인트 : <span id="sessPoint">7200</span>점
+                <input type="hidden" name="memberPoint" th:value="${#authentication.principal.member.point}">
+                현재 포인트 : <span id="sessPoint">[[${#authentication.principal.member.toDTO().getDisPoint()}]]</span>점
             </p>
             <label>
                 <input type="number" name="usedPoint" min="0" value="0"/>점

@@ -70,10 +70,12 @@ $(function() {
 	})
 	$('input[name=usedPoint]').change(function() {
 		const usedPoint = $(this).val();
-		const sessPoint = $('#sessPoint').text() * 1;
-		if (usedPoint > sessPoint) {
-			$(this).val(sessPoint);
+		const memberPoint = $('input[name=memberPoint]').val() * 1;
+		if (usedPoint > memberPoint) {
+			$(this).val(memberPoint);
 		}
-		usePoint();
+		if (usedPoint >= 5000) {
+		    usePoint();
+		}
 	})
 });

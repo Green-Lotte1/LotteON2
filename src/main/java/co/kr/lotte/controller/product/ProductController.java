@@ -68,7 +68,6 @@ public class ProductController {
     @GetMapping("/product/cart")
     public String cart(Model model, @AuthenticationPrincipal Object principal) {
         MemberEntity memberEntity = ((MyUserDetails) principal).getMember();
-        // 사용자 인증이 완료되지 않아 고정값으로 테스트
         String uid = memberEntity.getUid();
         List<ProductCartDTO> productCartDTOS = productService.findProductCartByUid(uid);
         log.info("cart size() : " + productCartDTOS.size());
@@ -120,12 +119,21 @@ public class ProductController {
     @ResponseBody
     @PostMapping("/product/order")
     public int order(ProductOrderDTO productOrderDTO) {
-        return productService.saveOrder(productOrderDTO);
+        int ordNo = productService.saveOrder(productOrderDTO);
+        // 사용한 포인트가 5000원 이상이라면 포인트 소비
+        if (productOrderDTO.getUsedPoint() >= 5000) {
+            productService.usePoint(productOrderDTO.getOrdUid(), productOrderDTO.getUsedPoint(), ordNo);
+        }
+        return ordNo;
     }
 
     @ResponseBody
     @PostMapping("/product/orderItem")
-    public int orderItem(@RequestParam("jsonData") String jsonData, @RequestParam("ordNo") int ordNo) throws JsonProcessingException {
+    public int orderItem(@RequestParam("jsonData") String jsonData,
+                         @RequestParam("ordNo") int ordNo,
+                         @AuthenticationPrincipal Object principal) throws JsonProcessingException {
+        MemberEntity memberEntity = ((MyUserDetails) principal).getMember();
+        String uid = memberEntity.getUid();
         ObjectMapper objectMapper = new ObjectMapper();
         List<SearchDTO> searchDTOS = objectMapper.readValue(jsonData, new TypeReference<List<SearchDTO>>() {});
         for (SearchDTO searchDTO : searchDTOS) {
@@ -133,7 +141,7 @@ public class ProductController {
             log.info("count : " + searchDTO.getCount());
             log.info("cartNo : " + searchDTO.getCartNo());
         }
-        productService.saveOrderItem(searchDTOS, ordNo);
+        productService.saveOrderItem(searchDTOS, ordNo, uid);
         return 1;
     }
 

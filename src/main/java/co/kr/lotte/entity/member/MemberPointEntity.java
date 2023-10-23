@@ -2,6 +2,7 @@ package co.kr.lotte.entity.member;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -20,5 +21,6 @@ public class MemberPointEntity {
     private String uid;
     private int ordNo;
     private int point;
+    @CreationTimestamp
     private LocalDateTime pointDate;
 }
