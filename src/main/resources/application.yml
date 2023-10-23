@@ -65,7 +65,7 @@ spring:
 
   servlet:
     multipart:
-      location: file/
+      location: thumb/
       max-file-size: 10MB
 
 app:
