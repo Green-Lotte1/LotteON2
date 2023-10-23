@@ -9,6 +9,7 @@ import co.kr.lotte.entity.product.ProductEntity;
 import co.kr.lotte.repository.product.Cate1Repository;
 import co.kr.lotte.repository.product.Cate2Repository;
 import co.kr.lotte.repository.product.ProductRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -37,7 +38,7 @@ public class AdminService {
     private final Cate2Repository productCate2Repository;
     private final ModelMapper modelMapper;
 
-    public PageResponseDTO findByDeleteYn(PageRequestDTO pageRequestDTO){
+    public PageResponseDTO findByDeleteYn(PageRequestDTO pageRequestDTO) {
         Pageable pageable = pageRequestDTO.getPageable("prodNo");
         Page<ProductEntity> result = productRepository.findByDeleteYn("N", pageable);
         List<ProductEntity> dtoList = result.getContent()
@@ -54,11 +55,11 @@ public class AdminService {
                 .build();
     }
 
-    public List<ProductCate1Entity> cateList(){
+    public List<ProductCate1Entity> cateList() {
         return productCate1Repository.findAll();
     }
 
-    public List<ProductCate2Entity> cate2List(int cate1){
+    public List<ProductCate2Entity> cate2List(int cate1) {
 
         log.info("service cate2 : " + productCate2Repository.findByCate2(cate1));
 
@@ -67,26 +68,27 @@ public class AdminService {
 
     public void save(ProductDTO dto) {
         // 파일 저장 경로
-        String uploadPath = "src/main/resources/static/thumb/"+dto.getProdCate1()+"/"+dto.getProdCate2()+"/";
+        String uploadPath = "src/main/resources/static/thumb/" + dto.getProdCate1() + "/" + dto.getProdCate2() + "/";
         //파일 업로드
-        dto.setThumb1(fileSave(dto.getPro_thumb1(),uploadPath));
-        dto.setThumb2(fileSave(dto.getPro_thumb2(),uploadPath));
-        dto.setThumb3(fileSave(dto.getPro_thumb3(),uploadPath));
-        dto.setDetail(fileSave(dto.getPro_detail(),uploadPath));
+        dto.setThumb1(fileSave(dto.getPro_thumb1(), uploadPath));
+        dto.setThumb2(fileSave(dto.getPro_thumb2(), uploadPath));
+        dto.setThumb3(fileSave(dto.getPro_thumb3(), uploadPath));
+        dto.setDetail(fileSave(dto.getPro_detail(), uploadPath));
 
         ProductEntity entity = dto.toEntity();
         //파일 세이브
         ProductEntity productEntity = productRepository.save(entity);
 
     }
-    public String fileSave(MultipartFile mf,String filePath){
+
+    public String fileSave(MultipartFile mf, String filePath) {
         String sName = "";
-        if(!mf.isEmpty()){
+        if (!mf.isEmpty()) {
             String path = new File(filePath).getAbsolutePath();
 
             String oName = mf.getOriginalFilename();
             String ext = oName.substring(oName.lastIndexOf("."));
-            sName = UUID.randomUUID().toString()+ext;
+            sName = UUID.randomUUID().toString() + ext;
 
             try {
                 mf.transferTo(new File(path, sName));
@@ -96,4 +98,20 @@ public class AdminService {
         }
         return sName;
     }
+
+    //삭제
+    //admin-product
+    @Transactional
+    public int deleteByProdNo(List<Integer> prodNos) {
+        int deletedCount = 0;
+
+        for (Integer prodNo : prodNos) {
+            // 데이터베이스에서 상품 삭제
+            int result = productRepository.deleteByProdNo(prodNo);
+            deletedCount += result;
+        }
+
+        return deletedCount;
+    }
+    
 }

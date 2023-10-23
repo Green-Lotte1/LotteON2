@@ -2,6 +2,9 @@
 <html xmlns="http://www.w3.org/1999/html"
       xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
       layout:decorate="/admin/adminlayout.html">
+<head>
+    <script th:src="@{/admin/js/checkbox.js}"></script>
+    <script th:src="@{/admin/js/deleteCslist.js}"></script>
 <script>
     $(function () {
     // 카테고리 분류 AJAX로 불러오기
@@ -36,6 +39,7 @@
     });
 });
 </script>
+</head>
 <section id="admin-cs-notice-list" layout:fragment="content">
     <nav>
         <h3>문의하기 목록</h3>
@@ -45,7 +49,7 @@
     </nav>
     <section>
         <article>
-            <form th:action="@{admin/cs/qna/list}" method="POST">
+            <form th:action="@{admin/cs/qna/delete}" method="GET">
         <div>
             <tr>
                 <td>
@@ -66,7 +70,7 @@
         <table>
             <tbody>
             <tr>
-                <th><input type="checkbox" name="all"></th>
+                <th><input type="checkbox" name="all" id="selectAll"></th>
                 <th>번호</th>
                 <th>1차유형</th>
                 <th>2차유형</th>
@@ -76,7 +80,7 @@
                 <th>상태</th>
             </tr>
             <tr th:each="cs:${csPageResponseDTO.dtoList}">
-                <td><input type="checkbox" name="all"/></td>
+                <td><input type="checkbox" name="chk" value="[[${cs.bno}]]" /></td>
                 <td>[[${cs.bno}]]</td>
                 <td>[[${cs.cate}]]</td>
                 <td>[[${cs.type}]]</td>
@@ -90,8 +94,9 @@
             </tr>
             </tbody>
         </table>
-        <a href="#" class="btnDelete">선택삭제</a>
-        <a href="#" class="btnWrite">작성하기</a>
+            </form>
+            <input type="button" class="list-delete" value="선택삭제" onclick="deleteSelectedBnos()" />
+            <a href="#" class="btnWrite">작성하기</a>
 
         <!-- paging-->
         <div class="page">
@@ -107,7 +112,6 @@
                     <a th:href="@{/admin/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.end + 1})}">다음</a>
                   </span>
         </div>
-            </form>
         </article>
     </section> <!--table end-->
 </section><!--admin-product-list end-->
