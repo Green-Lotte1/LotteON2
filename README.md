@@ -31,3 +31,4 @@
 
 0.0.7-SNAPSHOT
  - product 장바구니 결제이동 (구현중)
+ - company 모든 HTML/CSS/JS 및 접근 완료 
