@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, user-scalable=no">
+    <title>LotteON Inc. 상상하는 모든것</title>
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{../images/favicon.ico}" />
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css}"/>
+    <link rel="stylesheet" th:href="@{./css/style.css}">
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js}"></script>
+    <script th:src="@{../js/header.js}"></script>
+    <script>
+        $(function() {
+
+            const swiper = new Swiper('.swiper', {
+                // Optional parameters
+                direction: 'vertical',
+                loop: false,
+                speed: 1000,
+
+                // If we need pagination
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+
+                // Navigation arrows
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+
+                // And if we need scrollbar
+                scrollbar: {
+                    el: '.swiper-scrollbar',
+                    draggable: true
+                },
+                mousewheel: {
+                    invert: false,
+                },
+            });
+
+            swiper.on('slideChange', function () {
+                const slideIndex = swiper.realIndex;
+
+                if(slideIndex == 0){
+                    $('header').css('background', 'transparent');
+                }else if(slideIndex == 3){
+                    $('footer').slideDown(1000);
+                }else{
+                    $('header').css('background', 'white');
+                    $('footer').slideUp(1000);
+                }
+            })
+
+        });
+    </script>
+</head>
+<body>
+<div class="swiper">
+    <header>
+        <div>
+            <a th:href="@{/company/index}"><img th:src="@{../images/header_logo.png}" width="200" alt="로고"></a>
+            <ul>
+                <li><a th:href="@{/company/introduce}">회사소개</a></li>
+                <li><a th:href="@{/company/notice}">전자공시</a></li>
+                <li><a th:href="@{/company/promote}">홍보채널</a></li>
+                <li><a th:href="@{/company/manage}">투명경영</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+      <!-- Slides -->
+        <div class="swiper-slide slide1">
+            <img th:src="@{./images/bg_main.jpg}" id="mainBanner">
+            <div class="scroll-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="swiper-slide slide2">
+            <section>
+                <h1 class="tit1">하이앤드테크로 온/오프라인</h1>
+                <h2 class="tit2">시너지를 만들어요</h2>
+                <p class="desc">
+                    많은 전문가들이 MSA, AWS 등 최신 기술을 운영하고 있으며,<br>
+                    최신기술과 롯데의 온/오프라인 4000만+ 고객 데이터를 결합하여<br>
+                    롯데 오프라인 매장과 연계한 다양한 서비스로<br>
+                    고객들에게 온-오프라인을 넘나드는 새로운 쇼핑 경험을 드려요.
+                </p>
+            </section>
+        </div>
+        <div class="swiper-slide slide3">
+            <section>
+                <h1 class="tit1">국내 최초의 온라인 종합쇼핑몰로 출발해</h1>
+                <h2 class="tit2">쇼핑 경험의 변화를 이끌어내고 있어요.</h2>
+            </section>
+        </div>
+        <div class="swiper-slide slide4">
+            <section>
+                    <h2 class="tit2">롯데ON은 이렇게 성장해가고 있어요.</h2>
+                <div>
+                    <a href="https://story.lotteon.com/%eb%b8%8c%eb%9e%9c%eb%93%9c-%ed%8c%90%ed%83%80%ec%a7%80%eb%a1%9c-%eb%b3%b8%ea%b2%a9%ec%a0%81%ec%9d%b8-%ed%9a%a8%eb%a6%ac-%ed%9a%a8%ea%b3%bc-%ec%9d%bc%ec%9c%bc%ed%82%a8%eb%8b%a4/" target="_blank"><img th:src="@{./images/content1.png}" ></a>
+                    <a href="https://story.lotteon.com/%ec%98%a8%ec%95%a4%eb%8d%94%ed%81%b4%eb%9f%bd-%ed%9a%8c%ec%9b%90%ec%9d%80-%ed%94%84%eb%a6%ac%eb%af%b8%ec%97%84-%ec%84%9c%eb%b9%84%ec%8a%a4%ec%99%80-%ed%98%9c%ed%83%9d%ec%9d%84/" target="_blank"><img th:src="@{./images/content2.png}" ></a>
+                    <a href="https://story.lotteon.com/%eb%a1%af%eb%8d%b0%ec%98%a8-%ea%b0%80%ec%88%98-%ec%9d%b4%ed%9a%a8%eb%a6%ac%ec%99%80-%eb%a1%a0%ec%b9%ad-%ec%b2%ab-%ea%b4%91%ea%b3%a0-%ec%ba%a0%ed%8e%98%ec%9d%b8-%ec%87%bc%ed%95%91/" target="_blank"><img th:src="@{./images/content3.png}" ></a>
+                    <a href="https://story.lotteon.com/%eb%b7%b0%ed%8b%b0%ed%92%80-%ed%8e%98%ec%8a%a4%ed%8b%b0%eb%b2%8c%ec%84%9c-%ec%9d%b8%ea%b8%b0-%eb%b7%b0%ed%8b%b0-%ec%83%81%ed%92%88%ec%9d%84-%ec%97%b0%ec%a4%91-%ec%b5%9c%eb%8c%80/" target="_blank">‘<img th:src="@{./images/content4.png}" ></a>
+                </div>
+            </section>
+        </div>
+
+    </div>
+    <!-- If we need pagination -->
+    <div class="swiper-pagination"></div>
+
+    <!-- If we need scrollbar -->
+    <!--<div class="swiper-scrollbar"></div>-->
+
+</div>
+</body>
+</html>
