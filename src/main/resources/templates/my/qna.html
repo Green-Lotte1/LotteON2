@@ -1,9 +1,12 @@
-<html xmlns:th="http://www.thymeleaf.org" layout:decorate="/my/index.html">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org/"
+      layout:decorate="/my/index.html">
+
     <div class="qna" layout:fragment="content">
         <ul th:replace="~{/my/menu.html}">
         </ul>
         <section>
-            <a href="#"><img th:src="@{/my/images/my_banner2.png}" alt="패션, 타운 하나로 끝" class="banner"></a>
+            <a th:href="@{https://www.mysmilepay.com/}"><img th:src="@{/my/images/my_banner2.png}" alt="패션, 타운 하나로 끝" class="banner"></a>
             <article>
                 <h3>문의하기</h3>
                 <table>
