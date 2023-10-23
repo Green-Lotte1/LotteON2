@@ -203,7 +203,10 @@ public class ProductService {
     }
 
     public ProductOrderDTO findProductOrderById(int ordNo) {
-        return productOrderRepository.findById(ordNo).get().toDTO();
+        ProductOrderDTO productOrderDTO = productOrderRepository.findById(ordNo).get().toDTO();
+        MemberEntity memberEntity =  memberRepository.findById(productOrderDTO.getOrdUid()).get();
+        productOrderDTO.setOrdUser(memberEntity.getName());
+        return productOrderDTO;
     }
 
     public List<ProductOrderItemDTO> findProductOrderItemsByOrdNo(int ordNo) {
