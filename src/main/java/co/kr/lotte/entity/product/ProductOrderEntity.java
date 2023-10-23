@@ -3,6 +3,7 @@ package co.kr.lotte.entity.product;
 import co.kr.lotte.dto.product.ProductOrderDTO;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Getter
 @Setter
@@ -31,6 +32,7 @@ public class ProductOrderEntity {
     private String recipAddr2;
     private int ordPayment;
     private int ordComplete;
+    @CreationTimestamp
     private String ordDate;
     private String ordUser;
 

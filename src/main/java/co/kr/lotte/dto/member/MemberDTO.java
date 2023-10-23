@@ -3,6 +3,7 @@ package co.kr.lotte.dto.member;
 import co.kr.lotte.entity.member.MemberEntity;
 import lombok.*;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 
 @Getter
@@ -34,6 +35,11 @@ public class MemberDTO {
     private String regip;
     private LocalDateTime wdate;
     private LocalDateTime rdate;
+
+    public String getDisPoint() {
+        DecimalFormat df = new DecimalFormat("###,###");
+        return df.format(this.point);
+    }
 
     public MemberEntity toEntity(){
         return MemberEntity.builder()

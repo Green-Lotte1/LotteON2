@@ -1,7 +1,11 @@
 package co.kr.lotte.service.product;
 
 import co.kr.lotte.dto.product.*;
+import co.kr.lotte.entity.member.MemberEntity;
+import co.kr.lotte.entity.member.MemberPointEntity;
 import co.kr.lotte.entity.product.*;
+import co.kr.lotte.repository.member.MemberPointRepository;
+import co.kr.lotte.repository.member.MemberRepository;
 import co.kr.lotte.repository.product.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -21,6 +25,8 @@ public class ProductService {
     private final ProductCartRepository productCartRepository;
     private final ProductOrderRepository productOrderRepository;
     private final ProductOrderItemRepository productOrderItemRepository;
+    private final MemberRepository memberRepository;
+    private final MemberPointRepository memberPointRepository;
     private final ModelMapper modelMapper;
     private final Cate1Repository cate1Repository;
     private final Cate2Repository cate2Repository;
@@ -152,17 +158,48 @@ public class ProductService {
         return productOrderEntity.getOrdNo();
     }
 
-    public void saveOrderItem(List<SearchDTO> searchDTOS, int ordNo) {
+    public void saveOrderItem(List<SearchDTO> searchDTOS, int ordNo, String uid) {
+        // 적립될 포인트
+        int point = 0;
         for (SearchDTO searchDTO : searchDTOS) {
-            productOrderItemRepository.save(ProductOrderItemEntity.builder()
-                            .ordNo(ordNo)
-                            .prodNo(searchDTO.getProdNo())
-                            .count(searchDTO.getCount())
-                            .build());
+            // 주문 상품 저장
+            ProductOrderItemEntity productOrderItemEntity = ProductOrderItemEntity.builder()
+                                                            .ordNo(ordNo)
+                                                            .prodNo(searchDTO.getProdNo())
+                                                            .count(searchDTO.getCount())
+                                                            .build();
+            productOrderItemRepository.save(productOrderItemEntity);
+            ProductEntity product = productRepository.findById(productOrderItemEntity.getProdNo()).get();
+            int savePoint = product.getPoint() * productOrderItemEntity.getCount();
+            point += savePoint;
+
+            // 포인트 적립이력 저장
+            MemberPointEntity memberPoint = MemberPointEntity.builder()
+                                                            .uid(uid)
+                                                            .ordNo(ordNo)
+                                                            .point(savePoint)
+                                                            .build();
+
+            memberPointRepository.save(memberPoint);
+
+            // 장바구니에서 주문한 상품일 경우 장바구니 삭제
             if (searchDTO.getCartNo() != 0) {
                 productCartRepository.deleteById(searchDTO.getCartNo());
             }
         }
+        // 세션의 uid를 이용해서 사용자 객체를 가져옴
+        MemberEntity member = memberRepository.findById(uid).get();
+        // 포인트 적립
+        member.setPoint(member.getPoint() + point);
+        memberRepository.save(member);
+
+        // 주문번호로 주문이력을 가져옴
+        ProductOrderEntity productOrder = productOrderRepository.findById(ordNo).get();
+        // 적립된 포인트 저장
+        productOrder.setSavePoint(point);
+        productOrderRepository.save(productOrder);
+
+
     }
 
     public ProductOrderDTO findProductOrderById(int ordNo) {
@@ -174,5 +211,21 @@ public class ProductService {
                                             .stream()
                                             .map(entity -> modelMapper.map(entity, ProductOrderItemDTO.class))
                                             .toList();
+    }
+
+    public void usePoint(String uid, int usedPoint, int ordNo) {
+        // uid로 해당 사용자 객체를 가져온다.
+        MemberEntity member = memberRepository.findById(uid).get();
+        // 현재 포인트 - 사용한 포인트로 바꿔준다.
+        member.setPoint(member.getPoint() - usedPoint);
+        // 바뀐 포인트가 적용되도록 저장
+        memberRepository.save(member);
+
+        MemberPointEntity memberPointEntity = MemberPointEntity.builder()
+                                                                .uid(uid)
+                                                                .ordNo(ordNo)
+                                                                .point(-usedPoint)
+                                                                .build();
+        memberPointRepository.save(memberPointEntity);
     }
 }
