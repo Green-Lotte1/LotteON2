@@ -164,6 +164,7 @@ public class ProductService {
         for (SearchDTO searchDTO : searchDTOS) {
             // 주문 상품 저장
             ProductOrderItemEntity productOrderItemEntity = ProductOrderItemEntity.builder()
+                                                            .ordUid(uid)
                                                             .ordNo(ordNo)
                                                             .prodNo(searchDTO.getProdNo())
                                                             .count(searchDTO.getCount())

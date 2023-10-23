@@ -3,6 +3,7 @@ package co.kr.lotte.dto.product;
 import lombok.*;
 
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -12,9 +13,11 @@ import java.text.DecimalFormat;
 @NoArgsConstructor
 public class ProductOrderItemDTO {
     private int no;
+    private String ordUid;
     private int ordNo;
     private int prodNo;
     private int count;
+    private LocalDateTime ordDate;
 
     private ProductDTO product;
 

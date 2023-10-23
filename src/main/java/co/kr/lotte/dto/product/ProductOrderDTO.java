@@ -3,6 +3,9 @@ package co.kr.lotte.dto.product;
 import co.kr.lotte.entity.product.ProductOrderEntity;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @ToString
@@ -68,7 +71,7 @@ public class ProductOrderDTO {
                 .recipAddr2(recipAddr2)
                 .ordPayment(ordPayment)
                 .ordComplete(ordComplete)
-                .ordDate(ordDate)
+                .ordDate(ordDate == null ? null : LocalDateTime.parse(ordDate))
                 .ordUser(ordUser)
                 .build();
     }

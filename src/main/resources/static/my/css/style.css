@@ -1478,3 +1478,7 @@ footer p > strong {
     margin: 10px auto;
     cursor: pointer;
 }
+
+#my > .ordered > section > article > table .thumb > img {
+    width : 120px;
+}
