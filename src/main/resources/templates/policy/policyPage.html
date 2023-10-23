@@ -35,14 +35,14 @@
             let termsItem = termsList.split(/\n{3,}/);
             termsItem.forEach(function(element) {
 
-                let $termsElement = $('<p>').addClass('termsElement');
-                let $tit = $('<span>').addClass('tit').text(element.split('\n')[0]);
-                let $content = $('<span>').addClass('content').text(element);
+                let termsElement = $('<p>').addClass('termsElement');
+                let tit = $('<span>').addClass('tit').text(element.split('\n')[0]);
+                let content = $('<span>').addClass('content').text(element);
 
-                $termsElement.append($tit);
-                $termsElement.append($content);
+                termsElement.append(tit);
+                termsElement.append(content);
 
-                $('.termsContent').append($termsElement);
+                $('.termsContent').append(termsElement);
             });
 
             $("li[id^='terms']").click(function () {
