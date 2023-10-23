@@ -75,7 +75,7 @@ main > aside {
     height: 66px;
     font-size: 14px;
     font-weight: bold;
-    color: #222;            
+    color: #222;
     line-height: 66px;
     text-indent: 10px;
 }
@@ -98,7 +98,7 @@ main > aside {
     width: 100%;
     height: 100%;
     text-indent: 52px;
-}        
+}
 
 
 
@@ -170,7 +170,7 @@ main table tr > td:nth-child(1) {
     border-top: 1px solid #e6e6e6;
     border-bottom: 1px solid #e6e6e6;
     background: #f6f6f6;
-    padding: 10px;    
+    padding: 10px;
     text-align: left;
 }
 
@@ -228,7 +228,7 @@ input {
     width: 200px;
     padding: 6px;
     border: 1px solid #959595;
-    font-size: 13px;            
+    font-size: 13px;
     background-color: #fefefe;
     color: #333;
     vertical-align: middle;
@@ -244,7 +244,7 @@ select {
     width: 150px;
     padding: 6px;
     border: 1px solid #959595;
-    font-size: 13px;            
+    font-size: 13px;
     background-color: #fefefe;
     color: #333;
     box-sizing: border-box;
@@ -253,11 +253,11 @@ select {
 textarea {
     padding: 5px;
     border: 1px solid #959595;
-    font-size: 13px;            
+    font-size: 13px;
     background-color: #eaeaea;
     color: #333;
     box-sizing: border-box;
-    resize: none;            
+    resize: none;
 }
 
 /* span {
@@ -265,7 +265,7 @@ textarea {
     color: #bc2e13;
 } */
 
-button {            
+button {
     border: 1px solid #959595;
     font-size: 12px;
     background: #a8b2c5;
@@ -279,16 +279,16 @@ button[type=submit] {
     height: 26px;
     margin-right: 246px;
     padding: 0 15px;
-    background-color: #a8b2c5;            
+    background-color: #a8b2c5;
     border: 1px solid #959595;
-    font-size: 12px;            
-    color: #fff;            
+    font-size: 12px;
+    color: #fff;
     vertical-align: middle;
 }
 
 
 /* admin-index */
-#admin-index {}        
+#admin-index {}
 
 #admin-index > article {
     width: 100%;
@@ -329,8 +329,8 @@ button[type=submit] {
 }
 
 #admin-index > article > table tr > td > p {
-    padding: 6px;            
-    overflow: hidden;            
+    padding: 6px;
+    overflow: hidden;
 }
 #admin-index > article > table tr > td > p > span {
     font-size: 14px;
@@ -352,8 +352,8 @@ button[type=submit] {
     height: auto;
 }
 
-#admin-index > div > div:nth-child(1) {float: left;}        
-#admin-index > div > div:nth-child(2) {float: right;}        
+#admin-index > div > div:nth-child(1) {float: left;}
+#admin-index > div > div:nth-child(2) {float: right;}
 
 #admin-index > div > div > article {
     width: 100%;
@@ -362,10 +362,10 @@ button[type=submit] {
     border: 1px solid #e5e5e5;
     border-top: 2px solid #8798a3;
     padding: 16px;
-    box-sizing: border-box;            
+    box-sizing: border-box;
 }
 
-#admin-index > div > div > article > p {            
+#admin-index > div > div > article > p {
     overflow: hidden;
 }
 

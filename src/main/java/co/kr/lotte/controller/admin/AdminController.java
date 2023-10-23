@@ -20,12 +20,14 @@ import co.kr.lotte.service.product.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @Log4j2
@@ -58,6 +60,16 @@ public class AdminController {
         model.addAttribute("pageResponseDTO", pageResponseDTO);
 
         return "/admin/product/list";
+    }
+
+    @PostMapping("/admin/product/delete")
+    public String deleteSelectedProducts(@RequestParam("chk") List<Integer> prodNos) {
+        int deletedCount = adminService.deleteByProdNo(prodNos);
+        if (deletedCount > 0) {
+            return "Successfully deleted " + deletedCount + " products.";
+        } else {
+            return "redirect:/admin/product/list";
+        }
     }
 
     @GetMapping("/admin/product/register")
@@ -178,11 +190,3 @@ public class AdminController {
     }
 
 }
-
-//    @GetMapping("/admin/product/list")
-//    public String list(Model model, PageRequestDTO pageRequestDTO) {
-//        PageResponseDTO pageResponseDTO = productService.findByAll(pageRequestDTO);
-//        model.addAttribute("pageResponseDTO", pageResponseDTO);
-//
-//        return "/admin/product/list";
-//    }

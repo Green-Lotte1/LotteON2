@@ -1,37 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/html"
-      xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html"
       layout:decorate="/admin/adminlayout.html">
-
-<script>
-    $(function() {
-        // 전체 체크박스
-        $('input[name=all]').change(function(){
-            const isChecked = $(this).is(':checked');
-            if (isChecked) {
-                $('input[name=chk]').prop('checked', true);
-            } else {
-                $('input[name=chk]').prop('checked', false);
-            }
-        });
-
-        $('input[name=chk]').change(function() {
-            const chk = $('input[name=chk]');
-            let cnt = 0;
-            for (let i = 0; i < chk.length; i++) {
-                if (chk[i].checked) {
-                    cnt++;
-                }
-            }
-            if (!$(this).is(':checked')) {
-                $('input[name=all]').prop('checked', false);
-            } else if (cnt == chk.length) {
-                $('input[name=all]').prop('checked', true);
-            }
-        });
-    });
-
-</script>
+<head>
+    <script th:src="@{/admin/js/checkbox.js}"></script>
+    <script th:src="@{/admin/js/deletelist.js}"></script>
+</head>
 <section id="admin-product-list" layout:fragment="content">
     <nav>
         <h3>상품목록</h3>
@@ -41,77 +15,70 @@
     </nav>
     <!-- 상품목록 컨텐츠 시작 -->
     <section>
-        <div>
-            <form th:action="@{/admin/product/list}" method="get">
+        <form th:action="@{/admin/product/list}" method="get">
             <select name="search">
                 <option value="search1">상품명</option>
                 <option value="search1">상품코드</option>
                 <option value="search1">제조사</option>
                 <option value="search1">판매자</option>
             </select>
-            <input type="text" name="search">
-        </div>
+            <input type="text" name="search"/>
+        </form>
         <table>
-            <form id="formCheck" th:action="@{/admin/product/delete}" method="get">
-            <tr>
-                <th><input type="checkbox" name="all" id="selectAll"/></th>
-                <th>이미지</th>
-                <th>상품코드</th>
-                <th>상품명</th>
-                <th>판매가격</th>
-                <th>할인율</th>
-                <th>포인트</th>
-                <th>재고</th>
-                <th>판매자</th>
-                <th>조회</th>
-                <th>관리</th>
-            </tr>
+            <form id="formCheck" th:action="@{/admin/product/delete}" method="post">
+                <tr>
+                    <th><input type="checkbox" name="all" id="selectAll"/></th>
+                    <th>이미지</th>
+                    <th>상품코드</th>
+                    <th>상품명</th>
+                    <th>판매가격</th>
+                    <th>할인율</th>
+                    <th>포인트</th>
+                    <th>재고</th>
+                    <th>판매자</th>
+                    <th>조회</th>
+                    <th>관리</th>
+                </tr>
 
-            <tr th:each="product:${pageResponseDTO.dtoList}">
-                <td><input type="checkbox" name ="chk" th:value="${product.prodNo}"></td>
-                <td><img th:src="@{'/thumb/' + ${product.prodCate1} + '/' + ${product.prodCate2} + '/' + ${product.thumb1}}" alt="상품이미지"
-                         width="100" height="100"/></td>
-                <td>[[${product.prodNo}]]</td>
-                <td>[[${product.prodName}]]</td>
-                <td>[[${product.price}]]</td>
-                <td>[[${product.discount}]]</td>
-                <td>[[${product.point}]]</td>
-                <td>[[${product.stock}]]</td>
-                <td>[[${product.seller}]]</td>
-                <td>[[${product.hit}]]</td>
-                <td>
-                    <a href="#">[삭제]</a>
-                    <a href="#">[수정]</a>
-                </td>
-            </tr>
+                <tr th:each="product:${pageResponseDTO.dtoList}">
+                    <td><input type="checkbox" name="chk" th:value="${product.prodNo}"></td>
+                    <td><img th:src="@{'/thumb/' + ${product.prodCate1} + '/' + ${product.prodCate2} + '/' + ${product.thumb1}}" alt="상품이미지" width="100" height="100"/></td>
+                    <td>[[${product.prodNo}]]</td>
+                    <td>[[${product.prodName}]]</td>
+                    <td>[[${product.price}]]</td>
+                    <td>[[${product.discount}]]</td>
+                    <td>[[${product.point}]]</td>
+                    <td>[[${product.stock}]]</td>
+                    <td>[[${product.seller}]]</td>
+                    <td>[[${product.hit}]]</td>
+                    <td>
+                        <a class="buttonDelete" href="#">[삭제]</a>
+                        <a href="#">[수정]</a>
+                    </td>
+                </tr>
             </form>
         </table>
-
-
-        <input type="button" value="선택삭제" />
+        <input type="button" class="list-delete" value="선택삭제" onclick="deleteSelectedProducts()" />
 
 
         <!-- 상품목록 페이지번호 -->
         <div class="paging">
-            <span class="prev" th:if="${pageResponseDTO.prev}">
-                <a th:href="@{/admin/product/list(pg=${pageResponseDTO.start - 1})}"><&nbsp;이전</a>
-            </span>
+                <span class="prev" th:if="${pageResponseDTO.prev}">
+                    <a th:href="@{/admin/product/list(pg=${pageResponseDTO.start - 1})}"><&nbsp;이전</a>
+                </span>
             <span th:each="num : ${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}" class="num">
-                <a th:href="@{/admin/product/list(pg=${num})}" th:class="${pageResponseDTO.pg eq num ? 'on' : 'off'}">[[${num}]]</a>
-            </span>
+                    <a th:href="@{/admin/product/list(pg=${num})}" th:class="${pageResponseDTO.pg eq num ? 'on' : 'off'}">[[${num}]]</a>
+                </span>
             <span class="next" th:if="${pageResponseDTO.next}">
-                <a th:href="@{/admin/product/list(pg=${pageResponseDTO.start - 1})}">다음&nbsp;></a>
-            </span>
+                    <a th:href="@{/admin/product/list(pg=${pageResponseDTO.start - 1})}">다음&nbsp;></a>
+                </span>
         </div>
     </section>
-
 
     <p class="ico info">
         <strong>Tip!</strong>
         전자상거래 등에서의 상품 등의 정보제공에 관한 고시에 따라 총 35개 상품군에 대해 상품 특성 등을 양식에 따라 입력할 수 있습니다.
     </p>
-
-
 
     <!-- 상품목록 컨텐츠 끝 -->
 </section>
