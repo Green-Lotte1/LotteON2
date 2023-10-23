@@ -91,7 +91,7 @@
           <a th:href="@{/product/list(cate1=${pageResponseDTO.cate1}, cate2=${pageResponseDTO.cate2}, pg=${num})}" th:class="${pageResponseDTO.pg eq num ? 'on' : 'off'}">[[${num}]]</a>
         </span>
         <span class="next" th:if="${pageResponseDTO.next}">
-          <a th:href="@{/product/list(cate1=${pageResponseDTO.cate1}, cate2=${pageResponseDTO.cate2}, pg=${pageResponseDTO.start - 1})}">다음&nbsp;></a>
+          <a th:href="@{/product/list(cate1=${pageResponseDTO.cate1}, cate2=${pageResponseDTO.cate2}, pg=${pageResponseDTO.end + 1})}">다음&nbsp;></a>
         </span>
       </div>
     </section>

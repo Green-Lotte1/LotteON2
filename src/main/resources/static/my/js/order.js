@@ -76,11 +76,5 @@ $(function() {
         }
         date5.append('<li><a href="#" class="datePick" onclick="changeMonth($(this), ' + currentMonth + ', ' + currentYear +'); return false;"><em>' + currentMonth + '</em>월</a></li>')
     }
-
-    $('.datePick5').click(function(e) {
-        e.preventDefault();
-        $('.datePick').removeClass('on');
-        $(this).addClass('on');
-        debugger;
-    })
+    tableReload(1);
 });
