@@ -1,4 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org" layout:decorate="/my/index.html">
+    <head>
+        <script th:src="@{/my/js/order.js}"></script>
+        <script>
+
+        </script>
+    </head>
     <div class="ordered" layout:fragment="content">
         <ul th:replace="~{/my/menu.html}">
         </ul>
@@ -9,16 +15,11 @@
                 <div class="byDate">
                     <span class="tit">기간별조회</span>
                     <ul class="date_3ea">
-                        <li><a href="#"><em>1</em>주일</a></li>
-                        <li><a href="#"><em>15</em>일</a></li>
-                        <li><a href="#" class="on"><em>1</em>개월</a></li>
+                        <li><a href="#" class="datePick" onclick="changeDate($(this), 'week'); return false;"><em>1</em>주일</a></li>
+                        <li><a href="#" class="datePick" onclick="changeDate($(this), 'half'); return false;"><em>15</em>일</a></li>
+                        <li><a href="#" class="datePick on"  onclick="changeDate($(this), 'month'); return false;"><em>1</em>개월</a></li>
                     </ul>
                     <ul class="date_5ea">
-                        <li><a href="#"><em>11</em>월</a></li>
-                        <li><a href="#"><em>10</em>월</a></li>
-                        <li><a href="#"><em>9</em>월</a></li>
-                        <li><a href="#"><em>8</em>월</a></li>
-                        <li><a href="#"><em>7</em>월</a></li>
                     </ul>
                     <p>
                         <input type="date" name="begin"><span>~</span><input type="date" name="end">

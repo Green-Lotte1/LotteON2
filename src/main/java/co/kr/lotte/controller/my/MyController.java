@@ -1,7 +1,10 @@
 package co.kr.lotte.controller.my;
 
-import lombok.Getter;
+import co.kr.lotte.entity.member.MemberEntity;
+import co.kr.lotte.security.MyUserDetails;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -22,7 +25,9 @@ public class MyController {
     }
 
     @GetMapping("/my/order")
-    public String order() {
+    public String order(Model model, @AuthenticationPrincipal Object principal) {
+        MemberEntity memberEntity = ((MyUserDetails) principal).getMember();
+        String uid = memberEntity.getUid();
         return "/my/order";
     }
 
