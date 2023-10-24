@@ -28,8 +28,6 @@
                   <div>
                   <th:block th:each="file : ${boardDTO.fileDTOList}">
                       <img id="thumb" th:src="@{|/files/${file.sfile}|}"/>
-                      <img id="thumb2" th:src="@{|/${file.sfile}|}"/>
-                    <img id="thumb3" src="/files/3bd21309-2947-4c97-a5a9-0ba1222fdc6b.png">
                       <a th:href="@{/cs/qna/fileDownload(fno=${file.fno})}">다운로드  [[${file.ofile}]]</a>
                   </th:block>
               </div>
