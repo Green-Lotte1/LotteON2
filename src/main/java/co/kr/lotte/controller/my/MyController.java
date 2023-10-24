@@ -1,11 +1,16 @@
 package co.kr.lotte.controller.my;
 
+import co.kr.lotte.dto.cs.CsPageRequestDTO;
+import co.kr.lotte.dto.cs.CsPageResponseDTO;
 import co.kr.lotte.dto.my.PageResponseDTO;
 import co.kr.lotte.dto.my.SearchDTO;
 import co.kr.lotte.dto.product.ProductOrderDTO;
 import co.kr.lotte.entity.member.MemberEntity;
 import co.kr.lotte.security.MyUserDetails;
+import co.kr.lotte.service.CsCateService;
+import co.kr.lotte.service.CsService;
 import co.kr.lotte.service.my.MyService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -16,10 +21,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.ArrayList;
 import java.util.List;
 
+@Log4j2
 @Controller
 public class MyController {
     @Autowired
     private MyService myService;
+
+    @Autowired
+    private CsService csService;
+
+    @Autowired
+    private CsCateService csCateService;
 
     @GetMapping(value = {"/my/", "/my/home"})
     public String home() {
@@ -57,10 +69,24 @@ public class MyController {
     }
 
     @GetMapping("/my/qna")
-    public String qna() {
+    public String qna(Model model, CsPageRequestDTO csPageRequestDTO) {
+        CsPageResponseDTO csPageResponseDTO = csService.findByCate(csPageRequestDTO);
+
+        log.info("myPageResponseDTO cate : "+ csPageRequestDTO.getCate());
+        log.info("myPageResponseDTO pg : "+ csPageResponseDTO.getPg());
+        log.info("myPageResponseDTO size : "+ csPageResponseDTO.getSize());
+        log.info("myPageResponseDTO total : "+ csPageResponseDTO.getTotal());
+        log.info("myPageResponseDTO start : "+ csPageResponseDTO.getStart());
+        log.info("myPageResponseDTO end : "+ csPageResponseDTO.getEnd());
+        log.info("myPageResponseDTO prev : "+ csPageResponseDTO.isPrev());
+        log.info("myPageResponseDTO next : "+ csPageResponseDTO.isNext());
+        model.addAttribute(csPageResponseDTO);
+        model.addAttribute("cate", csPageRequestDTO.getCate());
+
+
+
         return "/my/qna";
     }
-
     @GetMapping("/my/review")
     public String review() {
         return "/my/review";

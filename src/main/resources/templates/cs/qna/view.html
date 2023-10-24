@@ -27,7 +27,7 @@
                   <span th:text="${#temporals.format(boardDTO.rdate, 'yy-MM-dd')}"></span><br>
                   <div>
                   <th:block th:each="file : ${boardDTO.fileDTOList}">
-                      <img id="thumb" th:src="@{|../../thumb/cs/qna/${file.sfile}|}"/>
+                      <img id="thumb" th:src="@{|/files/${file.sfile}|}"/>
                       <a th:href="@{/cs/qna/fileDownload(fno=${file.fno})}">다운로드  [[${file.ofile}]]</a>
                   </th:block>
               </div>

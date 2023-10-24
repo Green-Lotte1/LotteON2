@@ -25,6 +25,7 @@ public class ProductService {
     private final ProductCartRepository productCartRepository;
     private final ProductOrderRepository productOrderRepository;
     private final ProductOrderItemRepository productOrderItemRepository;
+    private final ProductReviewRepository productReviewRepository;
     private final MemberRepository memberRepository;
     private final MemberPointRepository memberPointRepository;
     private final ModelMapper modelMapper;
@@ -231,5 +232,10 @@ public class ProductService {
                                                                 .point(-usedPoint)
                                                                 .build();
         memberPointRepository.save(memberPointEntity);
+    }
+
+    public boolean checkReview(int prodNo, String uid) {
+        ProductReviewEntity productReviewEntity = productReviewRepository.findByProdNoAndUid(prodNo, uid);
+        return productReviewEntity != null;
     }
 }

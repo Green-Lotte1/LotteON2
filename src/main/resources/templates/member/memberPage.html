@@ -61,9 +61,9 @@
     <footer>
         <ul>
             <li><a href="#">회사소개</a></li>
-            <li><a href="#">서비스이용약관</a></li>
-            <li><a href="#">개인정보처리방침</a></li>
-            <li><a href="#">전자금융거래약관</a></li>
+            <li><a th:href="@{/policy/buyer}">서비스이용약관</a></li>
+            <li><a th:href="@{/policy/privacy}">개인정보처리방침</a></li>
+            <li><a th:href="@{/policy/finance}">전자금융거래약관</a></li>
         </ul>
         <div>
             <p><img th:src="@{/images/footer_logo.png}" alt="로고" /></p>
@@ -79,6 +79,7 @@
                 <strong>고객센터</strong><br />
                 Tel : 1899-7000(유료) (평일 09:00~18:00)<br />
                 Fax : 051-123-4567 | E-mail : lotteon@lotte.net<br />
+                App Version:lotte-<span th:text="${@environment.getProperty('app.version')}"></span>
             </p>
         </div>
     </footer>

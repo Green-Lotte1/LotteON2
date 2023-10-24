@@ -1,4 +1,7 @@
-<html xmlns:th="http://www.thymeleaf.org" layout:decorate="/my/index.html">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org/"
+      layout:decorate="/my/index.html">
+
     <div class="home" layout:fragment="content">
         <ul th:replace="~{/my/menu.html}">
         </ul>
@@ -19,7 +22,7 @@
                     <tr>
                         <td class="date">2022-12-13</td>
                         <td class="info">
-                            <a href="#" class="thumb"><img src="https://via.placeholder.com/80x80" alt=""></a>
+                            <a href="#" class="thumb"><img th:src="@{https://via.placeholder.com/80x80}" alt=""></a>
                             <ul>
                                 <li class="company"><a href="#">상호명</a></li>
                                 <li class="prodName"><a href="#">상품명</a></li>
@@ -40,7 +43,7 @@
 
             <article class="point">
                 <h3>포인트적립내역</h3>
-                <a href="#" class="more">더보기</a>
+                <a th:href="@{/my/point}" class="more">더보기</a>
                 <table border="0">
                     <tr>
                         <th>날짜</th>
@@ -62,7 +65,7 @@
             </article>
             <article class="review">
                 <h3>상품평</h3>
-                <a href="#" class="more">더보기</a>
+                <a th:href="@{/my/reivew}" class="more">더보기</a>
                 <table border="0">
                     <tr>
                         <th>번호</th>
@@ -111,7 +114,7 @@
 
             <article class="qna">
                 <h3>문의내역</h3>
-                <a href="#" class="more">더보기</a>
+                <a th:href="@{/my/qna}" class="more">더보기</a>
                 <table border="0">
                     <tr>
                         <th>번호</th>

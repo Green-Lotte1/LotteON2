@@ -11,14 +11,13 @@ import java.util.List;
 
 @Repository
 public interface CsRepository extends JpaRepository<BoardEntity, Integer> {
-
+    // CS
     public Page<BoardEntity> findByCateAndType(String cate, int type, Pageable pageable);
 
     @Query("SELECT b FROM BoardEntity b WHERE b.cate = :cate OR :cate = 'null'")
     public Page<BoardEntity> findByCate(String cate, Pageable pageable);
 
     public BoardEntity findByBno(int bno);
-
 
     public List<BoardEntity> findTop10ByType(int type);
 
@@ -29,5 +28,8 @@ public interface CsRepository extends JpaRepository<BoardEntity, Integer> {
     public List<BoardEntity> findByGroupAndTypeLessThanOrderByRdateDescBnoDesc(String group, int type, Pageable pageable);
 
     public int deleteByBno(Integer bno);
+
+    // MyPage - QnA
+    public Page<BoardEntity> findByUid(String uid,Pageable pageable);
 }
 
