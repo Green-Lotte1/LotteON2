@@ -68,7 +68,7 @@ public class MyController {
         return "/my/point";
     }
 
-   /* @GetMapping("/my/qna")
+    @GetMapping("/my/qna")
     public String qna(Model model, CsPageRequestDTO csPageRequestDTO) {
         CsPageResponseDTO csPageResponseDTO = csService.findByCate(csPageRequestDTO);
 
@@ -87,7 +87,6 @@ public class MyController {
 
         return "/my/qna";
     }
-*/
     @GetMapping("/my/review")
     public String review() {
         return "/my/review";

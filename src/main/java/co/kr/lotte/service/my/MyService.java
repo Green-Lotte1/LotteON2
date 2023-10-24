@@ -74,10 +74,9 @@ public class MyService {
                 .build();
     }
 
-}
 
     //QNA LIST
-/*    public CsPageResponseDTO findByCate(String uid, CsPageRequestDTO csPageRequestDTO){
+   public CsPageResponseDTO findByCate(String uid, CsPageRequestDTO csPageRequestDTO){
 
         Pageable pageable = csPageRequestDTO.getPageable("bno");
 
@@ -96,7 +95,7 @@ public class MyService {
         }
 
 
-        Page<BoardEntity> result = csRepository.findByUidAndCate(uid, csPageRequestDTO.getCate(), pageable);
+        Page<BoardEntity> result = csRepository.findByUid(uid, pageable);
 
         List<BoardDTO> dtoList = result.getContent()
                 .stream()
@@ -110,8 +109,6 @@ public class MyService {
             );
         }
 
-
-
         int totalElement = (int) result.getTotalElements();
 
         return CsPageResponseDTO.builder()
@@ -121,4 +118,4 @@ public class MyService {
                 .build();
 
     }
-}*/
+}
