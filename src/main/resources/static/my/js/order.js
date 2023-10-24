@@ -46,6 +46,7 @@ function changeDate(element, str) {
         setDatePickerValue(oneMonthAgo, 'begin');
     }
     setDatePickerValue(today, 'end');
+    tableReload(1);
 }
 
 function changeMonth(element, month, year) {
@@ -55,9 +56,17 @@ function changeMonth(element, month, year) {
     const dates = getFirstAndLastDate(year, month);
     setDatePickerValue(dates.firstDate, 'begin');
     setDatePickerValue(dates.lastDate, 'end');
+    tableReload(1);
 }
 
 $(function() {
+    // 페이지 시작 시 오늘 이후의 날짜를 선택할 수 없도록 설정
+    const beginInput = $('input[name=begin]');
+    const endInput = $('input[name=end]');
+    const todayString = new Date().toISOString().split('T')[0]; // 현재 날짜를 YYYY-MM-DD 형식으로 가져옵니다.
+    beginInput.attr('max', todayString);
+    endInput.attr('max', todayString);
+
     const date5 = $('.date_5ea');
     const today = new Date();
 
@@ -77,4 +86,30 @@ $(function() {
         date5.append('<li><a href="#" class="datePick" onclick="changeMonth($(this), ' + currentMonth + ', ' + currentYear +'); return false;"><em>' + currentMonth + '</em>월</a></li>')
     }
     tableReload(1);
+
+
+    // 조회하기 버튼 클릭 시 리스트 조회 기능
+    $('.btnConfirm').click(function() {
+        tableReload(1);
+    });
+
+    // end가 begin보다 작을 경우 begin을 end와 동일한 값으로 변경
+    $('input[name=end]').change(function() {
+        const begin = $('input[name=begin]').val();
+        const end = $('input[name=end]').val();
+
+        if (begin > end) {
+            $('input[name=begin]').val(end);
+        }
+    });
+
+    // begin이 end보다 클 경우 end를 begin과 동일한 값으로 변경
+    $('input[name=begin]').change(function() {
+        const begin = $('input[name=begin]').val();
+        const end = $('input[name=end]').val();
+
+        if (begin > end) {
+            $('input[name=end]').val(begin);
+        }
+    });
 });
