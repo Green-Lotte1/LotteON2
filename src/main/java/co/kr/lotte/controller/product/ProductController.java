@@ -149,4 +149,18 @@ public class ProductController {
     public String search() {
         return "/product/search";
     }
+
+    @GetMapping("/product/findProduct")
+    @ResponseBody
+    public ProductDTO findProduct(@RequestParam("prodNo") int prodNo) {
+        return productService.findProductById(prodNo);
+    }
+
+    @GetMapping("/product/checkReview")
+    @ResponseBody
+    public boolean checkReview(@RequestParam("prodNo") int prodNo, @AuthenticationPrincipal Object principal) {
+        MemberEntity memberEntity = ((MyUserDetails) principal).getMember();
+        String uid = memberEntity.getUid();
+        return productService.checkReview(prodNo, uid);
+    }
 }
