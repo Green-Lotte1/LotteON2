@@ -67,6 +67,11 @@ spring:
     multipart:
       location: thumb/
       max-file-size: 10MB
+upload:
+  path:
+    files: files/
+    thumbs: thumbs/
+    banners: banners/
 
 app:
   version: 0.0.7-SNAPSHOT
