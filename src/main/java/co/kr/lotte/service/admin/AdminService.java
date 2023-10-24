@@ -6,6 +6,7 @@ import co.kr.lotte.dto.product.ProductDTO;
 import co.kr.lotte.entity.product.ProductCate1Entity;
 import co.kr.lotte.entity.product.ProductCate2Entity;
 import co.kr.lotte.entity.product.ProductEntity;
+import co.kr.lotte.repository.cs.CsRepository;
 import co.kr.lotte.repository.product.Cate1Repository;
 import co.kr.lotte.repository.product.Cate2Repository;
 import co.kr.lotte.repository.product.ProductRepository;
@@ -26,6 +27,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,6 +39,7 @@ public class AdminService {
     private final Cate1Repository productCate1Repository;
     private final Cate2Repository productCate2Repository;
     private final ModelMapper modelMapper;
+    private final CsRepository csRepository;
 
     public PageResponseDTO findByDeleteYn(PageRequestDTO pageRequestDTO) {
         Pageable pageable = pageRequestDTO.getPageable("prodNo");
@@ -113,5 +116,17 @@ public class AdminService {
 
         return deletedCount;
     }
-    
+    //admin-cs
+    @Transactional
+    public int deleteByBno(List<Integer> bnos) {
+        int deletedCount = 0;
+
+        for (Integer bno : bnos) {
+            int result = csRepository.deleteByBno(bno); // 단일 bno에 대한 메서드 사용
+            deletedCount += result;
+        }
+
+        return deletedCount;
+    }
+
 }

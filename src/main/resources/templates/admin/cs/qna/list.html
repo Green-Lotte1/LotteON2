@@ -5,40 +5,40 @@
 <head>
     <script th:src="@{/admin/js/checkbox.js}"></script>
     <script th:src="@{/admin/js/deleteCslist.js}"></script>
-<script>
-    $(function () {
-    // 카테고리 분류 AJAX로 불러오기
-    $('#cate').on('change', function(){
+    <script>
+        $(function () {
+        // 카테고리 분류 AJAX로 불러오기
+        $('#cate').on('change', function(){
 
-        const cates = this.value;
-        console.log(cates);
+            const cates = this.value;
+            console.log(cates);
 
-        $('#type').children('option:not(:first)').remove();
+            $('#type').children('option:not(:first)').remove();
 
-        const jsonData = {
-            "cates": cates
-        };
-        console.log(jsonData);
-            var contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
-        $.ajax({
-            url: contextPath + "/admin/cs/qna/cate",
-            type: 'get',
-            data: jsonData,
-            dataType: 'json',
-            success: function(data){
+            const jsonData = {
+                "cates": cates
+            };
+            console.log(jsonData);
+                var contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
+            $.ajax({
+                url: contextPath + "/admin/cs/qna/cate",
+                type: 'get',
+                data: jsonData,
+                dataType: 'json',
+                success: function(data){
 
-                let cate2List = data;
+                    let cate2List = data;
 
-                for (var i=0 ; i<cate2List.length ; i++)
-                    $("#type").append("<option id='cate2Value' value="+cate2List[i].cate2+">"+cate2List[i].c2Name+"</option>");
-            },
-            error: function(){
-                alert("error");
-            }
+                    for (var i=0 ; i<cate2List.length ; i++)
+                        $("#type").append("<option id='cate2Value' value="+cate2List[i].cate2+">"+cate2List[i].c2Name+"</option>");
+                },
+                error: function(){
+                    alert("error");
+                }
+            });
         });
     });
-});
-</script>
+    </script>
 </head>
 <section id="admin-cs-notice-list" layout:fragment="content">
     <nav>
@@ -49,69 +49,70 @@
     </nav>
     <section>
         <article>
-            <form th:action="@{admin/cs/qna/delete}" method="GET">
-        <div>
-            <tr>
-                <td>
-                    <select name="cate" id="cate" required>
-                        <option selected disabled th:value="0">1차 선택</option>
-                        <th:block th:each="cateOption : ${cates}">
-                            <option th:value="${cateOption.cate}" th:text="${cateOption.cateName}"></option>
-                        </th:block>
-                    </select>
+            <div>
+                <tr>
+                    <td>
+                        <select name="cate" id="cate" required>
+                            <option selected disabled th:value="0">1차 선택</option>
+                            <th:block th:each="cateOption : ${cates}">
+                                <option th:value="${cateOption.cate}" th:text="${cateOption.cateName}"></option>
+                            </th:block>
+                        </select>
 
-                    <!-- cateName에 따라서 선택지가 달라짐 -->
-                    <select name="type" id="type" required>
-                        <option selected disabled th:value="0">2차 선택</option>
-                    </select>
-                </td>
-            </tr>
-        </div>
-        <table>
-            <tbody>
-            <tr>
-                <th><input type="checkbox" name="all" id="selectAll"></th>
-                <th>번호</th>
-                <th>1차유형</th>
-                <th>2차유형</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>작성일</th>
-                <th>상태</th>
-            </tr>
-            <tr th:each="cs:${csPageResponseDTO.dtoList}">
-                <td><input type="checkbox" name="chk" value="[[${cs.bno}]]" /></td>
-                <td>[[${cs.bno}]]</td>
-                <td>[[${cs.cate}]]</td>
-                <td>[[${cs.type}]]</td>
-                <td>[[${cs.title}]]</td>
-                <td th:text="${#strings.substring(cs.uid, 0, 3) + '***'}"></td>
-                <td th:text="${#temporals.format(cs.rdate, 'yy-MM-dd')}"></td>
-                <td>[[${cs.status}]]</td>
-                <td>
-                    <a href="#">[삭제]</a>
+                        <!-- cateName에 따라서 선택지가 달라짐 -->
+                        <select name="type" id="type" required>
+                            <option selected disabled th:value="0">2차 선택</option>
+                        </select>
                     </td>
-            </tr>
-            </tbody>
-        </table>
-            </form>
-            <input type="button" class="list-delete" value="선택삭제" onclick="deleteSelectedBnos()" />
+                </tr>
+            </div>
+                <table>
+                    <tbody>
+                        <form id="formCheck" th:action="@{admin/cs/qna/delete}" method="get">
+                            <tr>
+                                <th><input type="checkbox" name="all" id="selectAll"></th>
+                                <th>번호</th>
+                                <th>1차유형</th>
+                                <th>2차유형</th>
+                                <th>제목</th>
+                                <th>작성자</th>
+                                <th>작성일</th>
+                                <th>상태</th>
+                            </tr>
+                            <tr th:each="cs:${csPageResponseDTO.dtoList}">
+                                <td><input type="checkbox" name="chk" value="[[${cs.bno}]]" /></td>
+                                <td>[[${cs.bno}]]</td>
+                                <td>[[${cs.cate}]]</td>
+                                <td>[[${cs.type}]]</td>
+                                <td>[[${cs.title}]]</td>
+                                <td th:text="${#strings.substring(cs.uid, 0, 3) + '***'}"></td>
+                                <td th:text="${#temporals.format(cs.rdate, 'yy-MM-dd')}"></td>
+                                <td>[[${cs.status}]]</td>
+                                <td>
+                                    <a class="csbuttonDelete" href="#">[삭제]</a>
+                                </td>
+                            </tr>
+                        </form>
+                    </tbody>
+                </table>
+                <input type="hidden" id="selectedBnos" name="selectedBnos" />
+            <input type="button" class="cslist-delete" value="선택삭제" />
             <a href="#" class="btnWrite">작성하기</a>
 
-        <!-- paging-->
-        <div class="page">
-                  <span th:if="${csPageResponseDTO.prev}" class="prev">
-                    <a th:href="@{/admin/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.start - 1})}">이전</a>
-                  </span>
+            <!-- paging-->
+            <div class="page">
+            <span th:if="${csPageResponseDTO.prev}" class="prev">
+                <a th:href="@{/admin/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.start - 1})}">이전</a>
+            </span>
 
-            <span th:each="num: ${#numbers.sequence(csPageResponseDTO.start, csPageResponseDTO.end)}" class="num">
-                    <a th:href="@{/admin/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${num})}" th:class="${csPageResponseDTO.pg eq num ? 'on' : 'off'}">[[${num}]]</a>
-                  </span>
+                <span th:each="num: ${#numbers.sequence(csPageResponseDTO.start, csPageResponseDTO.end)}" class="num">
+                <a th:href="@{/admin/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${num})}" th:class="${csPageResponseDTO.pg eq num ? 'on' : 'off'}">[[${num}]]</a>
+            </span>
 
-            <span th:if="${csPageResponseDTO.next}" class="next">
-                    <a th:href="@{/admin/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.end + 1})}">다음</a>
-                  </span>
-        </div>
+                <span th:if="${csPageResponseDTO.next}" class="next">
+                <a th:href="@{/admin/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.end + 1})}">다음</a>
+            </span>
+            </div>
         </article>
     </section> <!--table end-->
 </section><!--admin-product-list end-->

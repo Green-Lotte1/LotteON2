@@ -62,14 +62,11 @@ public class AdminController {
         return "/admin/product/list";
     }
 
-    @PostMapping("/admin/product/delete")
+    @GetMapping("/admin/product/delete")
     public String deleteSelectedProducts(@RequestParam("chk") List<Integer> prodNos) {
         int deletedCount = adminService.deleteByProdNo(prodNos);
-        if (deletedCount > 0) {
-            return "Successfully deleted " + deletedCount + " products.";
-        } else {
-            return "redirect:/admin/product/list";
-        }
+
+        return "redirect:/admin/product/list";
     }
 
     @GetMapping("/admin/product/register")
@@ -157,19 +154,19 @@ public class AdminController {
 
         // QNA-List
         CsPageResponseDTO csPageResponseDTO = csService.findByCate(csPageRequestDTO);
-        log.info("csPageResponseDTO cate : "+ csPageRequestDTO.getCate());
-        log.info("csPageResponseDTO pg : "+ csPageResponseDTO.getPg());
-        log.info("csPageResponseDTO size : "+ csPageResponseDTO.getSize());
-        log.info("csPageResponseDTO total : "+ csPageResponseDTO.getTotal());
-        log.info("csPageResponseDTO start : "+ csPageResponseDTO.getStart());
-        log.info("csPageResponseDTO end : "+ csPageResponseDTO.getEnd());
-        log.info("csPageResponseDTO prev : "+ csPageResponseDTO.isPrev());
-        log.info("csPageResponseDTO next : "+ csPageResponseDTO.isNext());
         model.addAttribute(csPageResponseDTO);
         model.addAttribute("cate", csPageRequestDTO.getCate());
 
         return ("/admin/cs/qna/list");
     }
+
+    @GetMapping("/admin/cs/qna/delete")
+    public String deleteSelectedBnos(@RequestParam("chk") List<Integer> bnos) {
+        int deletedCount = adminService.deleteByBno(bnos);
+
+        return ("/admin/cs/qna/list");
+    }
+
     @GetMapping("/admin/cs/qna/cate")
     @ResponseBody
     public List<BoardTypeEntity> csCate(String optionValue){
