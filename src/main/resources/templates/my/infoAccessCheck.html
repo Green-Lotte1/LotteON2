@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.thymeleaf.org"
+       layout:decorate="/my/index.html">
+<div class="info" layout:fragment="content">
+    <nav>
+        <h1>비밀번호 재확인</h1>
+    </nav>
+    <form id="formFindPassChange" th:action="@{#}" method="POST">
+        <input type="hidden" name="uid" value=""/>
+        <table>
+            <tr>
+                <th>아이디</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th><span class="essential">*</span>비밀번호</th>
+                <td>
+                    <input type="password" name="pass1" placeholder="비밀번호 입력"/>
+                </td>
+            </tr>
+        </table>
+        <p>
+            롯데온은 회원님의 개인정보를 신중히 다루며, 회원님의 동의 없이 회원정보를 공개하지 않습니다.<br>
+            회원님의 개인정보를 안전하게 보호하기 위해 비밀번호를 다시 한 번 입력해주세요.
+        </p>
+        <div class="btnResultArea">
+            <a th:href="@{/my/}" class="btnAreaCancel">취소</a>
+            <a th:href="@{/my/info}" id="btnPassCheck">다음</a>
+        </div>
+    </form>
+</div>
+</html>
