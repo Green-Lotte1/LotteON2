@@ -16,30 +16,13 @@ public class PolicyController {
     @Autowired
     private MemberService memberService;
 
-    @GetMapping("/policy/buyer")
-    public String buyer(Model model, String success) {
+    @GetMapping("/policy/terms")
+    public String buyer(Model model, String success, String termsType) {
 
+        model.addAttribute("success", success);
+        model.addAttribute("termsType", termsType);
         MemberTermsEntity terms = memberService.findByTerms();
         model.addAttribute("terms", terms);
-        model.addAttribute("success", success);
-        return "/policy/buyer";
-    }
-
-    @GetMapping("/policy/finance")
-    public String finance(Model model, String success) {
-
-        MemberTermsEntity terms = memberService.findByTerms();
-        model.addAttribute("terms", terms);
-        model.addAttribute("success", success);
-        return "/policy/finance";
-    }
-
-    @GetMapping("/policy/privacy")
-    public String privacy(Model model, String success) {
-
-        MemberTermsEntity terms = memberService.findByTerms();
-        model.addAttribute("terms", terms);
-        model.addAttribute("success", success);
-        return "/policy/privacy";
+        return "/policy/terms";
     }
 }
