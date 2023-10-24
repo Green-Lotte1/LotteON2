@@ -1,14 +1,10 @@
 package co.kr.lotte.repository.cs;
 
-import co.kr.lotte.dto.cs.BoardDTO;
 import co.kr.lotte.entity.cs.BoardEntity;
-import org.aspectj.weaver.ast.Literal;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -31,6 +27,7 @@ public interface CsRepository extends JpaRepository<BoardEntity, Integer> {
 
     public List<BoardEntity> findByGroupAndTypeLessThanOrderByRdateDescBnoDesc(String group, int type, Pageable pageable);
 
+    public int deleteByBno(Integer bno);
 
     // MyPage - QnA
     public Page<BoardEntity> findByUid(String uid,Pageable pageable);

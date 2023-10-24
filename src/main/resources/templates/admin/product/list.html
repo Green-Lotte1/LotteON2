@@ -25,7 +25,7 @@
             <input type="text" name="search"/>
         </form>
         <table>
-            <form id="formCheck" th:action="@{/admin/product/delete}" method="post">
+            <form id="formCheck" th:action="@{/admin/product/delete}" method="get">
                 <tr>
                     <th><input type="checkbox" name="all" id="selectAll"/></th>
                     <th>이미지</th>
@@ -58,7 +58,7 @@
                 </tr>
             </form>
         </table>
-        <input type="button" class="list-delete" value="선택삭제" onclick="deleteSelectedProducts()" />
+        <input type="button" class="list-delete" value="선택삭제"/>
 
 
         <!-- 상품목록 페이지번호 -->
