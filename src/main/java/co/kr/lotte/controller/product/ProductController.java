@@ -179,4 +179,13 @@ public class ProductController {
         String uid = memberEntity.getUid();
         return productService.orderReceive(no, uid);
     }
+
+    @PostMapping("/product/orderReview")
+    @ResponseBody
+    public int orderReview(ProductReviewDTO productReviewDTO, @AuthenticationPrincipal Object principal) {
+        MemberEntity memberEntity = ((MyUserDetails) principal).getMember();
+        String uid = memberEntity.getUid();
+        productReviewDTO.setUid(uid);
+        return productService.saveProductReview(productReviewDTO);
+    }
 }

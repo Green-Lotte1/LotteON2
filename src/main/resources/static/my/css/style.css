@@ -1440,6 +1440,15 @@ footer p > strong {
     vertical-align: middle;
     resize: none;
 }
+.popup > div > section table textarea {
+    width: 100%;
+    height: 160px;
+    padding: 4px;
+    box-sizing: border-box;
+    border: 1px solid #f1f1f1;
+    vertical-align: middle;
+    resize: none;
+}
 .popup > div > section > form > table th {
     width: 120px;                
 }

@@ -32,7 +32,7 @@ function tableReload(pg) {
                             <li class="prodPrice">${(data.dtoList[i].count * data.dtoList[i].product.price).toLocaleString()}</li>
                         </ul>
                     </td>
-                    <td class="status">배송완료</td>
+                    <td class="status">${data.dtoList[i].statusString}</td>
                     <td class="confirm">
                         <a href="#" class="receive" onclick="receivePop($(this), ${data.dtoList[i].no}); return false;">수취확인</a>
                         <a href="#" class="review" onclick="reviewPop($(this), ${data.dtoList[i].product.prodNo}); return false;">상품평</a>
@@ -158,7 +158,6 @@ function reviewPop(element, prodNo) {
                     <button class="btnClose">X</button>
                 </nav>
                 <section>
-                    <form action="#">
                         <table>
                             <tr>
                                 <th>상품명</th>
@@ -182,10 +181,9 @@ function reviewPop(element, prodNo) {
                         </p>
 
                         <div>
-                            <input type="submit" class="btnPositive" value="작성완료"/>
+                            <button class="btnPositive" onclick="review(${prodNo})">작성완료</button>
                             <button class="btnNegative btnCancel">취소</button>
                         </div>
-                    </form>
                 </section>
             </div>
         `);
@@ -208,6 +206,7 @@ function reviewPop(element, prodNo) {
             minRating: 1,
             ratedColors: ['#ffa400', '#ffa400', '#ffa400', '#ffa400', '#ffa400'],
             callback: function(currentRating, $el){
+                rating = currentRating;
                 alert('rated ' + currentRating);
                 console.log('DOM element ', $el);
             }
@@ -265,6 +264,25 @@ function receivePop(element, no) {
         $(this).closest('.popup').removeClass('on');
     });
     popReceive.addClass('on');
+}
+
+// 리뷰
+function review(prodNo) {
+    let reviewText = $('textArea[name=review]').val();
+    const jsonData = {
+        "prodNo" : prodNo,
+        "content" : reviewText,
+        "rating" : rating
+    }
+    $.ajax({
+        url: contextPath + '/product/orderReview',
+        type: 'POST',
+        data: jsonData,
+        success: function(data) {
+            tableReload(page);
+            $('.btnClose').closest('.popup').removeClass('on');
+        }
+    })
 }
 
 // 수취확인
