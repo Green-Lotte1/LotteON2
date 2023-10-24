@@ -179,8 +179,12 @@ public class CsController {
     @GetMapping("/cs/qna/modify")
     public String qnaModify(Model model, int bno) {
 
-        BoardDTO boardDTO = csService.findByBnoForBoard(bno);
-        model.addAttribute("boardDTO", boardDTO);
+        try{
+            BoardDTO boardDTO = csService.findByBnoForBoard(bno);
+            model.addAttribute("boardDTO", boardDTO);
+        }catch(Exception e){
+            log.info(e.getMessage());
+        }
 
         return "/cs/qna/modify";
     }

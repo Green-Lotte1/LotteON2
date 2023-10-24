@@ -27,11 +27,6 @@ public class MyController {
     @Autowired
     private MyService myService;
 
-    @Autowired
-    private CsService csService;
-
-    @Autowired
-    private CsCateService csCateService;
 
     @GetMapping(value = {"/my/", "/my/home"})
     public String home() {
@@ -69,8 +64,10 @@ public class MyController {
     }
 
     @GetMapping("/my/qna")
-    public String qna(Model model, CsPageRequestDTO csPageRequestDTO) {
-        CsPageResponseDTO csPageResponseDTO = csService.findByCate(csPageRequestDTO);
+    public String qna(Model model, @AuthenticationPrincipal Object principal, CsPageRequestDTO csPageRequestDTO) {
+        MemberEntity memberEntity = ((MyUserDetails) principal).getMember();
+        String uid = memberEntity.getUid();
+        CsPageResponseDTO csPageResponseDTO = myService.findByUid(uid,csPageRequestDTO);
 
         log.info("myPageResponseDTO cate : "+ csPageRequestDTO.getCate());
         log.info("myPageResponseDTO pg : "+ csPageResponseDTO.getPg());
@@ -81,12 +78,10 @@ public class MyController {
         log.info("myPageResponseDTO prev : "+ csPageResponseDTO.isPrev());
         log.info("myPageResponseDTO next : "+ csPageResponseDTO.isNext());
         model.addAttribute(csPageResponseDTO);
-        model.addAttribute("cate", csPageRequestDTO.getCate());
-
-
-
         return "/my/qna";
     }
+
+
     @GetMapping("/my/review")
     public String review() {
         return "/my/review";

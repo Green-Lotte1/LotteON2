@@ -77,7 +77,7 @@ public class MyService {
 
 
     //QNA LIST
-   public CsPageResponseDTO findByCate(String uid, CsPageRequestDTO csPageRequestDTO){
+   public CsPageResponseDTO findByUid(String uid, CsPageRequestDTO csPageRequestDTO){
 
         Pageable pageable = csPageRequestDTO.getPageable("bno");
 

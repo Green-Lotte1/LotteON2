@@ -182,7 +182,7 @@ public class CsService {
                 return ResponseEntity.notFound().build();
             }
     }
-
+    // 파일 다운로드
     public ResponseEntity<Resource> fileDownload(BoardFileDTO dto) throws IOException {
 
         Path path = Paths.get(filePath+dto.getSfile());
@@ -221,14 +221,14 @@ public class CsService {
     }
 
 
-    public BoardDTO findByBnoForBoard(int bno){
-        BoardEntity boardEntity = csRepository.findById(bno).orElseThrow(() -> new RuntimeException());
-        List<BoardFileEntity> boardFileEntities = fileRepository.findByBno(bno);
+    public BoardDTO findByBnoForBoard(int bno) throws RuntimeException {
 
-        List<BoardFileDTO> boardFileDTOS = boardFileEntities
-                .stream()
-                .map(entity -> modelMapper.map(entity, BoardFileDTO.class ))
-                .toList();
+        BoardEntity boardEntity = csRepository.findById(bno).get();
+
+        List<BoardFileDTO> boardFileDTOS = fileRepository.findByBno(bno)
+                                            .stream()
+                                            .map(entity -> modelMapper.map(entity, BoardFileDTO.class ))
+                                            .toList();
 
 
         BoardDTO dto = boardEntity.toDTO();
