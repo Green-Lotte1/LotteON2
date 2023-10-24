@@ -1,3 +1,66 @@
+// 테이블 조회
+function tableReload(pg) {
+    let beginDate = $('input[name=begin]').val();
+    let endDate = $('input[name=end]').val();
+    const jsonData = {
+        "begin" : beginDate,
+        "end" : endDate,
+        "pg" : pg
+    }
+    $.ajax({
+      url: contextPath + '/my/orderList',
+      type: 'GET',
+      data: jsonData,
+      success: function(data) {
+        // 리스트
+        const orderList = $('.orderList');
+        // 첫 번째 <tr>를 제외한 모든 <tr> 초기화
+        orderList.find('tr').slice(1).remove();
+        for (let i = 0; i < data.dtoList.length; i++) {
+            orderList.append(`
+                <tr>
+                    <td class="date">${data.dtoList[i].ordDate.substring(0, 10)}</td>
+                    <td>
+                        <a href="#" class="thumb">
+                            <img src="${contextPath + '/thumb/' + data.dtoList[i].product.prodCate1 + '/' + data.dtoList[i].product.prodCate2 + '/' + data.dtoList[i].product.thumb1}" alt="">
+                        </a>
+                        <ul class="w350">
+                            <li class="company">${data.dtoList[i].product.company}</li>
+                            <li class="prodName"><a href="#">${data.dtoList[i].product.prodName}</a></li>
+                            <li>수량 : <span class="prodCount">${data.dtoList[i].count}</span>개 / 주문번호 : <span class="ordNo">${data.dtoList[i].ordNo}</span></li>
+                            <li class="prodPrice">${(data.dtoList[i].count * data.dtoList[i].product.price).toLocaleString()}</li>
+                        </ul>
+                    </td>
+                    <td class="status">배송완료</td>
+                    <td class="confirm">
+                        <a href="#" class="receive" onclick="receivePop(); return false;">수취확인</a>
+                        <a href="#" class="review" onclick="reviewPop(); return false;">상품평</a>
+                        <a href="#" class="refund">반품신청</a>
+                        <a href="#" class="exchange">교환신청</a>
+                    </td>
+                </tr>
+            `);
+        }
+        // 페이징
+        const page = $('.page');
+        page.children().remove();
+
+        if (data.prev) {
+            page.append('<a href="#" class="prev" onclick="tableReload(data.start - 1); return false;">이전</a>');
+        }
+
+        for (let i = data.start; i <= data.end; i++) {
+            page.append('<a href="#" class="num ' + (data.pg == i ? `on` : ``) + '" onclick="tableReload(' + i + '); return false;">' + i + '</a>');
+        }
+
+        if (data.next) {
+            page.append('<a href="#" class="next" onclick="tableReload(data.end + 1); return false;">다음</a>');
+        }
+      }
+  });
+}
+
+// 선택값에 따라 일자를 설정해준다.
 function setDatePickerValue(date, str) {
   var year = date.getFullYear();
   var month = (date.getMonth() + 1).toString().padStart(2, '0'); // 월은 0부터 시작하므로 1을 더하고 2자리로 만듭니다.
@@ -11,6 +74,7 @@ function setDatePickerValue(date, str) {
   }
 }
 
+// 년도와 월을 넘기면 해당 달의 시작일과 마지막일을 리턴한다.
 function getFirstAndLastDate(year, month) {
   // 월을 0부터 11까지의 숫자로 변환 (0이 1월, 11이 12월을 의미)
   month = month - 1;
@@ -27,6 +91,7 @@ function getFirstAndLastDate(year, month) {
   };
 }
 
+// 1주일, 15일, 1개월 버튼 클릭 시 이벤트
 function changeDate(element, str) {
     $('.datePick').removeClass('on');
     element.addClass('on');
@@ -49,6 +114,7 @@ function changeDate(element, str) {
     tableReload(1);
 }
 
+// xx월 클릭 시 이벤트
 function changeMonth(element, month, year) {
     $('.datePick').removeClass('on');
     element.addClass('on');
@@ -59,6 +125,17 @@ function changeMonth(element, month, year) {
     tableReload(1);
 }
 
+// 리뷰 팝업
+function reviewPop() {
+    $('#popReview').addClass('on');
+}
+
+// 수취확인 팝업
+function receivePop() {
+    $('#popReceive').addClass('on');
+}
+
+// 페이지 시작
 $(function() {
     // 페이지 시작 시 오늘 이후의 날짜를 선택할 수 없도록 설정
     const beginInput = $('input[name=begin]');
@@ -67,6 +144,7 @@ $(function() {
     beginInput.attr('max', todayString);
     endInput.attr('max', todayString);
 
+    // 오늘 날짜를 기준으로 5개월 전까지의 달을 구한다.
     const date5 = $('.date_5ea');
     const today = new Date();
 
@@ -85,6 +163,8 @@ $(function() {
         }
         date5.append('<li><a href="#" class="datePick" onclick="changeMonth($(this), ' + currentMonth + ', ' + currentYear +'); return false;"><em>' + currentMonth + '</em>월</a></li>')
     }
+
+    // 테이블 조회
     tableReload(1);
 
 
