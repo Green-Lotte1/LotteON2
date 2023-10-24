@@ -1,5 +1,6 @@
 // 테이블 조회
 function tableReload(pg) {
+    page = pg;
     let beginDate = $('input[name=begin]').val();
     let endDate = $('input[name=end]').val();
     const jsonData = {
@@ -33,8 +34,8 @@ function tableReload(pg) {
                     </td>
                     <td class="status">배송완료</td>
                     <td class="confirm">
-                        <a href="#" class="receive" onclick="receivePop(); return false;">수취확인</a>
-                        <a href="#" class="review" onclick="reviewPop(); return false;">상품평</a>
+                        <a href="#" class="receive" onclick="receivePop($(this), ${data.dtoList[i].product.prodNo}); return false;">수취확인</a>
+                        <a href="#" class="review" onclick="reviewPop($(this), ${data.dtoList[i].product.prodNo}); return false;">상품평</a>
                         <a href="#" class="refund">반품신청</a>
                         <a href="#" class="exchange">교환신청</a>
                     </td>
@@ -126,12 +127,98 @@ function changeMonth(element, month, year) {
 }
 
 // 리뷰 팝업
-function reviewPop() {
-    $('#popReview').addClass('on');
+function reviewPop(element, prodNo) {
+    const popReview = $('#popReview');
+    popReview.empty();
+    let flag = false;
+    // 리뷰 등록 여부 확인
+    $.ajax({
+          url: contextPath + '/product/checkReview',
+          type: 'GET',
+          data: {"prodNo" :prodNo},
+          async: false,
+          success: function(data) {
+              flag = data;
+          }
+    })
+    if (flag) {
+        alert('이미 리뷰를 등록한 상품입니다.');
+        return false;
+    }
+
+    $.ajax({
+      url: contextPath + '/product/findProduct',
+      type: 'GET',
+      data: {"prodNo" :prodNo},
+      success: function(data) {
+        popReview.append(`
+            <div>
+                <nav>
+                    <h1>상품평 작성하기</h1>
+                    <button class="btnClose">X</button>
+                </nav>
+                <section>
+                    <form action="#">
+                        <table>
+                            <tr>
+                                <th>상품명</th>
+                                <td class="productName">${data.prodName}</td>
+                            </tr>
+                            <tr>
+                                <th>만족도</th>
+                                <td class="rating">
+                                    <div class="my-rating"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>내용</th>
+                                <td class="review">
+                                    <textarea name="review" placeholder="내용입력"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                        <p>
+                            ※ 상품평을 작성하시면 구매확정 포인트와 더불어 추가 포인트를 지급합니다.
+                        </p>
+
+                        <div>
+                            <input type="submit" class="btnPositive" value="작성완료"/>
+                            <button class="btnNegative btnCancel">취소</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        `);
+
+        // 팝업 닫기
+        $('.btnClose').click(function(){
+            $(this).closest('.popup').removeClass('on');
+        });
+        // 팝업 닫기
+        $('.btnCancel').click(function(){
+            $(this).closest('.popup').removeClass('on');
+        });
+
+        // 상품평 작성 레이팅바 기능
+        $(".my-rating").starRating({
+            starSize: 20,
+            useFullStars: true,
+            strokeWidth: 0,
+            useGradient: false,
+            minRating: 1,
+            ratedColors: ['#ffa400', '#ffa400', '#ffa400', '#ffa400', '#ffa400'],
+            callback: function(currentRating, $el){
+                alert('rated ' + currentRating);
+                console.log('DOM element ', $el);
+            }
+        });
+      }
+    })
+    popReview.addClass('on');
 }
 
 // 수취확인 팝업
-function receivePop() {
+function receivePop(element, prodNo) {
     $('#popReceive').addClass('on');
 }
 

@@ -2,6 +2,9 @@ package co.kr.lotte.entity.product;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -20,5 +23,6 @@ public class ProductReviewEntity {
     private String uid;
     private int rating;
     private String regip;
-    private String rdate;
+    @CreationTimestamp
+    private LocalDateTime rdate;
 }
