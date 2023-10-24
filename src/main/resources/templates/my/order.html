@@ -3,6 +3,8 @@
         <script>
             var contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
             console.log(contextPath);
+            let page = 1;
+            let rating = 1;
         </script>
         <script th:src="@{/my/js/order.js}"></script>
     </head>

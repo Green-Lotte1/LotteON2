@@ -22,17 +22,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.CacheControl;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -52,9 +51,12 @@ public class CsService {
     private String contextPath;
     private final ResourceLoader resourceLoader;
 
+    @Value("${upload.path.files}")
+    private String filePath;
 
 
 
+    // List & Paging
     public CsPageResponseDTO findByCate(CsPageRequestDTO csPageRequestDTO){
 
         Pageable pageable = csPageRequestDTO.getPageable("bno");
@@ -115,9 +117,7 @@ public class CsService {
 
 
     }
-    // 파일 등록
-    @Value("src/main/resources/static/thumb/cs/qna/")
-    private String filePath;
+
 
     public BoardFileDTO fileUpload(BoardDTO dto){
         MultipartFile mf = dto.getFname();
@@ -150,7 +150,7 @@ public class CsService {
     public String getAbsoluteFilePath(String sfile){
 
         try {
-            Resource resource = resourceLoader.getResource("classpath:static/thumb/cs/qna/" + sfile);
+            Resource resource = resourceLoader.getResource(filePath + sfile);
             return resource.getFile().getAbsolutePath();
         } catch (Exception e) {
             // 예외 처리
@@ -162,7 +162,7 @@ public class CsService {
 
     // 파일 다운로드
     public ResponseEntity<Resource> fileDownload(String sfileName,String ofileName) throws IOException{
-        //String absoluteFilePath = "C:\\Users\\Java\\Desktop\\Workspace\\LotteON2\\build\\resources\\main\\static\\thumb\\cs\\qna\\"+"8c303751-4f64-4d77-ab80-575158f4b294.png";
+
 
 
         Path filePath = Paths.get(getAbsoluteFilePath(sfileName));
@@ -181,6 +181,24 @@ public class CsService {
                 log.error("File not found: " + filePath);
                 return ResponseEntity.notFound().build();
             }
+    }
+    // 파일 다운로드
+    public ResponseEntity<Resource> fileDownload(BoardFileDTO dto) throws IOException {
+
+        Path path = Paths.get(filePath+dto.getSfile());
+        String contentType = Files.probeContentType(path);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentDisposition(ContentDisposition
+                .builder("attachment")
+                .filename(dto.getOfile(), StandardCharsets.UTF_8)
+                .build());
+
+        headers.add(HttpHeaders.CONTENT_TYPE, contentType);
+
+        Resource resource = new InputStreamResource(Files.newInputStream(path));
+
+        return new ResponseEntity<>(resource, headers, HttpStatus.OK);
     }
 
     // 글수정
@@ -203,14 +221,14 @@ public class CsService {
     }
 
 
-    public BoardDTO findByBnoForBoard(int bno){
-        BoardEntity boardEntity = csRepository.findById(bno).orElseThrow(() -> new RuntimeException());
-        List<BoardFileEntity> boardFileEntities = fileRepository.findByBno(bno);
+    public BoardDTO findByBnoForBoard(int bno) throws RuntimeException {
 
-        List<BoardFileDTO> boardFileDTOS = boardFileEntities
-                .stream()
-                .map(entity -> modelMapper.map(entity, BoardFileDTO.class ))
-                .toList();
+        BoardEntity boardEntity = csRepository.findById(bno).get();
+
+        List<BoardFileDTO> boardFileDTOS = fileRepository.findByBno(bno)
+                                            .stream()
+                                            .map(entity -> modelMapper.map(entity, BoardFileDTO.class ))
+                                            .toList();
 
 
         BoardDTO dto = boardEntity.toDTO();

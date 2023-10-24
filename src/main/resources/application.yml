@@ -30,6 +30,11 @@ spring:
     remote:
       restart:
         enabled: true
+  resources:
+    static-locations: file:/C:/Users/Java/Desktop/Workspace/LotteON2/files/
+
+
+
   jpa:
     database: mysql
     hibernate:
@@ -75,3 +80,20 @@ upload:
 
 app:
   version: 0.0.7-SNAPSHOT
+
+filePath:
+  #신진성
+  files: file:/C:/Users/JAVA2/Desktop/Workspace/lotte/files/
+  #이현정
+  #files: file:/C:/Users/Java/Desktop/Workspace/LotteON2/files/
+  #files: file:/home/LotteON/files/
+  #신진성
+  thumbs: file:/C:/Users/JAVA2/Desktop/Workspace/lotte/thumbs/
+  #이현정
+  #thumbs: file:/C:/Users/Java/Desktop/Workspace/LotteON2/thumbs/
+  #thumbs: file:/home/LotteON/thumbs/
+  #신진성
+  banners: file:/C:/Users/JAVA2/Desktop/Workspace/lotte/banners/
+  #이현정
+  #banners: file:/C:/Users/Java/Desktop/Workspace/LotteON2/banners/
+  #banners: file:/home/LotteON/banners/

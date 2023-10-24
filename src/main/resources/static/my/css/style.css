@@ -1323,6 +1323,16 @@ footer p > strong {
 }
 
 /* my - info(회원정보 수정) */
+/*추가*/
+
+#my > div > section > article > table > tbody > tr > td.grey {
+    color: grey;
+}
+#my > div > section > article > table > tbody > tr > td.blue {
+    color: blue;
+}
+
+/* my - info(나의설정) */
 #my > .info > section > article > table {
     width: 100%;
     height: auto;
@@ -1430,7 +1440,7 @@ footer p > strong {
     height: auto;
     padding: 10px;
     box-sizing: border-box;
-    background: #4291e9;
+    background: #ef3f43;
     overflow: hidden;
 }
 .popup > div > nav > h1 {
@@ -1571,6 +1581,15 @@ footer p > strong {
     vertical-align: middle;
     resize: none;
 }
+.popup > div > section table textarea {
+    width: 100%;
+    height: 160px;
+    padding: 4px;
+    box-sizing: border-box;
+    border: 1px solid #f1f1f1;
+    vertical-align: middle;
+    resize: none;
+}
 .popup > div > section > form > table th {
     width: 120px;                
 }
@@ -1601,8 +1620,8 @@ footer p > strong {
 
 .btnPositive {
     padding: 6px 12px;
-    background: #0e9d05;
-    border: 1px solid #0b8404;
+    background: #ef3f43;
+    border: 1px solid #EF3F55;
     box-sizing: border-box;
     color: white;
     margin: 10px auto;

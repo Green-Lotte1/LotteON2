@@ -141,7 +141,8 @@ public class CsController {
         log.info("fno : " + fno);
         BoardFileEntity sfile = csService.getSfileByFno(fno);
         if (sfile != null) {
-            return csService.fileDownload(sfile.getSfile(),sfile.getOfile());
+            //return csService.fileDownload(sfile.getSfile(),sfile.getOfile());
+            return csService.fileDownload(sfile.toDTO());
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -178,8 +179,12 @@ public class CsController {
     @GetMapping("/cs/qna/modify")
     public String qnaModify(Model model, int bno) {
 
-        BoardDTO boardDTO = csService.findByBnoForBoard(bno);
-        model.addAttribute("boardDTO", boardDTO);
+        try{
+            BoardDTO boardDTO = csService.findByBnoForBoard(bno);
+            model.addAttribute("boardDTO", boardDTO);
+        }catch(Exception e){
+            log.info(e.getMessage());
+        }
 
         return "/cs/qna/modify";
     }

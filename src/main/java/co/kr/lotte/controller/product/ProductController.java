@@ -149,4 +149,43 @@ public class ProductController {
     public String search() {
         return "/product/search";
     }
+
+    @GetMapping("/product/findProduct")
+    @ResponseBody
+    public ProductDTO findProduct(@RequestParam("prodNo") int prodNo) {
+        return productService.findProductById(prodNo);
+    }
+
+    @GetMapping("/product/checkReview")
+    @ResponseBody
+    public boolean checkReview(@RequestParam("prodNo") int prodNo, @AuthenticationPrincipal Object principal) {
+        MemberEntity memberEntity = ((MyUserDetails) principal).getMember();
+        String uid = memberEntity.getUid();
+        return productService.checkReview(prodNo, uid);
+    }
+
+    @GetMapping("/product/checkReceive")
+    @ResponseBody
+    public boolean checkReceive(@RequestParam("no") int no, @AuthenticationPrincipal Object principal) {
+        MemberEntity memberEntity = ((MyUserDetails) principal).getMember();
+        String uid = memberEntity.getUid();
+        return productService.checkReceive(no, uid);
+    }
+
+    @PostMapping("/product/orderReceive")
+    @ResponseBody
+    public String orderReceive(@RequestParam("no") int no, @AuthenticationPrincipal Object principal) {
+        MemberEntity memberEntity = ((MyUserDetails) principal).getMember();
+        String uid = memberEntity.getUid();
+        return productService.orderReceive(no, uid);
+    }
+
+    @PostMapping("/product/orderReview")
+    @ResponseBody
+    public int orderReview(ProductReviewDTO productReviewDTO, @AuthenticationPrincipal Object principal) {
+        MemberEntity memberEntity = ((MyUserDetails) principal).getMember();
+        String uid = memberEntity.getUid();
+        productReviewDTO.setUid(uid);
+        return productService.saveProductReview(productReviewDTO);
+    }
 }

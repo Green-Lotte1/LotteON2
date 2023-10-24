@@ -1,28 +1,20 @@
-function deleteSelectedProducts() {
-    var selectedIds = [];
-    var checkboxes = document.getElementsByName("chk");
-
-    for (var i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-            selectedIds.push(checkboxes[i].value);
+$(function() {
+    // 선택 삭제 버튼 클릭 시
+    $('.list-delete').click(function(e) {
+        e.preventDefault();
+        if (confirm("선택한 상품을 삭제하시겠습니까?")) {
+            $('#formCheck').submit();
         }
-    }
+    });
 
-    if (selectedIds.length === 0) {
-        alert("삭제할 상품을 선택하세요.");
-        return;
-    }
-
-    var confirmation = confirm("선택한 상품을 삭제하시겠습니까?");
-    if (confirmation) {
-        $.ajax({
-            type: "POST",
-            url: "/admin/product/delete",
-            data: {chk: selectedIds},
-            success: function(response) {
-                alert(response);
-                // 다시 로드하거나 필요한 동작을 수행
-            }
-        });
-    }
-}
+    // 각 행의 "삭제" 링크 클릭 시
+    $('.buttonDelete').click(function(e) {
+        e.preventDefault();
+        if (confirm("이 상품을 삭제하시겠습니까?")) {
+            // 현재 행에서 체크박스의 값을 가져옵니다.
+            var prodNo = $(this).closest('tr').find('input[name="chk"]').val();
+            // 삭제 URL로 이동합니다.
+            window.location.href = '/admin/product/delete?chk=' + prodNo;
+        }
+    });
+});

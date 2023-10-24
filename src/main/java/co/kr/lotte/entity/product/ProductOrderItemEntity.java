@@ -24,4 +24,6 @@ public class ProductOrderItemEntity {
     private int count;
     @CreationTimestamp
     private LocalDateTime ordDate;
+    @Builder.Default
+    private String ordStatus = "C";
 }
