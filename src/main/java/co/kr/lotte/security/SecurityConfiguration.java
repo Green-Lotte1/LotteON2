@@ -27,8 +27,17 @@ public class SecurityConfiguration implements WebMvcConfigurer {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/files/**")
+				//서버용 .addResourceLocations(resourceLoader.getResource("file:/C:/Users/Java/Desktop/Workspace/LotteON2/files/")
+				.addResourceLocations(resourceLoader.getResource("file:/home/LotteON/files"));
+
 		registry.addResourceHandler("/thumbs/**")
-				.addResourceLocations(resourceLoader.getResource("file:thumbs/"));
+				// 서버용 .addResourceLocations(resourceLoader.getResource("file:/C:/Users/Java/Desktop/Workspace/LotteON2/files/")
+				.addResourceLocations(resourceLoader.getResource("file:/home/LotteON/thumbs/"));
+
+		registry.addResourceHandler("/banners/**")
+				// 서버용 .addResourceLocations(resourceLoader.getResource("file:/C:/Users/Java/Desktop/Workspace/LotteON2/files/")
+				.addResourceLocations(resourceLoader.getResource("file:/home/LotteON/banners/"));
 	}
 
 	@Bean
