@@ -33,7 +33,6 @@ public interface CsRepository extends JpaRepository<BoardEntity, Integer> {
 
 
     // MyPage - QnA
-    /*@Query("SELECT b FROM BoardEntity b WHERE b.cate = :cate OR :cate = 'null'")
-    public Page<BoardEntity> findByUidAndCate(String uid, String cate, Pageable pageable);*/
+    public Page<BoardEntity> findByUid(String uid,Pageable pageable);
 }
 
