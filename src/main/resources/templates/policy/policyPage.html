@@ -31,17 +31,43 @@
                 }
             });
 
-            let termsList = `[[${terms.terms}]]`;
-            let termsItem = termsList.split(/\n{3,}/);
-            termsItem.forEach(function(element) {
+            let termsType = `[[${termsType}]]`;
+            console.log(termsType);
 
+            let data;
+            let title;
+            switch (termsType) {
+                case 'buyer':
+                    data = `[[${terms.terms}]]`;
+                    title = '구매회원 이용약관';
+                    break;
+                case 'privacy':
+                    $("li[id^='terms']").removeClass("on");
+                    $('#terms5').addClass("on");
+                    data = `[[${terms.privacy}]]`;
+                    title = '개인정보수집 이용약관';
+                    break;
+                case 'finance':
+                    $("li[id^='terms']").removeClass("on");
+                    $('#terms3').addClass("on");
+                    data = `[[${terms.finance}]]`;
+                    title = '전자금융거래 이용약관';
+                    break;
+                default:
+                    break;
+            }
+            $('.termsContent').empty();
+            $('.termsContent').append($('<h2>').addClass('termsTitle').text(title));
+            let termsList = data;
+            let termsItems = termsList.split(/\n{3,}/);
+            termsItems.forEach(function (termsItem) {
+                let lines = termsItem.split('\n');
+                let contents = lines.slice(1).join('<br>');
                 let termsElement = $('<p>').addClass('termsElement');
-                let tit = $('<span>').addClass('tit').text(element.split('\n')[0]);
-                let content = $('<span>').addClass('content').text(element);
-
+                let tit = $('<span>').addClass('tit').text(lines[0]);
+                let content = $('<span>').addClass('content').html(contents);
                 termsElement.append(tit);
                 termsElement.append(content);
-
                 $('.termsContent').append(termsElement);
             });
 
@@ -156,9 +182,9 @@
     <footer>
         <ul>
             <li><a href="#">회사소개</a></li>
-            <li><a th:href="@{/policy/buyer}">서비스이용약관</a></li>
-            <li><a th:href="@{/policy/privacy}">개인정보처리방침</a></li>
-            <li><a th:href="@{/policy/finance}">전자금융거래약관</a></li>
+            <li><a th:href="@{/policy/terms?termsType=buyer}">서비스이용약관</a></li>
+            <li><a th:href="@{/policy/terms?termsType=privacy}">개인정보처리방침</a></li>
+            <li><a th:href="@{/policy/terms?termsType=finance}">전자금융거래약관</a></li>
         </ul>
         <div>
             <p><img src="../images/footer_logo.png" alt="로고" /></p>
