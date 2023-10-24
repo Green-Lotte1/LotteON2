@@ -169,20 +169,12 @@ public class ProductService {
                                                             .ordNo(ordNo)
                                                             .prodNo(searchDTO.getProdNo())
                                                             .count(searchDTO.getCount())
+                                                            .ordStatus("C")
                                                             .build();
             productOrderItemRepository.save(productOrderItemEntity);
             ProductEntity product = productRepository.findById(productOrderItemEntity.getProdNo()).get();
             int savePoint = product.getPoint() * productOrderItemEntity.getCount();
             point += savePoint;
-
-            // 포인트 적립이력 저장
-            MemberPointEntity memberPoint = MemberPointEntity.builder()
-                                                            .uid(uid)
-                                                            .ordNo(ordNo)
-                                                            .point(savePoint)
-                                                            .build();
-
-            memberPointRepository.save(memberPoint);
 
             // 장바구니에서 주문한 상품일 경우 장바구니 삭제
             if (searchDTO.getCartNo() != 0) {
@@ -191,17 +183,12 @@ public class ProductService {
         }
         // 세션의 uid를 이용해서 사용자 객체를 가져옴
         MemberEntity member = memberRepository.findById(uid).get();
-        // 포인트 적립
-        member.setPoint(member.getPoint() + point);
-        memberRepository.save(member);
 
         // 주문번호로 주문이력을 가져옴
         ProductOrderEntity productOrder = productOrderRepository.findById(ordNo).get();
         // 적립된 포인트 저장
         productOrder.setSavePoint(point);
         productOrderRepository.save(productOrder);
-
-
     }
 
     public ProductOrderDTO findProductOrderById(int ordNo) {
@@ -237,5 +224,38 @@ public class ProductService {
     public boolean checkReview(int prodNo, String uid) {
         ProductReviewEntity productReviewEntity = productReviewRepository.findByProdNoAndUid(prodNo, uid);
         return productReviewEntity != null;
+    }
+
+    public boolean checkReceive(int no, String uid) {
+        ProductOrderItemEntity productReviewEntity = productOrderItemRepository.findById(no).get();
+        return productReviewEntity.getOrdStatus().equals("Z");
+    }
+
+    public String orderReceive(int no, String uid) {
+        // 주문 품목을 가져옴
+        ProductOrderItemEntity productOrderItemEntity = productOrderItemRepository.findById(no).get();
+        // 구매확정
+        productOrderItemEntity.setOrdStatus("Z");
+        // 저장
+        ProductOrderItemEntity productOrderItem = productOrderItemRepository.save(productOrderItemEntity);
+        String flag = productOrderItem.getOrdStatus().equals("Z") ? "success" : "fail";
+        // 정상적으로 작동할 경우 포인트 적립
+        if (flag.equals("success")) {
+            int prodNo = productOrderItem.getProdNo();
+            ProductEntity product = productRepository.findById(prodNo).get();
+            MemberEntity member = memberRepository.findById(uid).get();
+            // 적립 포인트 계산
+            int point = (product.getPoint() * productOrderItem.getCount());
+            
+            // 포인트 추가
+            member.setPoint(member.getPoint() + point);
+            // 포인트 저장
+            memberRepository.save(member);
+            
+            // 포인트 이력 추가
+            MemberPointEntity memberPointEntity = MemberPointEntity.builder().uid(uid).ordNo(productOrderItem.getOrdNo()).point(point).build();
+            memberPointRepository.save(memberPointEntity);
+        }
+        return flag;
     }
 }
