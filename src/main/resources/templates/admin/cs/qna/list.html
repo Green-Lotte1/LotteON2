@@ -66,9 +66,9 @@
                     </td>
                 </tr>
             </div>
+            <form id="formCheck" th:action="@{/admin/cs/qna/delete}" method="get">
                 <table>
                     <tbody>
-                        <form id="formCheck" th:action="@{admin/cs/qna/delete}" method="get">
                             <tr>
                                 <th><input type="checkbox" name="all" id="selectAll"></th>
                                 <th>번호</th>
@@ -80,7 +80,7 @@
                                 <th>상태</th>
                             </tr>
                             <tr th:each="cs:${csPageResponseDTO.dtoList}">
-                                <td><input type="checkbox" name="chk" value="[[${cs.bno}]]" /></td>
+                                <td><input type="checkbox" name="chk" th:value="${cs.bno}" /></td>
                                 <td>[[${cs.bno}]]</td>
                                 <td>[[${cs.cate}]]</td>
                                 <td>[[${cs.type}]]</td>
@@ -92,9 +92,9 @@
                                     <a class="csbuttonDelete" href="#">[삭제]</a>
                                 </td>
                             </tr>
-                        </form>
                     </tbody>
                 </table>
+            </form>
                 <input type="hidden" id="selectedBnos" name="selectedBnos" />
             <input type="button" class="cslist-delete" value="선택삭제" />
             <a href="#" class="btnWrite">작성하기</a>

@@ -1,4 +1,5 @@
 $(function() {
+
     // 선택 삭제 버튼 클릭 시
     $('.cslist-delete').click(function(e) {
         e.preventDefault();

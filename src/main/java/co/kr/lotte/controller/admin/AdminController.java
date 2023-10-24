@@ -154,8 +154,8 @@ public class AdminController {
 
         // QNA-List
         CsPageResponseDTO csPageResponseDTO = csService.findByCate(csPageRequestDTO);
-        model.addAttribute(csPageResponseDTO);
         model.addAttribute("cate", csPageRequestDTO.getCate());
+        model.addAttribute("csPageResponseDTO", csPageResponseDTO);
 
         return ("/admin/cs/qna/list");
     }
@@ -164,7 +164,7 @@ public class AdminController {
     public String deleteSelectedBnos(@RequestParam("chk") List<Integer> bnos) {
         int deletedCount = adminService.deleteByBno(bnos);
 
-        return ("/admin/cs/qna/list");
+        return "redirect:/admin/cs/qna/list";
     }
 
     @GetMapping("/admin/cs/qna/cate")
