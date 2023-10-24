@@ -65,6 +65,7 @@ public class MyService {
         for (ProductOrderItemDTO productOrderItemDTO : dtoList) {
             ProductDTO productDTO = productRepository.findById(productOrderItemDTO.getProdNo()).get().toDTO();
             productOrderItemDTO.setProduct(productDTO);
+            productOrderItemDTO.StatusStringSet();
         }
         int totalElement = (int) result.getTotalElements();
         return PageResponseDTO.builder()

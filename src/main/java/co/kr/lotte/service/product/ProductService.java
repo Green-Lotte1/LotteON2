@@ -258,4 +258,8 @@ public class ProductService {
         }
         return flag;
     }
+
+    public int saveProductReview(ProductReviewDTO productReviewDTO) {
+        return productReviewRepository.save(productReviewDTO.toEntity()).getRevNo();
+    }
 }

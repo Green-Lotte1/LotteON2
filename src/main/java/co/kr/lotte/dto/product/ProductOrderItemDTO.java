@@ -22,6 +22,14 @@ public class ProductOrderItemDTO {
     private String statusString;
     private ProductDTO product;
 
+    public void StatusStringSet() {
+        if (this.ordStatus.equals("C")) {
+            this.statusString = "배송중";
+        } else if (this.ordStatus.equals("Z")) {
+            this.statusString = "구매확정";
+        }
+    }
+
     public int getDisTotal() {
         return count * product.getDisPrice();
     }
