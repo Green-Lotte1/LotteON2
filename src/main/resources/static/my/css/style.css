@@ -1182,6 +1182,147 @@ footer p > strong {
     font-size: 0;
 }
 
+/* my - infoAccessCheck (회원정보 수정 전 비밀번호 재확인) */
+#my > .info {
+    width: 900px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+#my > .info > nav {
+    border-bottom: 2px solid #ef2a23;
+}
+#my > .info > nav > h1 {
+    font-size: 24px;
+    margin-bottom: 9px;
+}
+#my > .info table {
+    position: relative;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+#my > .info table th {
+    width: 200px;
+    padding: 20px 20px;
+    vertical-align: top;
+    background: #f4f6f9;
+    font-weight: 500;
+    text-align: right;
+    line-height: 1.4;
+    border-bottom: 1px solid #dfe5ed;
+    word-break: break-word;
+    font-size: 14px;
+}
+#my > .info table td {
+    position: relative;
+    vertical-align: middle;
+    padding: 10px 20px;
+    text-align: left;
+    line-height: 1.4;
+    border-bottom: 1px solid #dfe5ed;
+    word-break: break-word;
+    font-size: 14px;
+    font-weight: 500;
+}
+#my > .info table input {
+    padding: 0 8px;
+    height: 31px;
+    font-size: 14px;
+    border: 1px solid #dfe5ed;
+    vertical-align: middle;
+}
+#my > .info #btnEmailCode {
+    background: #ef3f43;
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 7px;
+    border: 0;
+    outline: 0;
+    border-radius: 2px;
+    cursor: pointer;
+}
+#my > .info #btnEmailAuth {
+    background: #e7e5e5;
+    color: #222;
+    font-size: 12px;
+    padding: 5px 7px;
+    border: 0;
+    outline: 0;
+    border-radius: 2px;
+    cursor: pointer;
+}
+#my > .info p {
+    margin-top: 10px;
+}
+
+#my > .info .btnArea{
+    margin-top: 45px;
+    padding-left: 326px;
+}
+#my > .info .btnArea > .btnAreaCancel{
+    float: left;
+    margin-right: 10px;
+    position: relative;
+    display: inline-block;
+    background: #e7e5e5;
+    color: #222;
+    font-size: 18px;
+    box-sizing: border-box;
+    padding: 10px 60px;
+    border-radius: 2px;
+    cursor: pointer;
+    text-align: center;
+}
+#my > .info .btnArea > .btnAreaNext {
+    float: left;
+    position: relative;
+    display: block;
+    background: #ef3f43;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px 60px;
+    border: 0;
+    outline: 0;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+/* 아이디&비밀번호 결과 화면 */
+#my > .info .btnResultArea{
+    margin-top: 45px;
+    padding-left: 265px;
+}
+#my > .info .btnResultArea > .btnAreaCancel{
+    float: left;
+    margin-right: 10px;
+    position: relative;
+    display: inline-block;
+    background: #e7e5e5;
+    color: #222;
+    font-size: 18px;
+    box-sizing: border-box;
+    padding: 15px 50px;
+    border-radius: 2px;
+    cursor: pointer;
+    text-align: center;
+}
+#my > .info .btnResultArea > .btnAreaNext {
+    float: left;
+    position: relative;
+    display: block;
+    background: #ef3f43;
+    color: #fff;
+    font-size: 18px;
+    padding: 15px 50px;
+    border: 0;
+    outline: 0;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+/* my - info(회원정보 수정) */
 /*추가*/
 
 #my > div > section > article > table > tbody > tr > td.grey {
@@ -1234,7 +1375,7 @@ footer p > strong {
 }
 
 #my > .info > section > article > table .hp > input {
-    width: 60px;
+    width: 132px;
 }
 
 #my > .info > section > article > table select {

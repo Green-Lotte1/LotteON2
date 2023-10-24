@@ -50,4 +50,9 @@ $(function(){
         }
     });
 
+    // info - 비밀번호 변경 창 띄우기
+    $('#btnPassChange').click(function(e){
+        e.preventDefault();
+        $('#popPassChange').addClass('on');
+    });
 });

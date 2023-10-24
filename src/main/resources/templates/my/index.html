@@ -15,6 +15,11 @@
     <script th:src="@{/my/js/popup.js}"></script>
     <link rel="stylesheet" th:href="@{/my/css/style.css}">
     <link rel="stylesheet" th:href="@{/my/css/star-rating-svg.css}">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script th:src="@{/member/js/zipcode.js}"></script>
+    <script th:src="@{/member/js/validation.js}"></script>
+    <script th:src="@{/member/js/checkMember.js}"></script>
+    <script th:src="@{/member/js/authEmail.js}"></script>
 </head>
 <body>
     <div id="wrapper">        
@@ -70,9 +75,9 @@
         <footer>
             <ul>
                 <li><a href="#">회사소개</a></li>
-                <li><a href="#">서비스이용약관</a></li>
-                <li><a href="#">개인정보처리방침</a></li>
-                <li><a href="#">전자금융거래약관</a></li>
+                <li><a th:href="@{/policy/terms(termsType=buyer)}">서비스이용약관</a></li>
+                <li><a th:href="@{/policy/terms(termsType=privacy)}">개인정보처리방침</a></li>
+                <li><a th:href="@{/policy/terms(termsType=finance)}">전자금융거래약관</a></li>
             </ul>
             <div>
                 <p><img th:src="@{/images/footer_logo.png}" alt="로고"></p>
@@ -339,6 +344,41 @@
             </div>
         </div>
         <!-- 상품평쓰기 팝업 끝 -->
+        <!-- info - 비밀번호 변경 팝업 -->
+        <div id="popPassChange" class="popup">
+            <div>
+                <nav>
+                    <h1>비밀번호 변경</h1>
+                    <button class="btnClose">X</button>
+                </nav>
+                <section>
+                    <table>
+                        <tr>
+                            <th>새 비밀번호</th>
+                            <td>
+                                <input type="password" name="pass1" placeholder="새 비밀번호 입력"/>
+                                <span class="msgPass1"><br></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>새 비밀번호 확인</th>
+                            <td>
+                                <input type="password" name="pass2" placeholder="새 비밀번호 입력 확인"/>
+                                <span class="msgPass2"><br>비밀번호 재입력</span>
+                            </td>
+                        </tr>
+                    </table>
+                    <p>
+                        비밀번호를 변경해 주세요.<br>
+                        영문, 숫자, 특수문자를 사용하여 8자 이상 입력해 주세요.
+                    </p>
+                    <div>
+                        <button class="btnAreaNext">완료</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <!-- info - 비밀번호 변경 팝업 끝 -->
     </div>    
 </body>
 </html>

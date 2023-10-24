@@ -4,7 +4,6 @@ import co.kr.lotte.dto.cs.CsPageRequestDTO;
 import co.kr.lotte.dto.cs.CsPageResponseDTO;
 import co.kr.lotte.dto.my.PageResponseDTO;
 import co.kr.lotte.dto.my.SearchDTO;
-import co.kr.lotte.dto.product.ProductOrderDTO;
 import co.kr.lotte.entity.member.MemberEntity;
 import co.kr.lotte.security.MyUserDetails;
 import co.kr.lotte.service.CsCateService;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +36,10 @@ public class MyController {
         return "/my/coupon";
     }
 
+    @GetMapping("/my/infoAccessCheck")
+    public String infoAccessCheck() {
+        return "/my/infoAccessCheck";
+    }
     @GetMapping("/my/info")
     public String info() {
         return "/my/info";
