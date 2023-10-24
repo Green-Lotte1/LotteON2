@@ -87,10 +87,7 @@
                                 <td>[[${cs.title}]]</td>
                                 <td th:text="${#strings.substring(cs.uid, 0, 3) + '***'}"></td>
                                 <td th:text="${#temporals.format(cs.rdate, 'yy-MM-dd')}"></td>
-                                <td>[[${cs.status}]]</td>
-                                <td>
-                                    <a class="csbuttonDelete" href="#">[삭제]</a>
-                                </td>
+                                <td th:class="${cs.status == '답변완료' ? 'completed' : ''}">[[${cs.status}]]</td>
                             </tr>
                     </tbody>
                 </table>
@@ -100,7 +97,7 @@
             <a href="#" class="btnWrite">작성하기</a>
 
             <!-- paging-->
-            <div class="page">
+            <div class="paging">
             <span th:if="${csPageResponseDTO.prev}" class="prev">
                 <a th:href="@{/admin/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.start - 1})}">이전</a>
             </span>
