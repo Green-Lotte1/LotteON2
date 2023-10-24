@@ -1482,3 +1482,7 @@ footer p > strong {
 #my > .ordered > section > article > table .thumb > img {
     width : 120px;
 }
+
+.w350 {
+    width : 350px
+}
