@@ -163,11 +163,17 @@
                     </tr>
                 </table>
                 <p class="page">
-                    <a href="#" class="prev">이전</a>
-                    <a href="#" class="num on">1</a>
-                    <a href="#" class="num">2</a>
-                    <a href="#" class="num">3</a>
-                    <a href="#" class="next">다음</a>
+                  <span th:if="${csPageResponseDTO.prev}" class="prev">
+                    <a th:href="@{/my/qna(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.start - 1})}">이전</a>
+                  </span>
+
+                    <span th:each="num: ${#numbers.sequence(csPageResponseDTO.start, csPageResponseDTO.end)}" class="num">
+                    <a th:href="@{/my/qna(cate=${csPageResponseDTO.cate},pg=${num})}" th:class="${csPageResponseDTO.pg eq num ? 'on' : 'off'}">[[${num}]]</a>
+                  </span>
+
+                    <span th:if="${csPageResponseDTO.next}" class="next">
+                    <a th:href="@{/my/qna(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.end + 1})}">다음</a>
+                  </span>
                 </p>
             </article>
         </section>
