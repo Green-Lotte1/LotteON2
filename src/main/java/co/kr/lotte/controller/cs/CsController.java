@@ -141,7 +141,8 @@ public class CsController {
         log.info("fno : " + fno);
         BoardFileEntity sfile = csService.getSfileByFno(fno);
         if (sfile != null) {
-            return csService.fileDownload(sfile.getSfile(),sfile.getOfile());
+            //return csService.fileDownload(sfile.getSfile(),sfile.getOfile());
+            return csService.fileDownload(sfile.toDTO());
         } else {
             return ResponseEntity.notFound().build();
         }
