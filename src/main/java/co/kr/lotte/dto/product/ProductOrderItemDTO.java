@@ -18,7 +18,8 @@ public class ProductOrderItemDTO {
     private int prodNo;
     private int count;
     private LocalDateTime ordDate;
-
+    private String ordStatus;
+    private String statusString;
     private ProductDTO product;
 
     public int getDisTotal() {

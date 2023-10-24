@@ -34,7 +34,7 @@ function tableReload(pg) {
                     </td>
                     <td class="status">배송완료</td>
                     <td class="confirm">
-                        <a href="#" class="receive" onclick="receivePop($(this), ${data.dtoList[i].product.prodNo}); return false;">수취확인</a>
+                        <a href="#" class="receive" onclick="receivePop($(this), ${data.dtoList[i].no}); return false;">수취확인</a>
                         <a href="#" class="review" onclick="reviewPop($(this), ${data.dtoList[i].product.prodNo}); return false;">상품평</a>
                         <a href="#" class="refund">반품신청</a>
                         <a href="#" class="exchange">교환신청</a>
@@ -218,8 +218,71 @@ function reviewPop(element, prodNo) {
 }
 
 // 수취확인 팝업
-function receivePop(element, prodNo) {
-    $('#popReceive').addClass('on');
+function receivePop(element, no) {
+    const popReceive = $('#popReceive');
+    popReceive.empty();
+    let flag = false;
+    // 리뷰 등록 여부 확인
+    $.ajax({
+          url: contextPath + '/product/checkReceive',
+          type: 'GET',
+          data: {"no" :no},
+          async: false,
+          success: function(data) {
+              flag = data;
+          }
+    })
+    if (flag) {
+        alert('이미 구매 확정한 상품입니다.');
+        return false;
+    }
+    popReceive.append(`
+        <div>
+            <nav>
+                <h1>수취확인</h1>
+                <button class="btnClose">X</button>
+            </nav>
+            <section>
+                <p>
+                    상품을 잘 받으셨나요?<br>
+                    상품을 받으셨으면 수취확인을 눌러 구매확정을 진행하세요.<br>
+                    구매확정 후 포인트를 지급해 드립니다.
+                </p>
+
+                <div>
+                    <button class="btnPositive btnConfirm" onclick="receive(${no})">확인</button>
+                    <button class="btnNegative btnCancel">취소</button>
+                </div>
+            </section>
+        </div>
+    `);
+    // 팝업 닫기
+    $('.btnClose').click(function(){
+        $(this).closest('.popup').removeClass('on');
+    });
+    // 팝업 닫기
+    $('.btnCancel').click(function(){
+        $(this).closest('.popup').removeClass('on');
+    });
+    popReceive.addClass('on');
+}
+
+// 수취확인
+function receive(no) {
+    $.ajax({
+        url: contextPath + '/product/orderReceive',
+        type: 'POST',
+        data: {"no" :no},
+        success: function(data) {
+            if (data == 'success') {
+                alert('구매확정 되었습니다.');
+            } else {
+                alert('오류가 발생 하였습니다. 잠시 후 다시 시도해주세요.');
+            }
+            tableReload(page);
+            $('.btnClose').closest('.popup').removeClass('on');
+        }
+    })
 }
 
 // 페이지 시작
