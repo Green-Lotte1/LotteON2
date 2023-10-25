@@ -12,6 +12,7 @@ import co.kr.lotte.dto.my.SearchDTO;
 import co.kr.lotte.dto.product.ProductDTO;
 import co.kr.lotte.dto.product.ProductOrderDTO;
 import co.kr.lotte.dto.product.ProductOrderItemDTO;
+import co.kr.lotte.dto.product.ProductReviewDTO;
 import co.kr.lotte.entity.member.MemberEntity;
 import co.kr.lotte.entity.member.MemberPointEntity;
 import co.kr.lotte.entity.product.ProductOrderEntity;
@@ -43,13 +44,16 @@ public class MyController {
         List<ProductOrderItemDTO> score1List = myService.findTop1ByOrdUidOrderByOrdDateDesc(uid);
         List<BoardDTO> myQnas = myService.findTop5ByUidOrderByRdateDesc(uid);
         List<MemberPointDTO> pointList = myService.findPointByUid(uid);
+        List<ProductReviewDTO> reviewList = myService.findReviewByUid(uid);
         log.info("score1List :" + score1List );
         log.info("myQnas :" + myQnas );
         log.info("pointList :" + pointList );
+        log.info("reviewList :" + reviewList );
 
         model.addAttribute("score1List", score1List);
         model.addAttribute("myQnas", myQnas);
         model.addAttribute("myPoints", pointList);
+        model.addAttribute("myReviews", reviewList);
 
         return "/my/home";
     }
