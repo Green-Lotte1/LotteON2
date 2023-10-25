@@ -98,7 +98,7 @@
                                 th:text="${article.status}"
                                 style="font-weight: bold; text-align: center;"></td>
                         </th:block>
-                        <td th:text="${#strings.substring(article.uid, 0, 3) + '***'}"></td>
+                        <td class="uid" th:text="${#strings.length(article.uid) >= 3 ? #strings.substring(article.uid, 0, 3) + '**' : #strings.substring(article.uid, 0, 1)+''}"></td>
                         <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
                     </tr>
                 </table>

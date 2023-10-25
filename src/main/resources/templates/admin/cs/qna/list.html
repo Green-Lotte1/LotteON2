@@ -80,6 +80,7 @@
                                 <th>상태</th>
                             </tr>
                             <tr th:each="cs:${csPageResponseDTO.dtoList}">
+                                <th:block th:if="${cs.group == 'qna'}">
                                 <td><input type="checkbox" name="chk" th:value="${cs.bno}" /></td>
                                 <td>[[${cs.bno}]]</td>
                                 <td>[[${cs.cate}]]</td>
@@ -88,6 +89,7 @@
                                 <td class="uid" th:text="${#strings.length(cs.uid) >= 3 ? #strings.substring(cs.uid, 0, 3) + '***' : #strings.substring(cs.uid, 0, 1)+'*'}"></td>
                                 <td th:text="${#temporals.format(cs.rdate, 'yy-MM-dd')}"></td>
                                 <td th:class="${cs.status == '답변완료' ? 'completed' : ''}">[[${cs.status}]]</td>
+                                </th:block>
                             </tr>
                     </tbody>
                 </table>
