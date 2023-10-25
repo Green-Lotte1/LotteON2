@@ -9,18 +9,20 @@ import co.kr.lotte.dto.my.ReviewPageResponseDTO;
 import co.kr.lotte.dto.my.SearchDTO;
 import co.kr.lotte.entity.member.MemberEntity;
 import co.kr.lotte.security.MyUserDetails;
-import co.kr.lotte.service.CsCateService;
-import co.kr.lotte.service.CsService;
 import co.kr.lotte.service.my.MyService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Log4j2
@@ -28,6 +30,9 @@ import java.util.List;
 public class MyController {
     @Autowired
     private MyService myService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @GetMapping(value = {"/my/", "/my/home"})
     public String home(Model model, @AuthenticationPrincipal Object principal,
@@ -50,6 +55,19 @@ public class MyController {
     @GetMapping("/my/infoAccessCheck")
     public String infoAccessCheck() {
         return "/my/infoAccessCheck";
+    }
+    @ResponseBody
+    @PostMapping("/my/infoAccessCheck")
+    public String infoAccessCheck(@RequestParam String uid, String inputPass) {
+
+        Authentication authentication = new UsernamePasswordAuthenticationToken(uid, inputPass);
+        Authentication result = authenticationManager.authenticate(authentication);
+
+        if (result.isAuthenticated()) {
+            return "true";
+        } else {
+            return "false";
+        }
     }
     @GetMapping("/my/info")
     public String info() {

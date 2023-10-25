@@ -1238,6 +1238,9 @@ footer p > strong {
     border: 1px solid #dfe5ed;
     vertical-align: middle;
 }
+#my #formFindPassChange > p {
+    margin-top: 10px;
+}
 
 #my > .info .btnArea{
     margin-top: 45px;

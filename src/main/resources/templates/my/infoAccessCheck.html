@@ -2,6 +2,13 @@
 <html  xmlns:th="http://www.thymeleaf.org"
        xmlns:layout="http://www.thymeleaf.org"
        layout:decorate="/my/index.html">
+<head>
+    <script th:src="@{/my/js/info.js}"></script>
+    <script>
+        const uid = '[[${#authentication.principal.member.uid}]]';
+        console.log(uid);
+    </script>
+</head>
 <div class="info" layout:fragment="content">
     <nav>
         <h1>비밀번호 재확인</h1>
@@ -11,7 +18,7 @@
         <table>
             <tr>
                 <th>아이디</th>
-                <td>iddd1234</td>
+                <td>[[${#authentication.principal.member.uid}]]</td>
             </tr>
             <tr>
                 <th><span class="essential">*</span>비밀번호</th>
