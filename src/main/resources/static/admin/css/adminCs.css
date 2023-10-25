@@ -37,6 +37,29 @@
 #formCheck > table tr > td:nth-child(7) {width: 100px;}
 #formCheck > table tr > td.completed {color: blue}
 
+#formCheck1 > table tr {
+	height: 50px;
+}
+
+#formCheck1 > table tr > th {
+    padding: 10px 0;
+    background: #f6f6f6;
+    border-top: 2px solid rgb(135, 152, 163);
+}
+
+#formCheck1 > table tr > td {
+    background: rgb(255, 255, 255);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#formCheck1 > table tr > td:nth-child(1) {width: 20px;}
+#formCheck1 > table tr > td:nth-child(2) {width: 100px;}
+#formCheck1 > table tr > td:nth-child(3) {width: 120px;}
+#formCheck1 > table tr > td:nth-child(4) {width: auto; text-align: left;}
+#formCheck1 > table tr > td:nth-child(6) {width: 100px;}
+#formCheck1 > table tr > td:nth-child(7) {width: 100px;}
+
 #admin-cs-notice-list > section > table img.thumb {
     width: 60px
 }

@@ -167,7 +167,7 @@ public class CsService {
 
         Path filePath = Paths.get(getAbsoluteFilePath(sfileName));
 
-            if (Files.exists(filePath)) {
+        if (Files.exists(filePath)) {
             InputStreamResource resource = new InputStreamResource(new FileInputStream(filePath.toString()));
             String fileName =  filePath.getFileName().toString();
             log.info("Success download input excel file : " + filePath);
@@ -176,11 +176,11 @@ public class CsService {
                     .cacheControl(CacheControl.noCache())
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + ofileName)
                     .body(resource);
-            } else {
-                // 파일이 존재하지 않는 경우에 대한 예외 처리
-                log.error("File not found: " + filePath);
-                return ResponseEntity.notFound().build();
-            }
+        } else {
+            // 파일이 존재하지 않는 경우에 대한 예외 처리
+            log.error("File not found: " + filePath);
+            return ResponseEntity.notFound().build();
+        }
     }
     // 파일 다운로드
     public ResponseEntity<Resource> fileDownload(BoardFileDTO dto) throws IOException {
@@ -226,9 +226,9 @@ public class CsService {
         BoardEntity boardEntity = csRepository.findById(bno).get();
 
         List<BoardFileDTO> boardFileDTOS = fileRepository.findByBno(bno)
-                                            .stream()
-                                            .map(entity -> modelMapper.map(entity, BoardFileDTO.class ))
-                                            .toList();
+                .stream()
+                .map(entity -> modelMapper.map(entity, BoardFileDTO.class ))
+                .toList();
 
 
         BoardDTO dto = boardEntity.toDTO();
@@ -255,9 +255,9 @@ public class CsService {
         for(BoardTypeEntity boardTypeEntity : boardTypeEntities){
             List<BoardEntity> boardEntities = csRepository.findTop10ByType(boardTypeEntity.getType());
             List<BoardDTO> boardDTOS = boardEntities
-                                        .stream()
-                                        .map(entity -> modelMapper.map(entity, BoardDTO.class ))
-                                        .toList();
+                    .stream()
+                    .map(entity -> modelMapper.map(entity, BoardDTO.class ))
+                    .toList();
             for(BoardDTO boardDTO : boardDTOS){
                 dtoList.add(boardDTO);
             }
@@ -275,9 +275,9 @@ public class CsService {
         Pageable pageable = PageRequest.of(page, size, Sort.by("rdate").descending().and(Sort.by("bno").descending()));
         List<BoardEntity> boardEntityPage = csRepository.findByGroupAndTypeGreaterThanOrderByRdateDescBnoDesc("notice", 20, pageable);
         List<BoardDTO> dtoList = boardEntityPage
-                                .stream()
-                                .map(entity -> modelMapper.map(entity, BoardDTO.class ))
-                                .toList();
+                .stream()
+                .map(entity -> modelMapper.map(entity, BoardDTO.class ))
+                .toList();
 
 
         List<BoardCateEntity> boardCateEntitieList =  boardCateRepository.findAll();
