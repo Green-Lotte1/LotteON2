@@ -186,6 +186,6 @@ public class ProductController {
         MemberEntity memberEntity = ((MyUserDetails) principal).getMember();
         String uid = memberEntity.getUid();
         productReviewDTO.setUid(uid);
-        return productService.saveProductReview(productReviewDTO);
+        return productService.saveProductReview(productReviewDTO, uid);
     }
 }
