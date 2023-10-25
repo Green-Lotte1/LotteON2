@@ -221,7 +221,7 @@ public class CsService {
     }
 
 
-    public BoardDTO findByBnoForBoard(int bno) throws RuntimeException {
+    public BoardDTO findByBnoForBoard(int bno){
 
         BoardEntity boardEntity = csRepository.findById(bno).get();
 
