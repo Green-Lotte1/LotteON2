@@ -26,7 +26,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -119,4 +121,40 @@ public class MyService {
                 .build();
 
     }
+    // Home_QnA
+    public List<BoardDTO> getQnaBoard(String uid, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("rdate").descending().and(Sort.by("bno").descending()));
+
+        List<BoardEntity> boardEntityPage = csRepository.findByGroupAndTypeLessThanOrderByRdateDescBnoDesc("qna", 20, pageable);
+        List<BoardDTO> dtoList = boardEntityPage
+                .stream()
+                .map(entity -> modelMapper.map(entity, BoardDTO.class ))
+                .toList();
+
+        Page<BoardEntity> result = csRepository.findByUid(uid, pageable);
+        List<BoardCateEntity> boardCateEntitieList =  boardCateRepository.findAll();
+        List<BoardTypeEntity> boardTypeEntitieList = boardTypeRepository.findAll();
+
+        Map<String, Map<Integer, String>> cateMap = new HashMap<>();
+        for (BoardCateEntity boardCateEntity : boardCateEntitieList) {
+            Map<Integer, String > typeMap = new HashMap<>();
+            for (BoardTypeEntity boardEntity : boardTypeEntitieList) {
+                if (boardEntity.getCate().equals(boardCateEntity.getCate())) {
+                    typeMap.put(boardEntity.getType(), boardEntity.getTypeName());
+                }
+            }
+            cateMap.put(boardCateEntity.getCate(), typeMap);
+        }
+
+        for (BoardDTO boardDTO : dtoList) {
+            boardDTO.setTypeName(
+                    cateMap.get(boardDTO.getCate()).get(boardDTO.getType())
+            );
+        }
+        return dtoList;
+
+    }
+
+
+
 }
