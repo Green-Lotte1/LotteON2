@@ -1,10 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/html"
+      xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="/admin/adminlayout.html">
 
-</body>
+<section id="admin-cs-notice-write" layout:fragment="content">
+    <nav>
+        <h3>공지사항 수정</h3>
+        <p>
+            HOME &gt; 고객센터 &gt; <strong>공지사항</strong>
+        </p>
+    </nav>
+    <nav></nav>
+    <section class="write">
+        <article>
+            <form th:action="@{/admin/cs/notice/modify}" method="post">
+                <input type="text" th:value="${no}" name="no">
+                <table>
+                    <tr>
+                        <td>유형</td>
+                        <td>
+                            <select name="cate2" id="cate2Select">
+                                <option>유형선택</option>
+                                <option value="cs">고객서비스</option>
+                                <option value="safety">안전거래</option>
+                                <option value="danger">위해상품</option>
+                                <option value="everesult">이벤트당첨</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>제목</td>
+                        <td>
+                            <input type="text" name="title" th:value="${modList.title}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>내용</td>
+                        <td>
+                            <textarea name="content">[[${modList.content}]]</textarea>
+                        </td>
+                    </tr>
+                </table>
+                <div>
+                    <a th:href="@{/admin/cs/notice/list}" class="btnList">취소하기</a>
+                    <input type="submit" class="btnSubmit" value="등록하기"/>
+                </div>
+            </form>
+        </article>
+    </section>
+</section>
 </html>

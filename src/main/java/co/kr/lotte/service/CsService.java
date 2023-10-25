@@ -338,4 +338,7 @@ public class CsService {
 
     }
 
+    public BoardEntity findById(Long bno) {
+        return null;
+    }
 }

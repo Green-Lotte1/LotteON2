@@ -1,5 +1,6 @@
 package co.kr.lotte.controller.admin;
 
+import co.kr.lotte.dto.cs.BoardDTO;
 import co.kr.lotte.dto.cs.CsPageRequestDTO;
 import co.kr.lotte.dto.cs.CsPageResponseDTO;
 import co.kr.lotte.dto.product.PageRequestDTO;
@@ -7,6 +8,7 @@ import co.kr.lotte.dto.product.PageResponseDTO;
 
 import co.kr.lotte.dto.product.ProductDTO;
 import co.kr.lotte.entity.cs.BoardCateEntity;
+import co.kr.lotte.entity.cs.BoardEntity;
 import co.kr.lotte.entity.cs.BoardTypeEntity;
 import co.kr.lotte.entity.product.ProductCate1Entity;
 import co.kr.lotte.entity.product.ProductCate2Entity;
@@ -20,14 +22,12 @@ import co.kr.lotte.service.product.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 
 @Log4j2
@@ -107,23 +107,35 @@ public class AdminController {
 
     // admin-cs-notice
     @GetMapping("admin/cs/notice/list")
-    public String cs_no_list(HttpServletRequest request, Model model, String cate) {
+    public String cs_notice_list(HttpServletRequest request, Model model, String cate, CsPageRequestDTO csPageRequestDTO){
+        // Cate값
         List<BoardCateEntity> cates = csCateService.getCate();
         model.addAttribute("cates", cates);
         log.info("cates : "+cates);
+
+        // QNA-List
+        CsPageResponseDTO csPageResponseDTO = csService.findByCate(csPageRequestDTO);
+        model.addAttribute("cate", csPageRequestDTO.getCate());
+        model.addAttribute("csPageResponseDTO", csPageResponseDTO);
         return ("/admin/cs/notice/list");
     }
     @GetMapping("admin/cs/notice/view")
-    public String cs_no_view() {
-        return ("/admin/cs/notice/view");
+    public String cs_no_view(@RequestParam(name = "bno") Long bno, Model model) {
+        BoardDTO boardDTO = csService.findByBnoForBoard(bno);
+        model.addAttribute("view", boardDTO);
+        return "/admin/cs/notice/view";
     }
+
+
     @GetMapping("admin/cs/notice/write")
     public String cs_no_write() {
         return ("/admin/cs/notice/write");
     }
     @GetMapping("admin/cs/notice/modify")
-    public String cs_no_modify() {
-        return ("/admin/cs/notice/modify");
+    public String cs_no_modify(@RequestParam(name = "bno") Long bno, Model model) {
+        BoardDTO boardDTO = csService.findByBnoForBoard(bno);
+        model.addAttribute("view", boardDTO);
+        return "/admin/cs/notice/modify";
     }
 
     // admin-cs-faq

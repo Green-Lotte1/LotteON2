@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/html"
+      xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="/admin/adminlayout.html">
 
-</body>
+<section id="admin-cs-notice-view" layout:fragment="content">
+    <nav>
+        <h3>공지사항 보기</h3>
+        <p>
+            HOME &gt; 고객센터 &gt; <strong>공지사항</strong>
+        </p>
+    </nav>
+    <nav></nav>
+    <article>
+        <div class="content">
+            <table>
+                <tr>
+                    <td>유형</td>
+                    <td>[[${view.cate2}]]</td>
+                </tr>
+                <tr>
+                    <td>제목</td>
+                    <td>[[${view.title}]]</td>
+                </tr>
+                <tr>
+                    <td>내용</td>
+                    <td>
+                        [[${view.content}]]
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <a th:href="@{/admin/cs/notice/list}" class="btnList">목록</a>
+        <a th:href="@{/admin/cs/notice/modify(bno=${view.no})}" class="btnModify">수정</a>
+        <a th:href="@{/admin/cs/notice/delete(chk=${view.no})}" class="btnDelete">삭제</a>
+    </article>
+</section>
 </html>
