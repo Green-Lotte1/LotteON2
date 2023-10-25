@@ -79,40 +79,15 @@
                         <th>평점</th>
                         <th>작성일</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>상품명</td>
-                        <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                        <td><span class="rating star1">상품평</span></td>
-                        <td>2022-12-10</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>상품명</td>
-                        <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                        <td><span class="rating star2">상품평</span></td>
-                        <td>2022-12-10</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>상품명</td>
-                        <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                        <td><span class="rating star3">상품평</span></td>
-                        <td>2022-12-10</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>상품명</td>
-                        <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                        <td><span class="rating star4">상품평</span></td>
-                        <td>2022-12-10</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>상품명</td>
-                        <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                        <td><span class="rating star5">상품평</span></td>
-                        <td>2022-12-10</td>
+                    <tr th:each="myReview, status : ${myReviews}">
+                        <td th:text="${myReviews.size() - status.index}"></td>
+                        <td class="prodName">
+                            <a th:href="@{'/product/view?prodNo=' + ${myReview.product.prodNo} + '&cate1=' + ${myReview.product.prodCate1} + '&cate2=' + ${myReview.product.prodCate2}}">
+                                [[${myReview.product.prodName}]]</a>
+                        </td>
+                        <td class="content" th:text="${myReview.content}" ></td>
+                        <td class="score"><span th:class="'rating star' + ${myReview.rating}">평점</span></td>
+                        <td class="date" th:text="${#temporals.format(myReview.rdate, 'yyyy-MM-dd')}"></td>
                     </tr>
                 </table>
             </article>

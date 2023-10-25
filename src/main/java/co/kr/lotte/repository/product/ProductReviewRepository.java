@@ -7,9 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 public interface ProductReviewRepository extends JpaRepository<ProductReviewEntity, Integer> {
     public ProductReviewEntity findByProdNoAndUid(int prodNo, String uid);
     public Page<ProductReviewEntity> findByUid(String uid, Pageable pageable);
+    public List<ProductReviewEntity> findByUid(String uid);
+
 }
