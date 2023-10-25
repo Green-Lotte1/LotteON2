@@ -47,40 +47,7 @@ $(function(){
         } // btnCheckUid.onclick end
     }
 
-    // 이메일 입력데이터
-    $('input[name=email]').focusout(function(){
-
-        const email  = $(this).val();
-
-        // 이메일 입력값 검사
-        if(!email.match(reEmail))
-        {
-            $('.resultEmail').css('color', 'red').text('유효한 이메일이 아닙니다.');
-            isEmailOk = false;
-            $('.resultEmailForId').css('color', 'red').text('유효한 이메일이 아닙니다.');
-            $('.resultEmailForPass').css('color', 'red').text('유효한 이메일이 아닙니다.');
-            return;
-        }
-/*
-        $.ajax({
-            url: '/LotteON/member/check/email/'+email,
-            type: 'GET',
-            dataType: 'json',
-            success: function(data){
-                console.log('이메일 체크=====data : ' + data);
-                if (data > 0)
-                {
-                    $('.resultEmail').css('color', 'red').text('이미 사용중인 이메일입니다.');
-                    isEmailOk = false;
-                }
-                else
-                {
-                    $('.resultEmail').css('color', 'green').text('사용 가능한 이메일입니다.');
-                    isEmailOk = true;
-                }
-            }
-        });*/
-    });
+    /* 이메일 입력데이터는 authEmail.js에서 진행 */
 
     // 휴대폰번호 입력데이터
     $('input[name=hp]').focusout(function(){
@@ -92,6 +59,13 @@ $(function(){
         {
             $('.msgHp').css('color', 'red').text('유효한 휴대폰번호가 아닙니다.');
             isHpOk = false;
+            return;
+        }
+
+        if (hp == sameHp)
+        {
+            $('.msgHp').text('');
+            isHpOk = true;
             return;
         }
 

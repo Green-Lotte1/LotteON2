@@ -9,6 +9,7 @@ import co.kr.lotte.dto.my.ReviewPageResponseDTO;
 import co.kr.lotte.dto.my.SearchDTO;
 import co.kr.lotte.entity.member.MemberEntity;
 import co.kr.lotte.security.MyUserDetails;
+import co.kr.lotte.service.member.MemberService;
 import co.kr.lotte.service.my.MyService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,8 @@ public class MyController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private MemberService memberService;
 
     @GetMapping(value = {"/my/", "/my/home"})
     public String home(Model model, @AuthenticationPrincipal Object principal,
@@ -72,6 +75,12 @@ public class MyController {
     @GetMapping("/my/info")
     public String info() {
         return "/my/info";
+    }
+    @ResponseBody
+    @PostMapping("/my/formMyinfoPassChange")
+    public String formMyinfoPassChange(@RequestParam String uid, String inputPass) {
+        memberService.updatePass(uid, inputPass);
+        return "success";
     }
 
     @GetMapping("/my/order")
