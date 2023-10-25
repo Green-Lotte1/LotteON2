@@ -1661,3 +1661,6 @@ footer p > strong {
 .pointList .date {
     text-align : center;
 }
+.w80 {
+    width : 80px;
+}

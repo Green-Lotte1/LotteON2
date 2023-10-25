@@ -179,6 +179,25 @@ public class MyService {
                 .build();
 
     }
+    // Home_OrderList
+
+    public List<ProductOrderItemDTO> findTop1ByOrdUidOrderByOrdDateDesc(String ordUid) {
+
+        List<ProductOrderItemEntity> result = productOrderItemRepository.findTop1ByOrdUidOrderByOrdDateDesc(ordUid);
+
+        List<ProductOrderItemDTO> dtoList = result
+                .stream()
+                .map(entity -> modelMapper.map(entity, ProductOrderItemDTO.class))
+                .toList();
+        for (ProductOrderItemDTO productOrderItemDTO : dtoList) {
+            ProductDTO productDTO = productRepository.findById(productOrderItemDTO.getProdNo()).get().toDTO();
+            productOrderItemDTO.setProduct(productDTO);
+            productOrderItemDTO.StatusStringSet();
+        }
+
+        return dtoList;
+
+    }
     // Home_QnA
     public List<BoardDTO> getQnaBoard(String uid, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("rdate").descending().and(Sort.by("bno").descending()));

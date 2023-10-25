@@ -19,21 +19,22 @@
                         <th>상태</th>
                         <th>확인/신청</th>
                     </tr>
-                    <tr>
-                        <td class="date">2022-12-13</td>
+                    <tr th:each="order : ${score1List}">
+                        <td class="date" th:text="${#temporals.format(order.ordDate, 'yyyy-MM-dd')}"></td>
                         <td class="info">
-                            <a href="#" class="thumb"><img th:src="@{https://via.placeholder.com/80x80}" alt=""></a>
-                            <ul>
-                                <li class="company"><a href="#">상호명</a></li>
-                                <li class="prodName"><a href="#">상품명</a></li>
-                                <li class="orderNo">수량 : <span class="prodCount">1</span>개 / 주문번호 : <a href="#">1012211341</a></li>
-                                <li class="prodPrice">34,000</li>
+                            <a class="thumb">
+                                <img class="w80" th:src="@{'/thumb/' + ${order.product.prodCate1} + '/' + ${order.product.prodCate2} + '/' + ${order.product.thumb1}}" alt="item1" />
+                            </a>
+                            <ul class="w350">
+                                <li class="company">[[${order.product.company}]]</li>
+                                <li class="prodName"><a href="#">[[${order.product.prodName}]]</a></li>
+                                <li>수량 : <span class="prodCount">[[${order.count}]]</span>개 / 주문번호 : <span class="ordNo">[[${order.ordNo}]]</span></li>
                             </ul>
                         </td>
-                        <td class="status">배송완료</td>
+                        <td class="status"  th:text="${order.statusString}"></td>
                         <td class="confirm">
                             <a href="#" class="receive">수취확인</a>
-                            <a href="#" class="review">상품평</a>
+                            <a href="#" class="review" >상품평</a>
                             <a href="#" class="refund">반품신청</a>
                             <a href="#" class="exchange">교환신청</a>
                         </td>
