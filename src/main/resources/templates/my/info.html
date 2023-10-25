@@ -1,6 +1,14 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.thymeleaf.org"
       layout:decorate="/my/index.html">
+<head>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script th:src="@{/member/js/zipcode.js}"></script>
+    <script th:src="@{/member/js/validation.js}"></script>
+    <script th:src="@{/member/js/checkMember.js}"></script>
+    <script th:src="@{/member/js/authEmail.js}"></script>
+    <script th:src="@{/my/js/info.js}"></script>
+</head>
 <div class="info" layout:fragment="content">
     <ul th:replace="~{/my/menu.html}"></ul>
     <section>
@@ -32,7 +40,7 @@
                     <td>E-mail</td>
                     <td>
                         <input type="email" name="email" value="ttt@naver.com" required/>
-                        <button type="button" id="btnEmailCode">수정하기</button>
+                        <button type="button" id="btnEmailCode">인증번호 받기</button>
                         <span class="resultEmail"></span>
                         <div class="auth">
                             <input type="text" name="auth" placeholder="인증번호 입력"/>
