@@ -21,8 +21,7 @@ public class QnaPageRequestDTO {
     @Builder.Default
     private int size = 10;
 
-    @Builder.Default
-    private String cate = "member";
+    private String cate;
     private int type;
     public Pageable getPageable(String sort){
         return PageRequest.of(this.pg-1, this.size, Sort.by(sort).descending());

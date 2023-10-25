@@ -1,9 +1,11 @@
 package co.kr.lotte.service.product;
 
 import co.kr.lotte.dto.product.*;
+import co.kr.lotte.entity.member.MemberCouponEntity;
 import co.kr.lotte.entity.member.MemberEntity;
 import co.kr.lotte.entity.member.MemberPointEntity;
 import co.kr.lotte.entity.product.*;
+import co.kr.lotte.repository.member.MemberCouponRepository;
 import co.kr.lotte.repository.member.MemberPointRepository;
 import co.kr.lotte.repository.member.MemberRepository;
 import co.kr.lotte.repository.product.*;
@@ -31,6 +33,7 @@ public class ProductService {
     private final ModelMapper modelMapper;
     private final Cate1Repository cate1Repository;
     private final Cate2Repository cate2Repository;
+    private final MemberCouponRepository memberCouponRepository;
 
     // 상품 등록 - 카테고리 값 조회
     public List<ProductCate1Entity> getCate1() {
@@ -156,6 +159,9 @@ public class ProductService {
 
     public int saveOrder(ProductOrderDTO productOrderDTO) {
         ProductOrderEntity productOrderEntity = productOrderRepository.save(productOrderDTO.toEntity());
+        MemberCouponEntity memberCouponEntity = memberCouponRepository.findById(productOrderEntity.getCouponSeq()).get();
+        memberCouponEntity.setUseYn("N");
+        memberCouponRepository.save(memberCouponEntity);
         return productOrderEntity.getOrdNo();
     }
 
@@ -169,20 +175,12 @@ public class ProductService {
                                                             .ordNo(ordNo)
                                                             .prodNo(searchDTO.getProdNo())
                                                             .count(searchDTO.getCount())
+                                                            .ordStatus("C")
                                                             .build();
             productOrderItemRepository.save(productOrderItemEntity);
             ProductEntity product = productRepository.findById(productOrderItemEntity.getProdNo()).get();
             int savePoint = product.getPoint() * productOrderItemEntity.getCount();
             point += savePoint;
-
-            // 포인트 적립이력 저장
-            MemberPointEntity memberPoint = MemberPointEntity.builder()
-                                                            .uid(uid)
-                                                            .ordNo(ordNo)
-                                                            .point(savePoint)
-                                                            .build();
-
-            memberPointRepository.save(memberPoint);
 
             // 장바구니에서 주문한 상품일 경우 장바구니 삭제
             if (searchDTO.getCartNo() != 0) {
@@ -191,17 +189,12 @@ public class ProductService {
         }
         // 세션의 uid를 이용해서 사용자 객체를 가져옴
         MemberEntity member = memberRepository.findById(uid).get();
-        // 포인트 적립
-        member.setPoint(member.getPoint() + point);
-        memberRepository.save(member);
 
         // 주문번호로 주문이력을 가져옴
         ProductOrderEntity productOrder = productOrderRepository.findById(ordNo).get();
         // 적립된 포인트 저장
         productOrder.setSavePoint(point);
         productOrderRepository.save(productOrder);
-
-
     }
 
     public ProductOrderDTO findProductOrderById(int ordNo) {
@@ -230,6 +223,7 @@ public class ProductService {
                                                                 .uid(uid)
                                                                 .ordNo(ordNo)
                                                                 .point(-usedPoint)
+                                                                .descript("상품 구매 포인트 사용")
                                                                 .build();
         memberPointRepository.save(memberPointEntity);
     }
@@ -237,5 +231,55 @@ public class ProductService {
     public boolean checkReview(int prodNo, String uid) {
         ProductReviewEntity productReviewEntity = productReviewRepository.findByProdNoAndUid(prodNo, uid);
         return productReviewEntity != null;
+    }
+
+    public boolean checkReceive(int no, String uid) {
+        ProductOrderItemEntity productReviewEntity = productOrderItemRepository.findById(no).get();
+        return productReviewEntity.getOrdStatus().equals("Z");
+    }
+
+    public String orderReceive(int no, String uid) {
+        // 주문 품목을 가져옴
+        ProductOrderItemEntity productOrderItemEntity = productOrderItemRepository.findById(no).get();
+        // 구매확정
+        productOrderItemEntity.setOrdStatus("Z");
+        // 저장
+        ProductOrderItemEntity productOrderItem = productOrderItemRepository.save(productOrderItemEntity);
+        String flag = productOrderItem.getOrdStatus().equals("Z") ? "success" : "fail";
+        // 정상적으로 작동할 경우 포인트 적립
+        if (flag.equals("success")) {
+            int prodNo = productOrderItem.getProdNo();
+            ProductEntity product = productRepository.findById(prodNo).get();
+            MemberEntity member = memberRepository.findById(uid).get();
+            // 적립 포인트 계산
+            int point = (product.getPoint() * productOrderItem.getCount());
+            
+            // 포인트 추가
+            member.setPoint(member.getPoint() + point);
+            // 포인트 저장
+            memberRepository.save(member);
+            
+            // 포인트 이력 추가
+            MemberPointEntity memberPointEntity = MemberPointEntity.builder().uid(uid).ordNo(productOrderItem.getOrdNo()).point(point).descript("상품 구매확정").build();
+            memberPointRepository.save(memberPointEntity);
+        }
+        return flag;
+    }
+
+    public int saveProductReview(ProductReviewDTO productReviewDTO, String uid) {
+        ProductReviewEntity productReviewEntity = productReviewRepository.save(productReviewDTO.toEntity());
+        int revNo = productReviewEntity.getRevNo();
+        if (revNo > 0) {
+            int prodNo = productReviewEntity.getProdNo();
+            MemberEntity member = memberRepository.findById(uid).get();
+            // 포인트 추가
+            member.setPoint(member.getPoint() + 100);
+            // 포인트 저장
+            memberRepository.save(member);
+            // 포인트 이력 추가
+            MemberPointEntity memberPointEntity = MemberPointEntity.builder().uid(uid).point(100).descript("상품 리뷰 작성 추가 포인트").build();
+            memberPointRepository.save(memberPointEntity);
+        }
+        return revNo;
     }
 }

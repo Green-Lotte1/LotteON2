@@ -381,8 +381,11 @@ header {
   font-size: 17px;
 }
 
-#member > .register table .addr input {
-  margin-top: 6px;
+#member > .register table .addr input[name=addr1] {
+  margin-top: 4px;
+}
+#member > .register table .addr input[name=addr2] {
+  margin-top: 4px;
 }
 #member > .register table .addr th {
   padding-left: 30px;
@@ -416,6 +419,9 @@ header {
   outline: 0;
   border-radius: 2px;
   cursor: pointer;
+}
+#member > .register input[name=auth] {
+  margin-top: 4px;
 }
 #member > .register #btnEmailAuth {
   background: #e7e5e5;

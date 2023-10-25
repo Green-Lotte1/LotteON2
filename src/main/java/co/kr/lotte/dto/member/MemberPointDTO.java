@@ -2,6 +2,7 @@ package co.kr.lotte.dto.member;
 
 import lombok.*;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 
 @Getter
@@ -15,5 +16,8 @@ public class MemberPointDTO {
     private String uid;
     private int ordNo;
     private int point;
+    private String descript;
     private LocalDateTime pointDate;
+
+
 }

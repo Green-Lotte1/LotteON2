@@ -8,7 +8,7 @@
         <section>
             <a th:href="@{https://www.mysmilepay.com/}"><img th:src="@{/my/images/my_banner2.png}" alt="패션, 타운 하나로 끝" class="banner"></a>
             <article>
-                <h3>문의하기</h3>
+                <h3>내 문의내역</h3>
                 <table>
                     <tr>
                         <th>번호</th>
@@ -17,8 +17,8 @@
                         <th>작성일</th>
                         <th>상태</th>
                     </tr>
-                    <tr th:each="article : ${csPageResponseDTO.dtoList}">
-                        <td th:text="${article.bno}"></td>
+                    <tr th:each="article, status : ${csPageResponseDTO.dtoList}">
+                        <td th:text="${csPageResponseDTO.dtoList.size() - status.index}"></td>
                         <td th:text="${article.typeName}"></td>
                         <td>
                             <a th:href="@{/cs/qna/view(bno=${article.bno})}" th:onclick="return showAlert([[${article.uid}]]);">[[${article.title}]]</a>
@@ -32,17 +32,15 @@
                     </tr>
                 </table>
                 <p class="page">
-                  <span th:if="${csPageResponseDTO.prev}" class="prev">
-                    <a th:href="@{/my/qna(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.start - 1})}">이전</a>
-                  </span>
-
-                    <span th:each="num: ${#numbers.sequence(csPageResponseDTO.start, csPageResponseDTO.end)}" class="num">
-                    <a th:href="@{/my/qna(cate=${csPageResponseDTO.cate},pg=${num})}" th:class="${csPageResponseDTO.pg eq num ? 'on' : 'off'}">[[${num}]]</a>
-                  </span>
-
-                    <span th:if="${csPageResponseDTO.next}" class="next">
-                    <a th:href="@{/my/qna(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.end + 1})}">다음</a>
-                  </span>
+                    <th:block th:if="${csPageResponseDTO.prev}" class="prev">
+                        <a th:href="@{/my/qna(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.start - 1})}">이전</a>
+                    </th:block>
+                    <th:block th:each="num: ${#numbers.sequence(csPageResponseDTO.start, csPageResponseDTO.end)}" class="num">
+                        <a th:href="@{/my/qna(cate=${csPageResponseDTO.cate},pg=${num})}" th:class="${csPageResponseDTO.pg eq num ? 'on' : 'off'}">[[${num}]]</a>
+                    </th:block>
+                    <th:block th:if="${csPageResponseDTO.next}" class="next">
+                        <a th:href="@{/my/qna(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.end + 1})}">다음</a>
+                    </th:block>
                 </p>
             </article>
         </section>
