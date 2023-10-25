@@ -16,6 +16,22 @@ $(function(){
         console.log("name ::: "+name);
         console.log("email ::: "+email);
 
+        if(!email.match(reEmail))
+        {
+            $('.resultEmail').css('color', 'red').text('유효한 이메일 형식이 아닙니다.');
+            isEmailOk = false;
+            $('.resultEmailForId').css('color', 'red').text('유효한 이메일 형식이 아닙니다.');
+            $('.resultEmailForPass').css('color', 'red').text('유효한 이메일 형식이 아닙니다.');
+            return;
+        }
+
+        if (email == sameEmail)
+        {
+            $('.resultEmail').css('color', 'green').text('회원가입 시 입력한 이메일입니다.');
+            isEmailOk = true;
+            return;
+        }
+
         const jsonData = {
             "type": type,
             "uid": uid,
@@ -50,7 +66,8 @@ $(function(){
                         {
                             $('.resultEmailForId').css('color', 'green').text('이메일을 확인 후 인증코드를 입력하세요.');
                             $('.resultEmailForPass').css('color', 'green').text('이메일을 확인 후 인증코드를 입력하세요.');
-                            $('input[name=auth]').prop('disabled', false);
+                            $('#inputEmail').attr('readonly', true);
+                            $('#inputAuth').prop('disabled', false); // 인증번호 입력칸 활성화
                         }
                         else
                         {
@@ -63,8 +80,8 @@ $(function(){
                         if (data.status > 0)
                         {
                             $('.resultEmail').css('color', 'green').text('이메일을 확인 후 인증코드를 입력하세요.');
-                            $('.auth').show();
-                            $('input[name=email]').attr('readonly', true);
+                            $('#inputEmail').attr('readonly', true);
+                            $('#inputAuth').prop('disabled', false); // 인증번호 입력칸 활성화
                         }
                         else
                         {

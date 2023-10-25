@@ -348,6 +348,7 @@
                 </nav>
                 <section>
                     <table>
+                        <input type="hidden" name="uid" th:value="${#authentication.principal.member.uid}"/>
                         <tr>
                             <th>새 비밀번호</th>
                             <td>

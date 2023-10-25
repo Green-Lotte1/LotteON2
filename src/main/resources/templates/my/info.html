@@ -8,6 +8,17 @@
     <script th:src="@{/member/js/checkMember.js}"></script>
     <script th:src="@{/member/js/authEmail.js}"></script>
     <script th:src="@{/my/js/info.js}"></script>
+    <script>
+        const contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
+        const uid = '[[${#authentication.principal.member.uid}]]';
+        const sameHp = "[[${#authentication.principal.member.hp}]]";
+        const sameEmail = "[[${#authentication.principal.member.email}]]";
+        const rdateData = "[[${#authentication.principal.member.rdate}]]";
+        console.log(contextPath);
+        console.log(uid);
+        console.log(sameHp);
+        console.log(sameEmail);
+    </script>
 </head>
 <div class="info" layout:fragment="content">
     <ul th:replace="~{/my/menu.html}"></ul>
@@ -18,9 +29,12 @@
         <article>
             <h3>회원정보 설정</h3>
             <table>
+                <input type="hidden" name="type" th:value="normal"/>
+                <input type="hidden" name="uid" th:value="${#authentication.principal.member.uid}"/>
+                <input type="hidden" name="name" th:value="${#authentication.principal.member.name}"/>
                 <tr>
                     <td>사용자 ID</td>
-                    <td>chh****</td>
+                    <td>[[${#authentication.principal.member.uid}]]</td>
                 </tr>
                 <tr>
                     <td>비밀번호</td>
@@ -30,20 +44,20 @@
                 </tr>
                 <tr>
                     <td>이름</td>
-                    <td>김*학</td>
+                    <td>[[${#authentication.principal.member.name}]]</td>
                 </tr>
                 <tr>
-                    <td>생년월일</td>
-                    <td>1983년 05월 03일</td>
+                    <td>가입날짜</td>
+                    <td class="rdateConvertedData"></td>
                 </tr>
                 <tr>
                     <td>E-mail</td>
                     <td>
-                        <input type="email" name="email" value="ttt@naver.com" required/>
+                        <input type="email" id="inputEmail" name="email" th:value="${#authentication.principal.member.email}" required/>
                         <button type="button" id="btnEmailCode">인증번호 받기</button>
                         <span class="resultEmail"></span>
                         <div class="auth">
-                            <input type="text" name="auth" placeholder="인증번호 입력"/>
+                            <input type="text" id="inputAuth" name="auth" placeholder="인증번호 입력" disabled/>
                             <button type="button" id="btnEmailAuth">확인</button>
                         </div>
                     </td>
@@ -52,7 +66,7 @@
                     <td>휴대폰</td>
                     <td>
                         <p class="hp">
-                            <input type="text" name="hp" value="010-1234-1001" required/>
+                            <input type="text" name="hp" th:value="${#authentication.principal.member.hp}" required/>
                             <span class="msgHp"></span>
                         </p>
                     </td>
@@ -60,11 +74,11 @@
                 <tr>
                     <td>주소</td>
                     <td>
-                        <input type="text" name="zip" id="zip" placeholder="주소검색 클릭" readonly/>
+                        <input type="text" name="zip" id="zip" th:value="${#authentication.principal.member.zip}" placeholder="주소검색 클릭" readonly/>
                         <button type="button" id="btnZip" onclick="zipcode()">주소검색</button>
                         <p class="address">
-                            <input type="text" name="addr1" id="addr1" placeholder="주소를 검색하세요." readonly/>
-                            <input type="text" name="addr2" id="addr2" placeholder="상세주소를 입력하세요."/>
+                            <input type="text" name="addr1" id="addr1" th:value="${#authentication.principal.member.addr1}" placeholder="주소를 검색하세요." readonly/>
+                            <input type="text" name="addr2" id="addr2" th:value="${#authentication.principal.member.addr2}" placeholder="상세주소를 입력하세요."/>
                         </p>
                     </td>
                 </tr>
