@@ -4,6 +4,7 @@ import co.kr.lotte.dto.cs.CsPageRequestDTO;
 import co.kr.lotte.dto.cs.CsPageResponseDTO;
 import co.kr.lotte.dto.my.MemberPointPageResponseDTO;
 import co.kr.lotte.dto.my.PageResponseDTO;
+import co.kr.lotte.dto.my.ReviewPageResponseDTO;
 import co.kr.lotte.dto.my.SearchDTO;
 import co.kr.lotte.entity.member.MemberEntity;
 import co.kr.lotte.security.MyUserDetails;
@@ -67,6 +68,14 @@ public class MyController {
         MemberEntity memberEntity = ((MyUserDetails) principal).getMember();
         String uid = memberEntity.getUid();
         return myService.findPointList(uid, searchDTO);
+    }
+
+    @GetMapping("/my/reviewList")
+    @ResponseBody
+    public ReviewPageResponseDTO reviewList(SearchDTO searchDTO, @AuthenticationPrincipal Object principal) {
+        MemberEntity memberEntity = ((MyUserDetails) principal).getMember();
+        String uid = memberEntity.getUid();
+        return myService.findReviewList(uid, searchDTO);
     }
 
     @GetMapping("/my/point")

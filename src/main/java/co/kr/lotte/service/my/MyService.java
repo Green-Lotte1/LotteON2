@@ -7,17 +7,21 @@ import co.kr.lotte.dto.cs.CsPageResponseDTO;
 import co.kr.lotte.dto.member.MemberPointDTO;
 import co.kr.lotte.dto.my.MemberPointPageResponseDTO;
 import co.kr.lotte.dto.my.PageResponseDTO;
+import co.kr.lotte.dto.my.ReviewPageResponseDTO;
 import co.kr.lotte.dto.my.SearchDTO;
 import co.kr.lotte.dto.product.ProductDTO;
 import co.kr.lotte.dto.product.ProductOrderDTO;
 import co.kr.lotte.dto.product.ProductOrderItemDTO;
+import co.kr.lotte.dto.product.ProductReviewDTO;
 import co.kr.lotte.entity.cs.BoardCateEntity;
 import co.kr.lotte.entity.cs.BoardEntity;
 import co.kr.lotte.entity.cs.BoardFileEntity;
 import co.kr.lotte.entity.cs.BoardTypeEntity;
 import co.kr.lotte.entity.member.MemberPointEntity;
+import co.kr.lotte.entity.product.ProductEntity;
 import co.kr.lotte.entity.product.ProductOrderEntity;
 import co.kr.lotte.entity.product.ProductOrderItemEntity;
+import co.kr.lotte.entity.product.ProductReviewEntity;
 import co.kr.lotte.repository.cs.BoardCateRepository;
 import co.kr.lotte.repository.cs.BoardFileRepository;
 import co.kr.lotte.repository.cs.BoardTypeRepository;
@@ -26,6 +30,7 @@ import co.kr.lotte.repository.member.MemberPointRepository;
 import co.kr.lotte.repository.product.ProductOrderItemRepository;
 import co.kr.lotte.repository.product.ProductOrderRepository;
 import co.kr.lotte.repository.product.ProductRepository;
+import co.kr.lotte.repository.product.ProductReviewRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -52,6 +57,7 @@ public class MyService {
     private final BoardTypeRepository boardTypeRepository;
     private final BoardCateRepository boardCateRepository;
     private final MemberPointRepository memberPointRepository;
+    private final ProductReviewRepository productReviewRepository;
 
     // 전체 주문 내역
     public PageResponseDTO findOrderList(String uid, SearchDTO searchDTO) {
@@ -80,6 +86,7 @@ public class MyService {
                 .total(totalElement)
                 .build();
     }
+
     // 포인트 내역
     public MemberPointPageResponseDTO findPointList(String uid, SearchDTO searchDTO) {
 
@@ -103,6 +110,25 @@ public class MyService {
                 .build();
     }
 
+    // 리뷰 내역
+    public ReviewPageResponseDTO findReviewList(String uid, SearchDTO searchDTO) {
+        Page<ProductReviewEntity> result = productReviewRepository.findByUid(uid,  searchDTO.getPageable());
+        List<ProductReviewDTO> dtoList = result
+                .getContent()
+                .stream()
+                .map(entity -> modelMapper.map(entity, ProductReviewDTO.class))
+                .toList();
+        for (ProductReviewDTO productReviewDTO : dtoList) {
+            ProductDTO product = productRepository.findById(productReviewDTO.getProdNo()).get().toDTO();
+            productReviewDTO.setProduct(product);
+        }
+        int totalElement = (int) result.getTotalElements();
+        return ReviewPageResponseDTO.builder()
+                .searchDTO(searchDTO)
+                .dtoList(dtoList)
+                .total(totalElement)
+                .build();
+    }
 
     //QNA LIST
    public CsPageResponseDTO findByUid(String uid, CsPageRequestDTO csPageRequestDTO){

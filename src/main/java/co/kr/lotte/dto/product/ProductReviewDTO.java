@@ -20,6 +20,8 @@ public class ProductReviewDTO {
     private String regip;
     private LocalDateTime rdate;
 
+    private ProductDTO product;
+
     public ProductReviewEntity toEntity() {
         return ProductReviewEntity.builder()
                 .prodNo(prodNo)
