@@ -3,6 +3,7 @@ package co.kr.lotte.controller.my;
 import co.kr.lotte.dto.cs.BoardDTO;
 import co.kr.lotte.dto.cs.CsPageRequestDTO;
 import co.kr.lotte.dto.cs.CsPageResponseDTO;
+import co.kr.lotte.dto.member.MemberCouponDTO;
 import co.kr.lotte.dto.my.MemberPointPageResponseDTO;
 import co.kr.lotte.dto.my.PageResponseDTO;
 import co.kr.lotte.dto.my.ReviewPageResponseDTO;
@@ -43,7 +44,11 @@ public class MyController {
     }
 
     @GetMapping("/my/coupon")
-    public String coupon() {
+    public String coupon(Model model, @AuthenticationPrincipal Object principal) {
+        MemberEntity memberEntity = ((MyUserDetails) principal).getMember();
+        String uid = memberEntity.getUid();
+        List<MemberCouponDTO> couponDTOList = myService.findCouponByUid(uid);
+        model.addAttribute("coupons", couponDTOList);
         return "/my/coupon";
     }
 

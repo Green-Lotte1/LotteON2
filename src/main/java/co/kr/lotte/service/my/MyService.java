@@ -4,6 +4,7 @@ import co.kr.lotte.dto.cs.BoardDTO;
 import co.kr.lotte.dto.cs.BoardFileDTO;
 import co.kr.lotte.dto.cs.CsPageRequestDTO;
 import co.kr.lotte.dto.cs.CsPageResponseDTO;
+import co.kr.lotte.dto.member.MemberCouponDTO;
 import co.kr.lotte.dto.member.MemberPointDTO;
 import co.kr.lotte.dto.my.MemberPointPageResponseDTO;
 import co.kr.lotte.dto.my.PageResponseDTO;
@@ -17,6 +18,7 @@ import co.kr.lotte.entity.cs.BoardCateEntity;
 import co.kr.lotte.entity.cs.BoardEntity;
 import co.kr.lotte.entity.cs.BoardFileEntity;
 import co.kr.lotte.entity.cs.BoardTypeEntity;
+import co.kr.lotte.entity.member.MemberCouponEntity;
 import co.kr.lotte.entity.member.MemberPointEntity;
 import co.kr.lotte.entity.product.ProductEntity;
 import co.kr.lotte.entity.product.ProductOrderEntity;
@@ -26,6 +28,7 @@ import co.kr.lotte.repository.cs.BoardCateRepository;
 import co.kr.lotte.repository.cs.BoardFileRepository;
 import co.kr.lotte.repository.cs.BoardTypeRepository;
 import co.kr.lotte.repository.cs.CsRepository;
+import co.kr.lotte.repository.member.MemberCouponRepository;
 import co.kr.lotte.repository.member.MemberPointRepository;
 import co.kr.lotte.repository.product.ProductOrderItemRepository;
 import co.kr.lotte.repository.product.ProductOrderRepository;
@@ -60,6 +63,7 @@ public class MyService {
     private final BoardCateRepository boardCateRepository;
     private final MemberPointRepository memberPointRepository;
     private final ProductReviewRepository productReviewRepository;
+    private final MemberCouponRepository memberCouponRepository;
 
     // 전체 주문 내역
     public PageResponseDTO findOrderList(String uid, SearchDTO searchDTO) {
@@ -209,6 +213,15 @@ public class MyService {
 
     }
 
-
-
+    // 쿠폰 가져오기
+    public List<MemberCouponDTO> findCouponByUid(String uid) {
+        List<MemberCouponEntity> memberCouponEntityList = memberCouponRepository.findByUid(uid);
+        List<MemberCouponDTO> memberCouponDTOList = memberCouponEntityList.stream()
+                                                                            .map(entity -> modelMapper.map(entity, MemberCouponDTO.class ))
+                                                                            .toList();
+        for (MemberCouponDTO memberCouponDTO : memberCouponDTOList) {
+            memberCouponDTO.changeUseYnString();
+        }
+        return  memberCouponDTOList;
+    }
 }

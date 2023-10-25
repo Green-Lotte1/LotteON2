@@ -2,6 +2,7 @@ package co.kr.lotte.dto.member;
 
 import lombok.*;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 
 @Getter
