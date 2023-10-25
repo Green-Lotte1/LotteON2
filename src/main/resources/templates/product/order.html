@@ -1,5 +1,106 @@
 <html xmlns:th="http://www.thymeleaf.org" layout:decorate="/product/index.html">
 <head>
+    <script th:inline="javascript">
+        var articleArray = [];
+            /*[# th:each="item : ${products}"]*/
+            var article = {
+                prodNo: /*[[${item.prodNo}]]*/,
+                cartNo: /*[[${item.cartNo}]]*/,
+                count: /*[[${item.count}]]*/
+            };
+            articleArray.push(article);
+            /*[/]*/
+    </script>
+    <script>
+        var contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
+        console.log(contextPath);
+        let couponList = [];
+        let couponDetail = {};
+        let couponSeq = 0;
+        let finalFormTot = 0;
+
+        $(function() {
+            // 초기 최종결제 정보
+            const length = [[${products.size()}]];
+            const count = $('input[name=count]');
+            const price = $('input[name=price]');
+            const disPrice = $('input[name=disPrice]');
+            const delivery = $('input[name=delivery]');
+            const total = 0;
+            let ordPrice = 0;
+            let ordDiscount = 0;
+            let ordDelivery = 0;
+            let ordTotPrice = 0;
+            for (let i = 0; i < length; i++) {
+                ordPrice += (count[i].value * 1) * (price[i].value * 1);
+                ordDiscount += ((price[i].value * 1) - (disPrice[i].value * 1)) * (count[i].value * 1);
+                ordDelivery += (delivery[i].value * 1);
+            }
+            ordTotPrice += ordPrice - ordDiscount + ordDelivery;
+
+            $('input[name=ordPrice]').val(ordPrice);
+            $('input[name=ordDiscount]').val(ordDiscount);
+            $('input[name=ordDelivery]').val(ordDelivery);
+            $('input[name=ordTotPrice]').val(ordTotPrice);
+            $('#price').text(ordPrice.toLocaleString());
+            $('#disPrice').text(ordDiscount.toLocaleString());
+            $('#delivery').text(ordDelivery.toLocaleString());
+            $('#total').text(ordTotPrice.toLocaleString());
+            finalFormTot = ordTotPrice;
+
+            $('input[name=ordSubmit]').click(function() {
+                const ordUid = '[[${#authentication.principal.member.uid}]]';
+                const ordCount = $('input[name=ordCount]').val() * 1;
+                const ordPrice = $('input[name=ordPrice]').val() * 1;
+                const ordDiscount = $('input[name=ordDiscount]').val() * 1;
+                const ordDelivery = $('input[name=ordDelivery]').val() * 1;
+                const usedPoint = $('input[name=usedPoint]').val() * 1;
+                const ordTotPrice = $('input[name=ordTotPrice]').val() * 1;
+                const recipName = $('input[name=recipName]').val();
+                const recipHp = $('input[name=recipHp]').val();
+                const recipZip = $('input[name=recipZip]').val();
+                const recipAddr1 = $('input[name=recipAddr1]').val();
+                const recipAddr2 = $('input[name=recipAddr2]').val();
+                const ordPayment = $('input[name=ordPayment]:checked').val();
+                const disCouponPrice = $('input[name=coupon]').val() * 1;
+                const jsonData = {
+                    "ordUid" : ordUid,
+                    "ordCount" : ordCount,
+                    "ordPrice" : ordPrice,
+                    "ordDiscount" : ordDiscount,
+                    "ordDelivery" : ordDelivery,
+                    "usedPoint" : usedPoint,
+                    "ordTotPrice" : ordTotPrice,
+                    "recipName" : recipName,
+                    "recipHp" : recipHp,
+                    "recipZip" : recipZip,
+                    "recipAddr1" : recipAddr1,
+                    "recipAddr2" : recipAddr2,
+                    "ordPayment" : ordPayment,
+                    "disCouponPrice" : disCouponPrice,
+                    "couponSeq" : couponSeq
+                }
+                $.ajax({
+                    url: contextPath + '/product/order',
+                    type: 'POST',
+                    data: jsonData,
+                    success: function(data) {
+                        console.log(data);
+                        $.ajax({
+                            url: contextPath + '/product/orderItem',
+                            type: 'POST',
+                            data: {jsonData : JSON.stringify(articleArray), ordNo : data},
+                            success: function(data2) {
+                                console.log(data2);
+                                window.location.href = contextPath + '/product/complete?ordNo=' + data;
+                            }
+                        });
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
     <script th:src="@{/product/js/checkOrder.js}"></script>
     <script th:src="@{/product/js/validation.js}"></script>
 </head>
@@ -10,98 +111,6 @@
         <h1>주문결제</h1>
         <p>
             HOME > 장바구니 > <strong>주문결제</strong>
-            <script th:inline="javascript">
-                var articleArray = [];
-                    /*[# th:each="item : ${products}"]*/
-                    var article = {
-                        prodNo: /*[[${item.prodNo}]]*/,
-                        cartNo: /*[[${item.cartNo}]]*/,
-                        count: /*[[${item.count}]]*/
-                    };
-                    articleArray.push(article);
-                    /*[/]*/
-            </script>
-            <script>
-                $(function() {
-                    // 초기 최종결제 정보
-                    const length = [[${products.size()}]];
-                    const count = $('input[name=count]');
-                    const price = $('input[name=price]');
-                    const disPrice = $('input[name=disPrice]');
-                    const delivery = $('input[name=delivery]');
-                    const total = 0;
-                    let ordPrice = 0;
-                    let ordDiscount = 0;
-                    let ordDelivery = 0;
-                    let ordTotPrice = 0;
-                    for (let i = 0; i < length; i++) {
-                        ordPrice += (count[i].value * 1) * (price[i].value * 1);
-                        ordDiscount += ((price[i].value * 1) - (disPrice[i].value * 1)) * (count[i].value * 1);
-                        ordDelivery += (delivery[i].value * 1);
-                    }
-                    ordTotPrice += ordPrice - ordDiscount + ordDelivery;
-
-                    $('input[name=ordPrice]').val(ordPrice);
-                    $('input[name=ordDiscount]').val(ordDiscount);
-                    $('input[name=ordDelivery]').val(ordDelivery);
-                    $('input[name=ordTotPrice]').val(ordTotPrice);
-                    $('#price').text(ordPrice.toLocaleString());
-                    $('#disPrice').text(ordDiscount.toLocaleString());
-                    $('#delivery').text(ordDelivery.toLocaleString());
-                    $('#total').text(ordTotPrice.toLocaleString());
-
-                    $('input[name=ordSubmit]').click(function() {
-                        const ordUid = '[[${#authentication.principal.member.uid}]]';
-                        const ordCount = $('input[name=ordCount]').val() * 1;
-                        const ordPrice = $('input[name=ordPrice]').val() * 1;
-                        const ordDiscount = $('input[name=ordDiscount]').val() * 1;
-                        const ordDelivery = $('input[name=ordDelivery]').val() * 1;
-                        const usedPoint = $('input[name=usedPoint]').val() * 1;
-                        const ordTotPrice = $('input[name=ordTotPrice]').val() * 1;
-                        const recipName = $('input[name=recipName]').val();
-                        const recipHp = $('input[name=recipHp]').val();
-                        const recipZip = $('input[name=recipZip]').val();
-                        const recipAddr1 = $('input[name=recipAddr1]').val();
-                        const recipAddr2 = $('input[name=recipAddr2]').val();
-                        const ordPayment = $('input[name=ordPayment]:checked').val();
-                        const jsonData = {
-                            "ordUid" : ordUid,
-                            "ordCount" : ordCount,
-                            "ordPrice" : ordPrice,
-                            "ordDiscount" : ordDiscount,
-                            "ordDelivery" : ordDelivery,
-                            "usedPoint" : usedPoint,
-                            "ordTotPrice" : ordTotPrice,
-                            "recipName" : recipName,
-                            "recipHp" : recipHp,
-                            "recipZip" : recipZip,
-                            "recipAddr1" : recipAddr1,
-                            "recipAddr2" : recipAddr2,
-                            "ordPayment" : ordPayment
-                        }
-                        var contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
-                        console.log(contextPath);
-                        $.ajax({
-                            url: contextPath + '/product/order',
-                            type: 'POST',
-                            data: jsonData,
-                            success: function(data) {
-                                console.log(data);
-                                $.ajax({
-                                    url: contextPath + '/product/orderItem',
-                                    type: 'POST',
-                                    data: {jsonData : JSON.stringify(articleArray), ordNo : data},
-                                    success: function(data2) {
-                                        console.log(data2);
-                                        window.location.href = contextPath + '/product/complete?ordNo=' + data;
-                                    }
-                                });
-                            }
-                        });
-                        return false;
-                    });
-                });
-            </script>
         </p>
       </nav>
       <form id="ordForm" th:action="@{/product/order}" method="post">
@@ -199,6 +208,13 @@
               </td>
             </tr>
             <tr>
+              <td>쿠폰 할인</td>
+              <td>
+                  <input type="hidden" name="coupon" value=""/>
+                  <span id="coupon" class="totalForm">-0</span>
+              </td>
+            </tr>
+            <tr>
               <td>포인트 할인</td>
               <td>
                   <input type="hidden" name="savePoint" value="" />
@@ -251,6 +267,11 @@
         <!-- 할인정보 -->
         <article class="discount">
           <h1>할인정보</h1>
+          <div>
+            <select name="coupon" class="coupon" id="couponList">
+                <option selected th:value="0">사용하실 쿠폰을 선택해 주세요.</option>
+            </select>
+          </div>
           <div>
             <p>
                 <input type="hidden" name="memberPoint" th:value="${#authentication.principal.member.point}">

@@ -37,6 +37,8 @@ public class ProductOrderEntity {
     @CreationTimestamp
     private LocalDateTime ordDate;
     private String ordUser;
+    private int couponSeq;
+    private int disCouponPrice;
 
     public ProductOrderDTO toDTO() {
         return ProductOrderDTO.builder()
@@ -58,6 +60,8 @@ public class ProductOrderEntity {
                 .ordComplete(ordComplete)
                 .ordDate(ordDate.toString())
                 .ordUser(ordUser)
+                .couponSeq(couponSeq)
+                .disCouponPrice(disCouponPrice)
                 .build();
     }
 }

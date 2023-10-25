@@ -907,7 +907,7 @@
 #product > .order > form > .final {
   float: right;
   width: 360px;
-  height: 412px;
+  height: 435px;
   padding: 20px;
   margin-top: 12px;
   background: #fff;
@@ -1423,4 +1423,8 @@
 }
 .overHidden {
     overflow: hidden;
+}
+
+.discount > div > .coupon {
+    width: 100%;
 }
