@@ -7,7 +7,11 @@ import co.kr.lotte.dto.my.MemberPointPageResponseDTO;
 import co.kr.lotte.dto.my.PageResponseDTO;
 import co.kr.lotte.dto.my.ReviewPageResponseDTO;
 import co.kr.lotte.dto.my.SearchDTO;
+import co.kr.lotte.dto.product.ProductDTO;
+import co.kr.lotte.dto.product.ProductOrderDTO;
+import co.kr.lotte.dto.product.ProductOrderItemDTO;
 import co.kr.lotte.entity.member.MemberEntity;
+import co.kr.lotte.entity.product.ProductOrderEntity;
 import co.kr.lotte.security.MyUserDetails;
 import co.kr.lotte.service.CsCateService;
 import co.kr.lotte.service.CsService;
@@ -35,10 +39,16 @@ public class MyController {
                        @RequestParam(name = "size", defaultValue = "5") int size ) {
         MemberEntity memberEntity = ((MyUserDetails) principal).getMember();
         String uid = memberEntity.getUid();
+        List<ProductOrderItemDTO>  score1 = myService.findTop1ByOrdUidOrderByOrdDateDesc(uid);
+
         List<BoardDTO> qnaBoard = myService.getQnaBoard(uid, page, size);
+
+        log.info("score1 :" + score1 );
         log.info("qnaBoard :" + qnaBoard );
 
+        model.addAttribute("score1List", score1);
         model.addAttribute("myQnas", qnaBoard);
+
         return "/my/home";
     }
 

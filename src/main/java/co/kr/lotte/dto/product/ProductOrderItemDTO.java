@@ -1,9 +1,11 @@
 package co.kr.lotte.dto.product;
 
+import co.kr.lotte.dto.cs.BoardFileDTO;
 import lombok.*;
 
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
