@@ -17,8 +17,8 @@
                         <th>작성일</th>
                         <th>상태</th>
                     </tr>
-                    <tr th:each="article : ${csPageResponseDTO.dtoList}">
-                        <td th:text="${article.bno}"></td>
+                    <tr th:each="article, status : ${csPageResponseDTO.dtoList}">
+                        <td th:text="${csPageResponseDTO.dtoList.size() - status.index}"></td>
                         <td th:text="${article.typeName}"></td>
                         <td>
                             <a th:href="@{/cs/qna/view(bno=${article.bno})}" th:onclick="return showAlert([[${article.uid}]]);">[[${article.title}]]</a>

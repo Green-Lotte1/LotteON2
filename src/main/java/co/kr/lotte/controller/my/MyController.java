@@ -4,6 +4,7 @@ import co.kr.lotte.dto.cs.BoardDTO;
 import co.kr.lotte.dto.cs.CsPageRequestDTO;
 import co.kr.lotte.dto.cs.CsPageResponseDTO;
 import co.kr.lotte.dto.member.MemberCouponDTO;
+import co.kr.lotte.dto.member.MemberPointDTO;
 import co.kr.lotte.dto.my.MemberPointPageResponseDTO;
 import co.kr.lotte.dto.my.PageResponseDTO;
 import co.kr.lotte.dto.my.ReviewPageResponseDTO;
@@ -12,6 +13,7 @@ import co.kr.lotte.dto.product.ProductDTO;
 import co.kr.lotte.dto.product.ProductOrderDTO;
 import co.kr.lotte.dto.product.ProductOrderItemDTO;
 import co.kr.lotte.entity.member.MemberEntity;
+import co.kr.lotte.entity.member.MemberPointEntity;
 import co.kr.lotte.entity.product.ProductOrderEntity;
 import co.kr.lotte.security.MyUserDetails;
 import co.kr.lotte.service.CsCateService;
@@ -35,20 +37,19 @@ public class MyController {
     private MyService myService;
 
     @GetMapping(value = {"/my/", "/my/home"})
-    public String home(Model model, @AuthenticationPrincipal Object principal,
-                       @RequestParam(name = "page", defaultValue = "0") int page,
-                       @RequestParam(name = "size", defaultValue = "5") int size ) {
+    public String home(Model model, @AuthenticationPrincipal Object principal) {
         MemberEntity memberEntity = ((MyUserDetails) principal).getMember();
         String uid = memberEntity.getUid();
-        List<ProductOrderItemDTO>  score1 = myService.findTop1ByOrdUidOrderByOrdDateDesc(uid);
+        List<ProductOrderItemDTO> score1List = myService.findTop1ByOrdUidOrderByOrdDateDesc(uid);
+        List<BoardDTO> myQnas = myService.findTop5ByUidOrderByRdateDesc(uid);
+        List<MemberPointDTO> pointList = myService.findPointByUid(uid);
+        log.info("score1List :" + score1List );
+        log.info("myQnas :" + myQnas );
+        log.info("pointList :" + pointList );
 
-        List<BoardDTO> qnaBoard = myService.getQnaBoard(uid, page, size);
-
-        log.info("score1 :" + score1 );
-        log.info("qnaBoard :" + qnaBoard );
-
-        model.addAttribute("score1List", score1);
-        model.addAttribute("myQnas", qnaBoard);
+        model.addAttribute("score1List", score1List);
+        model.addAttribute("myQnas", myQnas);
+        model.addAttribute("myPoints", pointList);
 
         return "/my/home";
     }

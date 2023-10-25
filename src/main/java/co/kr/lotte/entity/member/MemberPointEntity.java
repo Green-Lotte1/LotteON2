@@ -24,4 +24,5 @@ public class MemberPointEntity {
     private String descript;
     @CreationTimestamp
     private LocalDateTime pointDate;
+
 }

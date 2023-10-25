@@ -199,16 +199,14 @@ public class MyService {
 
     }
     // Home_QnA
-    public List<BoardDTO> getQnaBoard(String uid, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("rdate").descending().and(Sort.by("bno").descending()));
+    public List<BoardDTO> findTop5ByUidOrderByRdateDesc(String uid) {
 
-        List<BoardEntity> boardEntityPage = csRepository.findByGroupAndTypeLessThanOrderByRdateDescBnoDesc("qna", 20, pageable);
+        List<BoardEntity> boardEntityPage = csRepository.findTop5ByUidOrderByRdateDesc(uid);
         List<BoardDTO> dtoList = boardEntityPage
                 .stream()
                 .map(entity -> modelMapper.map(entity, BoardDTO.class ))
                 .toList();
 
-        Page<BoardEntity> result = csRepository.findByUid(uid, pageable);
         List<BoardCateEntity> boardCateEntitieList =  boardCateRepository.findAll();
         List<BoardTypeEntity> boardTypeEntitieList = boardTypeRepository.findAll();
 
@@ -231,6 +229,25 @@ public class MyService {
         return dtoList;
 
     }
+
+
+    // Home_Point
+    public List<MemberPointDTO> findPointByUid(String uid) {
+        /*
+        // DateTimeFormatter를 사용하여 문자열을 LocalDateTime으로 변환
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        // 시작일이니 00시 00분 00초로 format
+        LocalDateTime begin = LocalDateTime.parse(searchDTO.getBegin() + "T00:00:00", formatter);
+        // 종료일이니 23시 59분 59초로 format
+        LocalDateTime end = LocalDateTime.parse(searchDTO.getEnd() + "T23:59:59", formatter);*/
+        List<MemberPointEntity> result = memberPointRepository.findByUid(uid);
+        List<MemberPointDTO> dtoList = result
+                .stream()
+                .map(entity -> modelMapper.map(entity, MemberPointDTO.class))
+                .toList();
+        return dtoList;
+    }
+
 
     // 쿠폰 가져오기
     public List<MemberCouponDTO> findCouponByUid(String uid) {

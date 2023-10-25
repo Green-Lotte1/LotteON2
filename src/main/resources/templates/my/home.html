@@ -1,7 +1,15 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.thymeleaf.org/"
       layout:decorate="/my/index.html">
-
+    <head>
+        <script>
+            var contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
+            console.log(contextPath);
+            let page = 1;
+            let rating = 1;
+        </script>
+        <script th:src="@{/my/js/home.js}"></script>
+    </head>
     <div class="home" layout:fragment="content">
         <ul th:replace="~{/my/menu.html}">
         </ul>
@@ -31,10 +39,10 @@
                                 <li>수량 : <span class="prodCount">[[${order.count}]]</span>개 / 주문번호 : <span class="ordNo">[[${order.ordNo}]]</span></li>
                             </ul>
                         </td>
-                        <td class="status"  th:text="${order.statusString}"></td>
+                        <td class="status" th:text="${order.statusString}"></td>
                         <td class="confirm">
-                            <a href="#" class="receive">수취확인</a>
-                            <a href="#" class="review" >상품평</a>
+                            <a href="#" class="receive" th:onclick="'javascript:receivePop(' + ${order.no} + '); return false;'">수취확인</a>
+                            <a href="#" class="review" th:onclick="'javascript:reviewPop(' + ${order.product.prodNo} + ', ' + ${order.no} + '); return false;'">상품평</a>
                             <a href="#" class="refund">반품신청</a>
                             <a href="#" class="exchange">교환신청</a>
                         </td>
@@ -48,19 +56,15 @@
                 <table border="0">
                     <tr>
                         <th>날짜</th>
-                        <th>구분</th>
                         <th>주문번호</th>
                         <th>적립금액</th>
                         <th>비고</th>
-                        <th>유효기간</th>
                     </tr>
-                    <tr>
-                        <td>2022-12-10</td>
-                        <td>적립</td>
-                        <td>2022121001</td>
-                        <td>340</td>
-                        <td>상품 구매확정</td>
-                        <td>2024-12-10</td>
+                    <tr th:each="point : ${myPoints}" th:if="${point.point > 0}">
+                        <td class="date" th:text="${#temporals.format(point.pointDate, 'yyyy-MM-dd')}"></td>
+                        <td class="ordNo" th:text="${point.ordNo}"></td>
+                        <td class="point" th:text="${point.point}"></td>
+                        <td class="desc" th:text="${point.descript}"></td>
                     </tr>
                 </table>
             </article>
@@ -124,8 +128,8 @@
                         <th>작성일</th>
                         <th>상태</th>
                     </tr>
-                    <tr th:each="myQna : ${myQnas}">
-                        <td th:text="${myQna.bno}"></td>
+                    <tr th:each="myQna, status : ${myQnas}">
+                        <td th:text="${myQnas.size() - status.index}"></td>
                         <td th:text="${myQna.typeName}"></td>
                         <td>
                             <a th:href="@{/cs/qna/view(bno=${myQna.bno})}" th:onclick="return showAlert([[${myQna.uid}]]);">[[${myQna.title}]]</a>
