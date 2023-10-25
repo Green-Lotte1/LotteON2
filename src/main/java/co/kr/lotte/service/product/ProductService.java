@@ -1,9 +1,11 @@
 package co.kr.lotte.service.product;
 
 import co.kr.lotte.dto.product.*;
+import co.kr.lotte.entity.member.MemberCouponEntity;
 import co.kr.lotte.entity.member.MemberEntity;
 import co.kr.lotte.entity.member.MemberPointEntity;
 import co.kr.lotte.entity.product.*;
+import co.kr.lotte.repository.member.MemberCouponRepository;
 import co.kr.lotte.repository.member.MemberPointRepository;
 import co.kr.lotte.repository.member.MemberRepository;
 import co.kr.lotte.repository.product.*;
@@ -31,6 +33,7 @@ public class ProductService {
     private final ModelMapper modelMapper;
     private final Cate1Repository cate1Repository;
     private final Cate2Repository cate2Repository;
+    private final MemberCouponRepository memberCouponRepository;
 
     // 상품 등록 - 카테고리 값 조회
     public List<ProductCate1Entity> getCate1() {
@@ -156,6 +159,9 @@ public class ProductService {
 
     public int saveOrder(ProductOrderDTO productOrderDTO) {
         ProductOrderEntity productOrderEntity = productOrderRepository.save(productOrderDTO.toEntity());
+        MemberCouponEntity memberCouponEntity = memberCouponRepository.findById(productOrderEntity.getCouponSeq()).get();
+        memberCouponEntity.setUseYn("N");
+        memberCouponRepository.save(memberCouponEntity);
         return productOrderEntity.getOrdNo();
     }
 

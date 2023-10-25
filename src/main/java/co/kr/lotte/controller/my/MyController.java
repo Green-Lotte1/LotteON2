@@ -102,6 +102,14 @@ public class MyController {
         return myService.findReviewList(uid, searchDTO);
     }
 
+    @GetMapping("/my/couponList")
+    @ResponseBody
+    public List<MemberCouponDTO> couponList(@AuthenticationPrincipal Object principal) {
+        MemberEntity memberEntity = ((MyUserDetails) principal).getMember();
+        String uid = memberEntity.getUid();
+        return myService.findCouponByUid(uid);
+    }
+
     @GetMapping("/my/point")
     public String point() {
         return "/my/point";

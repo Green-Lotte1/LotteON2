@@ -32,6 +32,8 @@ public class ProductOrderDTO {
     private String ordDate;
     private String ordUser;
     private String ordPaymentName;
+    private int couponSeq;
+    private int disCouponPrice;
 
     public void setOrdPaymentName () {
         if (ordPayment == 1) {
@@ -73,6 +75,8 @@ public class ProductOrderDTO {
                 .ordComplete(ordComplete)
                 .ordDate(ordDate == null ? null : LocalDateTime.parse(ordDate))
                 .ordUser(ordUser)
+                .couponSeq(couponSeq)
+                .disCouponPrice(disCouponPrice)
                 .build();
     }
 }
