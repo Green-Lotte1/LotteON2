@@ -6,7 +6,9 @@
     <script th:src="@{/my/js/info.js}"></script>
     <script>
         const uid = '[[${#authentication.principal.member.uid}]]';
+        const contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
         console.log(uid);
+        console.log(contextPath);
     </script>
 </head>
 <div class="info" layout:fragment="content">

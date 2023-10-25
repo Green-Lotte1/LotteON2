@@ -45,12 +45,6 @@ public class MemberService {
         MemberEntity entity = dto.toEntity(); // DTO를 Entity로 변환
         memberRepository.save(entity); // DB insert
     }
-    public int countUidAndPass(String uid, String inputPass) {
-        log.info("=========inputPass========="+inputPass);
-        String encodePass = passwordEncoder.encode(inputPass);
-        log.info("=========encodePass========="+encodePass);
-        return memberRepository.countByUidAndPass(uid, encodePass);
-    }
 
     public int countUid(String uid){
         return memberRepository.countByUid(uid);
