@@ -1655,4 +1655,9 @@ footer p > strong {
 #popPassChange > div > section .msgPass2 {
     margin-top: 2px;
     display: block;
+    width : 350px;
+}
+
+.pointList .date {
+    text-align : center;
 }

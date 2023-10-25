@@ -11,7 +11,7 @@
             </a>
             <article class="latest">
                 <h3>최근주문내역</h3>
-                <a href="#" class="more">더보기</a>
+                <a th:href="@{/my/order}" class="more">더보기</a>
                 <table>
                     <tr>
                         <th>날짜</th>
@@ -113,41 +113,30 @@
             </article>
 
             <article class="qna">
-                <h3>문의내역</h3>
+                <h3>내 문의내역</h3>
                 <a th:href="@{/my/qna}" class="more">더보기</a>
                 <table border="0">
                     <tr>
                         <th>번호</th>
-                        <th>문의채널</th>
                         <th>문의유형</th>
                         <th>제목</th>
                         <th>작성일</th>
                         <th>상태</th>
                     </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>고객센터</td>
-                        <td>주문/결제</td>
-                        <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요?</td>
-                        <td>2024-12-12</td>
-                        <td><span class="notAnswerYet">검토중</span></td>
+                    <tr th:each="myQna : ${myQnas}">
+                        <td th:text="${myQna.bno}"></td>
+                        <td th:text="${myQna.typeName}"></td>
+                        <td>
+                            <a th:href="@{/cs/qna/view(bno=${myQna.bno})}" th:onclick="return showAlert([[${myQna.uid}]]);">[[${myQna.title}]]</a>
+                        </td>
+                        <td th:text="${#temporals.format(myQna.rdate, 'yyyy-MM-dd')}"></td>
+                        <th:block th:with="statusColor=${myQna.status eq '답변완료' ? 'blue' : 'grey'}">
+                            <td th:class="${statusColor} +' reply' +' pending'"
+                                th:text="${myQna.status}"
+                                style="font-weight: bold; text-align: center;"></td>
+                        </th:block>
                     </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>고객센터</td>
-                        <td>주문/결제</td>
-                        <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요?</td>
-                        <td>2024-12-12</td>
-                        <td><span class="answered">답변완료</span></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>판매자게시판</td>
-                        <td>배송</td>
-                        <td>배송기간이 보통 얼마나 걸리나요?</td>
-                        <td>2024-12-12</td>
-                        <td><span class="answered">답변완료</span></td>
-                    </tr>
+
                 </table>
             </article>
 

@@ -35,7 +35,7 @@ function tableReload(pg) {
                     <td class="status">${data.dtoList[i].statusString}</td>
                     <td class="confirm">
                         <a href="#" class="receive" onclick="receivePop($(this), ${data.dtoList[i].no}); return false;">수취확인</a>
-                        <a href="#" class="review" onclick="reviewPop($(this), ${data.dtoList[i].product.prodNo}); return false;">상품평</a>
+                        <a href="#" class="review" onclick="reviewPop($(this), ${data.dtoList[i].product.prodNo}, ${data.dtoList[i].no}); return false;">상품평</a>
                         <a href="#" class="refund">반품신청</a>
                         <a href="#" class="exchange">교환신청</a>
                     </td>
@@ -127,9 +127,26 @@ function changeMonth(element, month, year) {
 }
 
 // 리뷰 팝업
-function reviewPop(element, prodNo) {
+function reviewPop(element, prodNo, no) {
     const popReview = $('#popReview');
     popReview.empty();
+
+    let receiveFlag = false;
+    // 리뷰 등록 여부 확인
+    $.ajax({
+          url: contextPath + '/product/checkReceive',
+          type: 'GET',
+          data: {"no" :no},
+          async: false,
+          success: function(data) {
+              receiveFlag = data;
+          }
+    })
+    if (!receiveFlag) {
+        alert('구매확정을 먼저 해주세요.');
+        return false;
+    }
+
     let flag = false;
     // 리뷰 등록 여부 확인
     $.ajax({
@@ -207,7 +224,6 @@ function reviewPop(element, prodNo) {
             ratedColors: ['#ffa400', '#ffa400', '#ffa400', '#ffa400', '#ffa400'],
             callback: function(currentRating, $el){
                 rating = currentRating;
-                alert('rated ' + currentRating);
                 console.log('DOM element ', $el);
             }
         });

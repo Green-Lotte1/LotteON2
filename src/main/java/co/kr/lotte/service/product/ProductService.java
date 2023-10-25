@@ -217,6 +217,7 @@ public class ProductService {
                                                                 .uid(uid)
                                                                 .ordNo(ordNo)
                                                                 .point(-usedPoint)
+                                                                .descript("상품 구매 포인트 사용")
                                                                 .build();
         memberPointRepository.save(memberPointEntity);
     }
@@ -253,13 +254,26 @@ public class ProductService {
             memberRepository.save(member);
             
             // 포인트 이력 추가
-            MemberPointEntity memberPointEntity = MemberPointEntity.builder().uid(uid).ordNo(productOrderItem.getOrdNo()).point(point).build();
+            MemberPointEntity memberPointEntity = MemberPointEntity.builder().uid(uid).ordNo(productOrderItem.getOrdNo()).point(point).descript("상품 구매확정").build();
             memberPointRepository.save(memberPointEntity);
         }
         return flag;
     }
 
-    public int saveProductReview(ProductReviewDTO productReviewDTO) {
-        return productReviewRepository.save(productReviewDTO.toEntity()).getRevNo();
+    public int saveProductReview(ProductReviewDTO productReviewDTO, String uid) {
+        ProductReviewEntity productReviewEntity = productReviewRepository.save(productReviewDTO.toEntity());
+        int revNo = productReviewEntity.getRevNo();
+        if (revNo > 0) {
+            int prodNo = productReviewEntity.getProdNo();
+            MemberEntity member = memberRepository.findById(uid).get();
+            // 포인트 추가
+            member.setPoint(member.getPoint() + 100);
+            // 포인트 저장
+            memberRepository.save(member);
+            // 포인트 이력 추가
+            MemberPointEntity memberPointEntity = MemberPointEntity.builder().uid(uid).point(100).descript("상품 리뷰 작성 추가 포인트").build();
+            memberPointRepository.save(memberPointEntity);
+        }
+        return revNo;
     }
 }
