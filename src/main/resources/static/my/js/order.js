@@ -296,6 +296,7 @@ function review(prodNo) {
         data: jsonData,
         success: function(data) {
             tableReload(page);
+            alert("리뷰가 작성 되었습니다.")
             $('.btnClose').closest('.popup').removeClass('on');
         }
     })

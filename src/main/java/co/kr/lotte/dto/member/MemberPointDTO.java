@@ -18,4 +18,6 @@ public class MemberPointDTO {
     private int point;
     private String descript;
     private LocalDateTime pointDate;
+
+
 }

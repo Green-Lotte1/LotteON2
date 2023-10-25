@@ -23,7 +23,7 @@
               <nav>
                 <h2 class="title">[<span th:text="${boardDTO.typeName}"></span>] [[${boardDTO.title}]]</h2>
                 <p>
-                  <span th:text="${#strings.substring(boardDTO.uid, 0, 3) + '***'}"></span>
+                  <span class="uid" th:text="${#strings.length(boardDTO.uid) >= 3 ? #strings.substring(boardDTO.uid, 0, 3) + '***' : #strings.substring(boardDTO.uid, 0, 1)+'*'}"></span>
                   <span th:text="${#temporals.format(boardDTO.rdate, 'yy-MM-dd')}"></span><br>
                   <div>
                   <th:block th:each="file : ${boardDTO.fileDTOList}">
