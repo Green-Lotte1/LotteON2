@@ -4,6 +4,8 @@ import co.kr.lotte.dto.cs.BoardDTO;
 import co.kr.lotte.dto.cs.BoardFileDTO;
 import co.kr.lotte.dto.cs.CsPageRequestDTO;
 import co.kr.lotte.dto.cs.CsPageResponseDTO;
+import co.kr.lotte.dto.member.MemberPointDTO;
+import co.kr.lotte.dto.my.MemberPointPageResponseDTO;
 import co.kr.lotte.dto.my.PageResponseDTO;
 import co.kr.lotte.dto.my.SearchDTO;
 import co.kr.lotte.dto.product.ProductDTO;
@@ -13,12 +15,14 @@ import co.kr.lotte.entity.cs.BoardCateEntity;
 import co.kr.lotte.entity.cs.BoardEntity;
 import co.kr.lotte.entity.cs.BoardFileEntity;
 import co.kr.lotte.entity.cs.BoardTypeEntity;
+import co.kr.lotte.entity.member.MemberPointEntity;
 import co.kr.lotte.entity.product.ProductOrderEntity;
 import co.kr.lotte.entity.product.ProductOrderItemEntity;
 import co.kr.lotte.repository.cs.BoardCateRepository;
 import co.kr.lotte.repository.cs.BoardFileRepository;
 import co.kr.lotte.repository.cs.BoardTypeRepository;
 import co.kr.lotte.repository.cs.CsRepository;
+import co.kr.lotte.repository.member.MemberPointRepository;
 import co.kr.lotte.repository.product.ProductOrderItemRepository;
 import co.kr.lotte.repository.product.ProductOrderRepository;
 import co.kr.lotte.repository.product.ProductRepository;
@@ -47,7 +51,9 @@ public class MyService {
     private final CsRepository csRepository;
     private final BoardTypeRepository boardTypeRepository;
     private final BoardCateRepository boardCateRepository;
+    private final MemberPointRepository memberPointRepository;
 
+    // 전체 주문 내역
     public PageResponseDTO findOrderList(String uid, SearchDTO searchDTO) {
 
         // DateTimeFormatter를 사용하여 문자열을 LocalDateTime으로 변환
@@ -69,6 +75,28 @@ public class MyService {
         }
         int totalElement = (int) result.getTotalElements();
         return PageResponseDTO.builder()
+                .searchDTO(searchDTO)
+                .dtoList(dtoList)
+                .total(totalElement)
+                .build();
+    }
+    // 포인트 내역
+    public MemberPointPageResponseDTO findPointList(String uid, SearchDTO searchDTO) {
+
+        // DateTimeFormatter를 사용하여 문자열을 LocalDateTime으로 변환
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        // 시작일이니 00시 00분 00초로 format
+        LocalDateTime begin = LocalDateTime.parse(searchDTO.getBegin() + "T00:00:00", formatter);
+        // 종료일이니 23시 59분 59초로 format
+        LocalDateTime end = LocalDateTime.parse(searchDTO.getEnd() + "T23:59:59", formatter);
+        Page<MemberPointEntity> result = memberPointRepository.findByUidAndPointDateBetween(uid, begin, end, searchDTO.getPageable());
+        List<MemberPointDTO> dtoList = result
+                .getContent()
+                .stream()
+                .map(entity -> modelMapper.map(entity, MemberPointDTO.class))
+                .toList();
+        int totalElement = (int) result.getTotalElements();
+        return MemberPointPageResponseDTO.builder()
                 .searchDTO(searchDTO)
                 .dtoList(dtoList)
                 .total(totalElement)

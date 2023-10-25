@@ -21,6 +21,7 @@ public class MemberPointEntity {
     private String uid;
     private int ordNo;
     private int point;
+    private String descript;
     @CreationTimestamp
     private LocalDateTime pointDate;
 }

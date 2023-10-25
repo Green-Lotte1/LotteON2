@@ -1643,5 +1643,9 @@ footer p > strong {
 }
 
 .w350 {
-    width : 350px
+    width : 350px;
+}
+
+.pointList .date {
+    text-align : center;
 }
