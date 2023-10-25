@@ -1192,6 +1192,7 @@ footer p > strong {
     border-bottom: 2px solid #ef2a23;
 }
 #my > .info > nav > h1 {
+    margin-top: 60px;
     font-size: 24px;
     margin-bottom: 9px;
 }
@@ -1226,35 +1227,16 @@ footer p > strong {
     font-size: 14px;
     font-weight: 500;
 }
+#my > .info .essential {
+    color: #ef3f43;
+    margin-right: 5px;
+}
 #my > .info table input {
     padding: 0 8px;
     height: 31px;
     font-size: 14px;
     border: 1px solid #dfe5ed;
     vertical-align: middle;
-}
-#my > .info #btnEmailCode {
-    background: #ef3f43;
-    color: #fff;
-    font-size: 12px;
-    padding: 5px 7px;
-    border: 0;
-    outline: 0;
-    border-radius: 2px;
-    cursor: pointer;
-}
-#my > .info #btnEmailAuth {
-    background: #e7e5e5;
-    color: #222;
-    font-size: 12px;
-    padding: 5px 7px;
-    border: 0;
-    outline: 0;
-    border-radius: 2px;
-    cursor: pointer;
-}
-#my > .info p {
-    margin-top: 10px;
 }
 
 #my > .info .btnArea{
@@ -1275,7 +1257,7 @@ footer p > strong {
     cursor: pointer;
     text-align: center;
 }
-#my > .info .btnArea > .btnAreaNext {
+#my > .info .btnArea > .btnPassCheck {
     float: left;
     position: relative;
     display: block;
@@ -1289,58 +1271,16 @@ footer p > strong {
     cursor: pointer;
 }
 
-/* 아이디&비밀번호 결과 화면 */
-#my > .info .btnResultArea{
-    margin-top: 45px;
-    padding-left: 265px;
-}
-#my > .info .btnResultArea > .btnAreaCancel{
-    float: left;
-    margin-right: 10px;
-    position: relative;
-    display: inline-block;
-    background: #e7e5e5;
-    color: #222;
-    font-size: 18px;
-    box-sizing: border-box;
-    padding: 15px 50px;
-    border-radius: 2px;
-    cursor: pointer;
-    text-align: center;
-}
-#my > .info .btnResultArea > .btnAreaNext {
-    float: left;
-    position: relative;
-    display: block;
-    background: #ef3f43;
-    color: #fff;
-    font-size: 18px;
-    padding: 15px 50px;
-    border: 0;
-    outline: 0;
-    border-radius: 2px;
-    cursor: pointer;
-}
-
 /* my - info(회원정보 수정) */
-/*추가*/
-
-#my > div > section > article > table > tbody > tr > td.grey {
-    color: grey;
-}
-#my > div > section > article > table > tbody > tr > td.blue {
-    color: blue;
-}
-
-/* my - info(나의설정) */
 #my > .info > section > article > table {
     width: 100%;
     height: auto;
     border-top: 2px solid #444;
     margin-top: 6px;
-    border-collapse: collapse;            
+    border-collapse: collapse;
 }
 #my > .info > section > article > table * {
+    font-size: 13px;
     font-family: '돋움';
 }
 
@@ -1363,15 +1303,14 @@ footer p > strong {
     background-color: #f7f7f7;
 }
 #my > .info > section > article > table input {
-    padding: 2px;
     box-sizing: border-box;
-    border: 1px solid #999;
+    border: 1px solid #d4d2d2;
 }
 
 #my > .info > section > article > table .address > input {
     display: block;
     width: 300px;
-    margin-top: 2px;
+    margin-top: 4px;
 }
 
 #my > .info > section > article > table .hp > input {
@@ -1386,32 +1325,79 @@ footer p > strong {
     padding: 2px;            
     border: 1px solid #999;
 }
-
-#my button:hover {            
+#my button:hover {
     background-color: #e9e9e9;
     cursor: pointer;
 }
-
-#my #btnWithdraw {
-    background: #e74929;
-    border: 1px solid #c84f3c;
+#my > .info #btnPassChange {
+    background: #999;
     color: #fff;
+    font-size: 12px;
+    padding: 5px 7px;
+    border: 0;
+    outline: 0;
+    border-radius: 2px;
+    cursor: pointer;
+}
+#my > .info input[name=auth] {
+    margin-top: 4px;
+}
+#my > .info #btnEmailCode {
+    background: #e7e5e5;
+    color: #222;
+    font-size: 12px;
+    padding: 5px 7px;
+    border: 0;
+    outline: 0;
+    border-radius: 2px;
+    cursor: pointer;
+}
+#my > .info #btnEmailAuth {
+    background: #e7e5e5;
+    color: #222;
+    font-size: 12px;
+    padding: 5px 7px;
+    border: 0;
+    outline: 0;
+    border-radius: 2px;
+    cursor: pointer;
+}
+#my > .info #btnZip {
+    background: #e7e5e5;
+    color: #222;
+    font-size: 12px;
+    padding: 5px 7px;
+    border: 0;
+    outline: 0;
+    border-radius: 2px;
+    cursor: pointer;
+}
+#my #btnWithdraw {
+    background: #ef3f43;
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 7px;
+    border: 0;
+    outline: 0;
+    border-radius: 2px;
+    cursor: pointer;
+}
+#my #btnInfoChange {
+    display: block;
+    width: 120px;
+    height: 40px;
+    margin: 40px auto;
+    background: #ef3f43;
+    color: #fff;
+    font-size: 15px;
+    font-family: '돋움';
+    border: 1px solid #ef3f43;
+    border-radius: 2px;
     cursor: pointer;
 }
 
-#my #btnInfoChange {
-    display: block;
-    width: 160px;
-    height: 30px;
-    margin: 10px auto;
-    background-image: url('../images/btn_my_change.png');
-    color: #fff;
-    font-family: '돋움';
-    border: none;
-}
 
-
-/* 마이페이지 팝업 */
+/* -------------------- 마이페이지 팝업 -------------------- */
 .popup {                
     position: fixed;
     left: 0;
@@ -1432,7 +1418,6 @@ footer p > strong {
     margin: 0 auto;
     margin-top: 200px;
     background: #fff;
-
 }
 
 .popup > div > nav {
@@ -1528,13 +1513,15 @@ footer p > strong {
 
 .popup > div > section > table {
     width: 100%;
-    border-top: 2px solid #444;
+    border-top: 1px solid #e9e9e9;
     border-bottom: 1px solid #aaa;
     border-collapse: collapse;
     margin-bottom: 10px;
 }
 .popup > div > section > table th {
-    width: 120px;                
+    text-align: right;
+    width: 120px;
+    padding-right: 8px;
 }
 .popup > div > section > table tr {
     border-bottom: 1px solid #f1f1f1;
@@ -1644,4 +1631,28 @@ footer p > strong {
 
 .w350 {
     width : 350px
+}
+
+/* info 비밀번호 변경 팝업 */
+.btnComplete {
+    padding: 6px 12px;
+    background: #ef3f43;
+    border: none;
+    box-sizing: border-box;
+    color: white;
+    margin: 10px auto;
+    cursor: pointer;
+}
+#popPassChange > div > section > p {
+    margin: 10px;
+    padding: 0;
+    font-size: 11px;
+}
+#popPassChange > div > section .msgPass1 {
+    margin-top: 2px;
+    display: block;
+}
+#popPassChange > div > section .msgPass2 {
+    margin-top: 2px;
+    display: block;
 }
