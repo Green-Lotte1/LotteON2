@@ -1,5 +1,6 @@
 package co.kr.lotte.controller.my;
 
+import co.kr.lotte.dto.cs.BoardDTO;
 import co.kr.lotte.dto.cs.CsPageRequestDTO;
 import co.kr.lotte.dto.cs.CsPageResponseDTO;
 import co.kr.lotte.dto.my.MemberPointPageResponseDTO;
@@ -16,6 +17,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +28,16 @@ public class MyController {
     @Autowired
     private MyService myService;
 
-
     @GetMapping(value = {"/my/", "/my/home"})
-    public String home() {
+    public String home(Model model, @AuthenticationPrincipal Object principal,
+                       @RequestParam(name = "page", defaultValue = "0") int page,
+                       @RequestParam(name = "size", defaultValue = "5") int size ) {
+        MemberEntity memberEntity = ((MyUserDetails) principal).getMember();
+        String uid = memberEntity.getUid();
+        List<BoardDTO> qnaBoard = myService.getQnaBoard(uid, page, size);
+        log.info("qnaBoard :" + qnaBoard );
+
+        model.addAttribute("myQnas", qnaBoard);
         return "/my/home";
     }
 
@@ -76,18 +85,8 @@ public class MyController {
 
     @GetMapping("/my/qna")
     public String qna(Model model, @AuthenticationPrincipal Object principal, CsPageRequestDTO csPageRequestDTO) {
-        MemberEntity memberEntity = ((MyUserDetails) principal).getMember();
-        String uid = memberEntity.getUid();
+        String uid = ((MyUserDetails) principal).getMember().getUid();
         CsPageResponseDTO csPageResponseDTO = myService.findByUid(uid,csPageRequestDTO);
-
-        log.info("myPageResponseDTO cate : "+ csPageRequestDTO.getCate());
-        log.info("myPageResponseDTO pg : "+ csPageResponseDTO.getPg());
-        log.info("myPageResponseDTO size : "+ csPageResponseDTO.getSize());
-        log.info("myPageResponseDTO total : "+ csPageResponseDTO.getTotal());
-        log.info("myPageResponseDTO start : "+ csPageResponseDTO.getStart());
-        log.info("myPageResponseDTO end : "+ csPageResponseDTO.getEnd());
-        log.info("myPageResponseDTO prev : "+ csPageResponseDTO.isPrev());
-        log.info("myPageResponseDTO next : "+ csPageResponseDTO.isNext());
         model.addAttribute(csPageResponseDTO);
         return "/my/qna";
     }
