@@ -1,4 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org" layout:decorate="/my/index.html">
+    <head>
+        <script>
+            var contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
+        </script>
+        <script th:src="@{/my/js/coupon.js}"></script>
+    </head>
     <div class="coupon" layout:fragment="content">
         <ul th:replace="~{/my/menu.html}">
         </ul>
@@ -11,7 +17,7 @@
                     <dl>
                         <dt>· 나의 보유쿠폰</dt>
                         <dd>
-                            <strong>2</strong>
+                            <strong>[[${coupons.size()}]]</strong>
                             <span>장</span>
                         </dd>
                     </dl>
@@ -24,19 +30,18 @@
                         <th>유효기간</th>
                         <th>상태</th>
                     </tr>
-                    <tr>
-                        <td class="tit">1만원 할인 중복쿠폰</td>
-                        <td class="discount"><span>10,000</span>원</td>
-                        <td class="condition"><span>10,100</span>원 이상 구매시</td>
-                        <td class="expire">~12/29</td>
-                        <td class="status">사용가능</td>
-                    </tr>
-                    <tr>
-                        <td class="tit">회원가입 축하 5천원 할인쿠폰</td>
-                        <td class="discount"><span>5,000</span>원</td>
-                        <td class="condition"><span>5,100</span>원 이상 구매시</td>
-                        <td class="expire">~12/29</td>
-                        <td class="status">사용가능</td>
+                    <tr th:each="coupon:${coupons}">
+                        <td class="tit">[[${coupon.couponName}]]</td>
+                        <td class="discount" th:if="${coupon.discountType eq 'CASH'}">
+                            <span>[[${coupon.getDiscountMoneyWithComma()}]]</span>원
+                        </td>
+                        <td class="discount" th:if="${coupon.discountType eq 'PERCENT'}">
+                            <span>[[${coupon.discountPercent}]]</span>%</td>
+                        <td class="condition">
+                            <span>[[${coupon.getDiscountLimitWithComma()}]]</span>원 이상 구매시
+                        </td>
+                        <td class="expire">[[${coupon.getExpireDateString()}]]</td>
+                        <td class="status">[[${coupon.useYnString}]]</td>
                     </tr>
                 </table>
                 <ul class="info">
