@@ -24,7 +24,7 @@ public class ProductOrderItemDTO {
 
     public void StatusStringSet() {
         if (this.ordStatus.equals("C")) {
-            this.statusString = "배송중";
+            this.statusString = "배송완료";
         } else if (this.ordStatus.equals("Z")) {
             this.statusString = "구매확정";
         }
