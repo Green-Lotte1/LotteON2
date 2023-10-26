@@ -49,55 +49,62 @@
             finalFormTot = ordTotPrice;
 
             $('input[name=ordSubmit]').click(function() {
-                const ordUid = '[[${#authentication.principal.member.uid}]]';
-                const ordCount = $('input[name=ordCount]').val() * 1;
-                const ordPrice = $('input[name=ordPrice]').val() * 1;
-                const ordDiscount = $('input[name=ordDiscount]').val() * 1;
-                const ordDelivery = $('input[name=ordDelivery]').val() * 1;
-                const usedPoint = $('input[name=usedPoint]').val() * 1;
-                const ordTotPrice = $('input[name=ordTotPrice]').val() * 1;
-                const recipName = $('input[name=recipName]').val();
-                const recipHp = $('input[name=recipHp]').val();
-                const recipZip = $('input[name=recipZip]').val();
-                const recipAddr1 = $('input[name=recipAddr1]').val();
-                const recipAddr2 = $('input[name=recipAddr2]').val();
-                const ordPayment = $('input[name=ordPayment]:checked').val();
-                const disCouponPrice = $('input[name=coupon]').val() * 1;
-                const jsonData = {
-                    "ordUid" : ordUid,
-                    "ordCount" : ordCount,
-                    "ordPrice" : ordPrice,
-                    "ordDiscount" : ordDiscount,
-                    "ordDelivery" : ordDelivery,
-                    "usedPoint" : usedPoint,
-                    "ordTotPrice" : ordTotPrice,
-                    "recipName" : recipName,
-                    "recipHp" : recipHp,
-                    "recipZip" : recipZip,
-                    "recipAddr1" : recipAddr1,
-                    "recipAddr2" : recipAddr2,
-                    "ordPayment" : ordPayment,
-                    "disCouponPrice" : disCouponPrice,
-                    "couponSeq" : couponSeq
-                }
-                $.ajax({
-                    url: contextPath + '/product/order',
-                    type: 'POST',
-                    data: jsonData,
-                    success: function(data) {
-                        console.log(data);
-                        $.ajax({
-                            url: contextPath + '/product/orderItem',
-                            type: 'POST',
-                            data: {jsonData : JSON.stringify(articleArray), ordNo : data},
-                            success: function(data2) {
-                                console.log(data2);
-                                window.location.href = contextPath + '/product/complete?ordNo=' + data;
-                            }
-                        });
+                // 유효성 검사
+                checkValidation();
+                if (!formCancle()) {
+                    return false;
+                } else {
+
+                    const ordUid = '[[${#authentication.principal.member.uid}]]';
+                    const ordCount = $('input[name=ordCount]').val() * 1;
+                    const ordPrice = $('input[name=ordPrice]').val() * 1;
+                    const ordDiscount = $('input[name=ordDiscount]').val() * 1;
+                    const ordDelivery = $('input[name=ordDelivery]').val() * 1;
+                    const usedPoint = $('input[name=usedPoint]').val() * 1;
+                    const ordTotPrice = $('input[name=ordTotPrice]').val() * 1;
+                    const recipName = $('input[name=recipName]').val();
+                    const recipHp = $('input[name=recipHp]').val();
+                    const recipZip = $('input[name=recipZip]').val();
+                    const recipAddr1 = $('input[name=recipAddr1]').val();
+                    const recipAddr2 = $('input[name=recipAddr2]').val();
+                    const ordPayment = $('input[name=ordPayment]:checked').val();
+                    const disCouponPrice = $('input[name=coupon]').val() * 1;
+                    const jsonData = {
+                        "ordUid" : ordUid,
+                        "ordCount" : ordCount,
+                        "ordPrice" : ordPrice,
+                        "ordDiscount" : ordDiscount,
+                        "ordDelivery" : ordDelivery,
+                        "usedPoint" : usedPoint,
+                        "ordTotPrice" : ordTotPrice,
+                        "recipName" : recipName,
+                        "recipHp" : recipHp,
+                        "recipZip" : recipZip,
+                        "recipAddr1" : recipAddr1,
+                        "recipAddr2" : recipAddr2,
+                        "ordPayment" : ordPayment,
+                        "disCouponPrice" : disCouponPrice,
+                        "couponSeq" : couponSeq
                     }
-                });
-                return false;
+                    $.ajax({
+                        url: contextPath + '/product/order',
+                        type: 'POST',
+                        data: jsonData,
+                        async: false,
+                        success: function(data) {
+                            console.log(data);
+                            $.ajax({
+                                url: contextPath + '/product/orderItem',
+                                type: 'POST',
+                                data: {jsonData : JSON.stringify(articleArray), ordNo : data},
+                                success: function(data2) {
+                                    console.log(data2);
+                                    window.location.href = contextPath + '/product/complete?ordNo=' + data;
+                                }
+                            });
+                        }
+                    });
+                }
             });
         });
     </script>
