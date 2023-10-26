@@ -11,6 +11,7 @@ public class CsPageResponseDTO {
 
     private List<BoardDTO> dtoList;
     private String cate;
+    private String group;
     private int pg;
 
     private int size;
@@ -21,6 +22,7 @@ public class CsPageResponseDTO {
     @Builder
     public CsPageResponseDTO(CsPageRequestDTO csPageRequestDTO, List<BoardDTO> dtoList, int total){
         this.cate = csPageRequestDTO.getCate();
+        this.group = csPageRequestDTO.getGroup();
         this.pg = csPageRequestDTO.getPg();
         this.size = csPageRequestDTO.getSize();
         this.total = total;

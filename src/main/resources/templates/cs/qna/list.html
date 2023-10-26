@@ -66,13 +66,12 @@
             <aside>
               <h2>문의하기</h2>
               <ul>
-                <li th:class="${(cate eq 'member') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=member)}">회원</a></li>
-                <li th:class="${(cate=='coupon') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=coupon)}">쿠폰/이벤트</a></li>
-                <li th:class="${(cate=='order') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=order)}">주문/결제</a></li>
-                <li th:class="${(cate=='delivery') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=delivery)}">배송</a></li>
-                <li th:class="${(cate=='cancel') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=cancel)}">취소/반품/교환</a></li>
-                <li th:class="${(cate=='travel') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=travel)}">여행/숙박/항공</a></li>
-                <li th:class="${(cate=='safe') ?'on' : ''}"><a th:href="@{/cs/qna/list(cate=safe)}">안전거래</a></li>
+                <li th:class="${(cate eq 'member') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna', cate='member')}">회원</a></li>
+                <li th:class="${(cate=='coupon') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna', cate='coupon')}">쿠폰/이벤트</a></li>
+                <li th:class="${(cate=='order') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna', cate='order')}">주문/결제</a></li>
+                <li th:class="${(cate=='delivery') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna', cate='delivery')}">배송</a></li>
+                <li th:class="${(cate=='cancel') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna', cate='cancel')}">취소/반품/교환</a></li>
+                <li th:class="${(cate=='travel') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna', cate='travel')}">여행/숙박/항공</a></li>
               </ul>
             </aside>
             <article>
@@ -84,7 +83,6 @@
                     <span th:case="delivery">배송</span>
                     <span th:case="cancel">취소/반품/교환</span>
                     <span th:case="travel">여행/숙박/항공</span>
-                    <span th:case="safe">안전거래</span>
                 </span>
                 <h2>관련 문의 입니다.</h2>
               </nav>
@@ -106,15 +104,15 @@
                 <th:block th:if="${csPageResponseDTO.end gt 0 }">
                   <div class="page">
                       <span th:if="${csPageResponseDTO.prev}" class="prev">
-                        <a th:href="@{/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.start - 1})}">이전</a>
+                        <a th:href="@{/cs/qna/list(group=${csPageResponseDTO.group},cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.start - 1})}">이전</a>
                       </span>
 
                       <span th:each="num: ${#numbers.sequence(csPageResponseDTO.start, csPageResponseDTO.end)}" class="num">
-                        <a th:href="@{/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${num})}" th:class="${csPageResponseDTO.pg eq num ? 'on' : 'off'}">[[${num}]]</a>
+                        <a th:href="@{/cs/qna/list(group=${csPageResponseDTO.group},cate=${csPageResponseDTO.cate},pg=${num})}" th:class="${csPageResponseDTO.pg eq num ? 'on' : 'off'}">[[${num}]]</a>
                       </span>
 
                       <span th:if="${csPageResponseDTO.next}" class="next">
-                        <a th:href="@{/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.end + 1})}">다음</a>
+                        <a th:href="@{/cs/qna/list(group=${csPageResponseDTO.group},cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.end + 1})}">다음</a>
                       </span>
                   </div>
                 </th:block>
