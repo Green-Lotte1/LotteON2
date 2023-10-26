@@ -64,8 +64,8 @@
                         <th:block th:if="${cs.group == 'qna'}">
                             <td><input type="checkbox" name="chk" th:value="${cs.bno}" /></td>
                             <td>[[${cs.bno}]]</td>
-                            <td>[[${cs.cate}]]</td>
-                            <td>[[${cs.type}]]</td>
+                            <td>[[${cs.cateName}]]</td>
+                            <td>[[${cs.typeName}]]</td>
                             <td><a th:href="@{'/admin/cs/qna/view?bno=' + ${cs.bno}}">[[${cs.title}]]</a></td>
                             <td class="uid" th:text="${#strings.length(cs.uid) >= 3 ? #strings.substring(cs.uid, 0, 3) + '***' : #strings.substring(cs.uid, 0, 1)+'*'}"></td>
                             <td th:text="${#temporals.format(cs.rdate, 'yy-MM-dd')}"></td>
@@ -79,15 +79,15 @@
 
             <!-- paging-->
             <div class="paging">
-            <span th:if="${csPageResponseDTO.prev}" class="prev">
-                <a th:href="@{/admin/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.start - 1})}">이전</a>
-            </span>
+                <span th:if="${csPageResponseDTO.prev}" class="prev">
+                    <a th:href="@{/admin/cs/qna/list(group=${csPageResponseDTO.group},cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.start - 1})}">이전</a>
+                </span>
                 <span th:each="num: ${#numbers.sequence(csPageResponseDTO.start, csPageResponseDTO.end)}" class="num">
-                <a th:href="@{/admin/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${num})}" th:class="${csPageResponseDTO.pg eq num ? 'on' : 'off'}">[[${num}]]</a>
-            </span>
+                    <a th:href="@{/admin/cs/qna/list(group=${csPageResponseDTO.group},cate=${csPageResponseDTO.cate},pg=${num})}" th:class="${csPageResponseDTO.pg eq num ? 'on' : 'off'}">[[${num}]]</a>
+                </span>
                 <span th:if="${csPageResponseDTO.next}" class="next">
-                <a th:href="@{/admin/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.end + 1})}">다음</a>
-            </span>
+                    <a th:href="@{/admin/cs/qna/list(group=${csPageResponseDTO.group},cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.end + 1})}">다음</a>
+                </span>
             </div>
         </article>
     </section>
