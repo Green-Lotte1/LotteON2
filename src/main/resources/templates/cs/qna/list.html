@@ -103,19 +103,21 @@
                     </tr>
                 </table>
               <!-- paging-->
-              <div class="page">
-                  <span th:if="${csPageResponseDTO.prev}" class="prev">
-                    <a th:href="@{/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.start - 1})}">이전</a>
-                  </span>
+                <th:block th:if="${csPageResponseDTO.end gt 0 }">
+                  <div class="page">
+                      <span th:if="${csPageResponseDTO.prev}" class="prev">
+                        <a th:href="@{/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.start - 1})}">이전</a>
+                      </span>
 
-                  <span th:each="num: ${#numbers.sequence(csPageResponseDTO.start, csPageResponseDTO.end)}" class="num">
-                    <a th:href="@{/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${num})}" th:class="${csPageResponseDTO.pg eq num ? 'on' : 'off'}">[[${num}]]</a>
-                  </span>
+                      <span th:each="num: ${#numbers.sequence(csPageResponseDTO.start, csPageResponseDTO.end)}" class="num">
+                        <a th:href="@{/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${num})}" th:class="${csPageResponseDTO.pg eq num ? 'on' : 'off'}">[[${num}]]</a>
+                      </span>
 
-                  <span th:if="${csPageResponseDTO.next}" class="next">
-                    <a th:href="@{/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.end + 1})}">다음</a>
-                  </span>
-              </div>
+                      <span th:if="${csPageResponseDTO.next}" class="next">
+                        <a th:href="@{/cs/qna/list(cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.end + 1})}">다음</a>
+                      </span>
+                  </div>
+                </th:block>
                 <a th:href="@{/cs/qna/write(group=qna)}"
                    th:if="${#authorization.expression('isAuthenticated()')}"
                    class="btnWrite">문의하기</a>
