@@ -1,5 +1,6 @@
 package co.kr.lotte.controller.admin;
 
+import co.kr.lotte.dto.cs.BoardDTO;
 import co.kr.lotte.dto.cs.CsPageRequestDTO;
 import co.kr.lotte.dto.cs.CsPageResponseDTO;
 import co.kr.lotte.dto.product.PageRequestDTO;
@@ -179,7 +180,10 @@ public class AdminController {
         return ("/admin/cs/qna/reply");
     }
     @GetMapping("admin/cs/qna/view")
-    public String cs_qna_view(){
+    public String cs_qna_view(Model model, int bno){
+        BoardDTO boardDTO = csService.findByBnoForBoard(bno);
+        model.addAttribute("boardDTO", boardDTO);
+        log.info("boardDTO : " + boardDTO);
         return ("/admin/cs/qna/view");
     }
 

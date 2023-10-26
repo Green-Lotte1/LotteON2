@@ -15,8 +15,8 @@ public interface CsRepository extends JpaRepository<BoardEntity, Integer> {
     // CS
     public Page<BoardEntity> findByCateAndType(String cate, int type, Pageable pageable);
 
-    @Query("SELECT b FROM BoardEntity b WHERE b.cate = :cate OR :cate = 'null'")
-    public Page<BoardEntity> findByCate(String cate, Pageable pageable);
+    @Query("SELECT c FROM BoardEntity c WHERE c.group = :group AND (c.cate= :cate OR :cate = 'null')")
+    public Page<BoardEntity> findByGroupAndCate(String group, String cate, Pageable pageable);
 
     public BoardEntity findByBno(int bno);
 
@@ -34,7 +34,4 @@ public interface CsRepository extends JpaRepository<BoardEntity, Integer> {
     public Page<BoardEntity> findByUid(String uid,Pageable pageable);
     public List<BoardEntity> findTop5ByUidOrderByRdateDesc(String uid);
 
-    //admin - cs - group 분류
-    @Query("SELECT c FROM BoardEntity c WHERE c.group = :group AND (c.cate= :cate OR :cate = 'null')")
-    public Page<BoardEntity> findByGroupAndCate(String group, String cate, Pageable pageable);
 }
