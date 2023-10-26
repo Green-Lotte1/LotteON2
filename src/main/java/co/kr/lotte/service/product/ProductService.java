@@ -159,9 +159,11 @@ public class ProductService {
 
     public int saveOrder(ProductOrderDTO productOrderDTO) {
         ProductOrderEntity productOrderEntity = productOrderRepository.save(productOrderDTO.toEntity());
-        MemberCouponEntity memberCouponEntity = memberCouponRepository.findById(productOrderEntity.getCouponSeq()).get();
-        memberCouponEntity.setUseYn("N");
-        memberCouponRepository.save(memberCouponEntity);
+        if(productOrderEntity.getCouponSeq() != 0 ){
+            MemberCouponEntity memberCouponEntity = memberCouponRepository.findById(productOrderEntity.getCouponSeq()).get();
+            memberCouponEntity.setUseYn("N");
+            memberCouponRepository.save(memberCouponEntity);
+        }
         return productOrderEntity.getOrdNo();
     }
 
