@@ -55,18 +55,17 @@ public class CsService {
     private String filePath;
 
 
-
     // List & Paging
-    public CsPageResponseDTO findByCate(CsPageRequestDTO csPageRequestDTO){
+    public CsPageResponseDTO findByCate(CsPageRequestDTO csPageRequestDTO) {
 
         Pageable pageable = csPageRequestDTO.getPageable("bno");
 
-        List<BoardCateEntity> boardCateEntitieList =  boardCateRepository.findAll();
+        List<BoardCateEntity> boardCateEntitieList = boardCateRepository.findAll();
         List<BoardTypeEntity> boardTypeEntitieList = typeRepository.findAll();
 
         Map<String, Map<Integer, String>> cateMap = new HashMap<>();
         for (BoardCateEntity boardCateEntity : boardCateEntitieList) {
-            Map<Integer, String > typeMap = new HashMap<>();
+            Map<Integer, String> typeMap = new HashMap<>();
             for (BoardTypeEntity boardEntity : boardTypeEntitieList) {
                 if (boardEntity.getCate().equals(boardCateEntity.getCate())) {
                     typeMap.put(boardEntity.getType(), boardEntity.getTypeName());
@@ -75,11 +74,11 @@ public class CsService {
             cateMap.put(boardCateEntity.getCate(), typeMap);
         }
 
-        Page<BoardEntity> result = csRepository.findByCate(csPageRequestDTO.getCate(), pageable);
+        Page<BoardEntity> result = csRepository.findByGroupAndCate(csPageRequestDTO.getGroup(), csPageRequestDTO.getCate(), pageable);
 
         List<BoardDTO> dtoList = result.getContent()
                 .stream()
-                .map(entity -> modelMapper.map(entity, BoardDTO.class ))
+                .map(entity -> modelMapper.map(entity, BoardDTO.class))
                 .toList();
 
         for (BoardDTO boardDTO : dtoList) {
@@ -99,14 +98,15 @@ public class CsService {
                 .build();
 
     }
+
     // 글등록 및 파일등록
-    public void save (BoardDTO dto){
+    public void save(BoardDTO dto) {
         BoardEntity savedEntity = csRepository.save(dto.toEntity());
         log.info(savedEntity);
 
         BoardFileDTO fileDTO = fileUpload(dto);
 
-        if(fileDTO!= null) {
+        if (fileDTO != null) {
             fileDTO.setBno(savedEntity.getBno());
             fileRepository.save(fileDTO.toEntity());
             savedEntity.setFile(1);
@@ -119,19 +119,19 @@ public class CsService {
     }
 
 
-    public BoardFileDTO fileUpload(BoardDTO dto){
+    public BoardFileDTO fileUpload(BoardDTO dto) {
         MultipartFile mf = dto.getFname();
 
-        if(!mf.isEmpty()) {
+        if (!mf.isEmpty()) {
             String path = new File(filePath).getAbsolutePath();
 
             String oName = mf.getOriginalFilename();
             String ext = oName.substring(oName.lastIndexOf("."));
             String sName = UUID.randomUUID().toString() + ext;
 
-            try{
+            try {
                 mf.transferTo(new File(path, sName));
-            }catch (IOException e){
+            } catch (IOException e) {
                 log.error(e.getMessage());
             }
 
@@ -141,13 +141,13 @@ public class CsService {
         return null;
     }
 
-    public BoardFileEntity getSfileByFno(int fno){
+    public BoardFileEntity getSfileByFno(int fno) {
         BoardFileEntity sfileByFno = fileRepository.findSfileByFno(fno);
         return sfileByFno;
     }
 
     // 파일 절대경로
-    public String getAbsoluteFilePath(String sfile){
+    public String getAbsoluteFilePath(String sfile) {
 
         try {
             Resource resource = resourceLoader.getResource(filePath + sfile);
@@ -161,15 +161,14 @@ public class CsService {
 
 
     // 파일 다운로드
-    public ResponseEntity<Resource> fileDownload(String sfileName,String ofileName) throws IOException{
-
+    public ResponseEntity<Resource> fileDownload(String sfileName, String ofileName) throws IOException {
 
 
         Path filePath = Paths.get(getAbsoluteFilePath(sfileName));
 
         if (Files.exists(filePath)) {
             InputStreamResource resource = new InputStreamResource(new FileInputStream(filePath.toString()));
-            String fileName =  filePath.getFileName().toString();
+            String fileName = filePath.getFileName().toString();
             log.info("Success download input excel file : " + filePath);
             return ResponseEntity.ok()
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
@@ -182,10 +181,11 @@ public class CsService {
             return ResponseEntity.notFound().build();
         }
     }
+
     // 파일 다운로드
     public ResponseEntity<Resource> fileDownload(BoardFileDTO dto) throws IOException {
 
-        Path path = Paths.get(filePath+dto.getSfile());
+        Path path = Paths.get(filePath + dto.getSfile());
         String contentType = Files.probeContentType(path);
 
         HttpHeaders headers = new HttpHeaders();
@@ -221,13 +221,13 @@ public class CsService {
     }
 
 
-    public BoardDTO findByBnoForBoard(int bno){
+    public BoardDTO findByBnoForBoard(int bno) {
 
         BoardEntity boardEntity = csRepository.findById(bno).get();
 
         List<BoardFileDTO> boardFileDTOS = fileRepository.findByBno(bno)
                 .stream()
-                .map(entity -> modelMapper.map(entity, BoardFileDTO.class ))
+                .map(entity -> modelMapper.map(entity, BoardFileDTO.class))
                 .toList();
 
 
@@ -235,15 +235,15 @@ public class CsService {
         dto.setFileDTOList(boardFileDTOS);
 
         List<BoardTypeEntity> boardTypeEntities = typeRepository.findByCate(dto.getCate());
-        log.info("getCate : "+ dto.getCate());
-        log.info("getType : "+ dto.getType());
+        log.info("getCate : " + dto.getCate());
+        log.info("getType : " + dto.getType());
 
-        Map<Integer, String > typeMap = new HashMap<>();
+        Map<Integer, String> typeMap = new HashMap<>();
         for (BoardTypeEntity boardTypeEntity : boardTypeEntities) {
             typeMap.put(boardTypeEntity.getType(), boardTypeEntity.getTypeName());
         }
         dto.setTypeName(typeMap.get(dto.getType()));
-        log.info("getTypeName : "+ dto.getTypeName());
+        log.info("getTypeName : " + dto.getTypeName());
 
         return dto;
 
@@ -252,13 +252,13 @@ public class CsService {
     public List<BoardDTO> findByCateForFaq(String cate) {
         List<BoardDTO> dtoList = new ArrayList<>();
         List<BoardTypeEntity> boardTypeEntities = typeRepository.findByCate(cate);
-        for(BoardTypeEntity boardTypeEntity : boardTypeEntities){
+        for (BoardTypeEntity boardTypeEntity : boardTypeEntities) {
             List<BoardEntity> boardEntities = csRepository.findTop10ByType(boardTypeEntity.getType());
             List<BoardDTO> boardDTOS = boardEntities
                     .stream()
-                    .map(entity -> modelMapper.map(entity, BoardDTO.class ))
+                    .map(entity -> modelMapper.map(entity, BoardDTO.class))
                     .toList();
-            for(BoardDTO boardDTO : boardDTOS){
+            for (BoardDTO boardDTO : boardDTOS) {
                 dtoList.add(boardDTO);
             }
         }
@@ -276,16 +276,16 @@ public class CsService {
         List<BoardEntity> boardEntityPage = csRepository.findByGroupAndTypeGreaterThanOrderByRdateDescBnoDesc("notice", 20, pageable);
         List<BoardDTO> dtoList = boardEntityPage
                 .stream()
-                .map(entity -> modelMapper.map(entity, BoardDTO.class ))
+                .map(entity -> modelMapper.map(entity, BoardDTO.class))
                 .toList();
 
 
-        List<BoardCateEntity> boardCateEntitieList =  boardCateRepository.findAll();
+        List<BoardCateEntity> boardCateEntitieList = boardCateRepository.findAll();
         List<BoardTypeEntity> boardTypeEntitieList = typeRepository.findAll();
 
         Map<String, Map<Integer, String>> cateMap = new HashMap<>();
         for (BoardCateEntity boardCateEntity : boardCateEntitieList) {
-            Map<Integer, String > typeMap = new HashMap<>();
+            Map<Integer, String> typeMap = new HashMap<>();
             for (BoardTypeEntity boardEntity : boardTypeEntitieList) {
                 if (boardEntity.getCate().equals(boardCateEntity.getCate())) {
                     typeMap.put(boardEntity.getType(), boardEntity.getTypeName());
@@ -311,16 +311,16 @@ public class CsService {
         List<BoardEntity> boardEntityPage = csRepository.findByGroupAndTypeLessThanOrderByRdateDescBnoDesc("qna", 20, pageable);
         List<BoardDTO> dtoList = boardEntityPage
                 .stream()
-                .map(entity -> modelMapper.map(entity, BoardDTO.class ))
+                .map(entity -> modelMapper.map(entity, BoardDTO.class))
                 .toList();
 
 
-        List<BoardCateEntity> boardCateEntitieList =  boardCateRepository.findAll();
+        List<BoardCateEntity> boardCateEntitieList = boardCateRepository.findAll();
         List<BoardTypeEntity> boardTypeEntitieList = typeRepository.findAll();
 
         Map<String, Map<Integer, String>> cateMap = new HashMap<>();
         for (BoardCateEntity boardCateEntity : boardCateEntitieList) {
-            Map<Integer, String > typeMap = new HashMap<>();
+            Map<Integer, String> typeMap = new HashMap<>();
             for (BoardTypeEntity boardEntity : boardTypeEntitieList) {
                 if (boardEntity.getCate().equals(boardCateEntity.getCate())) {
                     typeMap.put(boardEntity.getType(), boardEntity.getTypeName());
@@ -337,5 +337,4 @@ public class CsService {
         return dtoList;
 
     }
-
 }

@@ -12,7 +12,6 @@
     <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script>
     <script th:src="@{/admin/js/gnb.js}"></script>
     <script th:src="@{/admin/js/checkbox.js}"></script>
-    <script th:src="@{/admin/js/deletelist.js}"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" th:href="@{/admin/css/admin.css}">
@@ -82,7 +81,7 @@
                 <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>고객센터</a>
                 <ol>
                     <li><a th:href="@{/admin/cs/notice/list(group='notice', cate='null')}">공지사항</a></li>
-                    <li><a th:href="@{/admin/cs/faq/list}">자주묻는질문</a></li>
+                    <li><a th:href="@{/admin/cs/faq/list(group='faq', cate='null')}">자주묻는질문</a></li>
                     <li><a th:href="@{/admin/cs/qna/list(group='qna', cate='null')}">문의하기</a></li>
                 </ol>
             </li>

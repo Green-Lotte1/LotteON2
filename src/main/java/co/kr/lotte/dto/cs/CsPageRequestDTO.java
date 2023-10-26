@@ -23,6 +23,9 @@ public class CsPageRequestDTO {
 
     @Builder.Default
     private String cate = "member";
+    @Builder.Default
+    private String group = "notice";
+
     private int type;
     public Pageable getPageable(String sort){
         return PageRequest.of(this.pg-1, this.size, Sort.by(sort).descending());
