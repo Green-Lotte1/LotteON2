@@ -20,6 +20,10 @@ public class SecurityUserService implements UserDetailsService {
 		// 패스워드에 대한 검사는 이전 컴포넌트(AuthenticationProvider)에서 처리되어 사용자 아이디만 넘어옴		
 		MemberEntity member = repo.findById(username)
 				  			  .orElseThrow(()->new UsernameNotFoundException(username + " NotFound"));
+
+		if (member.getWdate() != null) {
+			throw new UsernameNotFoundException("탈퇴한 회원입니다.");
+		}
 		
 		// 사용자 인증객체 생성(세션에 저장)
 		UserDetails userDetails = MyUserDetails.builder()

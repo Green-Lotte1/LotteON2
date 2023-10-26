@@ -4,6 +4,7 @@ import co.kr.lotte.dto.cs.BoardDTO;
 import co.kr.lotte.dto.cs.CsPageRequestDTO;
 import co.kr.lotte.dto.cs.CsPageResponseDTO;
 import co.kr.lotte.dto.member.MemberCouponDTO;
+import co.kr.lotte.dto.member.MemberDTO;
 import co.kr.lotte.dto.member.MemberPointDTO;
 import co.kr.lotte.dto.my.MemberPointPageResponseDTO;
 import co.kr.lotte.dto.my.PageResponseDTO;
@@ -101,6 +102,19 @@ public class MyController {
     public String formMyinfoPassChange(@RequestParam String uid, String inputPass) {
         memberService.updatePass(uid, inputPass);
         return "success";
+    }
+    @ResponseBody
+    @PostMapping("/my/withdraw")
+    public String withdraw(@RequestParam String uid, String inputPass) {
+        Authentication authentication = new UsernamePasswordAuthenticationToken(uid, inputPass);
+        Authentication result = authenticationManager.authenticate(authentication);
+
+        if (result.isAuthenticated()) {
+            memberService.updateWdate(uid);
+            return "success";
+        } else {
+            return "fail";
+        }
     }
 
     @GetMapping("/my/order")
