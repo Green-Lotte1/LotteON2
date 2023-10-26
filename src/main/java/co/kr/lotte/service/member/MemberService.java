@@ -16,6 +16,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Log4j2
@@ -125,6 +126,13 @@ public class MemberService {
         pass = passwordEncoder.encode(pass);
         MemberEntity entity = memberRepository.findById(uid).get();
         entity.setPass(pass);
+        memberRepository.save(entity);
+    }
+
+    // 회원 탈퇴
+    public void updateWdate(String uid) {
+        MemberEntity entity = memberRepository.findById(uid).get();
+        entity.setWdate(LocalDateTime.now());
         memberRepository.save(entity);
     }
 }
