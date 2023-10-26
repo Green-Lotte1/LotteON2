@@ -286,7 +286,24 @@ public class ProductService {
     }
 
     // 상품 리뷰 리스트
- /*   public ReviewPageRequestDTO findReview(int prodNo) {
-        Page<ProductReviewEntity> result = productReviewRepository.findAllByProdNo(prodNo, new PageRequest(0, 1))
-    }*/
+    public ProductReviewPageResponseDTO findReview(int prodNo, ProductReviewPageRequestDTO productReviewPageRequestDTO) {
+        Page<ProductReviewEntity> result = productReviewRepository.findByProdNo(prodNo, productReviewPageRequestDTO.getPageable("rdate"));
+        List<ProductReviewDTO> dtoList = result
+                .getContent()
+                .stream()
+                .map(entity -> modelMapper.map(entity, ProductReviewDTO.class))
+                .toList();
+        for (ProductReviewDTO productReviewDTO : dtoList) {
+            ProductDTO product = productRepository.findById(productReviewDTO.getProdNo()).get().toDTO();
+            productReviewDTO.setProduct(product);
+        }
+        int totalElement = (int) result.getTotalElements();
+        return ProductReviewPageResponseDTO.builder()
+                .productReviewPageRequestDTO(productReviewPageRequestDTO)
+                .dtoList(dtoList)
+                .total(totalElement)
+                .build();
+    }
+
+
 }
