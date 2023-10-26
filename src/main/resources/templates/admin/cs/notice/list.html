@@ -62,7 +62,7 @@
                         <th:block th:if="${cs.group == 'notice'}">
                         <td class="chk"><input type="checkbox" name="chk" class="checkbox" th:value="${cs.bno}"></td>
                         <td>[[${cs.bno}]]</td>
-                        <td>[[${cs.type}]]</td>
+                        <td>[[${cs.typeName}]]</td>
                         <td><a th:href="@{'/admin/cs/notice/view?bno=' + ${cs.bno}}">[[${cs.title}]]</a></td>
                         <td>[[${cs.uid}]]</td>
                         <td th:text="${#temporals.format(cs.rdate, 'yy-MM-dd')}"></td>

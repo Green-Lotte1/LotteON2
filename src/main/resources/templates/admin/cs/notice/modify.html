@@ -14,7 +14,6 @@
     <section class="write">
         <article>
             <form th:action="@{/admin/cs/notice/modify}" method="post">
-                <input type="text" th:value="${bno}" name="bno">
                 <table>
                     <tr>
                         <td>유형</td>
@@ -43,7 +42,7 @@
                 </table>
                 <div>
                     <a th:href="@{/admin/cs/notice/list?group=notice&cate=null}" class="btnList">취소하기</a>
-                    <input type="submit" class="btnSubmit" value="등록하기"/>
+                    <input type="submit" class="btnSubmit" value="수정하기"/>
                 </div>
             </form>
         </article>

@@ -329,7 +329,8 @@
     #admin-cs-notice-write > .write div .btnSubmit {
             width: 110px;
             height: 55px;
-            margin: 40px auto 0;
+            padding: 0;
+            margin: 0 auto 0;
             border: 1px solid #ccc;
             font-size: 15px;
             background-color: rgb(142, 180, 227);
