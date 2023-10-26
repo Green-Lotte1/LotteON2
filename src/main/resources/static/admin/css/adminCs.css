@@ -193,51 +193,35 @@
     padding-bottom: 50px;
 }
 
-
 #admin-cs-notice-view > article .btnDelete {
-            float: right;
-            width: 110px;
-            height: 55px;
-            margin: 40px auto 0;
-            margin-right: 10px;
-            border: 1px solid #ccc;
-            font-size: 15px;
-            background-color: rgb(191, 191, 191);
-            color: #ffffff;
-            line-height: 53px;
-            text-align: center;
-            box-sizing: border-box;
-        }
-        
-#admin-cs-notice-view > article .btndelete {
-            float: right;
-            width: 110px;
-            height: 55px;
-            margin: 40px auto 0;
-            margin-right: 10px;
-            border: 1px solid #ccc;
-            font-size: 15px;
-            background-color: rgb(191, 191, 191);
-            color: #ffffff;
-            line-height: 53px;
-            text-align: center;
-            box-sizing: border-box;
-        }
+    float: right;
+    width: 110px;
+    height: 55px;
+    margin: 40px auto 0;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    background-color: rgb(191, 191, 191);
+    color: #ffffff;
+    line-height: 53px;
+    text-align: center;
+    box-sizing: border-box;
+}
 
 #admin-cs-notice-view > article .btnModify {
-            float: right;
-            width: 110px;
-            height: 55px;
-            margin: 40px auto 0;
-            margin-right: 10px;
-            border: 1px solid #ccc;
-            font-size: 15px;
-            background-color: rgb(191, 191, 191);
-            color: #ffffff;
-            line-height: 53px;
-            text-align: center;
-            box-sizing: border-box;
-        }
+    float: right;
+    width: 110px;
+    height: 55px;
+    margin: 40px auto 0;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    background-color: rgb(191, 191, 191);
+    color: #ffffff;
+    line-height: 53px;
+    text-align: center;
+    box-sizing: border-box;
+}
 
 #admin-cs-notice-view > article .btnList {
     float: right;
@@ -253,6 +237,22 @@
     box-sizing: border-box;
 }
 
+#admin-cs-notice-view > article .btnReply {
+    float: right;
+    width: 110px;
+    height: 55px;
+    padding: 0 0;
+    margin: 40px auto 0;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    background-color: rgb(142, 180, 227);
+    color: #ffffff;
+    line-height: 53px;
+    text-align: center;
+    box-sizing: border-box;
+
+}
 /* notice write */
 
     #admin-cs-notice-write > nav:nth-child(2) {

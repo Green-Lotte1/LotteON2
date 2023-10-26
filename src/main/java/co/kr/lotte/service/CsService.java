@@ -63,6 +63,7 @@ public class CsService {
         List<BoardCateEntity> boardCateEntitieList = boardCateRepository.findAll();
         List<BoardTypeEntity> boardTypeEntitieList = typeRepository.findAll();
 
+        Map<String, String> cateNameMap = new HashMap<>();
         Map<String, Map<Integer, String>> cateMap = new HashMap<>();
         for (BoardCateEntity boardCateEntity : boardCateEntitieList) {
             Map<Integer, String> typeMap = new HashMap<>();
@@ -71,6 +72,7 @@ public class CsService {
                     typeMap.put(boardEntity.getType(), boardEntity.getTypeName());
                 }
             }
+            cateNameMap.put(boardCateEntity.getCate(), boardCateEntity.getCateName());
             cateMap.put(boardCateEntity.getCate(), typeMap);
         }
 
@@ -86,8 +88,10 @@ public class CsService {
                     cateMap.get(boardDTO.getCate()).get(boardDTO.getType())
 
             );
+            boardDTO.setCateName(
+                    cateNameMap.get(boardDTO.getCate())
+            );
         }
-
 
         int totalElement = (int) result.getTotalElements();
 

@@ -14,7 +14,7 @@
     <section class="write">
         <article>
             <form th:action="@{/admin/cs/notice/modify}" method="post">
-                <input type="text" th:value="${no}" name="no">
+                <input type="text" th:value="${bno}" name="bno">
                 <table>
                     <tr>
                         <td>유형</td>
@@ -31,18 +31,18 @@
                     <tr>
                         <td>제목</td>
                         <td>
-                            <input type="text" name="title" th:value="${modList.title}"/>
+                            <input type="text" name="title" th:value="${boardDTO.title}"/>
                         </td>
                     </tr>
                     <tr>
                         <td>내용</td>
                         <td>
-                            <textarea name="content">[[${modList.content}]]</textarea>
+                            <textarea name="content">[[${boardDTO.content}]]</textarea>
                         </td>
                     </tr>
                 </table>
                 <div>
-                    <a th:href="@{/admin/cs/notice/list}" class="btnList">취소하기</a>
+                    <a th:href="@{/admin/cs/notice/list?group=notice&cate=null}" class="btnList">취소하기</a>
                     <input type="submit" class="btnSubmit" value="등록하기"/>
                 </div>
             </form>

@@ -119,8 +119,9 @@ public class AdminController {
     }
 
     @GetMapping("admin/cs/notice/view")
-    public String cs_no_view() {
-
+    public String cs_no_view(Model model ,int bno) {
+        BoardDTO boardDTO = csService.findByBnoForBoard(bno);
+        model.addAttribute("boardDTO", boardDTO);
         return "/admin/cs/notice/view";
     }
 
@@ -129,8 +130,9 @@ public class AdminController {
         return ("/admin/cs/notice/write");
     }
     @GetMapping("admin/cs/notice/modify")
-    public String cs_no_modify() {
-
+    public String cs_no_modify(Model model ,int bno) {
+        BoardDTO boardDTO = csService.findByBnoForBoard(bno);
+        model.addAttribute("boardDTO", boardDTO);
         return "/admin/cs/notice/modify";
     }
 
@@ -179,6 +181,7 @@ public class AdminController {
     public String cs_qna_reply(){
         return ("/admin/cs/qna/reply");
     }
+
     @GetMapping("admin/cs/qna/view")
     public String cs_qna_view(Model model, int bno){
         BoardDTO boardDTO = csService.findByBnoForBoard(bno);
@@ -192,13 +195,14 @@ public class AdminController {
     public String deleteSelectedBnos(@RequestParam("chk") List<Integer> bnos, HttpServletRequest request) {
         int deletedCount = adminService.deleteByBno(bnos);
 
-        // 이전 페이지의 URL을 가져옴
-        String referer = request.getHeader("Referer");
-
-        if (referer != null && !referer.isEmpty()) {
-            return "redirect:" + referer; // 이전 페이지로 리다이렉트
-        } else {
-            return "redirect:/admin/index"; // 이전 페이지가 없으면 관리자 페이지로 리다이렉트
+        String mapping = request.getRequestURI();
+        if (mapping.contains("/qna")) {
+            return "redirect:/admin/cs/qna/list?group=qna&cate=null";
+        } else if (mapping.contains("/notice")) {
+            return "redirect:/admin/cs/notice/list?group=notice&cate=null";
+        } else if (mapping.contains("/faq")) {
+            return "redirect:/admin/cs/faq/list?group=faq&cate=null";
         }
+        return "redirect:/"; // 예외 처리 필요
     }
 }

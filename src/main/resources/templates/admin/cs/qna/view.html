@@ -5,7 +5,7 @@
 <head>
     <script th:src="@{/admin/js/checkbox.js}"></script>
     <script th:src="@{/admin/js/deleteCslist.js}"></script>
-<section id="admin-cs-notice-view">
+<section id="admin-cs-notice-view"   layout:fragment="content">
     <nav>
         <h3>문의하기 답변</h3>
         <p>
@@ -16,44 +16,43 @@
     <article>
         <div class="content">
             <form th:action="@{/admin/cs/qna/reply}" method="post">
-                <input type="text" name="parent" th:value="${view.no}">
-                <input type="text" name="cate1" th:value="${view.cate1}">
+                <input type="text" name="cate1" th:value="${boardDTO.cate}">
                 <input type="text" name="writer" value="admin">
                 <table>
                     <tr>
                         <td>유형</td>
                         <td>
-                            <th:block th:each="c2 : ${cate2}">
-                                <th:block th:each="c3 : ${cate3}">
-                                    <span th:if="${c2.cate2==view.cate2 and c3.cate3==view.type}" th:text="${c2.detail + ' · ' + c3.detail}"></span>
+                            <th:block th:each="cate:${cate}">
+                                <th:block th:each="type:${type}">
+                                    <span th:if="${cate.cate==boardDTO.cate and type.type==boardDTO.type}" th:text="${boardDTO.cateName + ' · ' + boardDTO.typeName}"></span>
                                 </th:block>
                             </th:block>
                         </td>
                     </tr>
                     <tr>
                         <td>제목</td>
-                        <td>[[${view.title}]]</td>
+                        <td>[[${boardDTO.title}]]</td>
                     </tr>
                     <tr>
                         <td>내용</td>
                         <td>
-                            [[${view.content}]]
+                            [[${boardDTO.content}]]
                         </td>
                     </tr>
                     <tr>
                         <td>답변</td>
                         <td>
-                            <div th:if="${view.comment == 0}">
+                            <div th:if="${boardDTO.reply == null}">
                                 <textarea name="content"></textarea>
                             </div>
-                            <div th:if="${view.comment == 1}" th:text="${reply.content}"></div>
+                            <div th:if="${boardDTO.reply != null }" th:text="${boardDTO.reply}"></div>
                         </td>
                     </tr>
                 </table>
-                <a th:href="@{/admin/cs/qna/list}" class="btnList">목록</a>
+                <a th:href="@{/admin/cs/qna/list?group=qna&cate=null}" class="btnList">목록</a>
                 <input type="submit" value="답변등록" class="btnReply">
-                <a th:href="@{/admin/cs/qna/delete(chk=${view.no})}" class="btnDelete">삭제</a>
-            </form>
+                <a th:href="@{/admin/cs/qna/delete(chk=${boardDTO.bno})}" class="btnDelete">삭제</a>
+                </form>
         </div>
     </article>
 </section>

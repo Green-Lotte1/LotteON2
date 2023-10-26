@@ -16,23 +16,23 @@
             <table>
                 <tr>
                     <td>유형</td>
-                    <td>[[${view.cate2}]]</td>
+                    <td>[[${boardDTO.cate}]]</td>
                 </tr>
                 <tr>
                     <td>제목</td>
-                    <td>[[${view.title}]]</td>
+                    <td>[[${boardDTO.title}]]</td>
                 </tr>
                 <tr>
                     <td>내용</td>
                     <td>
-                        [[${view.content}]]
+                        [[${boardDTO.content}]]
                     </td>
                 </tr>
             </table>
         </div>
-        <a th:href="@{/admin/cs/notice/list}" class="btnList">목록</a>
-        <a th:href="@{/admin/cs/notice/modify(bno=${view.no})}" class="btnModify">수정</a>
-        <a th:href="@{/admin/cs/notice/delete(chk=${view.no})}" class="btnDelete">삭제</a>
+        <a th:href="@{/admin/cs/notice/list?group=notice&cate=null}" class="btnList">목록</a>
+        <a th:href="@{/admin/cs/notice/modify(bno=${boardDTO.bno})}" class="btnModify">수정</a>
+        <a th:href="@{/admin/cs/notice/delete(chk=${boardDTO.bno})}" class="btnDelete">삭제</a>
     </article>
 </section>
 </html>
