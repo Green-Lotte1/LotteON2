@@ -1,6 +1,5 @@
 package co.kr.lotte.controller.admin;
 
-import co.kr.lotte.dto.cs.BoardDTO;
 import co.kr.lotte.dto.cs.CsPageRequestDTO;
 import co.kr.lotte.dto.cs.CsPageResponseDTO;
 import co.kr.lotte.dto.product.PageRequestDTO;
@@ -108,10 +107,9 @@ public class AdminController {
     // admin-cs-notice
     @GetMapping("admin/cs/notice/list")
     public String cs_notice_list(HttpServletRequest request, Model model, String cate, CsPageRequestDTO csPageRequestDTO) {
-        // Cate값
         List<BoardCateEntity> cates = csCateService.getCate();
         model.addAttribute("cates", cates);
-        log.info("cates: " + cates);
+        log.info("cates : "+cates);
 
         CsPageResponseDTO csPageResponseDTO = csService.findByCate(csPageRequestDTO);
         model.addAttribute("cate", csPageRequestDTO.getCate());
@@ -119,13 +117,11 @@ public class AdminController {
         return "/admin/cs/notice/list";
     }
 
-
     @GetMapping("admin/cs/notice/view")
     public String cs_no_view() {
 
         return "/admin/cs/notice/view";
     }
-
 
     @GetMapping("admin/cs/notice/write")
     public String cs_no_write() {
@@ -158,12 +154,10 @@ public class AdminController {
     // admin-cs-qna
     @GetMapping("admin/cs/qna/list")
     public String cs_qna_list(HttpServletRequest request, Model model, String cate, CsPageRequestDTO csPageRequestDTO){
-        // Cate값
         List<BoardCateEntity> cates = csCateService.getCate();
         model.addAttribute("cates", cates);
         log.info("cates : "+cates);
 
-        // QNA-List
         CsPageResponseDTO csPageResponseDTO = csService.findByCate(csPageRequestDTO);
         model.addAttribute("cate", csPageRequestDTO.getCate());
         model.addAttribute("csPageResponseDTO", csPageResponseDTO);
@@ -171,21 +165,13 @@ public class AdminController {
         return ("/admin/cs/qna/list");
     }
 
-    @GetMapping("/admin/cs/qna/delete")
-    public String deleteSelectedBnos(@RequestParam("chk") List<Integer> bnos) {
-        int deletedCount = adminService.deleteByBno(bnos);
-
-        return "redirect:/admin/cs/qna/list";
-    }
-
     @GetMapping("/admin/cs/qna/cate")
     @ResponseBody
-    public List<BoardTypeEntity> csCate(String optionValue){
-
+    public List<BoardTypeEntity> csCate(String optionValue) {
         log.info(optionValue);
+        List<BoardTypeEntity> boardTypeEntities = csCateService.findByCate(optionValue);
 
-        return csCateService.findByCate(optionValue);
-
+        return boardTypeEntities;
     }
 
     @GetMapping("admin/cs/qna/reply")
@@ -197,4 +183,18 @@ public class AdminController {
         return ("/admin/cs/qna/view");
     }
 
+    //CS-Delete 삭제 기능
+    @GetMapping({"/admin/cs/qna/delete", "/admin/cs/notice/delete", "/admin/cs/faq/delete"})
+    public String deleteSelectedBnos(@RequestParam("chk") List<Integer> bnos, HttpServletRequest request) {
+        int deletedCount = adminService.deleteByBno(bnos);
+
+        // 이전 페이지의 URL을 가져옴
+        String referer = request.getHeader("Referer");
+
+        if (referer != null && !referer.isEmpty()) {
+            return "redirect:" + referer; // 이전 페이지로 리다이렉트
+        } else {
+            return "redirect:/admin/index"; // 이전 페이지가 없으면 관리자 페이지로 리다이렉트
+        }
+    }
 }

@@ -7,37 +7,25 @@
     <script th:src="@{/admin/js/deleteCslist.js}"></script>
     <script>
         $(function () {
-        // 카테고리 분류 AJAX로 불러오기
-        $('#cate').on('change', function(){
+            var $cate = $('#cate');
 
-            const cates = this.value;
-            console.log(cates);
+            var selectedCate = localStorage.getItem('selectedCate');
+            if (selectedCate) {
+                $cate.val(selectedCate);
+            } else if (cateParam === null) {
+                $cate.val("null");
+            }
 
-            $('#type').children('option:not(:first)').remove();
+            $cate.on('change', function () {
+                const cates = this.value;
+                console.log(cates);
 
-            const jsonData = {
-                "cates": cates
-            };
-            console.log(jsonData);
                 var contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
-            $.ajax({
-                url: contextPath + "/admin/cs/qna/cate",
-                type: 'get',
-                data: jsonData,
-                dataType: 'json',
-                success: function(data){
+                window.location.href = contextPath + "/admin/cs/notice/list?group=notice&cate=" + cates;
 
-                    let cate2List = data;
-
-                    for (var i=0 ; i<cate2List.length ; i++)
-                        $("#type").append("<option id='cate2Value' value="+cate2List[i].cate2+">"+cate2List[i].c2Name+"</option>");
-                },
-                error: function(){
-                    alert("error");
-                }
+                localStorage.setItem('selectedCate', cates);
             });
         });
-    });
     </script>
 </head>
 <section id="admin-cs-notice-list" layout:fragment="content">
@@ -50,18 +38,15 @@
     <section>
         <article>
             <div>
-                <tr>
-                    <td>
-                        <select name="cate" id="cate" required>
-                            <option selected disabled th:value="0">1차 선택</option>
-                            <th:block th:each="cateOption : ${cates}">
-                                <option th:value="${cateOption.cate}" th:text="${cateOption.cateName}"></option>
-                            </th:block>
-                        </select>
-                    </td>
-                </tr>
+                <select name="cate2" onchange="changeSelectCate()" id="cate">
+                    <option value="null">전체</option>
+                    <option value="cs">고객서비스</option>
+                    <option value="safe">안전거래</option>
+                    <option value="dangerProd">위해상품</option>
+                    <option value="event">이벤트</option>
+                </select>
             </div>
-            <form id="formCheck1" th:action="@{/admin/cs/qna/delete}" method="get">
+            <form class="csForm" id="formCheck1" th:action="@{/admin/cs/qna/delete}" method="get">
                 <table>
                     <tbody>
                     <tr>
@@ -69,7 +54,7 @@
                         <th>번호</th>
                         <th>유형</th>
                         <th>제목</th>
-                        <th>조회</th>
+                        <th>작성자</th>
                         <th>날짜</th>
                         <th>관리</th>
                     </tr>
@@ -79,10 +64,9 @@
                         <td>[[${cs.bno}]]</td>
                         <td>[[${cs.type}]]</td>
                         <td><a th:href="@{'/admin/cs/notice/view?bno=' + ${cs.bno}}">[[${cs.title}]]</a></td>
-                        <td>123</td>
+                        <td>[[${cs.uid}]]</td>
                         <td th:text="${#temporals.format(cs.rdate, 'yy-MM-dd')}"></td>
                         <td>
-                            <a th:href="@{/admin/cs/notice/delete(chk=${cs.bno})}" onclick="return csbuttonDelete();">[삭제]</a>
                             <a th:href="@{/admin/cs/notice/modify(bno=${cs.bno})}">[수정]</a>
                         </td>
                         </th:block>
