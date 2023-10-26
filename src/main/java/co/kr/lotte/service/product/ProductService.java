@@ -284,4 +284,9 @@ public class ProductService {
         }
         return revNo;
     }
+
+    // 상품 리뷰 리스트
+ /*   public ReviewPageRequestDTO findReview(int prodNo) {
+        Page<ProductReviewEntity> result = productReviewRepository.findAllByProdNo(prodNo, new PageRequest(0, 1))
+    }*/
 }
