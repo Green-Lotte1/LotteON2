@@ -259,7 +259,7 @@ public class MyService {
 
     // 쿠폰 가져오기
     public List<MemberCouponDTO> findCouponByUid(String uid) {
-        List<MemberCouponEntity> memberCouponEntityList = memberCouponRepository.findByUid(uid);
+        List<MemberCouponEntity> memberCouponEntityList = memberCouponRepository.findByUidAndUseYn(uid, "Y");
         List<MemberCouponDTO> memberCouponDTOList = memberCouponEntityList.stream()
                                                                             .map(entity -> modelMapper.map(entity, MemberCouponDTO.class ))
                                                                             .toList();
