@@ -46,7 +46,7 @@ public class MemberController {
         
         model.addAttribute("type", type);
         if (type.equals("seller"))
-            return "redirect:/member/registerSeller";
+            return "redirect:/member/registerSeller?type=seller";
         return "/member/register";
     }
     @PostMapping("/member/register")
