@@ -135,4 +135,15 @@ public class MemberService {
         entity.setWdate(LocalDateTime.now());
         memberRepository.save(entity);
     }
+
+    // 회원정보 수정 (이메일, 전화번호, 주소)
+    public void updateMember(MemberDTO memberDTO) {
+        MemberEntity entity = memberRepository.findById(memberDTO.getUid()).get();
+        entity.setEmail(memberDTO.getEmail());
+        entity.setHp(memberDTO.getHp());
+        entity.setZip(memberDTO.getZip());
+        entity.setAddr1(memberDTO.getAddr1());
+        entity.setAddr2(memberDTO.getAddr2());
+        memberRepository.save(entity);
+    }
 }

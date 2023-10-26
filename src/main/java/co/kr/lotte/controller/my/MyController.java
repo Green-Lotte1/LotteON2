@@ -10,13 +10,9 @@ import co.kr.lotte.dto.my.MemberPointPageResponseDTO;
 import co.kr.lotte.dto.my.PageResponseDTO;
 import co.kr.lotte.dto.my.ReviewPageResponseDTO;
 import co.kr.lotte.dto.my.SearchDTO;
-import co.kr.lotte.dto.product.ProductDTO;
-import co.kr.lotte.dto.product.ProductOrderDTO;
 import co.kr.lotte.dto.product.ProductOrderItemDTO;
 import co.kr.lotte.dto.product.ProductReviewDTO;
 import co.kr.lotte.entity.member.MemberEntity;
-import co.kr.lotte.entity.member.MemberPointEntity;
-import co.kr.lotte.entity.product.ProductOrderEntity;
 import co.kr.lotte.security.MyUserDetails;
 import co.kr.lotte.service.member.MemberService;
 import co.kr.lotte.service.my.MyService;
@@ -28,10 +24,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -115,6 +108,13 @@ public class MyController {
         } else {
             return "fail";
         }
+    }
+    @ResponseBody
+    @PostMapping("/my/withdrawFinal")
+    public String withdrawFinal(@RequestBody MemberDTO memberDTO) {
+        log.info("=========회원정보수정========== : "+memberDTO);
+        memberService.updateMember(memberDTO);
+        return "success";
     }
 
     @GetMapping("/my/order")
