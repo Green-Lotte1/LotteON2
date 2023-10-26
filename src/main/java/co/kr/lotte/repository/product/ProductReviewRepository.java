@@ -14,5 +14,6 @@ public interface ProductReviewRepository extends JpaRepository<ProductReviewEnti
     public ProductReviewEntity findByProdNoAndUid(int prodNo, String uid);
     public Page<ProductReviewEntity> findByUid(String uid, Pageable pageable);
     public List<ProductReviewEntity> findByUid(String uid);
+    public Page<ProductReviewEntity> findByProdNo(int prodNo, Pageable pageable);
 
 }

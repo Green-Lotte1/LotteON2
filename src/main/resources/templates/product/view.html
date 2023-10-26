@@ -1,7 +1,13 @@
 <html xmlns:th="http://www.thymeleaf.org" layout:decorate="/product/index.html">
 <head>
     <script th:src="@{/product/js/view.js}"></script>
+    <script th:src="@{/product/js/review.js}"></script>
     <script>
+
+        let page = 1;
+        const prodNo = [[${product.prodNo}]];
+        const contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
+
         $(function() {
             const price = [[${product.getDisPrice()}]];
             const delivery = [[${product.delivery}]];
@@ -63,7 +69,6 @@
             // 장바구니 끝
             $('.order').click(function(e) {
                 e.preventDefault();
-                const prodNo = [[${product.prodNo }]];
                 const uid = "[[${#authentication.principal.member.uid}]]";
                 if (uid == "") {
                     alert('로그인 후 사용가능한 기능입니다.');
@@ -261,7 +266,7 @@
             <nav>
                 <h1>상품리뷰</h1>
             </nav>
-            <ul class="reviewList">
+            <ul class="prodReviewList">
                 <li>
                     <div>
                         <h5 class="rating star4">상품평</h5>

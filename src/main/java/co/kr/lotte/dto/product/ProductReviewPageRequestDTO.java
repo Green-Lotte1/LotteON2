@@ -11,11 +11,11 @@ import org.springframework.data.domain.Sort;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ReviewPageRequestDTO {
+public class ProductReviewPageRequestDTO {
     @Builder.Default
     private int pg = 1;
     @Builder.Default
-    private int size = 10;
+    private int size = 5;
 
     private int prodNo;
 

@@ -9,7 +9,7 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReviewPageResponseDTO {
+public class ProductReviewPageResponseDTO {
     private List<ProductReviewDTO> dtoList;
     private int pg;
     private int size;
@@ -18,9 +18,9 @@ public class ReviewPageResponseDTO {
     private boolean prev, next;
 
     @Builder
-    public ReviewPageResponseDTO(ReviewPageRequestDTO reviewPageRequestDTO, List<ProductReviewDTO> dtoList, int total) {
-        this.pg = reviewPageRequestDTO.getPg();
-        this.size = reviewPageRequestDTO.getSize();
+    public ProductReviewPageResponseDTO(ProductReviewPageRequestDTO productReviewPageRequestDTO, List<ProductReviewDTO> dtoList, int total) {
+        this.pg = productReviewPageRequestDTO.getPg();
+        this.size = productReviewPageRequestDTO.getSize();
         this.total = total;
         this.dtoList = dtoList;
         this.end = (int) (Math.ceil(this.pg/10.0)) * 10;

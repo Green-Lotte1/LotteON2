@@ -189,6 +189,15 @@ public class ProductController {
         return productService.saveProductReview(productReviewDTO, uid);
     }
 
+    @GetMapping("/product/productReview")
+    @ResponseBody
+    public ProductReviewPageResponseDTO findReview (@RequestParam("prodNo") int prodNo, @RequestParam("jsonData") String jsonData) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ProductReviewPageRequestDTO reviewPageRequestDTO = objectMapper.readValue(jsonData, new TypeReference<ProductReviewPageRequestDTO>() {});
+
+        return productService.findReview(prodNo,reviewPageRequestDTO);
+
+    }
 
 
 }
