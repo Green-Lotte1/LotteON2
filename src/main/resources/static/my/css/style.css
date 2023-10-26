@@ -713,7 +713,7 @@ footer p > strong {
 
 #my > .ordered > section > article > .page > a {
     display: inline-block;
-    width: 19px;
+    width: 25px;
     height: 19px;            
     box-sizing: border-box;
     vertical-align: top;
@@ -874,7 +874,7 @@ footer p > strong {
 
 #my > .point > section > article > .page > a {
     display: inline-block;
-    width: 19px;
+    width: 25px;
     height: 19px;            
     box-sizing: border-box;
     vertical-align: top;
@@ -1062,7 +1062,7 @@ footer p > strong {
 
 #my > .review > section > article > .page > a {
     display: inline-block;
-    width: 19px;
+    width: 25px;
     height: 19px;            
     box-sizing: border-box;
     vertical-align: top;
@@ -1161,7 +1161,7 @@ footer p > strong {
 
 #my > .qna > section > article > .page > a {
     display: inline-block;
-    width: 19px;
+    width: 25px;
     height: 19px;            
     box-sizing: border-box;
     vertical-align: top;
@@ -1683,4 +1683,14 @@ footer p > strong {
     padding: 0;
     font-size: 12px;
     color: #ef3f43;
+}
+#my > div > section > article > table > tbody > tr> .blue{
+    color : #0000ff;
+}
+
+#my > div > section > article > table > tbody > tr> .grey{
+    color : #999999;
+}
+.name {
+    font-weight: bolder;
 }

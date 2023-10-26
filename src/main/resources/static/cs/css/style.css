@@ -1283,3 +1283,7 @@ footer p > strong {
   margin-left: 500px;
 }
 
+.name {
+  font-weight: bolder;
+}
+
