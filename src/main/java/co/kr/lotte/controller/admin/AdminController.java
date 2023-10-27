@@ -148,14 +148,14 @@ public class AdminController {
     }
 
     @GetMapping("/admin/cs/notice/modify")
-    public String modifyNoticeForm(@RequestParam int bno, Model model) {
+    public String cs_no_modify(@RequestParam int bno, Model model) {
         BoardDTO boardDTO = csService.findByBnoForBoard(bno);
         model.addAttribute("boardDTO", boardDTO);
         return "/admin/cs/notice/modify";
     }
 
     @PostMapping("/admin/cs/notice/modify")
-    public String cs_notice_modify(@RequestParam int bno, @ModelAttribute BoardDTO boardDTO) {
+    public String cs_no_modify(@RequestParam int bno, @ModelAttribute BoardDTO boardDTO) {
         String title = boardDTO.getTitle();
         String cate = boardDTO.getCate();
         csService.update(bno, boardDTO);
@@ -172,25 +172,53 @@ public class AdminController {
         CsPageResponseDTO csPageResponseDTO = csService.findByCate(csPageRequestDTO);
         model.addAttribute("cate", csPageRequestDTO.getCate());
         model.addAttribute("csPageResponseDTO", csPageResponseDTO);
-        return ("/admin/cs/faq/list");
-    }
-    @GetMapping("admin/cs/faq/view")
-    public String cs_faq_view(Model model ,int bno){
-        BoardDTO boardDTO = csService.findByBnoForAdmin(bno);
-        model.addAttribute("boardDTO", boardDTO);
-        return ("/admin/cs/faq/view");
-    }
-    @GetMapping("admin/cs/faq/write")
-    public String cs_faq_write(){
-        return ("/admin/cs/faq/write");
+        return "/admin/cs/faq/list";
     }
 
-    @GetMapping("admin/cs/faq/modify")
+    @GetMapping("admin/cs/faq/view")
+    public String cs_faq_view(Model model ,int bno) {
+        BoardDTO boardDTO = csService.findByBnoForAdmin(bno);
+        model.addAttribute("boardDTO", boardDTO);
+        return "/admin/cs/faq/view";
+    }
+    @GetMapping("admin/cs/faq/write")
+    public String cs_faq_write(Model model, String cate, CsPageRequestDTO csPageRequestDTO) {
+        List<BoardCateEntity> cates = csCateService.getCate();
+        model.addAttribute("cates", cates);
+        log.info("cates : " + cates);
+
+        BoardDTO boardDTO = new BoardDTO();
+        model.addAttribute("boardDTO", boardDTO);
+
+        CsPageResponseDTO csPageResponseDTO = csService.findByCate(csPageRequestDTO);
+        model.addAttribute("cate", csPageRequestDTO.getCate());
+        model.addAttribute("csPageResponseDTO", csPageResponseDTO);
+        return "/admin/cs/faq/write";
+    }
+
+    @PostMapping("/admin/cs/faq/write")
+    public String cs_faq_modify(BoardDTO boardDTO) {
+        Integer type = boardDTO.getType();
+        String cate = boardDTO.getCate();
+        csService.saveNotice(boardDTO, type, cate);
+        return "redirect:/admin/cs/faq/list?group=notice&cate=null";
+    }
+
+    @GetMapping("/admin/cs/faq/modify")
     public String cs_faq_modify(@RequestParam int bno, Model model) {
         BoardDTO boardDTO = csService.findByBnoForBoard(bno);
         model.addAttribute("boardDTO", boardDTO);
         return "/admin/cs/faq/modify";
     }
+
+    @PostMapping("/admin/cs/faq/modify")
+    public String cs_notice_modify(@RequestParam int bno, @ModelAttribute BoardDTO boardDTO) {
+        String title = boardDTO.getTitle();
+        String cate = boardDTO.getCate();
+        csService.update(bno, boardDTO);
+        return "redirect:/admin/cs/faq/list?group=faq&cate=null";
+    }
+
 
     // admin-cs-qna
     @GetMapping("admin/cs/qna/list")
