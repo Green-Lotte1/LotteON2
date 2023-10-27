@@ -23,6 +23,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -212,6 +214,8 @@ public class CsService {
         entity = csRepository.findById(bno).orElseThrow(() -> new IllegalArgumentException("Board number not found"));
         log.info(entity);
         entity.setContent(dto.getContent());
+        entity.setTitle(dto.getTitle());
+        entity.setCate(dto.getCate());
         csRepository.save(entity);
 
     }
@@ -341,4 +345,69 @@ public class CsService {
         return dtoList;
 
     }
+
+    // cs_board 답변 reply
+    public void updateReply(int bno, String reply) {
+        BoardEntity boardEntity = csRepository.findByBno(bno);
+
+        if (boardEntity != null) {
+            boardEntity.setReply(reply);
+            csRepository.save(boardEntity);
+        }
+    }
+
+    public void updateStatusAndReply(int bno, BoardDTO boardDTO) {
+        BoardEntity entity = csRepository.findByBno(bno);
+
+        if (entity != null) {
+            entity.setStatus(boardDTO.getStatus());
+            csRepository.save(entity);
+        }
+    }
+
+    // Admin-CS-Board
+    // List & Paging
+    public BoardDTO findByBnoForAdmin(int bno) {
+        BoardEntity boardEntity = csRepository.findByBno(bno);
+        BoardDTO dto = boardEntity.toDTO();
+        List<BoardCateEntity> boardCateEntitieList = boardCateRepository.findAll();
+        List<BoardTypeEntity> boardTypeEntitieList = typeRepository.findByCate(dto.getCate());
+
+        Map<String, String> cateNameMap = new HashMap<>();
+        Map<String, Map<Integer, String>> cateMap = new HashMap<>();
+
+        for (BoardCateEntity boardCateEntity : boardCateEntitieList) {
+            Map<Integer, String> typeMap = new HashMap<>();
+            for (BoardTypeEntity boardTypeEntity : boardTypeEntitieList) {
+                if (boardTypeEntity.getCate().equals(boardCateEntity.getCate())) {
+                    typeMap.put(boardTypeEntity.getType(), boardTypeEntity.getTypeName());
+                }
+            }
+            cateNameMap.put(boardCateEntity.getCate(), boardCateEntity.getCateName());
+            cateMap.put(boardCateEntity.getCate(), typeMap);
+        }
+        dto.setCateName(cateNameMap.get(dto.getCate()));
+        if (cateMap.containsKey(dto.getCate())) {
+            Map<Integer, String> typeMap = cateMap.get(dto.getCate());
+            if (typeMap.containsKey(dto.getType())) {
+                dto.setTypeName(typeMap.get(dto.getType()));
+            }
+        }
+
+        return dto;
+    }
+
+    public void saveNotice(BoardDTO boardDTO, Integer type, String cate) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUid = authentication.getName();
+
+        boardDTO.setUid(currentUid);
+        boardDTO.setGroup("notice");
+        boardDTO.setType(type);
+        boardDTO.setCate(cate);
+
+        BoardEntity boardEntity = boardDTO.toEntity();
+        csRepository.save(boardEntity);
+    }
+
 }

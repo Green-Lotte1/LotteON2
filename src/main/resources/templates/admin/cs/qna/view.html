@@ -12,21 +12,14 @@
             HOME &gt; 고객센터 &gt; <strong>문의하기</strong>
         </p>
     </nav>
-    <nav></nav>
     <article>
         <div class="content">
             <form th:action="@{/admin/cs/qna/reply}" method="post">
-                <input type="text" name="cate1" th:value="${boardDTO.cate}">
-                <input type="text" name="writer" value="admin">
                 <table>
                     <tr>
                         <td>유형</td>
                         <td>
-                            <th:block th:each="cate:${cate}">
-                                <th:block th:each="type:${type}">
-                                    <span th:if="${cate.cate==boardDTO.cate and type.type==boardDTO.type}" th:text="${boardDTO.cateName + ' · ' + boardDTO.typeName}"></span>
-                                </th:block>
-                            </th:block>
+                            <span th:text="${boardDTO.cateName + ' - ' + boardDTO.typeName}"></span>
                         </td>
                     </tr>
                     <tr>
@@ -39,19 +32,29 @@
                             [[${boardDTO.content}]]
                         </td>
                     </tr>
-                    <tr>
+                    <tr th:if="${boardDTO.reply == null}">
                         <td>답변</td>
                         <td>
-                            <div th:if="${boardDTO.reply == null}">
+                            <div>
                                 <textarea name="content"></textarea>
                             </div>
-                            <div th:if="${boardDTO.reply != null }" th:text="${boardDTO.reply}"></div>
+                        </td>
+                    </tr>
+                    <tr th:if="${boardDTO.reply != null}">
+                        <td>답변</td>
+                        <td>
+                            <div th:text="${boardDTO.reply}"></div>
                         </td>
                     </tr>
                 </table>
-                <a th:href="@{/admin/cs/qna/list?group=qna&cate=null}" class="btnList">목록</a>
-                <input type="submit" value="답변등록" class="btnReply">
-                <a th:href="@{/admin/cs/qna/delete(chk=${boardDTO.bno})}" class="btnDelete">삭제</a>
+                    <tr th:if="${boardDTO.reply == null}">
+                        <td>
+                            <input type="submit" value="답변등록" class="btnReply">
+                        </td>
+                    </tr>
+                    <input type="hidden" name="bno" th:value="${boardDTO.bno}" />
+                    <a th:href="@{/admin/cs/qna/list?group=qna&cate=null}" class="btnList">목록</a>
+                    <a th:href="@{/admin/cs/qna/delete(chk=${boardDTO.bno})}" class="btnDelete">삭제</a>
                 </form>
         </div>
     </article>

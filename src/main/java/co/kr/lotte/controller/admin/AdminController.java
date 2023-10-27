@@ -86,8 +86,8 @@ public class AdminController {
 
         if (authentication != null && authentication.getPrincipal() instanceof MyUserDetails) {
             MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
-            String sellerId = userDetails.getMember().getName(); // 현재 로그인한 사용자의 판매자 ID
-            dto.setSeller(sellerId); // ProductDTO에 판매자 ID 설정
+            String sellerId = userDetails.getMember().getName();
+            dto.setSeller(sellerId);
         }
 
         log.info("dto: " + dto);
@@ -120,38 +120,76 @@ public class AdminController {
 
     @GetMapping("admin/cs/notice/view")
     public String cs_no_view(Model model ,int bno) {
-        BoardDTO boardDTO = csService.findByBnoForBoard(bno);
+        BoardDTO boardDTO = csService.findByBnoForAdmin(bno);
         model.addAttribute("boardDTO", boardDTO);
         return "/admin/cs/notice/view";
     }
-
     @GetMapping("admin/cs/notice/write")
-    public String cs_no_write() {
-        return ("/admin/cs/notice/write");
+    public String cs_no_write(Model model, String cate, CsPageRequestDTO csPageRequestDTO) {
+        List<BoardCateEntity> cates = csCateService.getCate();
+        model.addAttribute("cates", cates);
+        log.info("cates : " + cates);
+
+        BoardDTO boardDTO = new BoardDTO();
+        model.addAttribute("boardDTO", boardDTO);
+
+        CsPageResponseDTO csPageResponseDTO = csService.findByCate(csPageRequestDTO);
+        model.addAttribute("cate", csPageRequestDTO.getCate());
+        model.addAttribute("csPageResponseDTO", csPageResponseDTO);
+        return "/admin/cs/notice/write";
     }
-    @GetMapping("admin/cs/notice/modify")
-    public String cs_no_modify(Model model ,int bno) {
+
+    @PostMapping("/admin/cs/notice/write")
+    public String submitNoticeForm(BoardDTO boardDTO) {
+        Integer type = boardDTO.getType();
+        String cate = boardDTO.getCate();
+        csService.saveNotice(boardDTO, type, cate);
+        return "redirect:/admin/cs/notice/list?group=notice&cate=null";
+    }
+
+    @GetMapping("/admin/cs/notice/modify")
+    public String modifyNoticeForm(@RequestParam int bno, Model model) {
         BoardDTO boardDTO = csService.findByBnoForBoard(bno);
         model.addAttribute("boardDTO", boardDTO);
         return "/admin/cs/notice/modify";
     }
 
+    @PostMapping("/admin/cs/notice/modify")
+    public String cs_notice_modify(@RequestParam int bno, @ModelAttribute BoardDTO boardDTO) {
+        String title = boardDTO.getTitle();
+        String cate = boardDTO.getCate();
+        csService.update(bno, boardDTO);
+        return "redirect:/admin/cs/notice/list?group=notice&cate=null";
+    }
+
     // admin-cs-faq
     @GetMapping("admin/cs/faq/list")
-    public String cs_faq_list(){
+    public String cs_faq_list(HttpServletRequest request, Model model, String cate, CsPageRequestDTO csPageRequestDTO) {
+        List<BoardCateEntity> cates = csCateService.getCate();
+        model.addAttribute("cates", cates);
+        log.info("cates : "+cates);
+
+        CsPageResponseDTO csPageResponseDTO = csService.findByCate(csPageRequestDTO);
+        model.addAttribute("cate", csPageRequestDTO.getCate());
+        model.addAttribute("csPageResponseDTO", csPageResponseDTO);
         return ("/admin/cs/faq/list");
     }
     @GetMapping("admin/cs/faq/view")
-    public String cs_faq_view(){
+    public String cs_faq_view(Model model ,int bno){
+        BoardDTO boardDTO = csService.findByBnoForAdmin(bno);
+        model.addAttribute("boardDTO", boardDTO);
         return ("/admin/cs/faq/view");
     }
     @GetMapping("admin/cs/faq/write")
     public String cs_faq_write(){
         return ("/admin/cs/faq/write");
     }
+
     @GetMapping("admin/cs/faq/modify")
-    public String cs_faq_modify(){
-        return ("/admin/cs/faq/modify");
+    public String cs_faq_modify(@RequestParam int bno, Model model) {
+        BoardDTO boardDTO = csService.findByBnoForBoard(bno);
+        model.addAttribute("boardDTO", boardDTO);
+        return "/admin/cs/faq/modify";
     }
 
     // admin-cs-qna
@@ -164,7 +202,6 @@ public class AdminController {
         CsPageResponseDTO csPageResponseDTO = csService.findByCate(csPageRequestDTO);
         model.addAttribute("cate", csPageRequestDTO.getCate());
         model.addAttribute("csPageResponseDTO", csPageResponseDTO);
-
         return ("/admin/cs/qna/list");
     }
 
@@ -173,24 +210,30 @@ public class AdminController {
     public List<BoardTypeEntity> csCate(String optionValue) {
         log.info(optionValue);
         List<BoardTypeEntity> boardTypeEntities = csCateService.findByCate(optionValue);
-
         return boardTypeEntities;
     }
 
-    @GetMapping("admin/cs/qna/reply")
-    public String cs_qna_reply(){
-        return ("/admin/cs/qna/reply");
+    @PostMapping("/admin/cs/qna/reply")
+    public String cs_qna_reply(@RequestParam("bno") int bno, @RequestParam("content") String content) {
+        BoardDTO boardDTO = csService.findByBnoForBoard(bno);
+
+        if (boardDTO != null) {
+            boardDTO.setStatus("답변완료");
+            csService.updateStatusAndReply(bno, boardDTO);
+            csService.updateReply(bno, content);
+        }
+        return "redirect:/admin/cs/qna/list?group=qna&cate=null";
     }
 
     @GetMapping("admin/cs/qna/view")
     public String cs_qna_view(Model model, int bno){
-        BoardDTO boardDTO = csService.findByBnoForBoard(bno);
+        BoardDTO boardDTO = csService.findByBnoForAdmin(bno);
         model.addAttribute("boardDTO", boardDTO);
         log.info("boardDTO : " + boardDTO);
         return ("/admin/cs/qna/view");
     }
 
-    //CS-Delete 삭제 기능
+    //CS-Delete 삭제
     @GetMapping({"/admin/cs/qna/delete", "/admin/cs/notice/delete", "/admin/cs/faq/delete"})
     public String deleteSelectedBnos(@RequestParam("chk") List<Integer> bnos, HttpServletRequest request) {
         int deletedCount = adminService.deleteByBno(bnos);
@@ -203,6 +246,6 @@ public class AdminController {
         } else if (mapping.contains("/faq")) {
             return "redirect:/admin/cs/faq/list?group=faq&cate=null";
         }
-        return "redirect:/"; // 예외 처리 필요
+        return "redirect:/";
     }
 }
