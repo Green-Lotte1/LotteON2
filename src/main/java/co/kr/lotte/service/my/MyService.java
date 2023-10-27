@@ -268,4 +268,19 @@ public class MyService {
         }
         return  memberCouponDTOList;
     }
+
+    public int findCouponCountByUidAndUseYn(String uid) {
+        Long count = memberCouponRepository.countByUidAndUseYn(uid, "Y");
+        return count.intValue();
+    }
+
+    public int findOrderByUidAndOrdStatus(String uid) {
+        Long count = productOrderItemRepository.countByOrdUidAndOrdStatusNot(uid, "C");
+        return count.intValue();
+    }
+
+    public int findQnaByUidAndStatus(String uid) {
+        Long count = csRepository.countByUidAndStatusNot(uid, "답변완료");
+        return count.intValue();
+    }
 }
