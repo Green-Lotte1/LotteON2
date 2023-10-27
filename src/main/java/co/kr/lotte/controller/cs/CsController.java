@@ -55,7 +55,7 @@ public class CsController {
 
 
     @GetMapping("/cs/faq/list")
-    public String faqList(Model model, String cate) {
+    public String faqList(Model model, String cate, String group) {
         List<BoardDTO> dtoList = csService.findByCateForFaq(cate);
         List<BoardTypeDTO> boardTypeDTOs = csCateService.findByCateTypeDTOS(cate);
         for (BoardTypeDTO boardTypeDTO : boardTypeDTOs) {
@@ -75,6 +75,7 @@ public class CsController {
         model.addAttribute("dtoList", dtoList);
         model.addAttribute("types", boardTypeDTOs);
         model.addAttribute("cate", cate);
+        model.addAttribute("group", group);
 
         return "/cs/faq/list";
     }
