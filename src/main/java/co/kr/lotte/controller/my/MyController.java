@@ -6,10 +6,7 @@ import co.kr.lotte.dto.cs.CsPageResponseDTO;
 import co.kr.lotte.dto.member.MemberCouponDTO;
 import co.kr.lotte.dto.member.MemberDTO;
 import co.kr.lotte.dto.member.MemberPointDTO;
-import co.kr.lotte.dto.my.MemberPointPageResponseDTO;
-import co.kr.lotte.dto.my.PageResponseDTO;
-import co.kr.lotte.dto.my.ReviewPageResponseDTO;
-import co.kr.lotte.dto.my.SearchDTO;
+import co.kr.lotte.dto.my.*;
 import co.kr.lotte.dto.product.ProductOrderItemDTO;
 import co.kr.lotte.dto.product.ProductReviewDTO;
 import co.kr.lotte.entity.member.MemberEntity;
@@ -169,9 +166,24 @@ public class MyController {
         return "/my/qna";
     }
 
-
     @GetMapping("/my/review")
     public String review() {
         return "/my/review";
+    }
+
+    @GetMapping("/my/myInfo")
+    @ResponseBody
+    public MyInfoDTO myInfo(@AuthenticationPrincipal Object principal) {
+        MemberEntity memberEntity = ((MyUserDetails) principal).getMember();
+        String uid = memberEntity.getUid();
+        int couponCount = myService.findCouponCountByUidAndUseYn(uid);
+        int orderCount = myService.findOrderByUidAndOrdStatus(uid);
+        int qnaCount = myService.findQnaByUidAndStatus(uid);
+        return MyInfoDTO.builder()
+                .myPoint(memberEntity.getPoint())
+                .couponCount(couponCount)
+                .orderCount(orderCount)
+                .qnaCount(qnaCount)
+                .build();
     }
 }

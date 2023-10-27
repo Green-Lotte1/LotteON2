@@ -34,4 +34,5 @@ public interface CsRepository extends JpaRepository<BoardEntity, Integer> {
     public Page<BoardEntity> findByUid(String uid,Pageable pageable);
     public List<BoardEntity> findTop5ByUidOrderByRdateDesc(String uid);
 
+    public Long countByUidAndStatusNot(String uid, String status);
 }
