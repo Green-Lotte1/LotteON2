@@ -118,6 +118,10 @@ header > .logo > div > form > button {
   color: #ef2a23;
   outline: none;
 }
+header > .logo > div > form > button .fa-search:before {
+  margin-right: 5px;
+  cursor: pointer;
+}
 
 header > .menu {
   height: 46px;
@@ -213,6 +217,9 @@ main > aside > .category i {
   width: 22px;
   font-size: 16px;
   margin-right: 12px;
+}
+.fa-bars:before {
+  color: #ef2a23;
 }
 
 main > aside > .category > li i.fa-angle-right {

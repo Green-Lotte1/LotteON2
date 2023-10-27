@@ -67,7 +67,6 @@ public class SecurityConfiguration implements WebMvcConfigurer {
 					.key("uniqueAndSecret")
 					.tokenValiditySeconds(86400)) // 자동 로그인 유효 기간 (초))
 
-				
 			// 로그아웃 설정
 			.logout(config -> config
 					.logoutUrl("/member/logout")
@@ -77,10 +76,10 @@ public class SecurityConfiguration implements WebMvcConfigurer {
 
 			// 인가 권한 설정
 			.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-									.requestMatchers("/**").permitAll()
 									.requestMatchers("/admin/**").hasAnyRole("5","99")
 									.requestMatchers("/member/**").permitAll()
 									.requestMatchers("/").permitAll()
+									.requestMatchers("/**").permitAll()
 									.requestMatchers("/vendor/**", "/js/**", "/dist/**", "/data/**", "/less/**").permitAll());
 
 		return http.build();
