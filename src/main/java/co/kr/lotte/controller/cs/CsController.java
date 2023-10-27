@@ -36,7 +36,6 @@ public class CsController {
     @Autowired
     private CsCateService csCateService;
 
-
     @GetMapping(value = {"/cs/index", "/cs/"})
     public String index(@RequestParam(name = "page", defaultValue = "0") int page,
                         @RequestParam(name = "size", defaultValue = "5") int size,
@@ -105,9 +104,10 @@ public class CsController {
     }
 
     @GetMapping("/cs/notice/view")
-    public String noticeView(Model model ,int bno) {
+    public String noticeView(Model model ,int bno, String cate) {
         BoardDTO boardDTO = csService.findByBnoForBoard(bno);
         model.addAttribute("boardDTO", boardDTO);
+        model.addAttribute("cate", cate);
         return "/cs/notice/view";
     }
 
@@ -129,10 +129,11 @@ public class CsController {
     }
 
     @GetMapping("/cs/qna/view")
-    public String qnaView(Model model, int bno) {
+    public String qnaView(Model model, int bno, String cate) {
 
         BoardDTO boardDTO = csService.findByBnoForBoard(bno);
         model.addAttribute("boardDTO", boardDTO);
+        model.addAttribute("cate", cate);
         log.info("boardDTO : " + boardDTO);
         return "/cs/qna/view";
     }
@@ -158,11 +159,11 @@ public class CsController {
     }
 
     @PostMapping("cs/qna/write")
-    public String qnaWrite(HttpServletRequest request, BoardDTO dto)  {
+    public String qnaWrite(HttpServletRequest request, BoardDTO dto){
         log.info(dto.toString());
         dto.setStatus("검토중");
         csService.save(dto);
-        return "redirect:/cs/qna/list?success=200";
+        return "redirect:/cs/qna/list?group=qna&cate=member&success=200";
     }
 
     // cate
@@ -177,11 +178,12 @@ public class CsController {
     }
 
     @GetMapping("/cs/qna/modify")
-    public String qnaModify(Model model, int bno) {
+    public String qnaModify(Model model, int bno, String cate) {
 
         try{
             BoardDTO boardDTO = csService.findByBnoForBoard(bno);
             model.addAttribute("boardDTO", boardDTO);
+            model.addAttribute("cate", cate);
         }catch(Exception e){
             log.info(e.getMessage());
         }
@@ -191,10 +193,10 @@ public class CsController {
 
 
     @PostMapping("/cs/qna/modify")
-    public String qnaModify(HttpServletRequest request, @RequestParam int bno, BoardDTO dto){
+    public String qnaModify(HttpServletRequest request, @RequestParam int bno, BoardDTO dto, String cate, String group) {
         log.info(dto.toString());
         csService.update(bno, dto);
-        return "redirect:/cs/qna/list?success=300";
+        return "redirect:/cs/qna/view?group="+group+"&cate="+cate+"&bno="+bno+"&success=300";
 
 
     }
@@ -203,7 +205,7 @@ public class CsController {
     public String qnaDelete(@RequestParam int bno){
         log.info("Delete QnA bno : "+bno);
         csService.delete(bno);
-        return "redirect:/cs/qna/list?success=301";
+        return "redirect:/cs/qna/list?group=qna&cate=member&success=301";
 
     }
 

@@ -20,7 +20,7 @@
               </ul>
             </aside>
             <article>
-              <form th:action="@{/cs/qna/modify(bno=${boardDTO.bno})}" method="POST">
+              <form th:action="@{/cs/qna/modify(group=${boardDTO.group},cate=${boardDTO.cate},bno=${boardDTO.bno})}" method="POST">
                 <nav>
                   <h2 class="title" name="title">[<span th:text="${boardDTO.typeName}"></span>] [[${boardDTO.title}]]</h2>
                   <p>

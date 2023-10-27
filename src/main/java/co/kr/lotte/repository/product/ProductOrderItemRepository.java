@@ -18,4 +18,5 @@ public interface ProductOrderItemRepository extends JpaRepository<ProductOrderIt
     // MyPage 추가
     public List<ProductOrderItemEntity> findTop1ByOrdUidOrderByOrdDateDesc(String ordUid);
 
+    public Long countByOrdUidAndOrdStatusNot(String uid, String ordStatus);
 }

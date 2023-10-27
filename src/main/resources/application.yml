@@ -79,14 +79,14 @@ upload:
     banners: banners/
 
 app:
-  version: 0.0.7-SNAPSHOT
+  version: 0.0.11-SNAPSHOT
 
 filePath:
   #신진성
   #files: file:/C:/Users/JAVA2/Desktop/Workspace/lotte/files/
   #이현정
-  #files: file:/C:/Users/Java/Desktop/Workspace/LotteON2/files/
-  files: file:/home/LotteON/files/
+  files: file:/C:/Users/Java/Desktop/Workspace/LotteON2/files/
+  #files: file:/home/LotteON/files/
   #신진성
   #thumbs: file:/C:/Users/JAVA2/Desktop/Workspace/lotte/thumbs/
   #이현정

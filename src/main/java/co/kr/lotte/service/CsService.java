@@ -167,6 +167,7 @@ public class CsService {
 
 
     // 파일 다운로드
+/*
     public ResponseEntity<Resource> fileDownload(String sfileName, String ofileName) throws IOException {
 
 
@@ -187,6 +188,7 @@ public class CsService {
             return ResponseEntity.notFound().build();
         }
     }
+*/
 
     // 파일 다운로드
     public ResponseEntity<Resource> fileDownload(BoardFileDTO dto) throws IOException {
@@ -223,9 +225,31 @@ public class CsService {
     // 글삭제
     public void delete(int bno) {
         BoardEntity entity = csRepository.findById(bno).orElseThrow(() -> new IllegalArgumentException("Board number not found"));
-        log.info(entity);
-        csRepository.delete(entity);
 
+        List<BoardFileEntity> boardFileEntityList = fileRepository.findByBno(bno);
+
+        if (boardFileEntityList != null && !boardFileEntityList.isEmpty()) {
+            for (BoardFileEntity boardFileEntity : boardFileEntityList) {
+                String sfile = boardFileEntity.getSfile();
+                String fileRealPath = filePath + File.separator + sfile;
+
+                File fileToDelete = new File(fileRealPath);
+                if (fileToDelete.exists()) {
+                    if (fileToDelete.delete()) {
+                        log.info("파일이 삭제되었습니다.");
+                    } else {
+                        log.warn("파일이 삭제되지 않았습니다.");
+                    }
+                } else {
+                    log.warn("파일 경로를 찾지 못했습니다.");
+                }
+            }
+
+            fileRepository.deleteAll(boardFileEntityList);
+        } else {
+            log.info("연관된 파일이 없습니다.");
+        }
+        csRepository.delete(entity);
     }
 
 

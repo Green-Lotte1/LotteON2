@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface MemberCouponRepository extends JpaRepository<MemberCouponEntity, Integer> {
     public List<MemberCouponEntity> findByUidAndUseYn(String uid, String useYn);
+    public Long countByUidAndUseYn(String uid, String useYn);
 }
