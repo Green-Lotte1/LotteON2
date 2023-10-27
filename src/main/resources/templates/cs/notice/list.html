@@ -32,7 +32,7 @@
               <table>
                 <tr th:each="article : ${csPageResponseDTO.dtoList}" >
                   <td>
-                    <a th:href="@{/cs/notice/view(bno=${article.bno})}">[<span th:text="${article.typeName}"></span>] [[${article.title}]]</a>
+                    <a th:href="@{/cs/notice/view(group=${csPageResponseDTO.group},cate=${csPageResponseDTO.cate},bno=${article.bno})}">[<span th:text="${article.typeName}"></span>] [[${article.title}]]</a>
                   </td>
                   <td th:text="${#temporals.format(article.rdate, 'yyyy-MM-dd')}"></td>
                 </tr>
