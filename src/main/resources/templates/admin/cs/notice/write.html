@@ -2,7 +2,20 @@
 <html xmlns="http://www.w3.org/1999/html"
       xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
       layout:decorate="/admin/adminlayout.html">
+<head>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cateSelect = document.getElementById('cateSelect');
+            const typeInput = document.getElementById('typeInput');
 
+            cateSelect.addEventListener('change', function() {
+                const selectedOption = cateSelect.options[cateSelect.selectedIndex];
+                const typeValue = selectedOption.getAttribute('data-type');
+                typeInput.value = typeValue;
+            });
+        });
+    </script>
+</head>
 <section id="admin-cs-notice-write" layout:fragment="content">
     <nav>
         <h3>공지사항 작성</h3>
@@ -13,39 +26,41 @@
     <nav></nav>
     <section class="write">
         <article>
-            <form th:action="@{/admin/cs/notice/write}" method="post">
+            <form th:action="@{/admin/cs/notice/write}" th:object="${boardDTO}" method="post">
+                <input type="hidden" name="type" id="typeInput">
                 <table>
                     <tr>
                         <td>유형</td>
                         <td>
-                            <select name="cate2" id="cate2Select">
-                                <option>유형선택</option>
-                                <option value="cs">고객서비스</option>
-                                <option value="safety">안전거래</option>
-                                <option value="danger">위해상품</option>
-                                <option value="everesult">이벤트당첨</option>
+                            <select th:field="*{cate}" id="cateSelect" required>
+                                <option value="">유형선택</option>
+                                <option value="cs" data-type="20">고객서비스</option>
+                                <option value="safe" data-type="21">안전거래</option>
+                                <option value="dangerProd" data-type="22">위해상품</option>
+                                <option value="event" data-type="23">이벤트당첨</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td>제목</td>
                         <td>
-                            <input type="text" name="title" placeholder="제목을 입력합니다."/>
+                            <input type="text" th:field="*{title}" placeholder="제목을 입력합니다."/>
                         </td>
                     </tr>
                     <tr>
                         <td>내용</td>
                         <td>
-                            <textarea name="content" placeholder="내용을 입력합니다."></textarea>
+                            <textarea th:field="*{content}" placeholder="내용을 입력합니다."></textarea>
                         </td>
                     </tr>
                 </table>
                 <div>
-                    <a href="list.html" class="btnList">취소하기</a>
+                    <a th:href="@{/admin/cs/faq/list?group=faq&cate=null}" class="btnList">취소하기</a>
                     <input type="submit" class="btnSubmit" value="등록하기"/>
                 </div>
             </form>
         </article>
     </section>
 </section>
+
 </html>

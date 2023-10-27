@@ -10,13 +10,13 @@
             <aside>
               <h2>자주묻는 질문</h2>
               <ul>
-                <li th:class="${(cate eq 'member') ? 'on' : ''}"><a th:href="@{/cs/faq/list(cate=member)}">회원</a></li>
-                <li th:class="${(cate=='coupon') ? 'on' : ''}"><a th:href="@{/cs/faq/list(cate=coupon)}">쿠폰/이벤트</a></li>
-                <li th:class="${(cate=='order') ? 'on' : ''}"><a th:href="@{/cs/faq/list(cate=order)}">주문/결제</a></li>
-                <li th:class="${(cate=='delivery') ? 'on' : ''}"><a th:href="@{/cs/faq/list(cate=delivery)}">배송</a></li>
-                <li th:class="${(cate=='cancel') ? 'on' : ''}"><a th:href="@{/cs/faq/list(cate=cancel)}">취소/반품/교환</a></li>
-                <li th:class="${(cate=='travel') ? 'on' : ''}"><a th:href="@{/cs/faq/list(cate=travel)}">여행/숙박/항공</a></li>
-                <li th:class="${(cate=='safe') ?'on' : ''}"><a th:href="@{/cs/faq/list(cate=safe)}">안전거래</a></li>
+                <li th:class="${(cate eq 'member') ? 'on' : ''}"><a th:href="@{/cs/faq/list(group='faq',cate='member')}">회원</a></li>
+                <li th:class="${(cate=='coupon') ? 'on' : ''}"><a th:href="@{/cs/faq/list(group='faq',cate='coupon')}">쿠폰/이벤트</a></li>
+                <li th:class="${(cate=='order') ? 'on' : ''}"><a th:href="@{/cs/faq/list(group='faq',cate='order')}">주문/결제</a></li>
+                <li th:class="${(cate=='delivery') ? 'on' : ''}"><a th:href="@{/cs/faq/list(group='faq',cate='delivery')}">배송</a></li>
+                <li th:class="${(cate=='cancel') ? 'on' : ''}"><a th:href="@{/cs/faq/list(group='faq',cate='cancel')}">취소/반품/교환</a></li>
+                <li th:class="${(cate=='travel') ? 'on' : ''}"><a th:href="@{/cs/faq/list(group='faq',cate='travel')}">여행/숙박/항공</a></li>
+                <li th:class="${(cate=='safe') ?'on' : ''}"><a th:href="@{/cs/faq/list(group='faq',cate='safe')}">안전거래</a></li>
               </ul>
             </aside>
             <article>
@@ -37,7 +37,7 @@
                   감사합니다.<br />
                 </p>
               </div>
-              <a th:href="@{/cs/faq/list(cate=member)}" class="btnList">목록보기</a>
+              <a th:href="@{/cs/faq/list(group=${boardDTO.group},cate=${boardDTO.cate})}" class="btnList">목록보기</a>
             </article>
           </section>
         </div>

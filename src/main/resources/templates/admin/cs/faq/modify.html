@@ -1,10 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/html"
+      xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="/admin/adminlayout.html">
 
-</body>
+<section id="admin-cs-notice-write" layout:fragment="content">
+    <nav>
+        <h3>공지사항 수정</h3>
+        <p>
+            HOME &gt; 고객센터 &gt; <strong>공지사항</strong>
+        </p>
+    </nav>
+    <nav></nav>
+    <section class="write">
+        <article>
+            <form th:action="@{/admin/cs/faq/modify}" method="post">
+                <input type="hidden" name="bno" th:value="${boardDTO.bno}"/>
+                <table>
+                    <tr>
+                        <td>유형</td>
+                        <td>
+                            <select name="cate" id="cateSelect" required>
+                                <option value="">유형선택</option>
+                                <option value="cs" th:selected="${boardDTO.type == '20'}">고객서비스</option>
+                                <option value="safe" th:selected="${boardDTO.type == '21'}">안전거래</option>
+                                <option value="dangerProd" th:selected="${boardDTO.type == '22'}">위해상품</option>
+                                <option value="event" th:selected="${boardDTO.type == '23'}">이벤트당첨</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>제목</td>
+                        <td>
+                            <input type="text" name="title" th:value="${boardDTO.title}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>내용</td>
+                        <td>
+                            <textarea name="content">[[${boardDTO.content}]]</textarea>
+                        </td>
+                    </tr>
+                </table>
+                <div>
+                    <a th:href="@{/admin/cs/faq/list?group=faq&cate=null}" class="btnList">취소하기</a>
+                    <input type="submit" class="btnSubmit" value="수정하기"/>
+                </div>
+            </form>
+        </article>
+    </section>
+</section>
 </html>

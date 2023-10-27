@@ -76,6 +76,7 @@
     font-size: 13px;
     background-color: #fefefe;
     color: #333;
+    cursor: pointer;
 }
 
 #admin-cs-notice-list .paging > .num > a {
@@ -182,9 +183,18 @@
     font-size: 15px;
 }
 
+#admin-cs-notice-view .content tr td > div {
+    font-size: 15px;
+}
+
 #admin-cs-notice-view .content tr:nth-child(1) td {
     border-bottom: 1px solid #959595;
 }
+
+#admin-cs-notice-view .content tr td > span {
+    font-size: 15px;
+}
+
 #admin-cs-notice-view .content tr:nth-child(2) td {
     border-bottom: 1px solid #959595;
 }
@@ -228,6 +238,7 @@
     width: 110px;
     height: 55px;
     margin: 40px auto 0;
+    margin-right: 10px;
     border: 1px solid #ccc;
     font-size: 15px;
     background-color: rgb(142, 180, 227);
@@ -251,8 +262,16 @@
     line-height: 53px;
     text-align: center;
     box-sizing: border-box;
-
+    cursor: pointer;
 }
+    #admin-cs-notice-view > article table textarea {
+        width: 800px;
+        height: 360px;
+        resize: none;
+        font-size: 16px;
+        padding: 10px;
+        box-sizing: border-box;
+    }
 /* notice write */
 
     #admin-cs-notice-write > nav:nth-child(2) {
@@ -329,8 +348,8 @@
     #admin-cs-notice-write > .write div .btnSubmit {
             width: 110px;
             height: 55px;
-            padding: 0;
-            margin: 0 auto 0;
+            padding: 0 5px;
+            margin: 0 auto 5px;
             border: 1px solid #ccc;
             font-size: 15px;
             background-color: rgb(142, 180, 227);
@@ -338,4 +357,5 @@
             line-height: 53px;
             text-align: center;
             box-sizing: border-box;
+            cursor: pointer;
     }
