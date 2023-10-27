@@ -221,25 +221,30 @@ public class CsService {
     // 글삭제
     public void delete(int bno) {
         BoardEntity entity = csRepository.findById(bno).orElseThrow(() -> new IllegalArgumentException("Board number not found"));
-        BoardFileEntity boardFileEntity = fileRepository.findOneByBno(bno);
-
-        String sfile = boardFileEntity.getSfile();
-        String fileRealPath = filePath + File.separator + sfile;
-
-        File fileToDelete = new File(fileRealPath);
-        if (fileToDelete.exists()) {
-            if (fileToDelete.delete()) {
-                log.info("파일이 삭제 되었습니다. ");
-            } else {
-                log.warn("파일이 삭제되지 않았습니다.");
-            }
-        } else {
-            log.warn("파일 경로를 찾지 못했습니다.");
-        }
 
         List<BoardFileEntity> boardFileEntityList = fileRepository.findByBno(bno);
-        fileRepository.deleteAll(boardFileEntityList);
 
+        if (boardFileEntityList != null && !boardFileEntityList.isEmpty()) {
+            for (BoardFileEntity boardFileEntity : boardFileEntityList) {
+                String sfile = boardFileEntity.getSfile();
+                String fileRealPath = filePath + File.separator + sfile;
+
+                File fileToDelete = new File(fileRealPath);
+                if (fileToDelete.exists()) {
+                    if (fileToDelete.delete()) {
+                        log.info("파일이 삭제되었습니다.");
+                    } else {
+                        log.warn("파일이 삭제되지 않았습니다.");
+                    }
+                } else {
+                    log.warn("파일 경로를 찾지 못했습니다.");
+                }
+            }
+
+            fileRepository.deleteAll(boardFileEntityList);
+        } else {
+            log.info("연관된 파일이 없습니다.");
+        }
         csRepository.delete(entity);
     }
 

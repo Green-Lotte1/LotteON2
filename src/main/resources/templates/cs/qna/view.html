@@ -11,6 +11,12 @@
       return false;
     }
 
+    // Success code alert
+    const success = new URL(location.href).searchParams.get('success');
+    var contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
+    if(success == 300){
+      alert('글이 수정되었습니다.');
+    }
   </script>
 </head>
   <section id="cs" layout:fragment = "content">
