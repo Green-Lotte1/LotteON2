@@ -5,9 +5,9 @@
 
 <section id="admin-cs-notice-view" layout:fragment="content">
     <nav>
-        <h3>공지사항 보기</h3>
+        <h3>자주 묻는 질문</h3>
         <p>
-            HOME &gt; 고객센터 &gt; <strong>공지사항</strong>
+            HOME &gt; 고객센터 &gt; <strong>자주묻는 질문</strong>
         </p>
     </nav>
     <article>
@@ -15,7 +15,9 @@
             <table>
                 <tr>
                     <td>유형</td>
-                    <td>[[${boardDTO.cateName}]]</td>
+                    <td>
+                        <span th:text="${boardDTO.cateName + ' - ' + boardDTO.typeName}"></span>
+                    </td>
                 </tr>
                 <tr>
                     <td>제목</td>
@@ -24,12 +26,12 @@
                 <tr>
                     <td>내용</td>
                     <td>
-                        [[${boardDTO.content}]]
+                        [[${boardDTO.reply}]]
                     </td>
                 </tr>
             </table>
         </div>
-        <a th:href="@{/admin/cs/faq/list?group=faq&cate=null}" class="btnList">목록</a>
+        <a th:href="@{/admin/cs/faq/list?group=qna&cate=null}" class="btnList">목록</a>
         <a th:href="@{/admin/cs/faq/modify(bno=${boardDTO.bno})}" class="btnModify">수정</a>
         <a th:href="@{/admin/cs/faq/delete(chk=${boardDTO.bno})}" class="btnDelete">삭제</a>
     </article>

@@ -216,7 +216,7 @@ public class AdminController {
         String title = boardDTO.getTitle();
         String cate = boardDTO.getCate();
         csService.update(bno, boardDTO);
-        return "redirect:/admin/cs/faq/list?group=faq&cate=null";
+        return "redirect:/admin/cs/faq/list?group=qna&cate=null";
     }
 
 
