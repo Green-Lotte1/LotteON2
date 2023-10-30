@@ -5,9 +5,9 @@
 
 <section id="admin-cs-notice-write" layout:fragment="content">
     <nav>
-        <h3>공지사항 수정</h3>
+        <h3>자주 묻는 질문</h3>
         <p>
-            HOME &gt; 고객센터 &gt; <strong>공지사항</strong>
+            HOME &gt; 고객센터 &gt; <strong>자주묻는 질문</strong>
         </p>
     </nav>
     <nav></nav>
@@ -19,13 +19,7 @@
                     <tr>
                         <td>유형</td>
                         <td>
-                            <select name="cate" id="cateSelect" required>
-                                <option value="">유형선택</option>
-                                <option value="cs" th:selected="${boardDTO.type == '20'}">고객서비스</option>
-                                <option value="safe" th:selected="${boardDTO.type == '21'}">안전거래</option>
-                                <option value="dangerProd" th:selected="${boardDTO.type == '22'}">위해상품</option>
-                                <option value="event" th:selected="${boardDTO.type == '23'}">이벤트당첨</option>
-                            </select>
+                            <span th:text="${boardDTO.cateName + ' - ' + boardDTO.typeName}"></span>
                         </td>
                     </tr>
                     <tr>
@@ -37,12 +31,12 @@
                     <tr>
                         <td>내용</td>
                         <td>
-                            <textarea name="content">[[${boardDTO.content}]]</textarea>
+                            <textarea name="reply">[[${boardDTO.reply}]]</textarea>
                         </td>
                     </tr>
                 </table>
                 <div>
-                    <a th:href="@{/admin/cs/faq/list?group=faq&cate=null}" class="btnList">취소하기</a>
+                    <a th:href="@{/admin/cs/faq/list?group=qna&cate=null}" class="btnList">취소하기</a>
                     <input type="submit" class="btnSubmit" value="수정하기"/>
                 </div>
             </form>

@@ -14,6 +14,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,9 @@ public class AdminService {
     private final Cate2Repository productCate2Repository;
     private final ModelMapper modelMapper;
     private final CsRepository csRepository;
+
+    @Value("${upload.path.thumbs}")
+    private String uploadPath;
 
     public PageResponseDTO findByDeleteYn(PageRequestDTO pageRequestDTO) {
         Pageable pageable = pageRequestDTO.getPageable("prodNo");
@@ -70,8 +74,6 @@ public class AdminService {
     }
 
     public void save(ProductDTO dto) {
-        // 파일 저장 경로
-        String uploadPath = "src/main/resources/static/thumb/" + dto.getProdCate1() + "/" + dto.getProdCate2() + "/";
         //파일 업로드
         dto.setThumb1(fileSave(dto.getPro_thumb1(), uploadPath));
         dto.setThumb2(fileSave(dto.getPro_thumb2(), uploadPath));
