@@ -16,7 +16,8 @@
 
 #termsPolicy > section > nav > h1 {
   float: left;
-  font-size: 26px;  
+  font-size: 26px;
+  margin-top: 16px;
 }
 #termsPolicy > section > nav > ul {          
   float: right;
@@ -36,11 +37,11 @@
   background-image: url('../images/terms_sprites.png');
   margin-left: 10px;
 }
-#termsPolicy > section > nav > ul > li:nth-child(1) > span {background-position: 0 -150px;}
-#termsPolicy > section > nav > ul > li:nth-child(2) > span {background-position: -130px -150px;}
-#termsPolicy > section > nav > ul > li:nth-child(3) > span {background-position: -260px -150px;}
-#termsPolicy > section > nav > ul > li:nth-child(4) > span {background-position: -390px -150px;}
-#termsPolicy > section > nav > ul > li:nth-child(5) > span {background-position: -520px -150px;}
+#termsPolicy > section > nav > ul > li:nth-child(1) > span {background-position: 0 -150px; cursor: pointer}
+#termsPolicy > section > nav > ul > li:nth-child(2) > span {background-position: -130px -150px; cursor: pointer}
+#termsPolicy > section > nav > ul > li:nth-child(3) > span {background-position: -260px -150px; cursor: pointer}
+#termsPolicy > section > nav > ul > li:nth-child(4) > span {background-position: -390px -150px; cursor: pointer}
+#termsPolicy > section > nav > ul > li:nth-child(5) > span {background-position: -520px -150px; cursor: pointer}
 #termsPolicy > section > nav > ul > li:nth-child(1).on > span {background-position: 0 -250px;}
 #termsPolicy > section > nav > ul > li:nth-child(2).on > span {background-position: -130px -250px;}
 #termsPolicy > section > nav > ul > li:nth-child(3).on > span {background-position: -260px -250px;}

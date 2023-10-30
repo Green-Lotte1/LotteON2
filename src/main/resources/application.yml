@@ -79,7 +79,7 @@ upload:
     banners: banners/
 
 app:
-  version: 0.0.7-SNAPSHOT
+  version: 0.0.12-SNAPSHOT
 
 filePath:
   #신진성
@@ -88,7 +88,7 @@ filePath:
   #files: file:/C:/Users/Java/Desktop/Workspace/LotteON2/files/
   files: file:/home/LotteON/files/
   #신진성
-  #thumbs: file:/C:/Users/JAVA2/Desktop/Workspace/lotte/thumbs/
+  thumbs: file:/C:/Users/JAVA2/Desktop/Workspace/lotte/thumbs/
   #이현정
   #thumbs: file:/C:/Users/Java/Desktop/Workspace/LotteON2/thumbs/
   #김병준

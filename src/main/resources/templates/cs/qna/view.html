@@ -1,72 +1,94 @@
 <html xmlns:th="http://www.thymeleaf.org"  xmlns:layout="http://www.thymeleaf.org/" layout:decorate="/cs/layout.html">
-      <section id="cs" layout:fragment = "content">
-        <div class="qna">
+<head>
+  <script>
+    function confirm_delete(){
+      if(confirm("정말로 삭제하시겠습니까?")){
+        var link = document.querySelector('.btnDelete').getAttribute('data-link');
+        window.location.href = link; // Redirect to the specified link
+      }else{  // 취소 버튼을 눌렀을 때
+        alert("취소되었습니다.");
+      }
+      return false;
+    }
+
+    // Success code alert
+    const success = new URL(location.href).searchParams.get('success');
+    var contextPath = "[[${@environment.getProperty('server.servlet.context-path')}]]";
+    if(success == 300){
+      alert('글이 수정되었습니다.');
+    }
+  </script>
+</head>
+  <section id="cs" layout:fragment = "content">
+    <div class="qna">
+      <nav>
+        <div>
+          <p>홈<span>></span>문의하기</p>
+        </div>
+      </nav>
+      <section class="view">
+        <aside>
+          <h2>문의하기</h2>
+          <ul>
+            <li th:class="${#strings.equalsIgnoreCase(cate, 'member') ? 'on' : ''}">
+              <a th:href="@{/cs/qna/list(group='qna', cate='member')}">회원</a>
+            </li>
+            <li th:class="${(cate=='coupon') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna',cate='coupon')}">쿠폰/이벤트</a></li>
+            <li th:class="${(cate=='order') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna',cate='order')}">주문/결제</a></li>
+            <li th:class="${(cate=='delivery') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna',cate='delivery')}">배송</a></li>
+            <li th:class="${(cate=='cancel') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna',cate='cancel')}">취소/반품/교환</a></li>
+            <li th:class="${(cate=='travel') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna',cate='travel')}">여행/숙박/항공</a></li>
+            <li th:class="${(cate=='safe') ?'on' : ''}"><a th:href="@{/cs/qna/list(group='qna',cate='safe')}">안전거래</a></li>
+          </ul>
+        </aside>
+        <article>
           <nav>
-            <div>
-              <p>홈<span>></span>문의하기</p>
-            </div>
-          </nav>
-          <section class="view">
-            <aside>
-              <h2>문의하기</h2>
-              <ul>
-                <li th:class="${(cate eq 'member') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=member)}">회원</a></li>
-                <li th:class="${(cate=='coupon') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=coupon)}">쿠폰/이벤트</a></li>
-                <li th:class="${(cate=='order') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=order)}">주문/결제</a></li>
-                <li th:class="${(cate=='delivery') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=delivery)}">배송</a></li>
-                <li th:class="${(cate=='cancel') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=cancel)}">취소/반품/교환</a></li>
-                <li th:class="${(cate=='travel') ? 'on' : ''}"><a th:href="@{/cs/qna/list(cate=travel)}">여행/숙박/항공</a></li>
-                <li th:class="${(cate=='safe') ?'on' : ''}"><a th:href="@{/cs/qna/list(cate=safe)}">안전거래</a></li>
-              </ul>
-            </aside>
-            <article>
-              <nav>
-                <h2 class="title">[<span th:text="${boardDTO.typeName}"></span>] [[${boardDTO.title}]]</h2>
-                <p>
-                  <span class="uid" th:text="${#strings.length(boardDTO.uid) >= 3 ? #strings.substring(boardDTO.uid, 0, 3) + '***' : #strings.substring(boardDTO.uid, 0, 1)+'*'}"></span>
-                  <span th:text="${#temporals.format(boardDTO.rdate, 'yy-MM-dd')}"></span><br>
-                  <div>
-                  <th:block th:each="file : ${boardDTO.fileDTOList}">
-                      <img id="thumb" th:src="@{|/files/${file.sfile}|}"/>
-                      <a th:href="@{/cs/qna/fileDownload(fno=${file.fno})}">다운로드  [[${file.ofile}]]</a>
-                  </th:block>
-              </div>
-                </p>
-
-              </nav>
-
-              <div class="content">
-                <p>
-                  [[${boardDTO.content}]]
-                </p><br><br>
-                <p>
-                  ※ 피싱 관련 피해신고<br /><br />
-                  ▶ 경찰청 사이버수사국 (국번없이)182 :
-                  http://cyberbureau.police.go.kr<br />
-                  ▶ KISA 인터넷침해대응센터 (국번없이)118 :
-                  http://www.krcert.or.kr<br />
-                  감사합니다.<br />
-                </p>
-
-              </div>
-              <section class="commentList">
-                <article class="comment">
-                  <div th:if="${boardDTO.reply != null}">
-                    <h4>👉[답변] <span th:text="${boardDTO.title}"></span></h4>
-                    <textarea class="content" name="content" th:text="${boardDTO.reply}" readonly></textarea>
-                  </div>
-                  <div th:unless="${boardDTO.reply != null}">
-                    <p class="empty">등록된 댓글이 없습니다.</p>
-                  </div>
-                </article>
-              </section>
+            <h2 class="title">[<span th:text="${boardDTO.typeName}"></span>] [[${boardDTO.title}]]</h2>
+            <p>
+              <span class="uid" th:text="${#strings.length(boardDTO.uid) >= 3 ? #strings.substring(boardDTO.uid, 0, 3) + '***' : #strings.substring(boardDTO.uid, 0, 1)+'*'}"></span>
+              <span th:text="${#temporals.format(boardDTO.rdate, 'yy-MM-dd')}"></span><br>
               <div>
-                <a th:href="@{/cs/qna/list(cate=member)}" class="btnQnAList">목록보기</a>
-                <a th:href="@{/cs/qna/delete(bno=${boardDTO.bno})}" class="btnDelete">삭제하기</a>
-                <a th:href="@{/cs/qna/modify(bno=${boardDTO.bno})}" class="btnModify">수정하기</a>
+              <th:block th:each="file : ${boardDTO.fileDTOList}">
+                  <img id="thumb" th:src="@{|/files/${file.sfile}|}"/>
+                  <a th:href="@{/cs/qna/fileDownload(fno=${file.fno})}">다운로드  [[${file.ofile}]]</a>
+              </th:block>
+          </div>
+            </p>
+
+          </nav>
+
+          <div class="content">
+            <p>
+              [[${boardDTO.content}]]
+            </p><br><br>
+            <p>
+              ※ 피싱 관련 피해신고<br /><br />
+              ▶ 경찰청 사이버수사국 (국번없이)182 :
+              http://cyberbureau.police.go.kr<br />
+              ▶ KISA 인터넷침해대응센터 (국번없이)118 :
+              http://www.krcert.or.kr<br />
+              감사합니다.<br />
+            </p>
+
+          </div>
+          <section class="commentList">
+            <article class="comment">
+              <div th:if="${boardDTO.reply != null}">
+                <h4>👉[답변] <span th:text="${boardDTO.title}"></span></h4>
+                <textarea class="content" name="content" th:text="${boardDTO.reply}" readonly></textarea>
+              </div>
+              <div th:unless="${boardDTO.reply != null}">
+                <p class="empty">등록된 댓글이 없습니다.</p>
               </div>
             </article>
           </section>
-        </div>
+          <div>
+            <a th:href="@{/cs/qna/list(group='qna',cate=${boardDTO.cate})}" class="btnQnAList">목록보기</a>
+            <button th:attr="data-link=@{/cs/qna/delete(bno=${boardDTO.bno})}" class="btnDelete" th:onclick="return confirm_delete()">삭제하기</button>
+            <a th:href="@{/cs/qna/modify(bno=${boardDTO.bno})}" class="btnModify">수정하기</a>
+          </div>
+        </article>
       </section>
+    </div>
+  </section>
 

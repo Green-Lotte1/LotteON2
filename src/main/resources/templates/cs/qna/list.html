@@ -66,12 +66,15 @@
             <aside>
               <h2>문의하기</h2>
               <ul>
-                <li th:class="${(cate eq 'member') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna', cate='member')}">회원</a></li>
-                <li th:class="${(cate=='coupon') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna', cate='coupon')}">쿠폰/이벤트</a></li>
-                <li th:class="${(cate=='order') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna', cate='order')}">주문/결제</a></li>
-                <li th:class="${(cate=='delivery') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna', cate='delivery')}">배송</a></li>
-                <li th:class="${(cate=='cancel') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna', cate='cancel')}">취소/반품/교환</a></li>
-                <li th:class="${(cate=='travel') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna', cate='travel')}">여행/숙박/항공</a></li>
+                  <li th:class="${#strings.equalsIgnoreCase(cate, 'member') ? 'on' : ''}">
+                      <a th:href="@{/cs/qna/list(group='qna', cate='member')}">회원</a>
+                  </li>
+                  <li th:class="${(cate=='coupon') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna',cate='coupon')}">쿠폰/이벤트</a></li>
+                  <li th:class="${(cate=='order') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna',cate='order')}">주문/결제</a></li>
+                  <li th:class="${(cate=='delivery') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna',cate='delivery')}">배송</a></li>
+                  <li th:class="${(cate=='cancel') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna',cate='cancel')}">취소/반품/교환</a></li>
+                  <li th:class="${(cate=='travel') ? 'on' : ''}"><a th:href="@{/cs/qna/list(group='qna',cate='travel')}">여행/숙박/항공</a></li>
+                  <li th:class="${(cate=='safe') ?'on' : ''}"><a th:href="@{/cs/qna/list(group='qna',cate='safe')}">안전거래</a></li>
               </ul>
             </aside>
             <article>
@@ -89,7 +92,7 @@
                 <table>
                     <tr th:each="article : ${csPageResponseDTO.dtoList}">
                         <td>
-                            <a th:href="@{/cs/qna/view(bno=${article.bno})}" th:onclick="return showAlert([[${article.uid}]]);">[<span th:text="${article.typeName}"></span>] [[${article.title}]]</a>
+                            <a th:href="@{/cs/qna/view(group=${article.group},cate=${article.cate}, bno=${article.bno})}" th:onclick="return showAlert([[${article.uid}]]);">[<span th:text="${article.typeName}"></span>] [[${article.title}]]</a>
                         </td>
                         <th:block th:with="statusColor=${article.status eq '답변완료' ? 'blue' : 'grey'}">
                             <td th:class="${statusColor} +' reply' +' pending'"

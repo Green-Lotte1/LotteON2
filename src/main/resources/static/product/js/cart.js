@@ -88,8 +88,14 @@ $(function() {
         if (!confirm('해당 장바구니 품목을 삭제 하시겠습니까?')) {
             return false;
         }
-        $('#formCheck').attr("action", "/product/cartDelete");
-        $('#formCheck').attr("method", "post");
-        $('#formCheck').submit();
+        // 폼 요소를 선택
+        const form = $('#formCheck');
+
+        // 폼의 action 및 method를 설정
+        form.attr("action", contextPath + "/product/cartDelete");
+        form.attr("method", "post");
+
+        // 폼을 직접 submit
+        form[0].submit(); // [0]를 사용하여 DOM 요소로 변환
     });
 });
