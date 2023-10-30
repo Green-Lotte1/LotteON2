@@ -2,6 +2,7 @@
 <head>
   <script th:src="@{/product/js/cart.js}"></script>
   <script>
+    const contextPath = '[[${@environment.getProperty('server.servlet.context-path')}]]';
     $(function() {
       $('#formCheck').submit(function(e) {
         if ($('#total').text() == 0) {
@@ -24,7 +25,6 @@
             }
         }
         const jsonData = JSON.stringify(arr);
-        const contextPath = '[[${@environment.getProperty('server.servlet.context-path')}]]';
         // 데이터를 URL 매개변수로 추가하여 페이지 이동
         window.location.href = contextPath + '/product/order?jsonData=' + encodeURIComponent(jsonData);
         return false;
