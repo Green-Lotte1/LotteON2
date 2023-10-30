@@ -201,12 +201,12 @@ public class AdminController {
         Integer type = boardDTO.getType();
         String cate = boardDTO.getCate();
         csService.saveNotice(boardDTO, type, cate);
-        return "redirect:/admin/cs/faq/list?group=notice&cate=null";
+        return "redirect:/admin/cs/faq/list?group=qna&cate=null";
     }
 
     @GetMapping("/admin/cs/faq/modify")
     public String cs_faq_modify(@RequestParam int bno, Model model) {
-        BoardDTO boardDTO = csService.findByBnoForBoard(bno);
+        BoardDTO boardDTO = csService.findByBnoForAdmin(bno);
         model.addAttribute("boardDTO", boardDTO);
         return "/admin/cs/faq/modify";
     }
@@ -216,7 +216,7 @@ public class AdminController {
         String title = boardDTO.getTitle();
         String cate = boardDTO.getCate();
         csService.update(bno, boardDTO);
-        return "redirect:/admin/cs/faq/list?group=faq&cate=null";
+        return "redirect:/admin/cs/faq/list?group=qna&cate=null";
     }
 
 
@@ -272,7 +272,7 @@ public class AdminController {
         } else if (mapping.contains("/notice")) {
             return "redirect:/admin/cs/notice/list?group=notice&cate=null";
         } else if (mapping.contains("/faq")) {
-            return "redirect:/admin/cs/faq/list?group=faq&cate=null";
+            return "redirect:/admin/cs/faq/list?group=qna&cate=null";
         }
         return "redirect:/";
     }

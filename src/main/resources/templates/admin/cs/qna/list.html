@@ -78,6 +78,7 @@
             <input type="button" class="cslist-delete" value="선택삭제" />
 
             <!-- paging-->
+            <th:block th:if="${csPageResponseDTO.end gt 0 }">
             <div class="paging">
                 <span th:if="${csPageResponseDTO.prev}" class="prev">
                     <a th:href="@{/admin/cs/qna/list(group=${csPageResponseDTO.group},cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.start - 1})}">이전</a>
@@ -89,6 +90,7 @@
                     <a th:href="@{/admin/cs/qna/list(group=${csPageResponseDTO.group},cate=${csPageResponseDTO.cate},pg=${csPageResponseDTO.end + 1})}">다음</a>
                 </span>
             </div>
+            </th:block>
         </article>
     </section>
 </section>

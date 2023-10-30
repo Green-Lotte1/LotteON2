@@ -15,7 +15,7 @@ public interface CsRepository extends JpaRepository<BoardEntity, Integer> {
     // CS
     public Page<BoardEntity> findByCateAndType(String cate, int type, Pageable pageable);
 
-    @Query("SELECT c FROM BoardEntity c WHERE c.group = :group AND (c.cate= :cate OR :cate = 'null')")
+    @Query("SELECT b FROM BoardEntity b WHERE b.group = :group AND (b.cate= :cate OR :cate = 'null')")
     public Page<BoardEntity> findByGroupAndCate(String group, String cate, Pageable pageable);
 
     public BoardEntity findByBno(int bno);
