@@ -67,15 +67,10 @@ public class AdminController {
 
     // admin-product
     @GetMapping("/admin/product/list")
-    public String list(Model model, PageRequestDTO pageRequestDTO) {
-        // PageRequestDTO에서 검색 기준과 검색어 추출
-        String searchType = pageRequestDTO.getSearchType();
-        String searchKeyword = pageRequestDTO.getSearchKeyword();
+        public String list(Model model, PageRequestDTO pageRequestDTO) {
+            PageResponseDTO pageResponseDTO = productService.findByAll(pageRequestDTO);
+            model.addAttribute("pageResponseDTO", pageResponseDTO);
 
-        // 검색 기준과 검색어를 이용하여 제품 목록 조회
-        PageResponseDTO pageResponseDTO = productService.findBySearch(searchType, searchKeyword, pageRequestDTO);
-
-        model.addAttribute("pageResponseDTO", pageResponseDTO);
         return "/admin/product/list";
     }
 
