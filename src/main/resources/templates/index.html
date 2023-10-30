@@ -151,7 +151,7 @@
                 <a th:href="@{/product/view(prodNo=${product.prodNo}, cate1=${product.prodCate1}, cate2=${product.prodCate2})}">
                   <div class="thumb">
                     <i>[[${scoreState.count}]]</i>
-                    <img th:src="@{'/thumb/' + ${product.prodCate1} + '/' + ${product.prodCate2} + '/' + ${product.thumb1}}" alt="item1" />
+                    <img th:src="@{|/thumbs/${product.thumb1}|}" alt="item1" />
                   </div>
                   <h2>[[${product.prodName}]]</h2>
                   <div class="org_price">
@@ -204,7 +204,7 @@
               <article>
                 <a th:href="@{/product/view(prodNo=${product.prodNo}, cate1=${product.prodCate1}, cate2=${product.prodCate2})}">
                   <div class="thumb">
-                    <img class="i230" th:src="@{'/thumb/' + ${product.prodCate1} + '/' + ${product.prodCate2} + '/' + ${product.thumb1}}" alt="item1" />
+                    <img class="i230" th:src="@{|/thumbs/${product.thumb1}|}" alt="item1" />
                   </div>
                   <h2>[[${product.prodName}]]</h2>
                   <p>[[${product.descript}]]</p>
@@ -228,7 +228,7 @@
               <article>
                 <a th:href="@{/product/view(prodNo=${product.prodNo}, cate1=${product.prodCate1}, cate2=${product.prodCate2})}">
                   <div class="thumb">
-                    <img class="i230" th:src="@{'/thumb/' + ${product.prodCate1} + '/' + ${product.prodCate2} + '/' + ${product.thumb1}}" alt="item1" />
+                    <img class="i230" th:src="@{|/thumbs/${product.thumb1}|}" alt="item1" />
                   </div>
                   <h2>[[${product.prodName}]]</h2>
                   <p>[[${product.descript}]]</p>
@@ -252,7 +252,7 @@
               <article>
                 <a th:href="@{/product/view(prodNo=${product.prodNo}, cate1=${product.prodCate1}, cate2=${product.prodCate2})}">
                   <div class="thumb">
-                    <img class="i230" th:src="@{'/thumb/' + ${product.prodCate1} + '/' + ${product.prodCate2} + '/' + ${product.thumb1}}" alt="item1" />
+                    <img class="i230" th:src="@{|/thumbs/${product.thumb1}|}" alt="item1" />
                   </div>
                   <h2>[[${product.prodName}]]</h2>
                   <p>[[${product.descript}]]</p>
@@ -276,7 +276,7 @@
               <article>
                 <a th:href="@{/product/view(prodNo=${product.prodNo}, cate1=${product.prodCate1}, cate2=${product.prodCate2})}">
                   <div class="thumb">
-                    <img class="i230" th:src="@{'/thumb/' + ${product.prodCate1} + '/' + ${product.prodCate2} + '/' + ${product.thumb1}}" alt="item1" />
+                    <img class="i230" th:src="@{|/thumbs/${product.thumb1}|}" alt="item1" />
                   </div>
                   <h2>[[${product.prodName}]]</h2>
                   <p>[[${product.descript}]]</p>

@@ -23,7 +23,7 @@ function tableReload(pg) {
                     <td class="date">${data.dtoList[i].ordDate.substring(0, 10)}</td>
                     <td>
                         <a href="#" class="thumb">
-                            <img src="${contextPath + '/thumb/' + data.dtoList[i].product.prodCate1 + '/' + data.dtoList[i].product.prodCate2 + '/' + data.dtoList[i].product.thumb1}" alt="">
+                            <img src="${contextPath + '/thumbs/' + data.dtoList[i].product.thumb1}" alt="">
                         </a>
                         <ul class="w350">
                             <li class="company">${data.dtoList[i].product.company}</li>

@@ -54,9 +54,9 @@ spring:
   thymeleaf:
     cache: false
     # 개발
-    #prefix : file:src/main/resources/templates
+    prefix : file:src/main/resources/templates
     # 배포
-    prefix: classpath:/templates
+    #prefix: classpath:/templates
   mail:
     host: smtp.gmail.com
     port: 465
@@ -88,10 +88,10 @@ filePath:
   #files: file:/C:/Users/Java/Desktop/Workspace/LotteON2/files/
   files: file:/home/LotteON/files/
   #신진성
-  #thumbs: file:/C:/Users/JAVA2/Desktop/Workspace/lotte/thumbs/
+  thumbs: file:/C:/Users/JAVA2/Desktop/Workspace/lotte/thumbs/
   #이현정
   #thumbs: file:/C:/Users/Java/Desktop/Workspace/LotteON2/thumbs/
-  thumbs: file:/home/LotteON/thumbs/
+  #thumbs: file:/home/LotteON/thumbs/
   #신진성
   #banners: file:/C:/Users/JAVA2/Desktop/Workspace/lotte/banners/
   #이현정

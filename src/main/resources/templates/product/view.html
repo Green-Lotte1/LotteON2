@@ -108,7 +108,7 @@
         <!-- 상품 전체 정보 내용 -->
         <article class="info">
             <div class="image">
-                <img th:src="@{'/thumb/' + ${product.prodCate1} + '/' + ${product.prodCate2} + '/' + ${product.thumb2}}" alt="상품이미지"/>
+                <img th:src="@{|/thumbs/${product.thumb2}|}" alt="상품이미지"/>
             </div>
             <div class="summary">
                 <nav>
@@ -167,7 +167,7 @@
                 <h1>상품정보</h1>
             </nav>
             <!-- 상품상세페이지 이미지 -->
-            <img th:src="@{'/thumb/' + ${product.prodCate1} + '/' + ${product.prodCate2} + '/' + ${product.thumb3}}" alt="상품이미지"/>
+            <img th:src="@{|/thumbs/${product.thumb3}|}" alt="상품이미지"/>
         </article>
 
         <!-- 상품 정보 제공 고시 내용 -->
@@ -176,7 +176,7 @@
                 <h1>상품 정보 제공 고시</h1>
                 <p>[전자상거래에 관한 상품정보 제공에 관한 고시] 항목에 의거 등록된 정보입니다.</p>
             </nav>
-            <table border="0">
+            <table>
                 <tr>
                     <td>상품번호</td>
                     <td>10110125435</td>

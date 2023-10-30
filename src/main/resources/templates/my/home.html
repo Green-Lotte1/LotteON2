@@ -31,7 +31,7 @@
                         <td class="date" th:text="${#temporals.format(order.ordDate, 'yyyy-MM-dd')}"></td>
                         <td class="info">
                             <a class="thumb">
-                                <img class="w80" th:src="@{'/thumb/' + ${order.product.prodCate1} + '/' + ${order.product.prodCate2} + '/' + ${order.product.thumb1}}" alt="item1" />
+                                <img class="w80" th:src="@{|/thumbs/${order.product.thumb1}|}" alt="item1" />
                             </a>
                             <ul class="w350">
                                 <li class="company">[[${order.product.company}]]</li>

@@ -68,7 +68,7 @@
               <td>
                 <article>
                   <a th:href="@{/product/view(prodNo=${cart.product.prodNo}, cate1=${cart.product.prodCate1}, cate2=${cart.product.prodCate2})}" class="thumb">
-                    <img th:src="@{'/thumb/' + ${cart.product.prodCate1} + '/' + ${cart.product.prodCate2} + '/' + ${cart.product.thumb1}}" alt="상품이미지"/>
+                    <img th:src="@{|/thumbs/${cart.product.thumb1}|}" alt="상품이미지"/>
                   </a>
                   <div class="w450">
                     <h2>
