@@ -218,6 +218,7 @@ public class CsService {
         entity.setContent(dto.getContent());
         entity.setTitle(dto.getTitle());
         entity.setCate(dto.getCate());
+        entity.setReply(dto.getReply());
         csRepository.save(entity);
 
     }
@@ -305,7 +306,7 @@ public class CsService {
 
     public List<BoardDTO> getNoticeBoard(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("rdate").descending().and(Sort.by("bno").descending()));
-        List<BoardEntity> boardEntityPage = csRepository.findByGroupAndTypeGreaterThanOrderByRdateDescBnoDesc("notice", 20, pageable);
+        List<BoardEntity> boardEntityPage = csRepository.findByGroupOrderByRdateDescBnoDesc("notice",  pageable);
         List<BoardDTO> dtoList = boardEntityPage
                 .stream()
                 .map(entity -> modelMapper.map(entity, BoardDTO.class))
@@ -340,7 +341,7 @@ public class CsService {
     public List<BoardDTO> getQnaBoard(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("rdate").descending().and(Sort.by("bno").descending()));
 
-        List<BoardEntity> boardEntityPage = csRepository.findByGroupAndTypeLessThanOrderByRdateDescBnoDesc("qna", 20, pageable);
+        List<BoardEntity> boardEntityPage = csRepository.findByGroupOrderByRdateDescBnoDesc("qna", pageable);
         List<BoardDTO> dtoList = boardEntityPage
                 .stream()
                 .map(entity -> modelMapper.map(entity, BoardDTO.class))

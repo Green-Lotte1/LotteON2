@@ -24,9 +24,8 @@ public interface CsRepository extends JpaRepository<BoardEntity, Integer> {
 
     //public List<BoardEntity> findByGroup(String group);
 
-    public List<BoardEntity> findByGroupAndTypeGreaterThanOrderByRdateDescBnoDesc(String group, int type, Pageable pageable);
+    public List<BoardEntity> findByGroupOrderByRdateDescBnoDesc(String group, Pageable pageable);
 
-    public List<BoardEntity> findByGroupAndTypeLessThanOrderByRdateDescBnoDesc(String group, int type, Pageable pageable);
 
     public int deleteByBno(Integer bno);
 
