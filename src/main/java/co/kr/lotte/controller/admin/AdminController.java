@@ -49,16 +49,33 @@ public class AdminController {
     private CsPageRequestDTO csPageRequestDTO;
 
     @GetMapping("/admin/index")
-    public String index() {
+        public String index(@RequestParam(name = "page", defaultValue = "0") int page,
+        @RequestParam(name = "size", defaultValue = "5") int size,
+        Model model) {
+
+            List<BoardDTO> noticeBoard = csService.getNoticeBoard(page, size);
+            log.info("noticeBoard :" + noticeBoard );
+
+            List<BoardDTO> qnaBoard = csService.getQnaBoard(page, size);
+            log.info("qnaBoard :" + qnaBoard );
+
+
+            model.addAttribute("noticeBoard", noticeBoard);
+            model.addAttribute("qnaBoard", qnaBoard);
         return ("/admin/index");
     }
 
     // admin-product
     @GetMapping("/admin/product/list")
     public String list(Model model, PageRequestDTO pageRequestDTO) {
-        PageResponseDTO pageResponseDTO = productService.findByAll(pageRequestDTO);
-        model.addAttribute("pageResponseDTO", pageResponseDTO);
+        // PageRequestDTO에서 검색 기준과 검색어 추출
+        String searchType = pageRequestDTO.getSearchType();
+        String searchKeyword = pageRequestDTO.getSearchKeyword();
 
+        // 검색 기준과 검색어를 이용하여 제품 목록 조회
+        PageResponseDTO pageResponseDTO = productService.findBySearch(searchType, searchKeyword, pageRequestDTO);
+
+        model.addAttribute("pageResponseDTO", pageResponseDTO);
         return "/admin/product/list";
     }
 
@@ -181,33 +198,13 @@ public class AdminController {
         model.addAttribute("boardDTO", boardDTO);
         return "/admin/cs/faq/view";
     }
-    @GetMapping("admin/cs/faq/write")
-    public String cs_faq_write(Model model, String cate, CsPageRequestDTO csPageRequestDTO) {
-        List<BoardCateEntity> cates = csCateService.getCate();
-        model.addAttribute("cates", cates);
-        log.info("cates : " + cates);
-
-        BoardDTO boardDTO = new BoardDTO();
-        model.addAttribute("boardDTO", boardDTO);
-
-        CsPageResponseDTO csPageResponseDTO = csService.findByCate(csPageRequestDTO);
-        model.addAttribute("cate", csPageRequestDTO.getCate());
-        model.addAttribute("csPageResponseDTO", csPageResponseDTO);
-        return "/admin/cs/faq/write";
-    }
-
-    @PostMapping("/admin/cs/faq/write")
-    public String cs_faq_modify(BoardDTO boardDTO) {
-        Integer type = boardDTO.getType();
-        String cate = boardDTO.getCate();
-        csService.saveNotice(boardDTO, type, cate);
-        return "redirect:/admin/cs/faq/list?group=qna&cate=null";
-    }
 
     @GetMapping("/admin/cs/faq/modify")
     public String cs_faq_modify(@RequestParam int bno, Model model) {
         BoardDTO boardDTO = csService.findByBnoForAdmin(bno);
         model.addAttribute("boardDTO", boardDTO);
+        model.addAttribute("cate", boardDTO.getCate());
+        model.addAttribute("reply", boardDTO.getReply());
         return "/admin/cs/faq/modify";
     }
 
@@ -215,6 +212,9 @@ public class AdminController {
     public String cs_notice_modify(@RequestParam int bno, @ModelAttribute BoardDTO boardDTO) {
         String title = boardDTO.getTitle();
         String cate = boardDTO.getCate();
+        String reply = boardDTO.getReply();
+        boardDTO.setCate(cate);
+        boardDTO.setReply(reply);
         csService.update(bno, boardDTO);
         return "redirect:/admin/cs/faq/list?group=qna&cate=null";
     }
